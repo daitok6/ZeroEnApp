@@ -17,6 +17,9 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Claude Code — local settings (contains absolute paths, machine-specific)
+.claude/settings.local.json
+
 # Build
 .next/
 out/
