@@ -10,6 +10,7 @@ const MARKETING_PAGES = [
   '/pricing',
   '/apply',
   '/blog',
+  '/terms',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
