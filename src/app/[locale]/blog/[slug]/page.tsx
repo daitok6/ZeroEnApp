@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { NewsletterSection } from '@/components/marketing/newsletter-section';
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -91,6 +92,19 @@ export default async function BlogPostPage({ params }: Props) {
           </Link>
         </div>
       </article>
+
+      {/* Newsletter */}
+      <NewsletterSection
+        eyebrow={locale === 'ja' ? 'ニュースレター' : 'Newsletter'}
+        title={locale === 'ja' ? '週次ビルドアップデートを受け取る。' : 'Get weekly build updates.'}
+        subtitle={
+          locale === 'ja'
+            ? 'リアルな数字、リアルなクライアント、無駄なし。毎週月曜日配信。'
+            : 'Real numbers, real clients, no fluff. Every Monday.'
+        }
+        note={locale === 'ja' ? 'スパムなし。いつでも解除可能。' : 'No spam. Unsubscribe anytime.'}
+        locale={locale}
+      />
     </div>
   );
 }
