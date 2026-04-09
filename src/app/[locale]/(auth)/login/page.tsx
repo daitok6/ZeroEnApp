@@ -36,19 +36,6 @@ export default async function LoginPage({ params }: Props) {
               $ auth --provider oauth
             </p>
             <OAuthButtons mode="login" />
-
-            <div className="relative flex items-center gap-3 py-2">
-              <div className="flex-1 h-px bg-[#374151]" />
-              <span className="text-[#6B7280] text-xs font-mono">or</span>
-              <div className="flex-1 h-px bg-[#374151]" />
-            </div>
-
-            {/* Email magic link — placeholder */}
-            <p className="text-center text-[#6B7280] text-xs font-mono">
-              {locale === 'ja'
-                ? 'メールリンクは近日公開予定'
-                : 'Email sign-in coming soon'}
-            </p>
           </div>
         </TerminalWindow>
 
