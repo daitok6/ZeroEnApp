@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Hero } from '@/components/marketing/hero';
 import { WhyZeroEn } from '@/components/marketing/why-zeroen';
+import { TrustSection } from '@/components/marketing/trust-section';
 import { TechStackTerminal } from '@/components/marketing/tech-stack-terminal';
 import { CaseStudiesPreview } from '@/components/marketing/case-studies-preview';
 import { NewsletterSection } from '@/components/marketing/newsletter-section';
@@ -89,11 +90,24 @@ export default async function HomePage({ params }: Props) {
     desc: t(`techStack.tools.${i}.desc`),
   }));
 
-  const caseStudyPlaceholders = [0, 1, 2].map((i) => ({
-    name: t(`caseStudies.placeholders.${i}.name`),
-    desc: t(`caseStudies.placeholders.${i}.desc`),
-    stack: [0, 1, 2].map((j) => t(`caseStudies.placeholders.${i}.stack.${j}`)),
+  const trustPoints = [0, 1, 2].map((i) => ({
+    title: t(`trustSection.points.${i}.title`),
+    desc: t(`trustSection.points.${i}.desc`),
   }));
+
+  const caseStudyPlaceholders = [0, 1, 2].map((i) => {
+    const url = t(`caseStudies.placeholders.${i}.url`);
+    const screenshot = t(`caseStudies.placeholders.${i}.screenshot`);
+    const label = t(`caseStudies.placeholders.${i}.label`);
+    return {
+      name: t(`caseStudies.placeholders.${i}.name`),
+      desc: t(`caseStudies.placeholders.${i}.desc`),
+      meta: [0, 1, 2].map((j) => t(`caseStudies.placeholders.${i}.meta.${j}`)),
+      url: url || undefined,
+      screenshot: screenshot || undefined,
+      label: label || undefined,
+    };
+  });
 
   return (
     <div className="bg-[#0D0D0D] text-[#F4F4F2]">
@@ -126,7 +140,14 @@ export default async function HomePage({ params }: Props) {
         ctaText={t('hero.cta')}
       />
 
-      {/* ── Section 3: Tech Stack Terminal ───────────────────── */}
+      {/* ── Section 3: Trust ─────────────────────────────────── */}
+      <TrustSection
+        eyebrow={t('trustSection.eyebrow')}
+        title={t('trustSection.title')}
+        points={trustPoints}
+      />
+
+      {/* ── Section 4: Tech Stack Terminal ───────────────────── */}
       <TechStackTerminal
         eyebrow={t('techStack.eyebrow')}
         title={t('techStack.title')}
@@ -136,7 +157,7 @@ export default async function HomePage({ params }: Props) {
         tools={techTools}
       />
 
-      {/* ── Section 4: How It Works ──────────────────────────── */}
+      {/* ── Section 5: How It Works ──────────────────────────── */}
       <section className="py-24 px-4 bg-[#080808]">
         <div className="max-w-3xl mx-auto">
           <ScrollReveal direction="up">
@@ -182,16 +203,17 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Section 5: Case Studies Preview ──────────────────── */}
+      {/* ── Section 6: Case Studies Preview ──────────────────── */}
       <CaseStudiesPreview
         eyebrow={t('caseStudies.eyebrow')}
         title={t('caseStudies.title')}
         subtitle={t('caseStudies.subtitle')}
         comingSoon={t('caseStudies.comingSoon')}
+        live={t('caseStudies.live')}
         placeholders={caseStudyPlaceholders}
       />
 
-      {/* ── Section 6: Value Proposition ─────────────────────── */}
+      {/* ── Section 7: Value Proposition ─────────────────────── */}
       <section className="py-24 px-4 bg-[#080808]">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal direction="up">
@@ -248,7 +270,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Section 7: Apply CTA ─────────────────────────────── */}
+      {/* ── Section 8: Apply CTA ─────────────────────────────── */}
       <section className="py-24 px-4">
         <GreenGlowLine className="mb-24" />
         <div className="max-w-2xl mx-auto text-center">
@@ -272,7 +294,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Section 8: Newsletter ─────────────────────────────── */}
+      {/* ── Section 9: Newsletter ─────────────────────────────── */}
       <NewsletterSection
         eyebrow={t('newsletterSection.eyebrow')}
         title={t('newsletterSection.title')}

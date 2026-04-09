@@ -61,6 +61,24 @@
       ],
       "urgency": "Currently reviewing applications. Spots are limited."
     },
+    "trustSection": {
+      "eyebrow": "Trust",
+      "title": "Your idea stays yours.",
+      "points": [
+        {
+          "title": "Mutual NDA before you apply",
+          "desc": "We sign a confidentiality agreement with every applicant before you share a single detail."
+        },
+        {
+          "title": "Aligned incentives",
+          "desc": "We take equity. If we stole ideas instead of building them, we'd make $0."
+        },
+        {
+          "title": "Full data control",
+          "desc": "Request deletion of your data at any time. Rejected applications are wiped within 30 days."
+        }
+      ]
+    },
     "techStack": {
       "eyebrow": "What You Get",
       "title": "Production-grade stack.\nOut of the box.",
@@ -102,21 +120,31 @@
       "title": "What we've built.",
       "subtitle": "Real MVPs. Real founders. Real equity.",
       "comingSoon": "Coming soon",
+      "live": "Live",
       "placeholders": [
         {
-          "name": "Client #1",
-          "desc": "First build in progress",
-          "stack": ["Next.js", "Supabase", "Stripe"]
+          "name": "WebMori",
+          "desc": "Problems found before they happen.",
+          "meta": ["Monthly audits", "12 clients · Tokyo", "¥19,800/mo"],
+          "url": "https://webmori.jp",
+          "screenshot": "/webmori-screenshot.png",
+          "label": ""
         },
         {
           "name": "Client #2",
-          "desc": "Accepting applications",
-          "stack": ["Next.js", "Supabase", "Vercel"]
+          "desc": "MVP in progress — equity deal locked.",
+          "meta": ["Free build", "10% equity", "$50/mo hosting"],
+          "url": "",
+          "screenshot": "",
+          "label": "Working on it →"
         },
         {
           "name": "Client #3",
-          "desc": "Accepting applications",
-          "stack": ["Next.js", "Supabase", "Stripe"]
+          "desc": "Got an idea? We build it free for equity.",
+          "meta": ["Free build", "10% equity", "$50/mo hosting"],
+          "url": "",
+          "screenshot": "",
+          "label": "This could be you."
         }
       ]
     },
@@ -132,6 +160,19 @@
   "apply": {
     "title": "Apply to ZeroEn",
     "subtitle": "Tell us about your idea. We'll build it for free.",
+    "step0": {
+      "title": "Before you share your idea",
+      "subtitle": "We take your trust seriously. Here's our commitment:",
+      "points": [
+        "We will not share, copy, or use your idea without written agreement",
+        "This is mutual — we're bound by the same terms",
+        "You can request deletion of all your data at any time",
+        "Rejected applications are wiped within 30 days"
+      ],
+      "linkText": "Read full confidentiality terms",
+      "checkboxLabel": "I've read and agree to the mutual confidentiality agreement",
+      "continueButton": "Continue to application"
+    },
     "step1": {
       "title": "Your Idea",
       "ideaName": "What are you building?",
@@ -168,7 +209,8 @@
       },
       "apply": {
         "name": "APPLY",
-        "desc": "Submit a detailed application on zeroen.dev. Tell us about your idea, target market, and background. Takes about 10 minutes."
+        "desc": "Submit a detailed application on zeroen.dev. Tell us about your idea, target market, and background. Takes about 10 minutes.",
+        "badge": "Protected by our mutual NDA — signed before you share anything"
       },
       "score": {
         "name": "SCORE",
@@ -269,6 +311,10 @@
         {
           "title": "10. Governing Law",
           "body": "These terms are governed by the laws of Canada (Ontario). Any disputes are resolved first through good-faith negotiation, then through binding arbitration if necessary. ZeroEn and the client agree to resolve disputes without litigation where possible."
+        },
+        {
+          "title": "11. Confidentiality & Non-Disclosure",
+          "body": "Both ZeroEn and the client agree to keep each other's confidential information private. Confidential information includes: application data, business plans, technical specifications, financial projections, user research, and any other information shared during the application, onboarding, or build process.\n\nNeither party will share, copy, or use the other's confidential information without written consent. Standard exclusions apply: information that is publicly available, independently developed, or legally required to be disclosed is not covered by this clause.\n\nData deletion: any applicant — accepted or rejected — may request deletion of all their submitted data at any time. Rejected application data is automatically deleted within 30 days of the rejection decision. Requests can be sent to the operator directly.\n\nThis confidentiality obligation survives the termination of any agreement between ZeroEn and the client. Governing law for this clause follows Section 10."
         }
       ]
     }
