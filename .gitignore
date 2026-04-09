@@ -1,6 +1,9 @@
 # Client repos (each has its own public repo)
 Clients/
 
+# ZeroEn webapp — has its own repo (daitok6/ZeroEnApp)
+HQ/platform/
+
 # Dependencies
 node_modules/
 
@@ -22,6 +25,9 @@ Thumbs.db
 
 # Git worktrees
 .worktrees/
+
+# Playwright MCP session data
+.playwright-mcp/
 
 # Build
 .next/

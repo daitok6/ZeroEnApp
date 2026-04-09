@@ -1,6 +1,6 @@
 # CLAUDE.md — ZeroEn
 ### The ONE TRUTH for Claude Code in this repository
-**Last updated:** 2026-04-08
+**Last updated:** 2026-04-09
 
 ---
 
@@ -9,6 +9,8 @@
 This is the **Claude Code operating system for ZeroEn** — a solo, AI-powered technical co-founder service. Build free MVPs for founders in exchange for equity, revenue share, and recurring hosting fees.
 
 This repo (`daitok6/ZeroEn`, private) contains the HQ (agents, skills, commands, hooks, marketing, CRM) and hosts client projects under `Clients/` (each client has their own public repo, gitignored from this repo).
+
+**Domain:** `zeroen.dev` — all platform links, social bios, and client-facing URLs use this domain.
 
 The full business plan is in `PRD.md`.
 
@@ -32,6 +34,7 @@ The full business plan is in `PRD.md`.
 6. **Scope is locked at kickoff.** The MVP scope agreed during onboarding is the scope. Anything beyond = per-request charge.
 7. **Never expose client secrets.** Redact API keys, tokens, and credentials in all outputs.
 8. **Operator reviews everything before client delivery.** Never auto-send anything to clients.
+9. **All social posts go through the marketing team.** Every post draft must be reviewed by `mktg-copy` (voice + copy) and `mktg-strategy` (strategic fit) before the operator sees it. No exceptions.
 9. **Quality gates must pass before production deploy.** Linting, type checking, and tests must pass.
 
 ---
@@ -48,6 +51,31 @@ The full business plan is in `PRD.md`.
 
 ---
 
+## Brand Kit
+
+**All agents must apply the ZeroEn brand consistently.** The brand kit is the source of truth for every visual and copy decision.
+
+| Asset | Path |
+|---|---|
+| Brand kit (full spec) | `HQ/brand/brand-kit.md` |
+| CSS design tokens | `HQ/brand/tokens.css` |
+| JSON design tokens | `HQ/brand/tokens.json` |
+| Logo — dark bg | `docs/logo-dark.svg` |
+| Logo — light bg | `docs/logo-full.svg` |
+| Logo — icon only | `docs/logo-icon.svg` |
+
+**Key values (commit these to memory):**
+- Primary accent: `#00E87A` (Electric Green)
+- Background: `#0D0D0D`
+- Text: `#F4F4F2`
+- Font (headings/UI): IBM Plex Mono
+- Font (JP): M PLUS 1 Code
+- Font (logo wordmark only): DM Sans
+
+When building any UI — website, client app, email, PDF — import `HQ/brand/tokens.css` and follow `HQ/brand/brand-kit.md`. Never invent colors or fonts.
+
+---
+
 ## Project Structure
 
 ```
@@ -55,8 +83,13 @@ ZeroEn/
 ├── .gitignore              ← Contains "Clients/"
 ├── CLAUDE.md               ← This file
 ├── PRD.md                  ← Full business plan
+├── docs/                   ← Brand assets (logos, specs)
+│   ├── logo-dark.svg       ← Primary logo (dark backgrounds)
+│   ├── logo-full.svg       ← Logo (light backgrounds)
+│   └── logo-icon.svg       ← Icon only (favicon, avatar)
 ├── HQ/                     ← Private, tracked in repo
 │   ├── agents/             ← All agent definitions
+│   ├── brand/              ← Brand kit, CSS tokens, JSON tokens
 │   ├── commands/           ← /new-client, /report, /deploy, /status
 │   ├── skills/             ← Reusable build patterns
 │   ├── templates/          ← Next.js + Supabase starter template

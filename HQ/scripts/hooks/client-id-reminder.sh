@@ -9,7 +9,8 @@ COMMAND=$(echo "$INPUT" | python3 -c "import json,sys; d=json.load(sys.stdin); p
 if echo "$COMMAND" | grep -qE "/(new-client|report|deploy|status)\s*$"; then
   echo "WARNING: ZeroEn command requires a clientId." >&2
   echo "Usage: /new-client <clientId>, /report <clientId>, /deploy <clientId>" >&2
-  echo "Available clients: $(cat $HOME/repos/ZeroEn/HQ/crm/clients.json | python3 -c \"import json,sys; d=json.load(sys.stdin); print(', '.join([c['clientId'] for c in d.get('clients',[])])\" 2>/dev/null || echo 'none yet')" >&2
+  CLIENTS=$(python3 /Users/Daito/repos/ZeroEn/HQ/scripts/list-clients.py 2>/dev/null || echo 'none yet')
+  echo "Available clients: $CLIENTS" >&2
   # exit 0 — warn only, don't block
 fi
 

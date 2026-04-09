@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1080px;
+    height: 1080px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    overflow: hidden;
+  }
+  .post {
+    width: 1080px;
+    height: 1080px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px;
+    position: relative;
+  }
+  .tag {
+    font-size: 13px;
+    font-weight: 500;
+    color: #00E87A;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+  .headline {
+    font-size: 80px;
+    font-weight: 900;
+    color: #F4F4F2;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+  }
+  .headline span { color: #00E87A; }
+  .body {
+    font-size: 22px;
+    font-weight: 400;
+    color: #6B7280;
+    line-height: 1.7;
+    max-width: 780px;
+  }
+  .body strong { color: #9CA3AF; font-weight: 500; }
+  .footer {
+    position: absolute;
+    bottom: 80px;
+    left: 100px;
+    right: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .domain {
+    font-size: 15px;
+    font-weight: 500;
+    color: #374151;
+    letter-spacing: 0.08em;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .logo svg { width: 40px; height: 40px; }
+  .logo-text {
+    font-size: 26px;
+    font-weight: 500;
+    color: #F4F4F2;
+    letter-spacing: 0.04em;
+  }
+  .logo-text span { color: #00E87A; font-weight: 700; }
+  .accent {
+    width: 56px;
+    height: 4px;
+    background: #00E87A;
+    margin-bottom: 36px;
+  }
+</style>
+</head>
+<body>
+  <div class="post">
+    <div class="tag">Origin story</div>
+    <div class="accent"></div>
+    <div class="headline">Your idea.<br>Built <span>free.</span></div>
+    <div class="body">
+      Most founders fail before they build anything.<br>
+      Not because the idea was bad.<br>
+      <strong>Because they couldn't afford an engineer.</strong>
+    </div>
+    <div class="footer">
+      <div class="domain">zeroen.dev</div>
+      <div class="logo">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g transform="rotate(2, 50, 50)">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#F4F4F2" stroke-width="8" stroke-linecap="round"/>
+            <line x1="-2" y1="41" x2="102" y2="41" stroke="#00E87A" stroke-width="8" stroke-linecap="round"/>
+            <line x1="-2" y1="59" x2="102" y2="59" stroke="#00E87A" stroke-width="8" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <span class="logo-text">Zero<span>En</span></span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+/* ZeroEn Design Tokens
+   Source of truth for all color and typography values.
+   Import this in any ZeroEn web project. */
+
+:root {
+  /* ── Color: Primary ─────────────────────────────────── */
+  --color-green:       #00E87A;
+  --color-dark:        #0D0D0D;
+  --color-off-white:   #F4F4F2;
+
+  /* ── Color: Supporting ──────────────────────────────── */
+  --color-surface:     #111827;
+  --color-elevated:    #1F2937;
+  --color-border:      #374151;
+  --color-muted:       #9CA3AF;
+  --color-subtle:      #6B7280;
+  --color-green-glow:  rgba(0, 232, 122, 0.1);
+
+  /* ── Color: Light-mode variant ──────────────────────── */
+  --color-light-bg:    #FFFFFF;
+  --color-light-text:  #111111;
+  --color-light-green: #00AA55;
+
+  /* ── Typography: Fonts ──────────────────────────────── */
+  --font-mono:   'IBM Plex Mono', monospace;
+  --font-jp:     'M PLUS 1 Code', monospace;
+  --font-logo:   'DM Sans', sans-serif;
+
+  /* ── Typography: Scale ──────────────────────────────── */
+  --text-hero:        clamp(42px, 5vw, 48px);
+  --text-section:     clamp(28px, 3.5vw, 32px);
+  --text-subheading:  20px;
+  --text-body:        16px;
+  --text-body-sm:     15px;
+  --text-label:       12px;
+  --text-cta:         12px;
+
+  /* ── Typography: Weights ────────────────────────────── */
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-black:     900;
+
+  /* ── Typography: Letter spacing ─────────────────────── */
+  --tracking-label:   0.125rem;  /* 2px — labels, captions */
+  --tracking-cta:     0.09375rem; /* 1.5px — CTA buttons */
+  --tracking-wide:    0.04em;    /* logo wordmark */
+
+  /* ── Spacing (8pt grid) ─────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ── Border radius ──────────────────────────────────── */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+
+  /* ── Shadows / Glow ─────────────────────────────────── */
+  --glow-green: 0 0 20px rgba(0, 232, 122, 0.2);
+  --glow-green-strong: 0 0 40px rgba(0, 232, 122, 0.35);
+}
