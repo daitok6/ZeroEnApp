@@ -1,6 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { Download, FileText } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Analytics — ZeroEn',
+  robots: { index: false, follow: false },
+};
 
 type Props = { params: Promise<{ locale: string }> };
 

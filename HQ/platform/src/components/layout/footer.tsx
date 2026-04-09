@@ -6,7 +6,7 @@ export function Footer({ locale }: { locale: string }) {
   return (
     <footer className="border-t border-[#374151] bg-[#0D0D0D] mt-24">
       <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           {/* Brand column */}
           <div className="md:col-span-1">
             <Link href={`/${locale}`}>
@@ -96,7 +96,7 @@ export function Footer({ locale }: { locale: string }) {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-[#374151] flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-8 md:mt-12 pt-8 border-t border-[#374151] flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
           <p className="text-[#6B7280] text-xs font-mono">
             © {new Date().getFullYear()} ZeroEn. All rights reserved.
           </p>

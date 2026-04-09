@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -11,10 +12,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   const post = getPostBySlug(slug, locale);
   if (!post) return { title: 'Post Not Found' };
-  return {
-    title: `${post.title} — ZeroEn`,
-    description: post.excerpt,
-  };
+  return buildMetadata({
+    title: post.title,
+    description: post.excerpt || `Read ${post.title} on the ZeroEn blog.`,
+    path: `/blog/${slug}`,
+    locale,
+    ogTitle: post.title,
+    ogSubtitle: post.excerpt || 'ZeroEn Blog',
+  });
 }
 
 export async function generateStaticParams() {

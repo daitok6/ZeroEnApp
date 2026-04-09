@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -10,9 +11,26 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const title =
-    locale === 'ja' ? '仕組み — ZeroEn' : 'How It Works — ZeroEn';
-  return { title };
+  if (locale === 'ja') {
+    return buildMetadata({
+      title: 'ZeroEnの仕組み — アイデアから立ち上げまで',
+      description:
+        'アイデアの発掘からエクイティ契約、開発、継続的な成長までの9ステップの旅をご覧ください。',
+      path: '/how-it-works',
+      locale,
+      ogTitle: 'ZeroEnの仕組み',
+      ogSubtitle: 'アイデアから立ち上げまでの9ステップ',
+    });
+  }
+  return buildMetadata({
+    title: 'How ZeroEn Works — From Idea to Launch',
+    description:
+      'See the 9-step journey from initial discovery to equity agreement, development, and ongoing growth.',
+    path: '/how-it-works',
+    locale,
+    ogTitle: 'How ZeroEn Works',
+    ogSubtitle: 'From Idea to Launch in 9 Steps',
+  });
 }
 
 const STEP_KEYS = [

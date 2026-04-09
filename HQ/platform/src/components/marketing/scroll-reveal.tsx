@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 
 interface ScrollRevealProps {
@@ -24,6 +24,12 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, margin: '-80px' });
+  const shouldReduceMotion = useReducedMotion();
+
+  // Skip animation for users who prefer reduced motion
+  if (shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   const directionMap = {
     up: { y: distance },

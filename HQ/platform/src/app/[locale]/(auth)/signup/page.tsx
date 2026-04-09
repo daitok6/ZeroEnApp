@@ -6,6 +6,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return {
     title: locale === 'ja' ? 'サインアップ — ZeroEn' : 'Sign Up — ZeroEn',
+    robots: { index: false, follow: false },
   };
 }
 

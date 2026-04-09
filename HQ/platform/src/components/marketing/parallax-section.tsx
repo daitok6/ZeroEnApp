@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 
 interface ParallaxSectionProps {
@@ -17,17 +17,18 @@ export function ParallaxSection({
   direction = 'up',
 }: ParallaxSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
   });
 
   const yRange = direction === 'up' ? [0, -100 * speed] : [0, 100 * speed];
-  const y = useTransform(scrollYProgress, [0, 1], yRange);
+  const y = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : yRange);
 
   return (
     <div ref={ref} className={`relative overflow-hidden ${className}`}>
-      <motion.div style={{ y }}>
+      <motion.div style={{ y, willChange: 'transform' }}>
         {children}
       </motion.div>
     </div>

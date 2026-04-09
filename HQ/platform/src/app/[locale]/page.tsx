@@ -1,13 +1,39 @@
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { Hero } from '@/components/marketing/hero';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  if (locale === 'ja') {
+    return buildMetadata({
+      title: 'ZeroEn — 無料MVP・10%エクイティ。AIテクニカル共同創業者。',
+      description:
+        'スタートアップのMVPをエクイティと引き換えに無料で構築。AIを活用したフルスタックのテクニカル共同創業者を提供します。',
+      path: '',
+      locale,
+      ogTitle: 'ZeroEn',
+      ogSubtitle: '無料MVP・10%エクイティ。AIテクニカル共同創業者。',
+    });
+  }
+  return buildMetadata({
+    title: 'ZeroEn — Free MVP, 10% Equity. Your AI Technical Co-Founder.',
+    description:
+      'We build your startup\'s MVP for free in exchange for equity. Get a full-stack technical co-founder powered by AI.',
+    path: '',
+    locale,
+    ogTitle: 'ZeroEn',
+    ogSubtitle: 'Free MVP. 10% Equity. Your AI Technical Co-Founder.',
+  });
+}
 
 const STEP_KEYS = [
   'discover',
@@ -45,6 +71,33 @@ const PER_REQUEST_FEATURES = [
   'No surprises',
 ];
 
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'ZeroEn',
+  url: 'https://zeroen.dev',
+  logo: 'https://zeroen.dev/logo-dark.svg',
+  sameAs: [
+    'https://twitter.com/zeroen_dev',
+    'https://instagram.com/zeroen_dev',
+  ],
+};
+
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'ZeroEn Technical Co-Founder Service',
+  provider: {
+    '@type': 'Organization',
+    name: 'ZeroEn',
+    url: 'https://zeroen.dev',
+  },
+  description:
+    'We build free MVPs for startups in exchange for equity. AI-powered full-stack technical co-founder service using Next.js and Supabase.',
+  areaServed: 'Worldwide',
+  serviceType: 'Software Development',
+};
+
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   const t = await getTranslations('home');
@@ -64,6 +117,16 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <div className="bg-[#0D0D0D] text-[#F4F4F2]">
+      {/* JSON-LD structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+
       {/* ── Section 1: Hero ─────────────────────────────────── */}
       <Hero
         texts={heroTexts}
@@ -152,7 +215,7 @@ export default async function HomePage({ params }: Props) {
                 relative flex flex-col
                 bg-[#111827] rounded-lg
                 border border-[#374151]
-                p-8
+                p-5 md:p-8
                 hover:shadow-[0_0_24px_rgba(0,232,122,0.1)]
                 transition-all duration-300
                 h-full
@@ -197,7 +260,7 @@ export default async function HomePage({ params }: Props) {
                 relative flex flex-col
                 bg-[#111827] rounded-lg
                 border-2 border-[#00E87A]
-                p-8
+                p-5 md:p-8
                 shadow-[0_0_32px_rgba(0,232,122,0.2)]
                 hover:shadow-[0_0_48px_rgba(0,232,122,0.3)]
                 scale-[1.02]
@@ -256,7 +319,7 @@ export default async function HomePage({ params }: Props) {
                 relative flex flex-col
                 bg-[#111827] rounded-lg
                 border border-[#374151]
-                p-8
+                p-5 md:p-8
                 hover:shadow-[0_0_24px_rgba(0,232,122,0.1)]
                 transition-all duration-300
                 h-full
@@ -303,7 +366,7 @@ export default async function HomePage({ params }: Props) {
         <GreenGlowLine className="mb-24" />
         <div className="max-w-2xl mx-auto text-center">
           <ScrollReveal direction="up">
-            <h2 className="text-4xl sm:text-5xl font-mono font-bold text-[#F4F4F2] mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-mono font-bold text-[#F4F4F2] mb-6">
               {t('applySection.title')}
             </h2>
             <p className="text-[#6B7280] font-mono text-sm mb-10">
@@ -318,7 +381,7 @@ export default async function HomePage({ params }: Props) {
                 font-mono font-bold
                 uppercase tracking-widest
                 text-sm
-                px-12 py-5
+                px-8 py-4 md:px-12 md:py-5
                 rounded
                 hover:bg-[#00ff88]
                 active:scale-95

@@ -2,6 +2,12 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { CheckCircle, Clock, AlertCircle, XCircle, Receipt } from 'lucide-react';
 import { PayButton } from '@/components/dashboard/pay-button';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Invoices — ZeroEn',
+  robots: { index: false, follow: false },
+};
 
 type Props = { params: Promise<{ locale: string }> };
 

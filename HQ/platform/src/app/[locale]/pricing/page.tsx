@@ -5,6 +5,7 @@ import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
 import { PricingFaq } from '@/components/marketing/pricing-faq';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -12,8 +13,26 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const title = locale === 'ja' ? '料金 — ZeroEn' : 'Pricing — ZeroEn';
-  return { title };
+  if (locale === 'ja') {
+    return buildMetadata({
+      title: '料金プラン — 無料MVP + 月額5,000円のプラットフォーム',
+      description:
+        'MVPの開発は無料。立ち上げ後はホスティング・分析・継続サポートを月額5,000円でご利用いただけます。',
+      path: '/pricing',
+      locale,
+      ogTitle: '料金プラン',
+      ogSubtitle: '無料MVP + 月額5,000円のプラットフォーム',
+    });
+  }
+  return buildMetadata({
+    title: 'Pricing — Free MVP + $50/mo Platform',
+    description:
+      'ZeroEn builds your MVP for free. Pay $50/month for hosting, analytics, and ongoing support after launch.',
+    path: '/pricing',
+    locale,
+    ogTitle: 'Pricing',
+    ogSubtitle: 'Free MVP + $50/mo Platform',
+  });
 }
 
 export default async function PricingPage({ params }: Props) {
@@ -102,7 +121,7 @@ export default async function PricingPage({ params }: Props) {
           <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-4">
             {t('eyebrow')}
           </p>
-          <h1 className="text-4xl sm:text-6xl font-mono font-bold text-[#F4F4F2] mb-6">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-mono font-bold text-[#F4F4F2] mb-6">
             {t('title')}
           </h1>
           <p className="text-[#6B7280] font-mono text-sm max-w-xl mx-auto">
@@ -125,7 +144,7 @@ export default async function PricingPage({ params }: Props) {
                 relative flex flex-col
                 bg-[#111827] rounded-lg
                 border border-[#374151]
-                p-8
+                p-5 md:p-8
                 hover:shadow-[0_0_24px_rgba(0,232,122,0.1)]
                 transition-all duration-300
                 h-full
@@ -201,7 +220,7 @@ export default async function PricingPage({ params }: Props) {
                 relative flex flex-col
                 bg-[#111827] rounded-lg
                 border-2 border-[#00E87A]
-                p-8
+                p-5 md:p-8
                 shadow-[0_0_32px_rgba(0,232,122,0.2)]
                 hover:shadow-[0_0_48px_rgba(0,232,122,0.3)]
                 scale-[1.02]
@@ -273,7 +292,7 @@ export default async function PricingPage({ params }: Props) {
                 relative flex flex-col
                 bg-[#111827] rounded-lg
                 border border-[#374151]
-                p-8
+                p-5 md:p-8
                 hover:shadow-[0_0_24px_rgba(0,232,122,0.1)]
                 transition-all duration-300
                 h-full
@@ -433,7 +452,7 @@ export default async function PricingPage({ params }: Props) {
                 font-mono font-bold
                 uppercase tracking-widest
                 text-sm
-                px-12 py-5
+                px-8 py-4 md:px-12 md:py-5
                 rounded
                 hover:bg-[#00ff88]
                 active:scale-95

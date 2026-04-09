@@ -78,24 +78,24 @@ export function Header() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-[#0D0D0D] border-t border-[#374151] px-6 py-4 flex flex-col gap-4">
+        <div className="md:hidden bg-[#0D0D0D] border-t border-[#374151] px-6 py-4 flex flex-col gap-1">
           <Link
             href={`/${locale}/how-it-works`}
-            className="text-[#F4F4F2] text-sm font-mono"
+            className="flex items-center min-h-[44px] text-[#F4F4F2] text-sm font-mono"
             onClick={() => setMobileOpen(false)}
           >
             {t('howItWorks')}
           </Link>
           <Link
             href={`/${locale}/pricing`}
-            className="text-[#F4F4F2] text-sm font-mono"
+            className="flex items-center min-h-[44px] text-[#F4F4F2] text-sm font-mono"
             onClick={() => setMobileOpen(false)}
           >
             {t('pricing')}
           </Link>
           <Link
             href={`/${locale}/blog`}
-            className="text-[#F4F4F2] text-sm font-mono"
+            className="flex items-center min-h-[44px] text-[#F4F4F2] text-sm font-mono"
             onClick={() => setMobileOpen(false)}
           >
             {t('blog')}
@@ -103,7 +103,7 @@ export function Header() {
           <LocaleSwitcher />
           <Link
             href={`/${locale}/apply`}
-            className="bg-[#00E87A] text-[#0D0D0D] text-xs font-bold px-4 py-2 rounded tracking-widest text-center uppercase"
+            className="flex items-center justify-center min-h-[44px] bg-[#00E87A] text-[#0D0D0D] text-xs font-bold px-4 py-3 rounded tracking-widest text-center uppercase mt-2"
             onClick={() => setMobileOpen(false)}
           >
             {t('apply')}

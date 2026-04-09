@@ -7,6 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return {
     title: locale === 'ja' ? 'ログイン — ZeroEn' : 'Log In — ZeroEn',
+    robots: { index: false, follow: false },
   };
 }
 

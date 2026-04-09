@@ -8,6 +8,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Dashboard — ZeroEn',
+  robots: { index: false, follow: false },
 };
 
 type Props = { params: Promise<{ locale: string }> };

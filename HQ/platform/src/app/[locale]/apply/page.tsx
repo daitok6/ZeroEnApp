@@ -1,15 +1,30 @@
 import { getTranslations } from 'next-intl/server';
 import { ApplyWizard } from '@/components/apply/wizard';
 import type { Metadata } from 'next';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    title: locale === 'ja' ? 'ZeroEnに申し込む' : 'Apply to ZeroEn — Free MVP Build',
-    description: locale === 'ja'
-      ? '無料でMVPを構築します。アイデアを教えてください。'
-      : 'Apply to have your startup MVP built for free in exchange for equity.',
-  };
+  if (locale === 'ja') {
+    return buildMetadata({
+      title: 'ZeroEnに応募する — 無料MVPを始める',
+      description:
+        'スタートアップのアイデアをご応募ください。全ての応募を確認し、48時間以内にご連絡します。',
+      path: '/apply',
+      locale,
+      ogTitle: 'ZeroEnに応募する',
+      ogSubtitle: '無料MVPを始める',
+    });
+  }
+  return buildMetadata({
+    title: 'Apply to ZeroEn — Start Your Free MVP',
+    description:
+      'Submit your startup idea. We review every application and respond within 48 hours.',
+    path: '/apply',
+    locale,
+    ogTitle: 'Apply to ZeroEn',
+    ogSubtitle: 'Start Your Free MVP',
+  });
 }
 
 type Props = { params: Promise<{ locale: string }> };

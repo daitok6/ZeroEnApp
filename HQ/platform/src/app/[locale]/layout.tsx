@@ -30,7 +30,11 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "ZeroEn — Free MVP. 10% Equity. We're Your CTO.",
+  metadataBase: new URL('https://zeroen.dev'),
+  title: {
+    default: "ZeroEn — Free MVP. 10% Equity. Your AI Technical Co-Founder.",
+    template: '%s | ZeroEn',
+  },
   description:
     'ZeroEn builds free MVPs for founders in exchange for equity. No upfront cost. No hourly billing. We become your technical co-founder.',
 };

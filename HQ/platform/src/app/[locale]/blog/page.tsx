@@ -2,15 +2,30 @@ import { getAllPosts } from '@/lib/mdx/utils';
 import { PostCard } from '@/components/blog/post-card';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
 import type { Metadata } from 'next';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    title: locale === 'ja' ? 'ブログ — ZeroEn' : 'Blog — ZeroEn',
-    description: locale === 'ja'
-      ? 'ビルドログ、ケーススタディ、創業者向けコンテンツ'
-      : 'Build logs, case studies, and founder content from ZeroEn.',
-  };
+  if (locale === 'ja') {
+    return buildMetadata({
+      title: 'ブログ — ZeroEnのビルドインパブリック',
+      description:
+        'AIを活用したスタートアップを構築するZeroEnの旅を追う。テクニカルな深掘り、創業者ストーリー、ビルドインパブリックの更新。',
+      path: '/blog',
+      locale,
+      ogTitle: 'ZeroEn Blog',
+      ogSubtitle: 'ビルドインパブリック',
+    });
+  }
+  return buildMetadata({
+    title: 'Blog — ZeroEn Build in Public',
+    description:
+      "Follow ZeroEn's journey building AI-powered startups. Technical deep-dives, founder stories, and build-in-public updates.",
+    path: '/blog',
+    locale,
+    ogTitle: 'ZeroEn Blog',
+    ogSubtitle: 'Build in Public',
+  });
 }
 
 type Props = { params: Promise<{ locale: string }> };

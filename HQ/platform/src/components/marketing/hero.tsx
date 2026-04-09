@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { TerminalWindow } from './terminal-window';
 import { TypingEffect } from './typing-effect';
 
@@ -13,6 +13,8 @@ interface HeroProps {
 }
 
 export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section
       className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
@@ -38,7 +40,7 @@ export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
         {/* Terminal */}
         <motion.div
           className="w-full"
-          initial={{ opacity: 0, y: 40 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
@@ -73,7 +75,7 @@ export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
         {/* CTA */}
         <motion.div
           className="flex flex-col items-center gap-4"
-          initial={{ opacity: 0, y: 24 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         >
@@ -105,7 +107,7 @@ export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
       {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
-        initial={{ opacity: 0 }}
+        initial={shouldReduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.6 }}
       >

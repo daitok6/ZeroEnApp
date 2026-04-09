@@ -2,6 +2,12 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { FilesPageClient } from '@/components/dashboard/files-page-client';
 import type { Database } from '@/types/database';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Files — ZeroEn',
+  robots: { index: false, follow: false },
+};
 
 type Props = { params: Promise<{ locale: string }> };
 

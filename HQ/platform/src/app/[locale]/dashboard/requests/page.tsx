@@ -1,6 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { ChangeRequestForm } from '@/components/dashboard/change-request-form';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Requests — ZeroEn',
+  robots: { index: false, follow: false },
+};
 
 type Props = { params: Promise<{ locale: string }> };
 
