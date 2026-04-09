@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
 
@@ -69,12 +70,12 @@ export function WhyZeroEn({
             <span className="inline-block w-2 h-2 rounded-full bg-[#00E87A] mr-2 animate-pulse" />
             {urgency}
           </p>
-          <a
+          <Link
             href={`/${locale}/apply`}
             className="inline-block px-8 py-3 font-mono text-sm font-bold border border-[#00E87A] text-[#00E87A] rounded hover:bg-[#00E87A] hover:text-[#0D0D0D] transition-all duration-300"
           >
             {ctaText}
-          </a>
+          </Link>
         </ScrollReveal>
       </div>
     </section>
