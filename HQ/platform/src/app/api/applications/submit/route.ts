@@ -2,6 +2,8 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
+import { sendEmail, OPERATOR_EMAIL_ADDRESS } from '@/lib/email/send';
+import { newApplicationEmail } from '@/lib/email/templates';
 
 const applicationSchema = z.object({
   // Step 1
@@ -57,6 +59,18 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    const emailData = newApplicationEmail({
+      founderName: data.founder_name,
+      founderEmail: data.founder_email,
+      ideaName: data.idea_name,
+      ideaDescription: data.idea_description,
+      targetUsers: data.target_users,
+      monetization: data.monetization_plan,
+      commitment: data.founder_commitment,
+      locale: data.locale,
+    });
+    await sendEmail({ to: OPERATOR_EMAIL_ADDRESS, ...emailData });
 
     return NextResponse.json({ success: true });
   } catch (err) {
