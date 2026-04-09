@@ -44,30 +44,6 @@ const STEP_KEYS = [
   'build', 'launch', 'operate', 'grow', 'upsell',
 ] as const;
 
-const MVP_FEATURES = [
-  'Full-stack MVP',
-  'Supabase + Next.js',
-  'Deploy to Vercel',
-  '30 days support',
-  '10% equity agreement',
-];
-
-const PLATFORM_FEATURES = [
-  'Everything in MVP Build',
-  'Hosting on our Vercel',
-  '1 small fix/month',
-  'Monthly analytics PDF',
-  'Client dashboard access',
-];
-
-const PER_REQUEST_FEATURES = [
-  'Small changes: $50–100',
-  'Medium features: $200–500',
-  'Large builds: $500–2,000',
-  'Quoted upfront',
-  'No surprises',
-];
-
 const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -215,83 +191,56 @@ export default async function HomePage({ params }: Props) {
         placeholders={caseStudyPlaceholders}
       />
 
-      {/* ── Section 6: Pricing ───────────────────────────────── */}
+      {/* ── Section 6: Value Proposition ─────────────────────── */}
       <section className="py-24 px-4 bg-[#080808]">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <ScrollReveal direction="up">
             <div className="mb-16 text-center">
               <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
-                Pricing
+                {t('valueProp.eyebrow')}
               </p>
-              <h2 className="text-3xl sm:text-4xl font-mono font-bold text-[#F4F4F2] mb-4">
-                {t('pricing.title')}
+              <h2 className="text-3xl sm:text-4xl font-mono font-bold text-[#F4F4F2] mb-4 whitespace-pre-line">
+                {t('valueProp.title')}
               </h2>
               <p className="text-[#6B7280] font-mono text-sm">
-                {t('pricing.subtitle')}
+                {t('valueProp.subtitle')}
               </p>
             </div>
           </ScrollReveal>
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.12}>
-            {/* MVP Build */}
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.12}>
+            {/* What you get */}
             <StaggerItem>
-              <div className="relative flex flex-col bg-[#111827] rounded-lg border border-[#374151] p-5 md:p-8 hover:shadow-[0_0_24px_rgba(0,232,122,0.1)] transition-all duration-300 h-full">
-                <div className="mb-6">
-                  <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest mb-2">MVP Build</p>
-                  <div className="text-4xl font-mono font-bold text-[#F4F4F2] mb-1">$0</div>
-                  <p className="text-[#6B7280] font-mono text-sm">Free for founders</p>
-                </div>
-                <ul className="space-y-3 mb-8 flex-1">
-                  {MVP_FEATURES.map((f) => (
+              <div className="relative flex flex-col bg-[#111827] rounded-lg border-2 border-[#00E87A] p-6 md:p-8 shadow-[0_0_32px_rgba(0,232,122,0.15)] hover:shadow-[0_0_48px_rgba(0,232,122,0.25)] transition-all duration-300 h-full">
+                <p className="text-[#00E87A] font-mono text-xs uppercase tracking-widest mb-5">
+                  {t('valueProp.youGetTitle')}
+                </p>
+                <ul className="space-y-3 flex-1">
+                  {(t.raw('valueProp.youGet') as string[]).map((f) => (
                     <li key={f} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
                       <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>{f}
                     </li>
                   ))}
                 </ul>
-                <Link href={`/${locale}/apply`} className="block text-center border border-[#374151] text-[#F4F4F2] font-mono text-sm uppercase tracking-widest py-3 px-6 rounded hover:border-[#00E87A] hover:text-[#00E87A] transition-all duration-200">
-                  Apply Free
-                </Link>
               </div>
             </StaggerItem>
-            {/* Platform */}
+            {/* What we ask */}
             <StaggerItem>
-              <div className="relative flex flex-col bg-[#111827] rounded-lg border-2 border-[#00E87A] p-5 md:p-8 shadow-[0_0_32px_rgba(0,232,122,0.2)] hover:shadow-[0_0_48px_rgba(0,232,122,0.3)] scale-[1.02] transition-all duration-300 h-full">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#00E87A] text-[#0D0D0D] font-mono text-xs font-bold uppercase tracking-widest px-4 py-1 rounded-full">
-                  Most Popular
-                </div>
-                <div className="mb-6">
-                  <p className="text-[#00E87A] font-mono text-xs uppercase tracking-widest mb-2">Platform</p>
-                  <div className="text-4xl font-mono font-bold text-[#F4F4F2] mb-1">$50<span className="text-xl text-[#6B7280]">/mo</span></div>
-                  <p className="text-[#6B7280] font-mono text-sm">After your MVP launches</p>
-                </div>
-                <ul className="space-y-3 mb-8 flex-1">
-                  {PLATFORM_FEATURES.map((f) => (
+              <div className="relative flex flex-col bg-[#111827] rounded-lg border border-[#374151] p-6 md:p-8 hover:shadow-[0_0_24px_rgba(0,232,122,0.08)] transition-all duration-300 h-full">
+                <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest mb-5">
+                  {t('valueProp.weAskTitle')}
+                </p>
+                <ul className="space-y-3 flex-1">
+                  {(t.raw('valueProp.weAsk') as string[]).map((f) => (
                     <li key={f} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
-                      <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>{f}
+                      <span className="text-[#6B7280] flex-shrink-0 mt-0.5">→</span>{f}
                     </li>
                   ))}
                 </ul>
-                <Link href={`/${locale}/apply`} className="block text-center bg-[#00E87A] text-[#0D0D0D] font-mono font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00ff88] transition-all duration-200 shadow-[0_0_16px_rgba(0,232,122,0.4)]">
-                  Get Started
-                </Link>
-              </div>
-            </StaggerItem>
-            {/* Per-Request */}
-            <StaggerItem>
-              <div className="relative flex flex-col bg-[#111827] rounded-lg border border-[#374151] p-5 md:p-8 hover:shadow-[0_0_24px_rgba(0,232,122,0.1)] transition-all duration-300 h-full">
-                <div className="mb-6">
-                  <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest mb-2">Per-Request</p>
-                  <div className="text-4xl font-mono font-bold text-[#F4F4F2] mb-1">From $50</div>
-                  <p className="text-[#6B7280] font-mono text-sm">For extra work</p>
-                </div>
-                <ul className="space-y-3 mb-8 flex-1">
-                  {PER_REQUEST_FEATURES.map((f) => (
-                    <li key={f} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
-                      <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>{f}
-                    </li>
-                  ))}
-                </ul>
-                <Link href={`/${locale}/pricing`} className="block text-center border border-[#374151] text-[#F4F4F2] font-mono text-sm uppercase tracking-widest py-3 px-6 rounded hover:border-[#00E87A] hover:text-[#00E87A] transition-all duration-200">
-                  Learn More
+                <Link
+                  href={`/${locale}/apply`}
+                  className="mt-8 block text-center bg-[#00E87A] text-[#0D0D0D] font-mono font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00ff88] transition-all duration-200 shadow-[0_0_16px_rgba(0,232,122,0.4)]"
+                >
+                  {t('valueProp.cta')}
                 </Link>
               </div>
             </StaggerItem>

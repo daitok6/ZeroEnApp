@@ -42,12 +42,6 @@ export function Header() {
             {t('howItWorks')}
           </Link>
           <Link
-            href={`/${locale}/pricing`}
-            className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
-          >
-            {t('pricing')}
-          </Link>
-          <Link
             href={`/${locale}/blog`}
             className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
           >
@@ -85,13 +79,6 @@ export function Header() {
             onClick={() => setMobileOpen(false)}
           >
             {t('howItWorks')}
-          </Link>
-          <Link
-            href={`/${locale}/pricing`}
-            className="flex items-center min-h-[44px] text-[#F4F4F2] text-sm font-mono"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t('pricing')}
           </Link>
           <Link
             href={`/${locale}/blog`}

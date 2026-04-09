@@ -7,7 +7,6 @@ const LOCALES = ['en', 'ja'] as const;
 const MARKETING_PAGES = [
   '',
   '/how-it-works',
-  '/pricing',
   '/apply',
   '/blog',
   '/terms',

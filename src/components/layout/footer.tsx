@@ -47,10 +47,6 @@ export function Footer({ locale }: { locale: string }) {
                   label: locale === 'ja' ? '仕組み' : 'How It Works',
                 },
                 {
-                  href: `/${locale}/pricing`,
-                  label: locale === 'ja' ? '料金' : 'Pricing',
-                },
-                {
                   href: `/${locale}/apply`,
                   label: locale === 'ja' ? '申し込む' : 'Apply Free',
                 },
