@@ -25,6 +25,93 @@
       "title": "Ready to build?",
       "subtitle": "We take equity, not fees. Your idea, our execution.",
       "cta": "Apply Now — It's Free"
+    },
+    "whyZeroEn": {
+      "eyebrow": "Why ZeroEn",
+      "title": "Build for free.\nPay us when you win.",
+      "subtitle": "We take 10% equity. You pay $50/mo after launch. That's the entire deal.",
+      "pillars": [
+        {
+          "title": "Zero upfront cost",
+          "desc": "We build your full-stack MVP — Next.js, Supabase, Vercel — for $0. No retainers, no hourly billing."
+        },
+        {
+          "title": "Real equity partnership",
+          "desc": "We take 10% via SAFE note. We only win when you win. Aligned incentives from day one."
+        },
+        {
+          "title": "Selective by design",
+          "desc": "We accept fewer than 20% of applications. Apply now while slots are open."
+        }
+      ],
+      "urgency": "Currently reviewing applications. Spots are limited."
+    },
+    "techStack": {
+      "eyebrow": "What You Get",
+      "title": "Production-grade stack.\nOut of the box.",
+      "subtitle": "The same infrastructure used by YC-backed startups — included in every build.",
+      "terminalTitle": "zeroen — init",
+      "lines": [
+        "$ zeroen --init your-startup",
+        "> installing next@15 (App Router)...",
+        "> linking supabase (auth + db + storage)...",
+        "> configuring vercel (global deploy)...",
+        "> wiring stripe (payments + billing)...",
+        "✓ MVP ready. Est. 4 weeks."
+      ],
+      "tools": [
+        {
+          "name": "Next.js 15",
+          "tag": "Frontend",
+          "desc": "App Router, Server Components, streaming — the fastest React framework in production."
+        },
+        {
+          "name": "Supabase",
+          "tag": "Backend",
+          "desc": "Postgres database, Auth, realtime, and file storage. Free tier per client."
+        },
+        {
+          "name": "Vercel",
+          "tag": "Hosting",
+          "desc": "Global edge deployment, preview URLs, analytics. Zero DevOps."
+        },
+        {
+          "name": "Stripe",
+          "tag": "Payments",
+          "desc": "Subscriptions, invoicing, and webhooks. Revenue from day one."
+        }
+      ]
+    },
+    "caseStudies": {
+      "eyebrow": "Portfolio",
+      "title": "What we've built.",
+      "subtitle": "Real MVPs. Real founders. Real equity.",
+      "comingSoon": "Coming soon",
+      "placeholders": [
+        {
+          "name": "Client #1",
+          "desc": "First build in progress",
+          "stack": ["Next.js", "Supabase", "Stripe"]
+        },
+        {
+          "name": "Client #2",
+          "desc": "Accepting applications",
+          "stack": ["Next.js", "Supabase", "Vercel"]
+        },
+        {
+          "name": "Client #3",
+          "desc": "Accepting applications",
+          "stack": ["Next.js", "Supabase", "Stripe"]
+        }
+      ]
+    },
+    "newsletterSection": {
+      "eyebrow": "Newsletter",
+      "title": "Get weekly build updates.",
+      "subtitle": "Real numbers, real clients, no fluff. Every Monday.",
+      "placeholder": "your@email.com",
+      "cta": "Subscribe",
+      "note": "No spam. Unsubscribe anytime."
     }
   },
   "apply": {
@@ -193,6 +280,76 @@
       "title": "Stay in the loop.",
       "placeholder": "your@email.com",
       "cta": "Subscribe"
+    }
+  },
+  "terms": {
+    "eyebrow": "Terms",
+    "title": "The deal,\nin plain English.",
+    "subtitle": "Standard terms for every ZeroEn client. No surprises.",
+    "summary": {
+      "heading": "TL;DR",
+      "items": [
+        { "label": "Equity", "value": "10% via SAFE note. Converts when you incorporate." },
+        { "label": "Revenue share", "value": "~10% of app revenue, negotiated per deal." },
+        { "label": "Platform fee", "value": "$50/mo after your MVP launches. Covers hosting + 1 fix/mo." },
+        { "label": "Scope freeze", "value": "MVP scope locked at kickoff. New features = per-request charge." },
+        { "label": "Kill switch", "value": "90 days unpaid → agreement terminates. We keep the code." },
+        { "label": "Portfolio rights", "value": "We always retain the right to showcase this work." }
+      ]
+    },
+    "full": {
+      "heading": "Full Terms",
+      "sections": [
+        {
+          "title": "1. Equity Agreement",
+          "body": "ZeroEn receives 10% equity via a Simple Agreement for Future Equity (SAFE note). The SAFE converts to equity shares upon the client's incorporation or qualifying financing event. If the client never incorporates, a profit-sharing arrangement of approximately 10% of net revenue applies instead. ZeroEn retains an anti-dilution floor: a minimum equity percentage is maintained if the client raises external funding."
+        },
+        {
+          "title": "2. Revenue Share",
+          "body": "A revenue share of approximately 10% of the client's app revenue is negotiated at kickoff and documented in the individual agreement. Revenue share activates once the client's application generates revenue. The exact percentage is flexible per deal and is fixed in writing before the build begins."
+        },
+        {
+          "title": "3. Platform Fee",
+          "body": "After the MVP launches, a platform fee of USD $50 per month applies. This covers: hosting on ZeroEn's Vercel Pro account, one small fix or minor change per month (at ZeroEn's discretion), and a monthly analytics PDF report. The platform fee begins 30 days after launch. Payment is via Stripe subscription. The client's application remains live only while the platform fee is paid."
+        },
+        {
+          "title": "4. Scope Freeze",
+          "body": "The MVP scope is agreed and locked at the kickoff call. This scope is documented and signed by both parties. Any features, changes, or additions beyond the agreed scope are treated as per-request charges. ZeroEn is not obligated to build out-of-scope work. Per-request charges are quoted upfront and must be paid before work begins."
+        },
+        {
+          "title": "5. Per-Request Charges",
+          "body": "Work beyond the locked MVP scope is available as per-request charges: Small changes (1–4 hours) USD $50–100; Medium features (1–3 days) USD $200–500; Large builds (1–2 weeks) USD $500–2,000. All quotes are provided upfront. Work begins only after payment is received."
+        },
+        {
+          "title": "6. Kill Switch",
+          "body": "If the platform fee remains unpaid for 90 consecutive days, the agreement terminates automatically. Upon termination: the client's hosted application is taken offline, ZeroEn retains full rights to the codebase, and all equity and revenue share arrangements are voided. ZeroEn will make reasonable efforts to notify the client before reaching the 90-day threshold."
+        },
+        {
+          "title": "7. Reversion Clause",
+          "body": "If the client does not launch their application within 6 months of the agreed build completion date, full code rights revert to ZeroEn. The client may request an extension in writing. Extensions are granted at ZeroEn's discretion."
+        },
+        {
+          "title": "8. IP Ownership",
+          "body": "Intellectual property is shared proportionally to equity stake. ZeroEn holds 10% IP rights corresponding to its equity. The client holds the remaining rights. ZeroEn always retains the right to use the work in its portfolio and marketing materials, including screenshots, case studies, and build logs."
+        },
+        {
+          "title": "9. Founder Vesting",
+          "body": "The client's equity interest vests over time. If the client abandons the project (defined as no communication or active use for 6+ months), their equity stake reduces proportionally. This clause protects ZeroEn from building for founders who disengage."
+        },
+        {
+          "title": "10. Governing Law",
+          "body": "These terms are governed by the laws of Canada (Ontario). Any disputes are resolved first through good-faith negotiation, then through binding arbitration if necessary. ZeroEn and the client agree to resolve disputes without litigation where possible."
+        }
+      ]
+    }
+  },
+  "blog": {
+    "categories": {
+      "all": "All",
+      "build-update": "Build Update",
+      "case-study": "Case Study",
+      "operator-log": "Operator Log",
+      "tutorial": "Tutorial"
     }
   }
 }
