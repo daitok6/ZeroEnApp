@@ -9,53 +9,17 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const STEPS = [
-  {
-    id: '01',
-    name: 'DISCOVER',
-    desc: 'Build-in-public content, social media, communities, outreach',
-  },
-  {
-    id: '02',
-    name: 'APPLY',
-    desc: 'Detailed application on zeroen.dev',
-  },
-  {
-    id: '03',
-    name: 'SCORE',
-    desc: 'Viability + Commitment + Feasibility + Market scoring',
-  },
-  {
-    id: '04',
-    name: 'ONBOARD',
-    desc: 'Questionnaire → kickoff call → scope locked',
-  },
-  {
-    id: '05',
-    name: 'BUILD',
-    desc: '/new-client → MVP development begins',
-  },
-  {
-    id: '06',
-    name: 'LAUNCH',
-    desc: 'Deploy to Vercel → 30 days free support',
-  },
-  {
-    id: '07',
-    name: 'OPERATE',
-    desc: '$50/mo begins → monthly analytics → 1 free fix/mo',
-  },
-  {
-    id: '08',
-    name: 'GROW',
-    desc: 'Per-request charges for new features → rev share active',
-  },
-  {
-    id: '09',
-    name: 'UPSELL',
-    desc: 'Analytics surface issues → premium services',
-  },
-];
+const STEP_KEYS = [
+  'discover',
+  'apply',
+  'score',
+  'onboard',
+  'build',
+  'launch',
+  'operate',
+  'grow',
+  'upsell',
+] as const;
 
 const MVP_FEATURES = [
   'Full-stack MVP',
@@ -84,12 +48,19 @@ const PER_REQUEST_FEATURES = [
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   const t = await getTranslations('home');
+  const tHiw = await getTranslations('howItWorks');
 
   const heroTexts = [
     t('hero.line1'),
     t('hero.line2'),
     t('hero.line3'),
   ];
+
+  const steps = STEP_KEYS.map((key, index) => ({
+    id: String(index + 1).padStart(2, '0'),
+    name: tHiw(`steps.${key}.name`),
+    desc: tHiw(`steps.${key}.desc`),
+  }));
 
   return (
     <div className="bg-[#0D0D0D] text-[#F4F4F2]">
@@ -124,7 +95,7 @@ export default async function HomePage({ params }: Props) {
             <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-[#00E87A]/80 via-[#00E87A]/30 to-transparent" />
 
             <StaggerChildren className="space-y-0" staggerDelay={0.08}>
-              {STEPS.map((step) => (
+              {steps.map((step) => (
                 <StaggerItem key={step.id}>
                   <div className="relative flex gap-6 pb-10 last:pb-0">
                     {/* Step number dot */}
