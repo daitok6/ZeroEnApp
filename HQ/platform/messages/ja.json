@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "howItWorks": "仕組み",
+    "pricing": "料金",
+    "blog": "ブログ",
+    "apply": "無料で申し込む"
+  },
+  "home": {
+    "hero": {
+      "line1": "無料でMVPを構築。",
+      "line2": "株式10%。",
+      "line3": "あなたのCTOです。",
+      "subtitle": "アイデアを、形にする。",
+      "cta": "無料で申し込む"
+    },
+    "howItWorks": {
+      "title": "仕組み",
+      "subtitle": "アイデアから、ローンチまで。"
+    },
+    "pricing": {
+      "title": "透明な料金体系",
+      "subtitle": "時間課金なし。株式のみ。"
+    },
+    "applySection": {
+      "title": "一緒に作りますか？",
+      "subtitle": "手数料なし。株式のみ。あなたのアイデア、私たちの実装。",
+      "cta": "今すぐ申し込む — 無料"
+    }
+  },
+  "apply": {
+    "title": "ZeroEnに申し込む",
+    "subtitle": "アイデアを教えてください。無料で構築します。",
+    "step1": {
+      "title": "あなたのアイデア",
+      "ideaName": "何を構築しますか？",
+      "ideaDescription": "アイデアを詳しく説明してください",
+      "problemSolved": "どんな問題を解決しますか？"
+    },
+    "step2": {
+      "title": "市場",
+      "targetUsers": "ターゲットユーザーは誰ですか？",
+      "competitors": "競合他社は誰ですか？",
+      "monetization": "どうやって収益を上げますか？"
+    },
+    "step3": {
+      "title": "あなたについて",
+      "founderName": "お名前",
+      "founderEmail": "メールアドレス",
+      "founderBackground": "経歴・バックグラウンド",
+      "commitment": "時間的なコミット",
+      "linkedin": "LinkedIn URL（任意）"
+    },
+    "step4": {
+      "title": "確認・送信",
+      "submit": "申し込みを送信"
+    }
+  },
+  "footer": {
+    "newsletter": {
+      "title": "最新情報をお届けします。",
+      "placeholder": "your@email.com",
+      "cta": "登録"
+    }
+  }
+}

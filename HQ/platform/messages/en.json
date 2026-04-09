@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "apply": "Apply Free"
+  },
+  "home": {
+    "hero": {
+      "line1": "Free MVP.",
+      "line2": "10% equity.",
+      "line3": "We're your CTO.",
+      "subtitle": "Bring your idea to life.",
+      "cta": "Apply Free"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "From idea to launch, we handle the tech."
+    },
+    "pricing": {
+      "title": "Transparent Pricing",
+      "subtitle": "No surprises. No hourly billing. Just equity."
+    },
+    "applySection": {
+      "title": "Ready to build?",
+      "subtitle": "We take equity, not fees. Your idea, our execution.",
+      "cta": "Apply Now — It's Free"
+    }
+  },
+  "apply": {
+    "title": "Apply to ZeroEn",
+    "subtitle": "Tell us about your idea. We'll build it for free.",
+    "step1": {
+      "title": "Your Idea",
+      "ideaName": "What are you building?",
+      "ideaDescription": "Describe your idea in detail",
+      "problemSolved": "What problem does it solve?"
+    },
+    "step2": {
+      "title": "Market",
+      "targetUsers": "Who are your target users?",
+      "competitors": "Who are your competitors?",
+      "monetization": "How will you make money?"
+    },
+    "step3": {
+      "title": "About You",
+      "founderName": "Your name",
+      "founderEmail": "Your email",
+      "founderBackground": "Your background",
+      "commitment": "Time commitment",
+      "linkedin": "LinkedIn URL (optional)"
+    },
+    "step4": {
+      "title": "Review & Submit",
+      "submit": "Submit Application"
+    }
+  },
+  "footer": {
+    "newsletter": {
+      "title": "Stay in the loop.",
+      "placeholder": "your@email.com",
+      "cta": "Subscribe"
+    }
+  }
+}
