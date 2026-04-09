@@ -123,6 +123,11 @@ export default async function HowItWorksPage({ params }: Props) {
                         <p className="text-[#9CA3AF] font-mono text-sm leading-relaxed">
                           {t(`steps.${key}.desc`)}
                         </p>
+                        {key === 'apply' && (
+                          <span className="inline-block mt-3 text-[#00E87A] font-mono text-xs border border-[#00E87A]/30 rounded px-2 py-1">
+                            {t('steps.apply.badge')}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </ScrollReveal>

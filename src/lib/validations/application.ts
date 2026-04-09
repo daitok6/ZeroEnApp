@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+export const step0Schema = z.object({
+  nda_accepted: z.literal(true, {
+    error: 'You must agree to the confidentiality agreement',
+  }),
+});
+
 export const step1Schema = z.object({
   idea_name: z.string().min(2, 'Name is required'),
   idea_description: z.string().min(20, 'Please describe your idea in more detail (min 20 chars)'),
@@ -22,6 +28,7 @@ export const step3Schema = z.object({
   linkedin_url: z.string().url('Please enter a valid URL').optional().or(z.literal('')),
 });
 
-export type ApplicationFormData = z.infer<typeof step1Schema> &
+export type ApplicationFormData = z.infer<typeof step0Schema> &
+  z.infer<typeof step1Schema> &
   z.infer<typeof step2Schema> &
   z.infer<typeof step3Schema>;

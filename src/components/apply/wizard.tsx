@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ProgressBar } from './progress-bar';
+import { Step0Nda } from './step-0-nda';
 import { Step1Idea } from './step-1-idea';
 import { Step2Market } from './step-2-market';
 import { Step3Founder } from './step-3-founder';
@@ -10,10 +11,10 @@ import type { ApplicationFormData } from '@/lib/validations/application';
 import { TerminalWindow } from '@/components/marketing/terminal-window';
 import { TypingEffect } from '@/components/marketing/typing-effect';
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 export function ApplyWizard({ locale }: { locale: string }) {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Partial<ApplicationFormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -24,7 +25,7 @@ export function ApplyWizard({ locale }: { locale: string }) {
   };
 
   const goToNext = () => setCurrentStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
-  const goToPrev = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
+  const goToPrev = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -71,7 +72,9 @@ export function ApplyWizard({ locale }: { locale: string }) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+      {currentStep >= 1 && (
+        <ProgressBar currentStep={currentStep} totalSteps={4} />
+      )}
 
       {error && (
         <div className="mb-6 p-4 border border-red-500/50 bg-red-500/10 rounded text-red-400 text-sm font-mono">
@@ -79,6 +82,13 @@ export function ApplyWizard({ locale }: { locale: string }) {
         </div>
       )}
 
+      {currentStep === 0 && (
+        <Step0Nda
+          data={formData}
+          onNext={(data) => { updateFormData(data); goToNext(); }}
+          locale={locale}
+        />
+      )}
       {currentStep === 1 && (
         <Step1Idea
           data={formData}

@@ -38,9 +38,10 @@ export default async function TermsPage({ params }: Props) {
     value: t(`summary.items.${i}.value`),
   }));
 
-  const accordionSections = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => ({
+  const accordionSections = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => ({
     title: t(`full.sections.${i}.title`),
     body: t(`full.sections.${i}.body`),
+    id: i === 10 ? 'confidentiality' : undefined,
   }));
 
   return (

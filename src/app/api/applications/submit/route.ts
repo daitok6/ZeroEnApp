@@ -6,6 +6,8 @@ import { sendEmail, OPERATOR_EMAIL_ADDRESS } from '@/lib/email/send';
 import { newApplicationEmail } from '@/lib/email/templates';
 
 const applicationSchema = z.object({
+  // Step 0
+  nda_accepted: z.literal(true),
   // Step 1
   idea_name: z.string().min(2, 'Required'),
   idea_description: z.string().min(20, 'Please provide more detail'),
