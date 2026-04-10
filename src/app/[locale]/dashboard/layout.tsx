@@ -28,7 +28,7 @@ export default async function DashboardLayout({ children, params }: Props) {
   const navType = profile?.status === 'approved' ? 'client' : 'pending';
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row">
+    <div className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
       {/* Desktop sidebar — hidden on mobile */}
       <Sidebar locale={locale} navType={navType} basePath="/dashboard" />
 

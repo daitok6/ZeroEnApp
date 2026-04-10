@@ -151,3 +151,11 @@
     color: #F4F4F2;
   }
 }
+
+/* Softer bold weight for dashboard/admin (DM Sans 600 instead of 700) */
+.font-logo b,
+.font-logo strong,
+.font-logo .font-bold,
+.font-logo .font-semibold {
+  font-weight: 600;
+}
