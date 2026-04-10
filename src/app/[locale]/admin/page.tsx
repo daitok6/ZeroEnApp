@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { getAdminStats, getClientList } from '@/lib/admin/queries';
 import { Users, Briefcase, ClipboardList, DollarSign } from 'lucide-react';
@@ -32,9 +31,9 @@ function formatRevenue(cents: number): string {
   return `$${(cents / 100).toFixed(2)}`;
 }
 
-function formatDate(dateStr: string | null): string {
+function formatDate(dateStr: string | null, locale: string): string {
   if (!dateStr) return '—';
-  return new Date(dateStr).toLocaleDateString('en-US', {
+  return new Date(dateStr).toLocaleDateString(locale, {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
@@ -44,11 +43,6 @@ function formatDate(dateStr: string | null): string {
 export default async function AdminPage({ params }: Props) {
   const { locale } = await params;
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect(`/${locale}/login`);
 
   const t = await getTranslations('admin');
 
@@ -89,10 +83,10 @@ export default async function AdminPage({ params }: Props) {
       {/* Page title */}
       <div>
         <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
-          {locale === 'ja' ? '管理パネル' : 'Admin'}
+          {t('title')}
         </h1>
         <p className="text-[#6B7280] text-sm font-mono mt-1">
-          {locale === 'ja' ? 'ZeroEn 管理ダッシュボード' : 'ZeroEn operations overview'}
+          {t('overview')}
         </p>
       </div>
 
@@ -164,7 +158,7 @@ export default async function AdminPage({ params }: Props) {
                     )}
                   </div>
                   <p className="text-[#6B7280] text-xs font-mono">
-                    {t('lastUpdated')}: {formatDate(client.projectUpdatedAt)}
+                    {t('lastUpdated')}: {formatDate(client.projectUpdatedAt, locale)}
                   </p>
                 </div>
               ))}
@@ -220,7 +214,7 @@ export default async function AdminPage({ params }: Props) {
                     )}
                   </div>
                   <p className="text-[#6B7280] text-xs font-mono">
-                    {formatDate(client.projectUpdatedAt)}
+                    {formatDate(client.projectUpdatedAt, locale)}
                   </p>
                   <div className="flex justify-center">
                     <span

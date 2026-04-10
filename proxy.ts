@@ -8,7 +8,16 @@ const intlMiddleware = createMiddleware(routing);
 
 async function getUserRole(supabase: SupabaseClient, userId: string): Promise<string> {
   const { data } = await supabase.from('profiles').select('role').eq('id', userId).single();
+  // Default to 'client' on DB failure — never grant admin access defensively
   return data?.role ?? 'client';
+}
+
+// Extract locale from pathname (e.g. '/ja/dashboard' → 'ja', '/en/admin' → 'en')
+function extractLocale(pathname: string): string {
+  const segment = pathname.split('/')[1];
+  return (routing.locales as readonly string[]).includes(segment)
+    ? segment
+    : routing.defaultLocale;
 }
 
 export async function proxy(request: NextRequest) {
@@ -35,7 +44,7 @@ export async function proxy(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
   const pathWithoutLocale = pathname.replace(/^\/(en|ja)/, '') || '/';
-  const locale = pathname.startsWith('/ja') ? 'ja' : 'en';
+  const locale = extractLocale(pathname);
 
   const isProtected =
     pathWithoutLocale.startsWith('/dashboard') ||

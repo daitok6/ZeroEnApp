@@ -63,10 +63,15 @@ export async function getAdminStats(supabase: SupabaseClient): Promise<AdminStat
 
 function determineHealth(
   project: { status: string; created_at: string } | null,
+  profileCreatedAt: string,
   invoices: { status: string }[],
   milestones: { status: string; due_date: string | null }[]
 ): ClientHealthStatus {
-  if (!project) return 'green';
+  if (!project) {
+    // No project yet — yellow if profile is more than 30 days old (may be stuck pre-project)
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    return profileCreatedAt < thirtyDaysAgo ? 'yellow' : 'green';
+  }
 
   // Red: paused/terminated OR overdue invoice
   if (project.status === 'paused' || project.status === 'terminated') return 'red';
@@ -88,34 +93,80 @@ function determineHealth(
 }
 
 export async function getClientList(supabase: SupabaseClient): Promise<ClientRow[]> {
+  // Batch query 1: all client profiles
   const { data: profiles } = await supabase
     .from('profiles')
-    .select('id, email, full_name')
+    .select('id, email, full_name, created_at')
     .eq('role', 'client')
     .order('created_at', { ascending: false });
 
   if (!profiles || profiles.length === 0) return [];
 
-  const rows = await Promise.all(
-    profiles.map(async (profile: { id: string; email: string; full_name: string | null }) => {
-      const { data: project } = await supabase
-        .from('projects')
-        .select('id, name, status, updated_at, created_at')
-        .eq('client_id', profile.id)
-        .single();
+  const clientIds = profiles.map((p: { id: string }) => p.id);
 
-      const [invoicesResult, milestonesResult] = project
-        ? await Promise.all([
-            supabase.from('invoices').select('status').eq('client_id', profile.id),
-            supabase.from('milestones').select('status, due_date').eq('project_id', project.id),
-          ])
-        : [{ data: [] }, { data: [] }];
+  // Batch query 2: all projects for those clients
+  const { data: projects } = await supabase
+    .from('projects')
+    .select('id, name, status, updated_at, created_at, client_id')
+    .in('client_id', clientIds);
 
-      const health = determineHealth(
-        project ?? null,
-        invoicesResult.data ?? [],
-        milestonesResult.data ?? []
-      );
+  const projectList = projects ?? [];
+  const projectIds = projectList.map((p: { id: string }) => p.id);
+
+  // Batch queries 3 & 4: overdue invoices and pending/overdue milestones
+  const [invoicesResult, milestonesResult] = projectIds.length > 0
+    ? await Promise.all([
+        supabase
+          .from('invoices')
+          .select('project_id, status')
+          .in('project_id', projectIds)
+          .eq('status', 'overdue'),
+        supabase
+          .from('milestones')
+          .select('project_id, status, due_date')
+          .in('project_id', projectIds)
+          .in('status', ['pending', 'overdue'])
+          .lt('due_date', new Date().toISOString().split('T')[0]),
+      ])
+    : [{ data: [] }, { data: [] }];
+
+  const invoiceList = invoicesResult.data ?? [];
+  const milestoneList = milestonesResult.data ?? [];
+
+  // Build lookup maps for O(1) join in memory
+  const projectByClientId = new Map<
+    string,
+    { id: string; name: string; status: string; updated_at: string; created_at: string; client_id: string }
+  >();
+  for (const project of projectList) {
+    projectByClientId.set(project.client_id, project);
+  }
+
+  const invoicesByProjectId = new Map<string, { project_id: string; status: string }[]>();
+  for (const inv of invoiceList) {
+    const existing = invoicesByProjectId.get(inv.project_id) ?? [];
+    existing.push(inv);
+    invoicesByProjectId.set(inv.project_id, existing);
+  }
+
+  const milestonesByProjectId = new Map<
+    string,
+    { project_id: string; status: string; due_date: string | null }[]
+  >();
+  for (const ms of milestoneList) {
+    const existing = milestonesByProjectId.get(ms.project_id) ?? [];
+    existing.push(ms);
+    milestonesByProjectId.set(ms.project_id, existing);
+  }
+
+  // Join in memory to build ClientRow array
+  return profiles.map(
+    (profile: { id: string; email: string; full_name: string | null; created_at: string }) => {
+      const project = projectByClientId.get(profile.id) ?? null;
+      const invoices = project ? (invoicesByProjectId.get(project.id) ?? []) : [];
+      const milestones = project ? (milestonesByProjectId.get(project.id) ?? []) : [];
+
+      const health = determineHealth(project, profile.created_at, invoices, milestones);
 
       return {
         id: profile.id,
@@ -126,8 +177,6 @@ export async function getClientList(supabase: SupabaseClient): Promise<ClientRow
         projectUpdatedAt: project?.updated_at ?? null,
         health,
       };
-    })
+    }
   );
-
-  return rows;
 }
