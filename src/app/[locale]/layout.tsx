@@ -4,8 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
+import { MarketingShell } from '@/components/layout/marketing-shell';
 import '../globals.css';
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -67,9 +66,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     >
       <body className={locale === 'ja' ? 'font-jp' : 'font-mono'}>
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main>{children}</main>
-          <Footer locale={locale} />
+          <MarketingShell locale={locale}>{children}</MarketingShell>
         </NextIntlClientProvider>
       </body>
     </html>
