@@ -437,3 +437,9 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-10 14:32] edited: `HQ/platform/src/app/[locale]/admin/layout.tsx`
 - [2026-04-10 14:42] edited: `HQ/platform/src/app/[locale]/dashboard/layout.tsx`
 - [2026-04-10 14:42] edited: `HQ/platform/src/app/[locale]/admin/layout.tsx`
+- [2026-04-10 15:01] edited: `HQ/platform/src/app/[locale]/layout.tsx`
+- [2026-04-10 15:01] edited: `HQ/platform/src/app/globals.css`
+- [2026-04-10 15:08] edited: `HQ/platform/src/components/layout/header.tsx`
+- [2026-04-10 15:08] edited: `HQ/platform/src/components/layout/header.tsx`
+- [2026-04-10 15:08] edited: `HQ/platform/src/components/layout/header.tsx`
+- [2026-04-10 15:08] edited: `HQ/platform/src/components/layout/header.tsx`
