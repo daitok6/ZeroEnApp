@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { OnboardingWizard } from '@/components/onboarding/wizard';
+import type { ApplicationData } from '@/components/onboarding/application-drawer';
 
 export const metadata: Metadata = {
   title: 'Get Started — ZeroEn',
@@ -28,15 +29,31 @@ export default async function OnboardingPage({ params }: Props) {
     .eq('id', user.id)
     .single();
 
-  // Only 'onboarding' users belong here; redirect everyone else
   if (profile?.status !== 'onboarding') {
     redirect(`/${locale}/dashboard`);
   }
 
-  // Fetch the accepted application to get the application_id for project creation
   const { data: application } = await supabase
     .from('applications')
-    .select('id')
+    .select(`
+      id,
+      idea_name,
+      idea_description,
+      problem_solved,
+      target_users,
+      competitors,
+      monetization_plan,
+      founder_name,
+      founder_background,
+      founder_commitment,
+      linkedin_url,
+      score_viability,
+      score_commitment,
+      score_feasibility,
+      score_market,
+      score_rationale,
+      created_at
+    `)
     .eq('user_id', user.id)
     .eq('status', 'accepted')
     .order('created_at', { ascending: false })
@@ -48,6 +65,7 @@ export default async function OnboardingPage({ params }: Props) {
       <OnboardingWizard
         locale={locale}
         applicationId={application?.id ?? null}
+        application={(application as ApplicationData) ?? null}
       />
     </div>
   );
