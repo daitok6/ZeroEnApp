@@ -20,7 +20,6 @@ export const step2Schema = z.object({
 
 export const step3Schema = z.object({
   founder_name: z.string().min(2, 'Name is required'),
-  founder_email: z.string().email('Please enter a valid email'),
   founder_background: z.string().min(20, 'Please tell us about your background'),
   founder_commitment: z.enum(['full-time', 'part-time', 'side-project'], {
     error: 'Please select your time commitment',

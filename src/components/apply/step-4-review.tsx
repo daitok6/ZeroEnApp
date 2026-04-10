@@ -84,7 +84,6 @@ export function Step4Review({ data, onSubmit, onBack, isSubmitting, locale }: St
         onEdit={onBack}
         fields={[
           { label: isJa ? '名前' : 'Name', value: data.founder_name },
-          { label: isJa ? 'メール' : 'Email', value: data.founder_email },
           { label: isJa ? 'バックグラウンド' : 'Background', value: data.founder_background },
           { label: isJa ? 'コミット' : 'Commitment', value: commitmentLabels[data.founder_commitment] },
           { label: 'LinkedIn', value: data.linkedin_url || (isJa ? 'なし' : 'Not provided') },

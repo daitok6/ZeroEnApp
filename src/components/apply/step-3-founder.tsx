@@ -6,7 +6,7 @@ import type { ApplicationFormData } from '@/lib/validations/application';
 
 interface Step3Props {
   data: Partial<ApplicationFormData>;
-  onNext: (data: Pick<ApplicationFormData, 'founder_name' | 'founder_email' | 'founder_background' | 'founder_commitment' | 'linkedin_url'>) => void;
+  onNext: (data: Pick<ApplicationFormData, 'founder_name' | 'founder_background' | 'founder_commitment' | 'linkedin_url'>) => void;
   onBack: () => void;
   locale: string;
 }
@@ -18,7 +18,6 @@ const errorClass = 'mt-1 text-red-400 text-xs font-mono';
 export function Step3Founder({ data, onNext, onBack, locale }: Step3Props) {
   const [formData, setFormData] = useState({
     founder_name: data.founder_name || '',
-    founder_email: data.founder_email || '',
     founder_background: data.founder_background || '',
     founder_commitment: data.founder_commitment || ('' as 'full-time' | 'part-time' | 'side-project' | ''),
     linkedin_url: data.linkedin_url || '',
@@ -60,20 +59,6 @@ export function Step3Founder({ data, onNext, onBack, locale }: Step3Props) {
           className={inputClass}
         />
         {errors.founder_name && <p className={errorClass}>{errors.founder_name}</p>}
-      </div>
-
-      <div>
-        <label className={labelClass}>
-          {isJa ? 'メールアドレス' : 'Your email'}
-        </label>
-        <input
-          type="email"
-          value={formData.founder_email}
-          onChange={(e) => setFormData({ ...formData, founder_email: e.target.value })}
-          placeholder="you@example.com"
-          className={inputClass}
-        />
-        {errors.founder_email && <p className={errorClass}>{errors.founder_email}</p>}
       </div>
 
       <div>
