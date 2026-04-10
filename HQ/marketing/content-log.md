@@ -449,3 +449,12 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-10 15:17] edited: `HQ/platform/src/app/[locale]/layout.tsx`
 - [2026-04-10 15:17] created: `HQ/platform/src/components/layout/marketing-shell.tsx`
 - [2026-04-10 15:17] edited: `HQ/platform/src/app/[locale]/layout.tsx`
+- [2026-04-10 15:25] edited: `HQ/platform/src/lib/validations/application.ts`
+- [2026-04-10 15:25] edited: `HQ/platform/src/components/apply/step-3-founder.tsx`
+- [2026-04-10 15:25] edited: `HQ/platform/src/components/apply/step-3-founder.tsx`
+- [2026-04-10 15:25] edited: `HQ/platform/src/components/apply/step-3-founder.tsx`
+- [2026-04-10 15:25] edited: `HQ/platform/src/components/apply/step-4-review.tsx`
+- [2026-04-10 15:25] edited: `HQ/platform/src/app/api/applications/submit/route.ts`
+- [2026-04-10 15:25] edited: `HQ/platform/src/app/api/applications/submit/route.ts`
+- [2026-04-10 15:25] edited: `HQ/platform/src/app/api/applications/submit/route.ts`
+- [2026-04-10 15:45] created: `HQ/platform/src/app/[locale]/admin/clients/page.tsx`
