@@ -88,14 +88,14 @@
 | Role | Font | Weight | Use |
 |---|---|---|---|
 | Logo wordmark | DM Sans | 500, 700 | Logo only — not for website body |
-| EN headings | IBM Plex Mono | 700, 900 | Hero, section titles, CTAs |
+| EN headings | Syne | 700, 800 | Hero, section titles, CTAs |
 | EN body / UI | IBM Plex Mono | 400, 500 | Body copy, labels, nav |
-| JP headings | M PLUS 1 Code | 700 | Japanese hero, section titles |
-| JP body | M PLUS 1 Code | 400, 500 | Japanese body copy, UI labels |
+| JP headings | Murecho | 700 | Japanese hero, section titles |
+| JP body | Murecho | 400, 500 | Japanese body copy, UI labels |
 
 ### Google Fonts import
 ```css
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700;900&family=M+PLUS+1+Code:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Murecho:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap');
 ```
 
 ### Type scale

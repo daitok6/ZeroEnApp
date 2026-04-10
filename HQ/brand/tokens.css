@@ -22,9 +22,10 @@
   --color-light-green: #00AA55;
 
   /* ── Typography: Fonts ──────────────────────────────── */
-  --font-mono:   'IBM Plex Mono', monospace;
-  --font-jp:     'M PLUS 1 Code', monospace;
-  --font-logo:   'DM Sans', sans-serif;
+  --font-heading: 'Syne', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+  --font-jp:      'Murecho', sans-serif;
+  --font-logo:    'DM Sans', sans-serif;
 
   /* ── Typography: Scale ──────────────────────────────── */
   --text-hero:        clamp(42px, 5vw, 48px);

@@ -68,8 +68,9 @@ The full business plan is in `PRD.md`.
 - Primary accent: `#00E87A` (Electric Green)
 - Background: `#0D0D0D`
 - Text: `#F4F4F2`
-- Font (headings/UI): IBM Plex Mono
-- Font (JP): M PLUS 1 Code
+- Font (headings): Syne
+- Font (body/UI): IBM Plex Mono
+- Font (JP): Murecho
 - Font (logo wordmark only): DM Sans
 
 When building any UI — website, client app, email, PDF — import `HQ/brand/tokens.css` and follow `HQ/brand/brand-kit.md`. Never invent colors or fonts.
