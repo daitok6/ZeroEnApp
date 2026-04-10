@@ -9,15 +9,20 @@ export function OAuthButtons({ mode }: { mode: 'login' | 'signup' }) {
 
   const handleGoogle = async () => {
     setLoading(true);
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
+        skipBrowserRedirect: true,
       },
     });
     if (error) {
       console.error('OAuth error:', error);
       setLoading(false);
+      return;
+    }
+    if (data?.url) {
+      window.location.href = data.url;
     }
   };
 
