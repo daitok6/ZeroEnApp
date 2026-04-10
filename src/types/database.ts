@@ -41,6 +41,7 @@ export type Database = {
           github_repo: string | null;
           vercel_project: string | null;
           supabase_project: string | null;
+          site_url: string | null;
           onboarding_data: Json | null;
           created_at: string;
           updated_at: string;

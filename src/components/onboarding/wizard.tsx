@@ -18,9 +18,11 @@ interface Props {
   locale: string;
   applicationId: string | null;
   application: ApplicationData | null;
+  userEmail: string;
+  userName: string;
 }
 
-export function OnboardingWizard({ locale, applicationId, application }: Props) {
+export function OnboardingWizard({ locale, applicationId, application, userEmail, userName }: Props) {
   const router = useRouter();
   const isJa = locale === 'ja';
 
@@ -105,6 +107,8 @@ export function OnboardingWizard({ locale, applicationId, application }: Props) 
             onNext={(data) => { updateFormData(data); goToNext(); }}
             onBack={goToPrev}
             locale={locale}
+            userEmail={userEmail}
+            userName={userName}
           />
         )}
         {currentStep === 4 && (

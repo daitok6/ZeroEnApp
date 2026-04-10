@@ -25,7 +25,7 @@ export default async function OnboardingPage({ params }: Props) {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('status')
+    .select('status, full_name')
     .eq('id', user.id)
     .single();
 
@@ -66,6 +66,8 @@ export default async function OnboardingPage({ params }: Props) {
         locale={locale}
         applicationId={application?.id ?? null}
         application={(application as ApplicationData) ?? null}
+        userEmail={user.email ?? ''}
+        userName={profile?.full_name ?? ''}
       />
     </div>
   );

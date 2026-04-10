@@ -1,3 +1,4 @@
+import { ExternalLink } from 'lucide-react';
 import { Database } from '@/types/database';
 
 type Project = Database['public']['Tables']['projects']['Row'];
@@ -56,6 +57,17 @@ export function ProjectStatusCard({ project, locale }: ProjectStatusCardProps) {
 
       {/* Links row */}
       <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t border-[#374151]">
+        {project.site_url && (
+          <a
+            href={project.site_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-[#00E87A] font-bold text-xs font-mono hover:text-[#00E87A]/80 transition-colors"
+          >
+            <ExternalLink size={12} />
+            {locale === 'ja' ? 'サイトを見る' : 'View Live Site'} →
+          </a>
+        )}
         {project.github_repo && (
           <a
             href={project.github_repo}

@@ -1,0 +1,175 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
+import { MessageThread } from '@/components/dashboard/message-thread';
+import type { ProjectConversation } from '@/lib/admin/queries';
+
+interface Message {
+  id: string;
+  content: string;
+  created_at: string;
+  sender_id: string;
+  sender?: { full_name: string | null; avatar_url: string | null; role: string };
+}
+
+interface Props {
+  projects: ProjectConversation[];
+  initialMessages: Message[];
+  initialProjectId: string | null;
+  userId: string;
+  locale: string;
+}
+
+export function AdminMessagesClient({ projects, initialMessages, initialProjectId, userId, locale }: Props) {
+  const isJa = locale === 'ja';
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(initialProjectId);
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [loading, setLoading] = useState(false);
+  const supabase = createClient();
+
+  const selectedProject = projects.find((p) => p.id === selectedProjectId) ?? null;
+
+  useEffect(() => {
+    if (!selectedProjectId || selectedProjectId === initialProjectId) return;
+
+    setLoading(true);
+    supabase
+      .from('messages')
+      .select('*, sender:profiles(full_name, avatar_url, role)')
+      .eq('project_id', selectedProjectId)
+      .order('created_at', { ascending: true })
+      .limit(50)
+      .then(({ data }) => {
+        setMessages((data as Message[]) ?? []);
+        setLoading(false);
+      });
+  }, [selectedProjectId, initialProjectId, supabase]);
+
+  function formatTime(dateStr: string | null): string {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    const now = new Date();
+    const isToday = d.toDateString() === now.toDateString();
+    if (isToday) return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return d.toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', { month: 'short', day: 'numeric' });
+  }
+
+  const projectList = (
+    <div className="flex flex-col h-full border border-[#374151] rounded-lg overflow-hidden bg-[#111827]">
+      <div className="px-4 py-3 border-b border-[#374151] shrink-0">
+        <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest">
+          {isJa ? '全会話' : 'All Conversations'}
+        </p>
+      </div>
+      <div className="flex-1 overflow-y-auto">
+        {projects.length === 0 ? (
+          <div className="flex items-center justify-center h-32">
+            <p className="text-[#6B7280] text-sm font-mono">
+              {isJa ? 'まだ会話はありません。' : 'No conversations yet.'}
+            </p>
+          </div>
+        ) : (
+          projects.map((project) => {
+            const isSelected = project.id === selectedProjectId;
+            return (
+              <button
+                key={project.id}
+                onClick={() => setSelectedProjectId(project.id)}
+                className={`w-full text-left px-4 py-3 border-b border-[#374151] transition-colors hover:bg-[#0D0D0D]/60 ${
+                  isSelected ? 'bg-[#00E87A]/5 border-l-2 border-l-[#00E87A]' : ''
+                }`}
+              >
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <p className={`text-sm font-mono font-bold truncate ${isSelected ? 'text-[#00E87A]' : 'text-[#F4F4F2]'}`}>
+                    {project.name}
+                  </p>
+                  {project.lastMessageAt && (
+                    <time className="text-[#374151] text-xs font-mono shrink-0">
+                      {formatTime(project.lastMessageAt)}
+                    </time>
+                  )}
+                </div>
+                <p className="text-[#9CA3AF] text-xs font-mono truncate">
+                  {project.clientName ?? project.clientEmail}
+                </p>
+                {project.lastMessageContent && (
+                  <p className="text-[#6B7280] text-xs font-mono truncate mt-1">
+                    {project.lastMessageContent}
+                  </p>
+                )}
+              </button>
+            );
+          })
+        )}
+      </div>
+    </div>
+  );
+
+  const threadPanel = selectedProjectId ? (
+    loading ? (
+      <div className="flex-1 flex items-center justify-center border border-[#374151] rounded-lg bg-[#111827]">
+        <p className="text-[#6B7280] text-sm font-mono">
+          {isJa ? '読み込み中...' : 'Loading...'}
+        </p>
+      </div>
+    ) : (
+      <MessageThread
+        initialMessages={messages}
+        projectId={selectedProjectId}
+        userId={userId}
+        locale={locale}
+      />
+    )
+  ) : (
+    <div className="flex-1 flex items-center justify-center border border-[#374151] rounded-lg bg-[#111827]">
+      <p className="text-[#6B7280] text-sm font-mono">
+        {isJa ? '会話を選択してください' : 'Select a conversation'}
+      </p>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop: two-column layout */}
+      <div className="hidden md:flex gap-4 flex-1 min-h-0">
+        <div className="w-72 shrink-0 flex flex-col min-h-0">
+          {projectList}
+        </div>
+        <div className="flex-1 flex flex-col min-h-0">
+          {threadPanel}
+        </div>
+      </div>
+
+      {/* Mobile: single-view with back navigation */}
+      <div className="flex md:hidden flex-col flex-1 min-h-0">
+        {selectedProjectId ? (
+          <div className="flex flex-col flex-1 min-h-0">
+            <div className="flex items-center gap-3 mb-3 shrink-0">
+              <button
+                onClick={() => setSelectedProjectId(null)}
+                className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-[#F4F4F2] text-sm font-mono transition-colors"
+              >
+                <ArrowLeft size={14} />
+                {isJa ? '戻る' : 'Back'}
+              </button>
+              {selectedProject && (
+                <p className="text-[#F4F4F2] text-sm font-mono font-bold truncate">
+                  {selectedProject.name}
+                </p>
+              )}
+            </div>
+            <div className="flex-1 min-h-0">
+              {threadPanel}
+            </div>
+          </div>
+        ) : (
+          <div className="flex-1 min-h-0">
+            {projectList}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}

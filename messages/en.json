@@ -343,6 +343,10 @@
     "status": "Status",
     "lastUpdated": "Last Updated",
     "health": "Health",
-    "noClients": "No clients yet."
+    "noClients": "No clients yet.",
+    "messages": "Messages",
+    "allConversations": "All Conversations",
+    "noConversations": "No conversations yet.",
+    "selectConversation": "Select a conversation"
   }
 }

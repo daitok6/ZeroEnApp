@@ -1,38 +1,98 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { step3Schema } from '@/lib/validations/onboarding';
 import type { OnboardingFormData } from '@/lib/validations/onboarding';
+import { CheckCircle, FileSignature, Loader2 } from 'lucide-react';
 
 interface Props {
   data: Partial<OnboardingFormData>;
-  onNext: (data: Pick<OnboardingFormData, 'entity_name' | 'terms_accepted'>) => void;
+  onNext: (data: Pick<OnboardingFormData, 'entity_name' | 'envelope_id' | 'signing_completed'>) => void;
   onBack: () => void;
   locale: string;
+  userEmail: string;
+  userName: string;
 }
+
+type SigningStatus = 'idle' | 'loading' | 'signing' | 'completed' | 'error';
 
 const inputClass = 'w-full bg-[#111827] border border-[#374151] text-[#F4F4F2] text-sm font-mono px-4 py-3 rounded focus:outline-none focus:border-[#00E87A] placeholder:text-[#6B7280]';
 const labelClass = 'block text-[#F4F4F2] text-xs font-bold uppercase tracking-widest mb-2';
-const errorClass = 'mt-1 text-red-400 text-xs font-mono';
 
-export function Step3Terms({ data, onNext, onBack, locale }: Props) {
+export function Step3Terms({ data, onNext, onBack, locale, userEmail, userName }: Props) {
   const isJa = locale === 'ja';
   const [entityName, setEntityName] = useState(data.entity_name ?? '');
-  const [accepted, setAccepted] = useState(data.terms_accepted === true);
+  const [signingStatus, setSigningStatus] = useState<SigningStatus>(
+    data.signing_completed ? 'completed' : 'idle'
+  );
+  const [envelopeId, setEnvelopeId] = useState<string>(data.envelope_id ?? '');
   const [error, setError] = useState('');
+
+  // Listen for postMessage from the DocuSign callback window
+  const handleMessage = useCallback((event: MessageEvent) => {
+    if (event.origin !== window.location.origin) return;
+    if (event.data?.type !== 'docusign-complete') return;
+
+    if (event.data.event === 'signing_complete' && event.data.envelopeId) {
+      setEnvelopeId(event.data.envelopeId);
+      setSigningStatus('completed');
+    } else {
+      setSigningStatus('idle');
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [handleMessage]);
+
+  const handleSign = async () => {
+    setSigningStatus('loading');
+    setError('');
+
+    const returnUrl = `${window.location.origin}/api/docusign/callback`;
+
+    try {
+      const res = await fetch('/api/docusign/create-envelope', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          signerName: userName || (isJa ? '署名者' : 'Signer'),
+          signerEmail: userEmail,
+          returnUrl,
+        }),
+      });
+
+      if (!res.ok) throw new Error('Failed to create envelope');
+
+      const { signingUrl } = await res.json();
+
+      setSigningStatus('signing');
+      const popup = window.open(signingUrl, 'docusign-signing', 'width=900,height=700,scrollbars=yes');
+
+      // If popup was blocked, fall back to full redirect
+      if (!popup) {
+        window.location.href = signingUrl;
+      }
+    } catch {
+      setSigningStatus('error');
+      setError(isJa ? '署名に失敗しました。もう一度お試しください。' : 'Signing failed. Please try again.');
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = step3Schema.safeParse({
       entity_name: entityName || undefined,
-      terms_accepted: accepted || undefined,
+      envelope_id: envelopeId,
+      signing_completed: signingStatus === 'completed' ? true : undefined,
     });
     if (!result.success) {
-      setError(result.error.issues[0]?.message ?? (isJa ? '利用規約に同意する必要があります' : 'You must accept the partnership terms to continue'));
+      setError(result.error.issues[0]?.message ?? (isJa ? '契約書に署名する必要があります' : 'You must sign the agreement to continue'));
       return;
     }
     setError('');
-    onNext({ entity_name: entityName || undefined, terms_accepted: true });
+    onNext({ entity_name: entityName || undefined, envelope_id: envelopeId, signing_completed: true });
   };
 
   const terms = isJa
@@ -84,39 +144,67 @@ export function Step3Terms({ data, onNext, onBack, locale }: Props) {
         ))}
       </div>
 
-      <div className="border border-[#374151] rounded p-4">
-        <label className="flex items-start gap-3 cursor-pointer">
-          <div className="relative mt-0.5 shrink-0">
-            <input
-              type="checkbox"
-              checked={accepted}
-              onChange={(e) => {
-                setAccepted(e.target.checked);
-                if (e.target.checked) setError('');
-              }}
-              className="sr-only"
-            />
-            <div
-              className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
-                accepted
-                  ? 'bg-[#00E87A] border-[#00E87A]'
-                  : 'bg-transparent border-[#374151]'
-              }`}
-            >
-              {accepted && (
-                <svg className="w-3 h-3 text-[#0D0D0D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              )}
+      {/* Signing section */}
+      <div className="border border-[#374151] rounded p-4 space-y-3">
+        <p className="text-[#9CA3AF] text-xs font-mono uppercase tracking-widest">
+          {isJa ? '電子署名' : 'E-Signature'}
+        </p>
+
+        {signingStatus === 'completed' ? (
+          <div className="flex items-center gap-3">
+            <CheckCircle size={20} className="text-[#00E87A] shrink-0" />
+            <div>
+              <p className="text-[#F4F4F2] text-sm font-mono font-bold">
+                {isJa ? '契約署名済み' : 'Agreement Signed'}
+              </p>
+              <p className="text-[#6B7280] text-xs font-mono mt-0.5">
+                {isJa ? '次のステップに進んでください。' : 'You may proceed to the next step.'}
+              </p>
             </div>
           </div>
-          <span className="text-[#F4F4F2] text-sm font-mono leading-relaxed">
-            {isJa
-              ? '上記の条件を読み、予備的な合意として同意します。正式な契約書は追って送付されます。'
-              : 'I have read and accept the above terms as a preliminary agreement. A formal agreement will follow.'}
-          </span>
-        </label>
-        {error && <p className={errorClass}>{error}</p>}
+        ) : (
+          <div className="space-y-3">
+            <p className="text-[#F4F4F2] text-sm font-mono leading-relaxed">
+              {isJa
+                ? '上記の条件を読んで同意するには、契約書に電子署名してください。署名はDocuSignで安全に処理されます。'
+                : 'To accept the above terms, please sign the partnership agreement electronically. Signing is handled securely via DocuSign.'}
+            </p>
+
+            <button
+              type="button"
+              onClick={handleSign}
+              disabled={signingStatus === 'loading' || signingStatus === 'signing'}
+              className="flex items-center gap-2 bg-[#00E87A] text-[#0D0D0D] font-bold font-mono px-6 py-3 rounded hover:bg-[#00d070] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {signingStatus === 'loading' ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  {isJa ? '署名を準備中...' : 'Preparing...'}
+                </>
+              ) : signingStatus === 'signing' ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  {isJa ? '署名ウィンドウを確認してください' : 'Complete signing in popup...'}
+                </>
+              ) : (
+                <>
+                  <FileSignature size={16} />
+                  {isJa ? '契約に署名する' : 'Sign Agreement'}
+                </>
+              )}
+            </button>
+
+            {signingStatus === 'signing' && (
+              <p className="text-[#6B7280] text-xs font-mono">
+                {isJa
+                  ? 'ポップアップウィンドウで署名を完了してください。ブロックされた場合は、ポップアップを許可してください。'
+                  : 'Complete signing in the popup window. If blocked, allow popups for this site.'}
+              </p>
+            )}
+          </div>
+        )}
+
+        {error && <p className="text-red-400 text-xs font-mono mt-2">{error}</p>}
       </div>
 
       <div className="flex justify-between pt-4">
@@ -129,7 +217,7 @@ export function Step3Terms({ data, onNext, onBack, locale }: Props) {
         </button>
         <button
           type="submit"
-          disabled={!accepted}
+          disabled={signingStatus !== 'completed'}
           className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono px-8 py-3 rounded hover:bg-[#00d070] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {isJa ? '次へ →' : 'Next →'}

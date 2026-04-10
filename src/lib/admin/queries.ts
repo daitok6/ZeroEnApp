@@ -92,6 +92,69 @@ function determineHealth(
   return 'green';
 }
 
+export interface ProjectConversation {
+  id: string;
+  name: string;
+  status: string;
+  clientName: string | null;
+  clientEmail: string;
+  lastMessageContent: string | null;
+  lastMessageAt: string | null;
+}
+
+export async function getProjectsWithLatestMessage(supabase: SupabaseClient): Promise<ProjectConversation[]> {
+  const { data: projects } = await supabase
+    .from('projects')
+    .select('id, name, status, client_id, client:profiles!projects_client_id_fkey(full_name, email)');
+
+  if (!projects || projects.length === 0) return [];
+
+  const projectIds = projects.map((p: { id: string }) => p.id);
+
+  const { data: messages } = await supabase
+    .from('messages')
+    .select('project_id, content, created_at')
+    .in('project_id', projectIds)
+    .order('created_at', { ascending: false });
+
+  // Build a map of most recent message per project
+  const latestByProject = new Map<string, { content: string; created_at: string }>();
+  for (const msg of messages ?? []) {
+    if (!latestByProject.has(msg.project_id)) {
+      latestByProject.set(msg.project_id, { content: msg.content, created_at: msg.created_at });
+    }
+  }
+
+  const result: ProjectConversation[] = projects.map((p: {
+    id: string;
+    name: string;
+    status: string;
+    client_id: string;
+    // Supabase returns foreign key joins as arrays at the type level
+    client: { full_name: string | null; email: string }[] | { full_name: string | null; email: string } | null;
+  }) => {
+    const latest = latestByProject.get(p.id) ?? null;
+    const clientRecord = Array.isArray(p.client) ? p.client[0] : p.client;
+    return {
+      id: p.id,
+      name: p.name,
+      status: p.status,
+      clientName: clientRecord?.full_name ?? null,
+      clientEmail: clientRecord?.email ?? '',
+      lastMessageContent: latest?.content ?? null,
+      lastMessageAt: latest?.created_at ?? null,
+    };
+  });
+
+  // Sort: projects with messages first (most recent first), then projects without messages
+  return result.sort((a, b) => {
+    if (!a.lastMessageAt && !b.lastMessageAt) return 0;
+    if (!a.lastMessageAt) return 1;
+    if (!b.lastMessageAt) return -1;
+    return b.lastMessageAt.localeCompare(a.lastMessageAt);
+  });
+}
+
 export async function getClientList(supabase: SupabaseClient): Promise<ClientRow[]> {
   // Batch query 1: all client profiles
   const { data: profiles } = await supabase

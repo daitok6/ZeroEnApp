@@ -17,8 +17,9 @@ export const step2Schema = z.object({
 
 export const step3Schema = z.object({
   entity_name: z.string().optional(),
-  terms_accepted: z.literal(true, {
-    error: 'You must accept the partnership terms to continue',
+  envelope_id: z.string().min(1, 'Agreement must be signed'),
+  signing_completed: z.literal(true, {
+    error: 'You must sign the partnership agreement to continue',
   }),
 });
 

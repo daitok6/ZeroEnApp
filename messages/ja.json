@@ -310,6 +310,10 @@
     "status": "ステータス",
     "lastUpdated": "最終更新",
     "health": "ヘルス",
-    "noClients": "クライアントはまだいません。"
+    "noClients": "クライアントはまだいません。",
+    "messages": "メッセージ",
+    "allConversations": "全会話",
+    "noConversations": "まだ会話はありません。",
+    "selectConversation": "会話を選択してください"
   }
 }

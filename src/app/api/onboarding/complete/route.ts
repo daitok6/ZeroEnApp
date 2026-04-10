@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
   const { app_name, app_description, target_launch_date } = step1.data;
   const { auth_method, key_features, integrations, design_references } = step2.data;
-  const { entity_name } = step3.data;
+  const { entity_name, envelope_id } = step3.data;
   const { timezone, preferred_channel } = step4.data;
 
   const typedBody = body as Record<string, unknown>;
@@ -52,7 +52,8 @@ export async function POST(request: NextRequest) {
     integrations: integrations ?? null,
     design_references: design_references ?? null,
     entity_name: entity_name ?? null,
-    terms_accepted_at: new Date().toISOString(),
+    envelope_id,
+    signing_completed_at: new Date().toISOString(),
     timezone,
     preferred_channel,
   };
