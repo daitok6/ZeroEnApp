@@ -4,12 +4,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { LocaleSwitcher } from './locale-switcher';
 
 export function Header() {
   const locale = useLocale();
   const t = useTranslations('nav');
+  const pathname = usePathname();
+  const isAppScreen = pathname.includes('/dashboard') || pathname.includes('/admin');
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -34,50 +37,56 @@ export function Header() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          <Link
-            href={`/${locale}/how-it-works`}
-            className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
-          >
-            {t('howItWorks')}
-          </Link>
-          <Link
-            href={`/${locale}/blog`}
-            className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
-          >
-            {t('blog')}
-          </Link>
-          <Link
-            href={`/${locale}/login`}
-            className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
-          >
-            {t('login')}
-          </Link>
-        </nav>
+        {!isAppScreen && (
+          <nav className="hidden md:flex items-center gap-8">
+            <Link
+              href={`/${locale}/how-it-works`}
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+            >
+              {t('howItWorks')}
+            </Link>
+            <Link
+              href={`/${locale}/blog`}
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+            >
+              {t('blog')}
+            </Link>
+            <Link
+              href={`/${locale}/login`}
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+            >
+              {t('login')}
+            </Link>
+          </nav>
+        )}
 
         {/* Right: locale switcher + CTA */}
         <div className="hidden md:flex items-center gap-4">
           <LocaleSwitcher />
-          <Link
-            href={`/${locale}/apply`}
-            className="bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:bg-[#00E87A]/90 transition-colors uppercase"
-          >
-            {t('apply')}
-          </Link>
+          {!isAppScreen && (
+            <Link
+              href={`/${locale}/apply`}
+              className="bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:bg-[#00E87A]/90 transition-colors uppercase"
+            >
+              {t('apply')}
+            </Link>
+          )}
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden text-[#F4F4F2]"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        {/* Mobile hamburger (marketing pages only) */}
+        {!isAppScreen && (
+          <button
+            className="md:hidden text-[#F4F4F2]"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        )}
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
+      {/* Mobile menu (marketing pages only) */}
+      {!isAppScreen && mobileOpen && (
         <div className="md:hidden bg-[#0D0D0D] border-t border-[#374151] px-6 py-4 flex flex-col gap-1">
           <Link
             href={`/${locale}/how-it-works`}
