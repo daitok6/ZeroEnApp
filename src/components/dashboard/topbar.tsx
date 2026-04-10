@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { LogoutButton } from '@/components/auth/logout-button';
 
-export async function DashboardTopbar({ locale }: { locale: string }) {
+export async function DashboardTopbar({ locale, label }: { locale: string; label: string }) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
@@ -17,7 +17,7 @@ export async function DashboardTopbar({ locale }: { locale: string }) {
 
       <div className="hidden md:block">
         <p className="text-[#6B7280] text-xs font-mono">
-          {locale === 'ja' ? 'クライアントダッシュボード' : 'Client Dashboard'}
+          {label}
         </p>
       </div>
 

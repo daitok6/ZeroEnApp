@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
+import { navItems } from '@/components/dashboard/nav-items';
 
 type Props = {
   children: React.ReactNode;
@@ -22,11 +23,11 @@ export default async function DashboardLayout({ children, params }: Props) {
   return (
     <div className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row">
       {/* Desktop sidebar — hidden on mobile */}
-      <Sidebar locale={locale} />
+      <Sidebar locale={locale} items={navItems} basePath="/dashboard" />
 
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
-        <DashboardTopbar locale={locale} />
+        <DashboardTopbar locale={locale} label={locale === 'ja' ? 'クライアントダッシュボード' : 'Client Dashboard'} />
 
         {/* Content — extra bottom padding on mobile for bottom nav */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6 pb-24 md:pb-6">
@@ -35,7 +36,7 @@ export default async function DashboardLayout({ children, params }: Props) {
       </div>
 
       {/* Mobile bottom nav — hidden on md+ */}
-      <BottomNav locale={locale} />
+      <BottomNav locale={locale} items={navItems} basePath="/dashboard" />
     </div>
   );
 }
