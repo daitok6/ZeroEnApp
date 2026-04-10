@@ -356,3 +356,11 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-10 10:08] edited: `HQ/platform/src/app/[locale]/page.tsx`
 - [2026-04-10 10:08] edited: `HQ/platform/src/components/marketing/why-zeroen.tsx`
 - [2026-04-10 10:31] created: `HQ/platform/src/app/icon.svg`
+- [2026-04-10 11:02] created: `HQ/platform/supabase/migrations/0011_admin_rls_policies.sql`
+- [2026-04-10 11:02] edited: `HQ/platform/src/components/layout/header.tsx`
+- [2026-04-10 11:02] edited: `HQ/platform/src/components/layout/header.tsx`
+- [2026-04-10 11:02] edited: `HQ/platform/messages/en.json`
+- [2026-04-10 11:02] edited: `HQ/platform/messages/en.json`
+- [2026-04-10 11:02] edited: `HQ/platform/messages/ja.json`
+- [2026-04-10 11:02] edited: `HQ/platform/messages/ja.json`
+- [2026-04-10 11:04] edited: `HQ/platform/src/components/layout/header.tsx`
