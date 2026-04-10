@@ -2,6 +2,7 @@
   "nav": {
     "howItWorks": "How It Works",
     "blog": "Blog",
+    "login": "Log In",
     "apply": "Apply Free"
   },
   "home": {
@@ -327,5 +328,21 @@
       "operator-log": "Operator Log",
       "tutorial": "Tutorial"
     }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "overview": "Overview",
+    "clients": "Clients",
+    "applications": "Applications",
+    "totalClients": "Total Clients",
+    "activeProjects": "Active Projects",
+    "pendingApplications": "Pending Applications",
+    "monthlyRevenue": "Monthly Revenue",
+    "clientName": "Client",
+    "projectName": "Project",
+    "status": "Status",
+    "lastUpdated": "Last Updated",
+    "health": "Health",
+    "noClients": "No clients yet."
   }
 }

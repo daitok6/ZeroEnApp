@@ -2,6 +2,7 @@
   "nav": {
     "howItWorks": "仕組み",
     "blog": "ブログ",
+    "login": "ログイン",
     "apply": "無料で申し込む"
   },
   "home": {
@@ -294,5 +295,21 @@
       "operator-log": "オペレーターログ",
       "tutorial": "チュートリアル"
     }
+  },
+  "admin": {
+    "title": "管理ダッシュボード",
+    "overview": "概要",
+    "clients": "クライアント",
+    "applications": "応募",
+    "totalClients": "クライアント数",
+    "activeProjects": "進行中プロジェクト",
+    "pendingApplications": "審査中応募",
+    "monthlyRevenue": "月間収益",
+    "clientName": "クライアント",
+    "projectName": "プロジェクト",
+    "status": "ステータス",
+    "lastUpdated": "最終更新",
+    "health": "ヘルス",
+    "noClients": "クライアントはまだいません。"
   }
 }
