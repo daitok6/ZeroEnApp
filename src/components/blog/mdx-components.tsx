@@ -3,17 +3,17 @@ import type { MDXComponents } from 'mdx/types';
 export function getMDXComponents(): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 className="text-3xl md:text-4xl font-bold font-mono text-[#F4F4F2] mt-8 mb-4 leading-tight">
+      <h1 className="text-3xl md:text-4xl font-bold font-heading text-[#F4F4F2] mt-8 mb-4 leading-tight">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-xl md:text-2xl font-bold font-mono text-[#F4F4F2] mt-8 mb-3 border-b border-[#374151] pb-2">
+      <h2 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2] mt-8 mb-3 border-b border-[#374151] pb-2">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-lg font-bold font-mono text-[#F4F4F2] mt-6 mb-2">
+      <h3 className="text-lg font-bold font-heading text-[#F4F4F2] mt-6 mb-2">
         {children}
       </h3>
     ),

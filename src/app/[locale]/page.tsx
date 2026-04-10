@@ -165,7 +165,7 @@ export default async function HomePage({ params }: Props) {
               <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
                 Process
               </p>
-              <h2 className="text-3xl sm:text-4xl font-mono font-bold text-[#F4F4F2] mb-4">
+              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4">
                 {t('howItWorks.title')}
               </h2>
               <p className="text-[#6B7280] font-mono text-sm">
@@ -221,7 +221,7 @@ export default async function HomePage({ params }: Props) {
               <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
                 {t('valueProp.eyebrow')}
               </p>
-              <h2 className="text-3xl sm:text-4xl font-mono font-bold text-[#F4F4F2] mb-4 whitespace-pre-line">
+              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4 whitespace-pre-line">
                 {t('valueProp.title')}
               </h2>
               <p className="text-[#6B7280] font-mono text-sm">
@@ -260,7 +260,7 @@ export default async function HomePage({ params }: Props) {
                 </ul>
                 <Link
                   href={`/${locale}/apply`}
-                  className="mt-8 block text-center bg-[#00E87A] text-[#0D0D0D] font-mono font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00ff88] transition-all duration-200 shadow-[0_0_16px_rgba(0,232,122,0.4)]"
+                  className="mt-8 block text-center bg-[#00E87A] text-[#0D0D0D] font-heading font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00ff88] transition-all duration-200 shadow-[0_0_16px_rgba(0,232,122,0.4)]"
                 >
                   {t('valueProp.cta')}
                 </Link>
@@ -275,7 +275,7 @@ export default async function HomePage({ params }: Props) {
         <GreenGlowLine className="mb-24" />
         <div className="max-w-2xl mx-auto text-center">
           <ScrollReveal direction="up">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-mono font-bold text-[#F4F4F2] mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-[#F4F4F2] mb-6">
               {t('applySection.title')}
             </h2>
             <p className="text-[#6B7280] font-mono text-sm mb-10">
@@ -283,7 +283,7 @@ export default async function HomePage({ params }: Props) {
             </p>
             <Link
               href={`/${locale}/apply`}
-              className="inline-block bg-[#00E87A] text-[#0D0D0D] font-mono font-bold uppercase tracking-widest text-sm px-8 py-4 md:px-12 md:py-5 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)] hover:shadow-[0_0_48px_rgba(0,232,122,0.7)] mb-6"
+              className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-8 py-4 md:px-12 md:py-5 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)] hover:shadow-[0_0_48px_rgba(0,232,122,0.7)] mb-6"
             >
               {t('applySection.cta')}
             </Link>

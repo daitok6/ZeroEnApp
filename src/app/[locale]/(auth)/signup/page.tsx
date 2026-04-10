@@ -20,7 +20,7 @@ export default async function SignupPage({ params }: Props) {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <p className="text-[#00E87A] text-xs font-mono uppercase tracking-widest mb-2">ZeroEn</p>
-          <h1 className="text-2xl font-bold font-mono text-[#F4F4F2]">
+          <h1 className="text-2xl font-bold font-heading text-[#F4F4F2]">
             {locale === 'ja' ? 'アクセスを取得する' : 'Get Access'}
           </h1>
           <p className="text-[#9CA3AF] text-sm font-mono mt-2">

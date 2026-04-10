@@ -35,7 +35,7 @@ export default async function FilesPage({ params }: Props) {
   return (
     <div className="max-w-2xl space-y-6">
       <div>
-        <h1 className="text-xl font-bold font-mono text-[#F4F4F2]">
+        <h1 className="text-xl font-bold font-heading text-[#F4F4F2]">
           {locale === 'ja' ? 'ファイル' : 'Files'}
         </h1>
         <p className="text-[#6B7280] text-xs font-mono mt-1">

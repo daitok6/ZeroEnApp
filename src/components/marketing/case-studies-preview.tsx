@@ -37,7 +37,7 @@ export function CaseStudiesPreview({
             <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
               {eyebrow}
             </p>
-            <h2 className="text-3xl sm:text-4xl font-mono font-bold text-[#F4F4F2] mb-4">
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4">
               {title}
             </h2>
             <p className="text-[#6B7280] font-mono text-sm">{subtitle}</p>
@@ -85,7 +85,7 @@ export function CaseStudiesPreview({
                 </div>
 
                 <div className="p-5">
-                  <h3 className="text-[#F4F4F2] font-mono font-bold text-base mb-1">
+                  <h3 className="text-[#F4F4F2] font-heading font-bold text-base mb-1">
                     {item.name}
                   </h3>
                   <p className="text-[#6B7280] font-mono text-xs mb-4">

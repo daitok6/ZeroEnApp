@@ -54,7 +54,7 @@ export function Header() {
           <LocaleSwitcher />
           <Link
             href={`/${locale}/apply`}
-            className="bg-[#00E87A] text-[#0D0D0D] text-xs font-bold px-4 py-2 rounded tracking-widest hover:bg-[#00E87A]/90 transition-colors uppercase"
+            className="bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:bg-[#00E87A]/90 transition-colors uppercase"
           >
             {t('apply')}
           </Link>
@@ -90,7 +90,7 @@ export function Header() {
           <LocaleSwitcher />
           <Link
             href={`/${locale}/apply`}
-            className="flex items-center justify-center min-h-[44px] bg-[#00E87A] text-[#0D0D0D] text-xs font-bold px-4 py-3 rounded tracking-widest text-center uppercase mt-2"
+            className="flex items-center justify-center min-h-[44px] bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-3 rounded tracking-widest text-center uppercase mt-2"
             onClick={() => setMobileOpen(false)}
           >
             {t('apply')}

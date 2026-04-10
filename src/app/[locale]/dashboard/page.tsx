@@ -83,7 +83,7 @@ export default async function DashboardPage({ params }: Props) {
     <div className="space-y-6 max-w-4xl">
       {/* Page title */}
       <div>
-        <h1 className="text-xl md:text-2xl font-bold font-mono text-[#F4F4F2]">
+        <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
           {locale === 'ja' ? 'ダッシュボード' : 'Dashboard'}
         </h1>
         <p className="text-[#6B7280] text-sm font-mono mt-1">

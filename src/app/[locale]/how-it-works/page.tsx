@@ -57,7 +57,7 @@ export default async function HowItWorksPage({ params }: Props) {
           <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-4">
             {t('eyebrow')}
           </p>
-          <h1 className="text-4xl sm:text-6xl font-mono font-bold text-[#F4F4F2] mb-6">
+          <h1 className="text-4xl sm:text-6xl font-heading font-bold text-[#F4F4F2] mb-6">
             {t('title')}
           </h1>
           <p className="text-[#6B7280] font-mono text-sm max-w-xl mx-auto">
@@ -116,7 +116,7 @@ export default async function HowItWorksPage({ params }: Props) {
                           <span className="text-[#00E87A] font-mono text-xs font-bold tracking-widest">
                             ~/{num}
                           </span>
-                          <h2 className="text-[#F4F4F2] font-mono font-bold text-lg tracking-wider">
+                          <h2 className="text-[#F4F4F2] font-heading font-bold text-lg tracking-wider">
                             {t(`steps.${key}.name`)}
                           </h2>
                         </div>
@@ -143,7 +143,7 @@ export default async function HowItWorksPage({ params }: Props) {
         <GreenGlowLine className="mb-24" />
         <div className="max-w-2xl mx-auto text-center">
           <ScrollReveal direction="up">
-            <h2 className="text-3xl sm:text-4xl font-mono font-bold text-[#F4F4F2] mb-6">
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-6">
               {t('cta.title')}
             </h2>
             <p className="text-[#6B7280] font-mono text-sm mb-10">
@@ -154,7 +154,7 @@ export default async function HowItWorksPage({ params }: Props) {
               className="
                 inline-block
                 bg-[#00E87A] text-[#0D0D0D]
-                font-mono font-bold
+                font-heading font-bold
                 uppercase tracking-widest
                 text-sm
                 px-12 py-5

@@ -67,7 +67,7 @@ export function TechStackTerminal({
           <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
             {eyebrow}
           </p>
-          <h2 className="text-3xl sm:text-4xl font-mono font-bold text-[#F4F4F2] mb-4 whitespace-pre-line">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4 whitespace-pre-line">
             {title}
           </h2>
           <p className="text-[#6B7280] font-mono text-sm max-w-md mx-auto">
