@@ -1,45 +1,42 @@
--- Admin RLS policies for all client data tables
--- Allows admin users (role='admin' in profiles) to SELECT all rows across all tables
--- These policies are additive and evaluated alongside existing user policies (OR logic)
+-- Helper function: checks if the current user has role='admin' in profiles.
+-- SECURITY DEFINER bypasses RLS on the profiles table, preventing recursive
+-- policy evaluation when the admin policy for profiles references profiles itself.
+create or replace function public.is_admin()
+returns boolean language sql security definer stable as $$
+  select exists (
+    select 1 from public.profiles where id = auth.uid() and role = 'admin'
+  );
+$$;
+
+-- Grant execute to authenticated users
+grant execute on function public.is_admin() to authenticated;
 
 -- Admins can view all profiles
-CREATE POLICY "Admins can view all profiles"
-  ON public.profiles FOR SELECT
-  USING (EXISTS (
-    SELECT 1 FROM public.profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'
-  ));
+create policy "Admins can view all profiles"
+  on public.profiles for select
+  using (public.is_admin());
 
 -- Admins can view all projects
-CREATE POLICY "Admins can view all projects"
-  ON public.projects FOR SELECT
-  USING (EXISTS (
-    SELECT 1 FROM public.profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'
-  ));
+create policy "Admins can view all projects"
+  on public.projects for select
+  using (public.is_admin());
 
 -- Admins can view all milestones
-CREATE POLICY "Admins can view all milestones"
-  ON public.milestones FOR SELECT
-  USING (EXISTS (
-    SELECT 1 FROM public.profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'
-  ));
+create policy "Admins can view all milestones"
+  on public.milestones for select
+  using (public.is_admin());
 
 -- Admins can view all invoices
-CREATE POLICY "Admins can view all invoices"
-  ON public.invoices FOR SELECT
-  USING (EXISTS (
-    SELECT 1 FROM public.profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'
-  ));
+create policy "Admins can view all invoices"
+  on public.invoices for select
+  using (public.is_admin());
 
 -- Admins can view all change requests
-CREATE POLICY "Admins can view all change_requests"
-  ON public.change_requests FOR SELECT
-  USING (EXISTS (
-    SELECT 1 FROM public.profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'
-  ));
+create policy "Admins can view all change requests"
+  on public.change_requests for select
+  using (public.is_admin());
 
 -- Admins can view all applications
-CREATE POLICY "Admins can view all applications"
-  ON public.applications FOR SELECT
-  USING (EXISTS (
-    SELECT 1 FROM public.profiles WHERE profiles.id = auth.uid() AND profiles.role = 'admin'
-  ));
+create policy "Admins can view all applications"
+  on public.applications for select
+  using (public.is_admin());
