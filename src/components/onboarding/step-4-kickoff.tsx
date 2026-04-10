@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Cal, { getCalApi } from '@calcom/embed-react';
-import { useEffect } from 'react';
+import Cal from '@calcom/embed-react';
 import { step4Schema } from '@/lib/validations/onboarding';
 import type { OnboardingFormData } from '@/lib/validations/onboarding';
 
@@ -18,7 +17,6 @@ const labelClass = 'block text-[#F4F4F2] text-xs font-bold uppercase tracking-wi
 const selectClass = 'w-full bg-[#111827] border border-[#374151] text-[#F4F4F2] text-sm font-mono px-4 py-3 rounded focus:outline-none focus:border-[#00E87A]';
 const errorClass = 'mt-1 text-red-400 text-xs font-mono';
 
-// Curated list of common timezones
 const TIMEZONES = [
   'Pacific/Honolulu',
   'America/Los_Angeles',
@@ -50,20 +48,13 @@ const CHANNEL_OPTIONS = [
 
 export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: Props) {
   const isJa = locale === 'ja';
-  const calLink = process.env.NEXT_PUBLIC_CALCOM_LINK ?? 'zeroen/kickoff';
+  const calLink = process.env.NEXT_PUBLIC_CALCOM_LINK;
 
   const [formData, setFormData] = useState({
     timezone: data.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
     preferred_channel: data.preferred_channel ?? ('' as OnboardingFormData['preferred_channel']),
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    (async () => {
-      const cal = await getCalApi({ namespace: 'kickoff' });
-      cal('ui', { hideEventTypeDetails: false, layout: 'month_view' });
-    })();
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,15 +82,24 @@ export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: P
           : 'Book your kickoff call below. You can reschedule anytime.'}
       </p>
 
-      {/* Cal.com embed */}
-      <div className="rounded border border-[#374151] overflow-hidden min-h-[400px]">
-        <Cal
-          namespace="kickoff"
-          calLink={calLink}
-          style={{ width: '100%', height: '100%', overflow: 'scroll' }}
-          config={{ layout: 'month_view', theme: 'dark' }}
-        />
-      </div>
+      {/* Cal.com embed — only renders when NEXT_PUBLIC_CALCOM_LINK is set */}
+      {calLink ? (
+        <div className="rounded border border-[#374151] overflow-hidden">
+          <Cal
+            calLink={calLink}
+            style={{ width: '100%', height: '500px' }}
+            config={{ theme: 'dark' }}
+          />
+        </div>
+      ) : (
+        <div className="rounded border border-[#374151] bg-[#111827] p-6 text-center space-y-2">
+          <p className="text-[#6B7280] text-sm font-mono">
+            {isJa
+              ? 'カレンダーの予約は後ほどメールでご案内します。'
+              : "We'll send you a calendar link to book your kickoff call."}
+          </p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-2">
         <div>
