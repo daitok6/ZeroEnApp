@@ -21,6 +21,14 @@ function extractLocale(pathname: string): string {
 }
 
 export async function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // Skip locale middleware for auth callback — next-intl would redirect
+  // /auth/callback → /en/auth/callback (404), breaking the OAuth code exchange.
+  if (pathname === '/auth/callback') {
+    return NextResponse.next();
+  }
+
   // Run next-intl middleware first to handle locale routing
   const response = intlMiddleware(request);
 
@@ -42,7 +50,6 @@ export async function proxy(request: NextRequest) {
     }
   );
 
-  const pathname = request.nextUrl.pathname;
   const localePrefix = new RegExp(`^\\/(${(routing.locales as readonly string[]).join('|')})`);
   const pathWithoutLocale = pathname.replace(localePrefix, '') || '/';
   const locale = extractLocale(pathname);
