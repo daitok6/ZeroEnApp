@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { navItems, pendingNavItems, adminNavItems } from './nav-items';
+import { navItems, pendingNavItems, onboardingNavItems, adminNavItems } from './nav-items';
 
-type NavType = 'client' | 'pending' | 'admin';
+type NavType = 'client' | 'pending' | 'onboarding' | 'admin';
 
 const NAV_MAP = {
   client: navItems,
   pending: pendingNavItems,
+  onboarding: onboardingNavItems,
   admin: adminNavItems,
 } as const;
 

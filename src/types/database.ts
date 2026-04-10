@@ -11,7 +11,7 @@ export type Database = {
           avatar_url: string | null;
           locale: 'en' | 'ja';
           role: 'client' | 'admin';
-          status: 'pending' | 'approved';
+          status: 'pending' | 'onboarding' | 'approved';
           stripe_customer_id: string | null;
           created_at: string;
           updated_at: string;
@@ -23,7 +23,7 @@ export type Database = {
           avatar_url?: string | null;
           locale?: 'en' | 'ja';
           role?: 'client' | 'admin';
-          status?: 'pending' | 'approved';
+          status?: 'pending' | 'onboarding' | 'approved';
           stripe_customer_id?: string | null;
           created_at?: string;
           updated_at?: string;
@@ -41,6 +41,7 @@ export type Database = {
           github_repo: string | null;
           vercel_project: string | null;
           supabase_project: string | null;
+          onboarding_data: Json | null;
           created_at: string;
           updated_at: string;
         };

@@ -6,10 +6,10 @@ import { routing } from './src/i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
-async function getUserRole(supabase: SupabaseClient, userId: string): Promise<string> {
-  const { data } = await supabase.from('profiles').select('role').eq('id', userId).single();
-  // Default to 'client' on DB failure — never grant admin access defensively
-  return data?.role ?? 'client';
+async function getUserProfile(supabase: SupabaseClient, userId: string): Promise<{ role: string; status: string }> {
+  const { data } = await supabase.from('profiles').select('role, status').eq('id', userId).single();
+  // Default to 'client'/'pending' on DB failure — never grant admin access defensively
+  return { role: data?.role ?? 'client', status: data?.status ?? 'pending' };
 }
 
 // Extract locale from pathname (e.g. '/ja/dashboard' → 'ja', '/en/admin' → 'en')
@@ -75,17 +75,23 @@ export async function proxy(request: NextRequest) {
     }
 
     if (pathWithoutLocale.startsWith('/dashboard')) {
-      const role = await getUserRole(supabase, user.id);
-      if (role === 'admin') {
+      const profile = await getUserProfile(supabase, user.id);
+      if (profile.role === 'admin') {
         const url = request.nextUrl.clone();
         url.pathname = `/${locale}/admin`;
+        return NextResponse.redirect(url);
+      }
+      // Lock onboarding users to /dashboard/onboarding only
+      if (profile.status === 'onboarding' && !pathWithoutLocale.startsWith('/dashboard/onboarding')) {
+        const url = request.nextUrl.clone();
+        url.pathname = `/${locale}/dashboard/onboarding`;
         return NextResponse.redirect(url);
       }
     }
 
     if (pathWithoutLocale.startsWith('/admin')) {
-      const role = await getUserRole(supabase, user.id);
-      if (role !== 'admin') {
+      const profile = await getUserProfile(supabase, user.id);
+      if (profile.role !== 'admin') {
         const url = request.nextUrl.clone();
         url.pathname = `/${locale}/dashboard`;
         return NextResponse.redirect(url);
@@ -94,9 +100,9 @@ export async function proxy(request: NextRequest) {
   }
 
   if (isAuthPage && user) {
-    const role = await getUserRole(supabase, user.id);
+    const profile = await getUserProfile(supabase, user.id);
     const url = request.nextUrl.clone();
-    url.pathname = role === 'admin' ? `/${locale}/admin` : `/${locale}/dashboard`;
+    url.pathname = profile.role === 'admin' ? `/${locale}/admin` : `/${locale}/dashboard`;
     return NextResponse.redirect(url);
   }
 

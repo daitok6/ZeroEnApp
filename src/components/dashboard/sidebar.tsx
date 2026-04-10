@@ -2,14 +2,15 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { navItems, pendingNavItems, adminNavItems } from './nav-items';
+import { navItems, pendingNavItems, onboardingNavItems, adminNavItems } from './nav-items';
 import { SidebarNavLink } from './sidebar-nav-link';
 
-type NavType = 'client' | 'pending' | 'admin';
+type NavType = 'client' | 'pending' | 'onboarding' | 'admin';
 
 const NAV_MAP = {
   client: navItems,
   pending: pendingNavItems,
+  onboarding: onboardingNavItems,
   admin: adminNavItems,
 } as const;
 

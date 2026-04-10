@@ -25,7 +25,15 @@ export default async function DashboardLayout({ children, params }: Props) {
     .eq('id', user.id)
     .single();
 
-  const navType = profile?.status === 'approved' ? 'client' : 'pending';
+  const navType = profile?.status === 'approved'
+    ? 'client'
+    : profile?.status === 'onboarding'
+    ? 'onboarding'
+    : 'pending';
+
+  const topbarLabel = navType === 'onboarding'
+    ? (locale === 'ja' ? 'オンボーディング' : 'Onboarding')
+    : (locale === 'ja' ? 'クライアントダッシュボード' : 'Client Dashboard');
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
@@ -34,7 +42,7 @@ export default async function DashboardLayout({ children, params }: Props) {
 
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
-        <DashboardTopbar locale={locale} label={locale === 'ja' ? 'クライアントダッシュボード' : 'Client Dashboard'} />
+        <DashboardTopbar locale={locale} label={topbarLabel} />
 
         {/* Content — extra bottom padding on mobile for bottom nav */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6 pb-24 md:pb-6">
