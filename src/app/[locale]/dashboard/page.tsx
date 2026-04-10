@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { ProjectStatusCard } from '@/components/dashboard/project-status-card';
 import { MilestoneTracker } from '@/components/dashboard/milestone-tracker';
 import Link from 'next/link';
-import { MessageSquare, FileText, Receipt, PlusCircle } from 'lucide-react';
+import { MessageSquare, FileText, Receipt, PlusCircle, Send, ClipboardList } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -21,6 +21,65 @@ export default async function DashboardPage({ params }: Props) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect(`/${locale}/login`);
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('status')
+    .eq('id', user.id)
+    .single();
+
+  // Pending users: show apply CTA only
+  if (profile?.status !== 'approved') {
+    return (
+      <div className="space-y-6 max-w-2xl">
+        <div>
+          <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
+            {locale === 'ja' ? 'ようこそ' : 'Welcome'}
+          </h1>
+          <p className="text-[#6B7280] text-sm font-mono mt-1">
+            {locale === 'ja' ? 'ZeroEnへようこそ' : 'Get started with ZeroEn'}
+          </p>
+        </div>
+        <div className="border border-[#374151] rounded-lg bg-[#111827] p-6 space-y-4">
+          <p className="text-[#F4F4F2] font-mono text-sm leading-relaxed">
+            {locale === 'ja'
+              ? 'アカウントが作成されました。次のステップは、アプリケーションを提出することです。審査後、フルダッシュボードへのアクセスが付与されます。'
+              : "Your account is set up. The next step is to submit your application. Once reviewed and accepted, you'll get access to the full dashboard."}
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <Link
+              href={`/${locale}/dashboard/apply`}
+              className="flex items-center gap-3 p-4 border border-[#00E87A]/30 rounded-lg bg-[#00E87A]/5 hover:bg-[#00E87A]/10 hover:border-[#00E87A]/60 transition-all group"
+            >
+              <Send size={16} className="text-[#00E87A] shrink-0" />
+              <div>
+                <p className="text-[#F4F4F2] text-sm font-mono font-bold">
+                  {locale === 'ja' ? '応募する' : 'Submit Application'}
+                </p>
+                <p className="text-[#6B7280] text-xs font-mono mt-0.5">
+                  {locale === 'ja' ? 'アイデアを共有する' : 'Share your idea'}
+                </p>
+              </div>
+            </Link>
+            <Link
+              href={`/${locale}/dashboard/application-status`}
+              className="flex items-center gap-3 p-4 border border-[#374151] rounded-lg bg-[#0D0D0D] hover:border-[#00E87A]/30 transition-all group"
+            >
+              <ClipboardList size={16} className="text-[#6B7280] group-hover:text-[#00E87A] shrink-0 transition-colors" />
+              <div>
+                <p className="text-[#F4F4F2] text-sm font-mono font-bold">
+                  {locale === 'ja' ? '応募状況' : 'Application Status'}
+                </p>
+                <p className="text-[#6B7280] text-xs font-mono mt-0.5">
+                  {locale === 'ja' ? '審査状況を確認' : 'Check your status'}
+                </p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Fetch project (may not exist yet — placeholder DB returns null gracefully)
   const { data: project } = await supabase

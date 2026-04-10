@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { ApplyWizard } from '@/components/apply/wizard';
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
 
@@ -45,6 +46,14 @@ export default async function ApplyPage({ params }: Props) {
             {t('subtitle')}
           </p>
         </div>
+
+        {/* Login banner for users who already have an account */}
+        <p className="text-center text-[#6B7280] font-mono text-sm mb-8">
+          {locale === 'ja' ? 'すでにアカウントをお持ちですか？' : 'Already have an account?'}{' '}
+          <Link href={`/${locale}/login`} className="text-[#00E87A] hover:underline">
+            {locale === 'ja' ? 'ログインして応募状況を確認' : 'Log in to track your application status'}
+          </Link>
+        </p>
 
         <ApplyWizard locale={locale} />
       </div>

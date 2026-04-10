@@ -11,6 +11,7 @@ export type Database = {
           avatar_url: string | null;
           locale: 'en' | 'ja';
           role: 'client' | 'admin';
+          status: 'pending' | 'approved';
           stripe_customer_id: string | null;
           created_at: string;
           updated_at: string;
@@ -22,6 +23,7 @@ export type Database = {
           avatar_url?: string | null;
           locale?: 'en' | 'ja';
           role?: 'client' | 'admin';
+          status?: 'pending' | 'approved';
           stripe_customer_id?: string | null;
           created_at?: string;
           updated_at?: string;
@@ -150,12 +152,13 @@ export type Database = {
           score_commitment: number | null;
           score_feasibility: number | null;
           score_market: number | null;
+          user_id: string | null;
           status: 'pending' | 'reviewing' | 'accepted' | 'rejected';
           notes: string | null;
           locale: string;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['applications']['Row'], 'id' | 'created_at'> & { id?: string; created_at?: string };
+        Insert: Omit<Database['public']['Tables']['applications']['Row'], 'id' | 'created_at'> & { id?: string; created_at?: string; user_id?: string | null };
         Update: Partial<Database['public']['Tables']['applications']['Insert']>;
       };
     };

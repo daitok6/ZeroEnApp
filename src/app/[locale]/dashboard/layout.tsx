@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
-import { navItems } from '@/components/dashboard/nav-items';
+import { navItems, pendingNavItems } from '@/components/dashboard/nav-items';
 
 type Props = {
   children: React.ReactNode;
@@ -20,10 +20,18 @@ export default async function DashboardLayout({ children, params }: Props) {
     redirect(`/${locale}/login`);
   }
 
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('status')
+    .eq('id', user.id)
+    .single();
+
+  const items = profile?.status === 'approved' ? navItems : pendingNavItems;
+
   return (
     <div className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row">
       {/* Desktop sidebar — hidden on mobile */}
-      <Sidebar locale={locale} items={navItems} basePath="/dashboard" />
+      <Sidebar locale={locale} items={items} basePath="/dashboard" />
 
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
@@ -36,7 +44,7 @@ export default async function DashboardLayout({ children, params }: Props) {
       </div>
 
       {/* Mobile bottom nav — hidden on md+ */}
-      <BottomNav locale={locale} items={navItems} basePath="/dashboard" />
+      <BottomNav locale={locale} items={items} basePath="/dashboard" />
     </div>
   );
 }

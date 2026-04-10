@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send } from 'lucide-react';
 
 export const navItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/dashboard' },
@@ -16,6 +16,12 @@ export type NavItem = {
   readonly labelJa: string;
   readonly path: string;
 };
+
+// Nav for users who haven't been approved yet — apply + check status only
+export const pendingNavItems = [
+  { key: 'apply', icon: Send, labelEn: 'Apply', labelJa: '応募', path: '/dashboard/apply' },
+  { key: 'application-status', icon: ClipboardList, labelEn: 'Application Status', labelJa: '応募状況', path: '/dashboard/application-status' },
+] as const;
 
 export const adminNavItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/admin' },

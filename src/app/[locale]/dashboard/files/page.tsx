@@ -1,5 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
+import { requireApproved } from '@/lib/auth/require-approved';
 import { FilesPageClient } from '@/components/dashboard/files-page-client';
 import type { Database } from '@/types/database';
 import type { Metadata } from 'next';
@@ -13,10 +12,7 @@ type Props = { params: Promise<{ locale: string }> };
 
 export default async function FilesPage({ params }: Props) {
   const { locale } = await params;
-  const supabase = await createClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect(`/${locale}/login`);
+  const { user, supabase } = await requireApproved(locale);
 
   const { data: project } = await supabase
     .from('projects')

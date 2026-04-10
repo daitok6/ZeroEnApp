@@ -1,5 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
+import { requireApproved } from '@/lib/auth/require-approved';
 import { CheckCircle, Clock, AlertCircle, XCircle, Receipt } from 'lucide-react';
 import { PayButton } from '@/components/dashboard/pay-button';
 import type { Metadata } from 'next';
@@ -44,12 +43,7 @@ const STATUS_CONFIG = {
 
 export default async function InvoicesPage({ params }: Props) {
   const { locale } = await params;
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect(`/${locale}/login`);
+  const { user, supabase } = await requireApproved(locale);
 
   const invoices =
     (

@@ -46,11 +46,15 @@ export async function POST(request: NextRequest) {
       }
     );
 
+    // Link to user account if authenticated
+    const { data: { user } } = await supabase.auth.getUser();
+
     const { error } = await supabase
       .from('applications')
       .insert([{
         ...data,
         linkedin_url: data.linkedin_url || null,
+        user_id: user?.id ?? null,
       }]);
 
     if (error) {
