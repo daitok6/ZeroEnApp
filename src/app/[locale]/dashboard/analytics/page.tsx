@@ -24,7 +24,7 @@ export default async function AnalyticsPage({ params }: Props) {
   return (
     <div className="max-w-2xl">
       <div className="mb-6">
-        <h1 className="text-xl font-bold font-mono text-[#F4F4F2]">
+        <h1 className="text-xl font-bold font-heading text-[#F4F4F2]">
           {locale === 'ja' ? '分析レポート' : 'Analytics Reports'}
         </h1>
         <p className="text-[#6B7280] text-xs font-mono mt-1">

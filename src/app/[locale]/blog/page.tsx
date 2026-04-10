@@ -67,7 +67,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
             <p className="text-[#00E87A] text-xs font-mono uppercase tracking-widest mb-3">
               {locale === 'ja' ? 'ブログ' : 'Blog'}
             </p>
-            <h1 className="text-3xl md:text-5xl font-bold font-mono text-[#F4F4F2] mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold font-heading text-[#F4F4F2] mb-4">
               {locale === 'ja' ? 'ビルドログ' : 'Build Log'}
             </h1>
             <p className="text-[#9CA3AF] font-mono text-base md:text-lg max-w-md mx-auto">

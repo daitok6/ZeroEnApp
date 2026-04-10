@@ -34,7 +34,7 @@ export function WhyZeroEn({
           <p className="text-[#00E87A] font-mono text-xs font-bold uppercase tracking-[0.2em] mb-4">
             {eyebrow}
           </p>
-          <h2 className="text-3xl md:text-5xl font-mono font-bold text-[#F4F4F2] whitespace-pre-line mb-4">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold text-[#F4F4F2] whitespace-pre-line mb-4">
             {title}
           </h2>
           <p className="text-[#6B7280] font-mono text-sm md:text-base max-w-2xl mx-auto">
@@ -53,7 +53,7 @@ export function WhyZeroEn({
                 <p className="text-[#00E87A] font-mono text-xs font-bold tracking-widest mb-3">
                   0{i + 1}
                 </p>
-                <h3 className="text-[#F4F4F2] font-mono font-bold mb-2">
+                <h3 className="text-[#F4F4F2] font-heading font-bold mb-2">
                   {pillar.title}
                 </h3>
                 <p className="text-[#6B7280] font-mono text-sm">
@@ -72,7 +72,7 @@ export function WhyZeroEn({
           </p>
           <Link
             href={`/${locale}/apply`}
-            className="inline-block px-8 py-3 font-mono text-sm font-bold border border-[#00E87A] text-[#00E87A] rounded hover:bg-[#00E87A] hover:text-[#0D0D0D] transition-all duration-300"
+            className="inline-block px-8 py-3 font-heading text-sm font-bold border border-[#00E87A] text-[#00E87A] rounded hover:bg-[#00E87A] hover:text-[#0D0D0D] transition-all duration-300"
           >
             {ctaText}
           </Link>

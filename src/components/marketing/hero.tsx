@@ -84,7 +84,7 @@ export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
             className="
               inline-block
               bg-[#00E87A] text-[#0D0D0D]
-              font-mono font-bold
+              font-heading font-bold
               uppercase tracking-widest
               text-sm
               px-10 py-4

@@ -38,7 +38,7 @@ export default async function ApplyPage({ params }: Props) {
       <div className="max-w-3xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold font-mono text-[#F4F4F2] mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold font-heading text-[#F4F4F2] mb-4">
             {t('title')}
           </h1>
           <p className="text-[#9CA3AF] font-mono text-lg">

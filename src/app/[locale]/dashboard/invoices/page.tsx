@@ -68,7 +68,7 @@ export default async function InvoicesPage({ params }: Props) {
     <div className="max-w-3xl space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-xl font-bold font-mono text-[#F4F4F2]">
+        <h1 className="text-xl font-bold font-heading text-[#F4F4F2]">
           {locale === 'ja' ? '請求書' : 'Invoices'}
         </h1>
         <p className="text-[#6B7280] text-xs font-mono mt-1">

@@ -23,7 +23,7 @@ export function TrustSection({ eyebrow, title, points }: TrustSectionProps) {
           <p className="text-[#00E87A] font-mono text-xs font-bold uppercase tracking-[0.2em] mb-4">
             {eyebrow}
           </p>
-          <h2 className="text-3xl md:text-5xl font-mono font-bold text-[#F4F4F2]">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold text-[#F4F4F2]">
             {title}
           </h2>
         </ScrollReveal>
@@ -42,7 +42,7 @@ export function TrustSection({ eyebrow, title, points }: TrustSectionProps) {
                     size={20}
                     strokeWidth={1.5}
                   />
-                  <h3 className="text-[#F4F4F2] font-mono font-bold mb-2 text-sm">
+                  <h3 className="text-[#F4F4F2] font-heading font-bold mb-2 text-sm">
                     {point.title}
                   </h3>
                   <p className="text-[#6B7280] font-mono text-sm">

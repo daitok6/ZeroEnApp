@@ -24,7 +24,7 @@ export function NewsletterSection({
           <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
             {eyebrow}
           </p>
-          <h2 className="text-2xl sm:text-3xl font-mono font-bold text-[#F4F4F2] mb-3">
+          <h2 className="text-2xl sm:text-3xl font-heading font-bold text-[#F4F4F2] mb-3">
             {title}
           </h2>
           <p className="text-[#6B7280] font-mono text-sm mb-8">{subtitle}</p>

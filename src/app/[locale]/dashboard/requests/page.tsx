@@ -50,7 +50,7 @@ export default async function RequestsPage({ params }: Props) {
   return (
     <div className="max-w-2xl space-y-8">
       <div>
-        <h1 className="text-xl font-bold font-mono text-[#F4F4F2]">
+        <h1 className="text-xl font-bold font-heading text-[#F4F4F2]">
           {locale === 'ja' ? '変更リクエスト' : 'Change Requests'}
         </h1>
         <p className="text-[#6B7280] text-xs font-mono mt-1">

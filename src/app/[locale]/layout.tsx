@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono, M_PLUS_1_Code, DM_Sans } from 'next/font/google';
+import { IBM_Plex_Mono, Syne, Murecho, DM_Sans } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -15,7 +15,14 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: 'swap',
 });
 
-const mPlus1Code = M_PLUS_1_Code({
+const syne = Syne({
+  subsets: ['latin'],
+  weight: ['700', '800'],
+  variable: '--font-heading',
+  display: 'swap',
+});
+
+const murecho = Murecho({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
   variable: '--font-jp',
@@ -56,7 +63,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html
       lang={locale}
-      className={`${ibmPlexMono.variable} ${mPlus1Code.variable} ${dmSans.variable}`}
+      className={`${ibmPlexMono.variable} ${syne.variable} ${murecho.variable} ${dmSans.variable}`}
     >
       <body className={locale === 'ja' ? 'font-jp' : 'font-mono'}>
         <NextIntlClientProvider messages={messages}>

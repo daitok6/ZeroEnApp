@@ -52,7 +52,7 @@ export default async function TermsPage({ params }: Props) {
           <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-4">
             {t('eyebrow')}
           </p>
-          <h1 className="text-4xl sm:text-5xl font-mono font-bold text-[#F4F4F2] mb-6 whitespace-pre-line">
+          <h1 className="text-4xl sm:text-5xl font-heading font-bold text-[#F4F4F2] mb-6 whitespace-pre-line">
             {t('title')}
           </h1>
           <p className="text-[#6B7280] font-mono text-sm max-w-md mx-auto">
