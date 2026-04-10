@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProgressBar } from '@/components/apply/progress-bar';
+import { Step0Congrats } from './step-0-congrats';
 import { Step1Project } from './step-1-project';
 import { Step2Technical } from './step-2-technical';
 import { Step3Terms } from './step-3-terms';
@@ -20,7 +21,7 @@ export function OnboardingWizard({ locale, applicationId }: Props) {
   const router = useRouter();
   const isJa = locale === 'ja';
 
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Partial<OnboardingFormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -57,16 +58,9 @@ export function OnboardingWizard({ locale, applicationId }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold font-mono text-[#F4F4F2] mb-2">
-          {isJa ? 'プロジェクトを設定しましょう' : "Let's set up your project"}
-        </h1>
-        <p className="text-[#9CA3AF] text-sm font-mono">
-          {isJa ? '数ステップでプロジェクトを開始します' : 'A few steps to get your project started'}
-        </p>
-      </div>
-
-      <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+      {currentStep >= 1 && (
+        <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+      )}
 
       {error && (
         <div className="mb-6 p-4 border border-red-500/50 bg-red-500/10 rounded text-red-400 text-sm font-mono">
@@ -74,6 +68,12 @@ export function OnboardingWizard({ locale, applicationId }: Props) {
         </div>
       )}
 
+      {currentStep === 0 && (
+        <Step0Congrats
+          onNext={goToNext}
+          locale={locale}
+        />
+      )}
       {currentStep === 1 && (
         <Step1Project
           data={formData}
