@@ -43,7 +43,8 @@ export async function proxy(request: NextRequest) {
   );
 
   const pathname = request.nextUrl.pathname;
-  const pathWithoutLocale = pathname.replace(/^\/(en|ja)/, '') || '/';
+  const localePrefix = new RegExp(`^\\/(${(routing.locales as readonly string[]).join('|')})`);
+  const pathWithoutLocale = pathname.replace(localePrefix, '') || '/';
   const locale = extractLocale(pathname);
 
   const isProtected =
