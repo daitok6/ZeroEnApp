@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono, Syne, Murecho, DM_Sans } from 'next/font/google';
+import { IBM_Plex_Mono, Syne, Murecho, DM_Sans, DM_Mono } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -35,6 +35,13 @@ const dmSans = DM_Sans({
   display: 'swap',
 });
 
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-dm-mono',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://zeroen.dev'),
   title: {
@@ -62,7 +69,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html
       lang={locale}
-      className={`${ibmPlexMono.variable} ${syne.variable} ${murecho.variable} ${dmSans.variable}`}
+      className={`${ibmPlexMono.variable} ${syne.variable} ${murecho.variable} ${dmSans.variable} ${dmMono.variable}`}
     >
       <body className={locale === 'ja' ? 'font-jp' : 'font-mono'}>
         <NextIntlClientProvider messages={messages}>
