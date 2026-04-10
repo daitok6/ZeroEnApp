@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
-import { adminNavItems } from '@/components/dashboard/nav-items';
 
 type Props = {
   children: React.ReactNode;
@@ -34,7 +33,7 @@ export default async function AdminLayout({ children, params }: Props) {
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row">
-      <Sidebar locale={locale} items={adminNavItems} basePath="/admin" />
+      <Sidebar locale={locale} navType="admin" basePath="/admin" />
 
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
         <DashboardTopbar
@@ -47,7 +46,7 @@ export default async function AdminLayout({ children, params }: Props) {
         </main>
       </div>
 
-      <BottomNav locale={locale} items={adminNavItems} basePath="/admin" />
+      <BottomNav locale={locale} navType="admin" basePath="/admin" />
     </div>
   );
 }

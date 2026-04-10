@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
-import { navItems, pendingNavItems } from '@/components/dashboard/nav-items';
 
 type Props = {
   children: React.ReactNode;
@@ -26,12 +25,12 @@ export default async function DashboardLayout({ children, params }: Props) {
     .eq('id', user.id)
     .single();
 
-  const items = profile?.status === 'approved' ? navItems : pendingNavItems;
+  const navType = profile?.status === 'approved' ? 'client' : 'pending';
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row">
       {/* Desktop sidebar — hidden on mobile */}
-      <Sidebar locale={locale} items={items} basePath="/dashboard" />
+      <Sidebar locale={locale} navType={navType} basePath="/dashboard" />
 
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
@@ -44,7 +43,7 @@ export default async function DashboardLayout({ children, params }: Props) {
       </div>
 
       {/* Mobile bottom nav — hidden on md+ */}
-      <BottomNav locale={locale} items={items} basePath="/dashboard" />
+      <BottomNav locale={locale} navType={navType} basePath="/dashboard" />
     </div>
   );
 }

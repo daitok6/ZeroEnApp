@@ -1,9 +1,20 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { NavItem } from './nav-items';
+import { navItems, pendingNavItems, adminNavItems } from './nav-items';
 import { SidebarNavLink } from './sidebar-nav-link';
 
-export function Sidebar({ locale, items, basePath }: { locale: string; items: readonly NavItem[]; basePath: string }) {
+type NavType = 'client' | 'pending' | 'admin';
+
+const NAV_MAP = {
+  client: navItems,
+  pending: pendingNavItems,
+  admin: adminNavItems,
+} as const;
+
+export function Sidebar({ locale, navType, basePath }: { locale: string; navType: NavType; basePath: string }) {
+  const items = NAV_MAP[navType];
   return (
     <aside className="hidden md:flex flex-col w-56 shrink-0 bg-[#0D0D0D] border-r border-[#374151] h-full">
       {/* Logo */}
