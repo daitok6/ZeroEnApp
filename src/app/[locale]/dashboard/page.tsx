@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { ProjectStatusCard } from '@/components/dashboard/project-status-card';
 import { MilestoneTracker } from '@/components/dashboard/milestone-tracker';
+import { CongratsModal } from '@/components/onboarding/congrats-modal';
 import Link from 'next/link';
 import { MessageSquare, FileText, Receipt, PlusCircle, Send, ClipboardList } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -27,6 +28,11 @@ export default async function DashboardPage({ params }: Props) {
     .select('status')
     .eq('id', user.id)
     .single();
+
+  // Onboarding users: show congrats modal overlay
+  if (profile?.status === 'onboarding') {
+    return <CongratsModal locale={locale} />;
+  }
 
   // Pending users: show apply CTA only
   if (profile?.status !== 'approved') {

@@ -81,8 +81,8 @@ export async function proxy(request: NextRequest) {
         url.pathname = `/${locale}/admin`;
         return NextResponse.redirect(url);
       }
-      // Lock onboarding users to /dashboard/onboarding only
-      if (profile.status === 'onboarding' && !pathWithoutLocale.startsWith('/dashboard/onboarding')) {
+      // Lock onboarding users — allow /dashboard (congrats modal shows there) and /dashboard/onboarding only
+      if (profile.status === 'onboarding' && pathWithoutLocale !== '/dashboard' && !pathWithoutLocale.startsWith('/dashboard/onboarding')) {
         const url = request.nextUrl.clone();
         url.pathname = `/${locale}/dashboard/onboarding`;
         return NextResponse.redirect(url);
