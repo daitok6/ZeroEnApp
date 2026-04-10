@@ -5,7 +5,6 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
-  const next = searchParams.get('next') ?? '/en/dashboard';
 
   if (code) {
     const cookieStore = await cookies();
@@ -26,9 +25,22 @@ export async function GET(request: NextRequest) {
       }
     );
 
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
-      return NextResponse.redirect(`${origin}${next}`);
+    const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+    if (!exchangeError) {
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (!userError && user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role, locale')
+          .eq('id', user.id)
+          .single();
+
+        const locale = profile?.locale ?? 'en';
+        const role = profile?.role ?? 'client';
+        const destination = role === 'admin' ? `/${locale}/admin` : `/${locale}/dashboard`;
+
+        return NextResponse.redirect(`${origin}${destination}`);
+      }
     }
   }
 

@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { navItems } from './nav-items';
+import { NavItem } from './nav-items';
 import { SidebarNavLink } from './sidebar-nav-link';
 
-export function Sidebar({ locale }: { locale: string }) {
+export function Sidebar({ locale, items, basePath }: { locale: string; items: readonly NavItem[]; basePath: string }) {
   return (
     <aside className="hidden md:flex flex-col w-56 shrink-0 bg-[#0D0D0D] border-r border-[#374151] h-full">
       {/* Logo */}
@@ -16,13 +16,13 @@ export function Sidebar({ locale }: { locale: string }) {
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 overflow-y-auto">
         <div className="space-y-1">
-          {navItems.map((item) => (
+          {items.map((item) => (
             <SidebarNavLink
               key={item.key}
               href={`/${locale}${item.path}`}
               icon={item.icon}
               label={locale === 'ja' ? item.labelJa : item.labelEn}
-              exact={item.path === '/dashboard'}
+              exact={item.path === basePath}
             />
           ))}
         </div>

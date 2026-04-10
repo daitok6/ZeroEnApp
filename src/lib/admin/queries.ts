@@ -1,0 +1,182 @@
+import type { SupabaseClient } from '@supabase/supabase-js';
+
+export type ClientHealthStatus = 'green' | 'yellow' | 'red';
+
+export interface ClientRow {
+  id: string;
+  full_name: string | null;
+  email: string;
+  projectName: string | null;
+  projectStatus: string | null;
+  projectUpdatedAt: string | null;
+  health: ClientHealthStatus;
+}
+
+export interface AdminStats {
+  totalClients: number;
+  activeProjects: number;
+  pendingApplications: number;
+  monthlyRevenueCents: number;
+}
+
+export async function getAdminStats(supabase: SupabaseClient): Promise<AdminStats> {
+  const now = new Date();
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+
+  const [
+    { count: totalClients },
+    { count: activeProjects },
+    { count: pendingApplications },
+    { data: revenueRows },
+  ] = await Promise.all([
+    supabase
+      .from('profiles')
+      .select('*', { count: 'exact', head: true })
+      .eq('role', 'client'),
+    supabase
+      .from('projects')
+      .select('*', { count: 'exact', head: true })
+      .in('status', ['building', 'launched', 'operating']),
+    supabase
+      .from('applications')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'pending'),
+    supabase
+      .from('invoices')
+      .select('amount_cents')
+      .eq('status', 'paid')
+      .gte('paid_at', monthStart),
+  ]);
+
+  const monthlyRevenueCents = (revenueRows ?? []).reduce(
+    (sum: number, row: { amount_cents: number }) => sum + (row.amount_cents ?? 0),
+    0
+  );
+
+  return {
+    totalClients: totalClients ?? 0,
+    activeProjects: activeProjects ?? 0,
+    pendingApplications: pendingApplications ?? 0,
+    monthlyRevenueCents,
+  };
+}
+
+function determineHealth(
+  project: { status: string; created_at: string } | null,
+  profileCreatedAt: string,
+  invoices: { status: string }[],
+  milestones: { status: string; due_date: string | null }[]
+): ClientHealthStatus {
+  if (!project) {
+    // No project yet — yellow if profile is more than 30 days old (may be stuck pre-project)
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    return profileCreatedAt < thirtyDaysAgo ? 'yellow' : 'green';
+  }
+
+  // Red: paused/terminated OR overdue invoice
+  if (project.status === 'paused' || project.status === 'terminated') return 'red';
+  if (invoices.some((inv) => inv.status === 'overdue')) return 'red';
+
+  // Yellow: overdue pending milestone OR stuck in onboarding > 30 days
+  const today = new Date().toISOString().split('T')[0];
+  const hasOverdueMilestone = milestones.some(
+    (m) => m.status === 'pending' && m.due_date !== null && m.due_date < today
+  );
+  if (hasOverdueMilestone) return 'yellow';
+
+  if (project.status === 'onboarding') {
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    if (project.created_at < thirtyDaysAgo) return 'yellow';
+  }
+
+  return 'green';
+}
+
+export async function getClientList(supabase: SupabaseClient): Promise<ClientRow[]> {
+  // Batch query 1: all client profiles
+  const { data: profiles } = await supabase
+    .from('profiles')
+    .select('id, email, full_name, created_at')
+    .eq('role', 'client')
+    .order('created_at', { ascending: false });
+
+  if (!profiles || profiles.length === 0) return [];
+
+  const clientIds = profiles.map((p: { id: string }) => p.id);
+
+  // Batch query 2: all projects for those clients
+  const { data: projects } = await supabase
+    .from('projects')
+    .select('id, name, status, updated_at, created_at, client_id')
+    .in('client_id', clientIds);
+
+  const projectList = projects ?? [];
+  const projectIds = projectList.map((p: { id: string }) => p.id);
+
+  // Batch queries 3 & 4: overdue invoices and pending/overdue milestones
+  const [invoicesResult, milestonesResult] = projectIds.length > 0
+    ? await Promise.all([
+        supabase
+          .from('invoices')
+          .select('project_id, status')
+          .in('project_id', projectIds)
+          .eq('status', 'overdue'),
+        supabase
+          .from('milestones')
+          .select('project_id, status, due_date')
+          .in('project_id', projectIds)
+          .in('status', ['pending', 'overdue'])
+          .lt('due_date', new Date().toISOString().split('T')[0]),
+      ])
+    : [{ data: [] }, { data: [] }];
+
+  const invoiceList = invoicesResult.data ?? [];
+  const milestoneList = milestonesResult.data ?? [];
+
+  // Build lookup maps for O(1) join in memory
+  const projectByClientId = new Map<
+    string,
+    { id: string; name: string; status: string; updated_at: string; created_at: string; client_id: string }
+  >();
+  for (const project of projectList) {
+    projectByClientId.set(project.client_id, project);
+  }
+
+  const invoicesByProjectId = new Map<string, { project_id: string; status: string }[]>();
+  for (const inv of invoiceList) {
+    const existing = invoicesByProjectId.get(inv.project_id) ?? [];
+    existing.push(inv);
+    invoicesByProjectId.set(inv.project_id, existing);
+  }
+
+  const milestonesByProjectId = new Map<
+    string,
+    { project_id: string; status: string; due_date: string | null }[]
+  >();
+  for (const ms of milestoneList) {
+    const existing = milestonesByProjectId.get(ms.project_id) ?? [];
+    existing.push(ms);
+    milestonesByProjectId.set(ms.project_id, existing);
+  }
+
+  // Join in memory to build ClientRow array
+  return profiles.map(
+    (profile: { id: string; email: string; full_name: string | null; created_at: string }) => {
+      const project = projectByClientId.get(profile.id) ?? null;
+      const invoices = project ? (invoicesByProjectId.get(project.id) ?? []) : [];
+      const milestones = project ? (milestonesByProjectId.get(project.id) ?? []) : [];
+
+      const health = determineHealth(project, profile.created_at, invoices, milestones);
+
+      return {
+        id: profile.id,
+        full_name: profile.full_name,
+        email: profile.email,
+        projectName: project?.name ?? null,
+        projectStatus: project?.status ?? null,
+        projectUpdatedAt: project?.updated_at ?? null,
+        health,
+      };
+    }
+  );
+}
