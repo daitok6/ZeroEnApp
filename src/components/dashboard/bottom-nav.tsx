@@ -2,10 +2,19 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { NavItem } from './nav-items';
+import { navItems, pendingNavItems, adminNavItems } from './nav-items';
 
-export function BottomNav({ locale, items, basePath }: { locale: string; items: readonly NavItem[]; basePath: string }) {
+type NavType = 'client' | 'pending' | 'admin';
+
+const NAV_MAP = {
+  client: navItems,
+  pending: pendingNavItems,
+  admin: adminNavItems,
+} as const;
+
+export function BottomNav({ locale, navType, basePath }: { locale: string; navType: NavType; basePath: string }) {
   const pathname = usePathname();
+  const items = NAV_MAP[navType];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#0D0D0D] border-t border-[#374151] md:hidden">
