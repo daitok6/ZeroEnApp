@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-react';
 import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList } from 'lucide-react';
 
 export const navItems = [
@@ -8,7 +9,13 @@ export const navItems = [
   { key: 'requests', icon: PlusCircle, labelEn: 'Requests', labelJa: 'リクエスト', path: '/dashboard/requests' },
 ] as const;
 
-export type NavItem = typeof navItems[number];
+export type NavItem = {
+  readonly key: string;
+  readonly icon: LucideIcon;
+  readonly labelEn: string;
+  readonly labelJa: string;
+  readonly path: string;
+};
 
 export const adminNavItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/admin' },
