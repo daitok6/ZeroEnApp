@@ -59,7 +59,7 @@ export default async function ApplicationStatusPage({ params }: Props) {
 
   const { data: application } = await supabase
     .from('applications')
-    .select('id, idea_name, status, created_at')
+    .select('id, idea_name, status, created_at, score_viability, score_commitment, score_feasibility, score_market, score_rationale')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
     .limit(1)
@@ -98,6 +98,27 @@ export default async function ApplicationStatusPage({ params }: Props) {
     { year: 'numeric', month: 'long', day: 'numeric' }
   );
 
+  const scores = [
+    application.score_viability,
+    application.score_commitment,
+    application.score_feasibility,
+    application.score_market,
+  ].filter((s) => s !== null) as number[];
+  const totalScore = scores.length === 4 ? scores.reduce((a, b) => a + b, 0) : null;
+  const rationale = application.score_rationale as {
+    viability?: string; commitment?: string; feasibility?: string; market?: string;
+    recommendation?: string; summary?: string;
+  } | null;
+
+  const scoreDimensions = [
+    { label: locale === 'ja' ? 'アイデア' : 'Idea Viability', score: application.score_viability, key: 'viability' as const },
+    { label: locale === 'ja' ? 'コミット' : 'Commitment', score: application.score_commitment, key: 'commitment' as const },
+    { label: locale === 'ja' ? '実現性' : 'Feasibility', score: application.score_feasibility, key: 'feasibility' as const },
+    { label: locale === 'ja' ? '市場性' : 'Market', score: application.score_market, key: 'market' as const },
+  ];
+
+  const canReapply = application.status === 'accepted' || application.status === 'rejected';
+
   return (
     <div className="max-w-lg space-y-6">
       <div>
@@ -128,14 +149,80 @@ export default async function ApplicationStatusPage({ params }: Props) {
         <p className="text-[#F4F4F2] font-mono text-sm font-bold">{application.idea_name}</p>
       </div>
 
-      {application.status === 'accepted' && (
-        <Link
-          href={`/${locale}/dashboard`}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-[#00E87A] text-[#0D0D0D] rounded-lg font-mono text-sm font-bold hover:bg-[#00E87A]/90 transition-colors"
-        >
-          {locale === 'ja' ? 'ダッシュボードを開く' : 'Open Dashboard'}
-        </Link>
+      {/* AI Evaluation — shown when scores are available */}
+      {totalScore !== null && (
+        <div className="border border-[#374151] rounded-lg bg-[#111827] divide-y divide-[#374151]">
+          <div className="p-4 flex items-center justify-between">
+            <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest">
+              {locale === 'ja' ? '評価結果' : 'Evaluation'}
+            </p>
+            <div className="flex items-center gap-2">
+              {rationale?.recommendation && (
+                <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded border ${
+                  rationale.recommendation === 'ACCEPT'
+                    ? 'text-[#00E87A] bg-[#00E87A]/10 border-[#00E87A]/30'
+                    : rationale.recommendation === 'BORDERLINE'
+                    ? 'text-yellow-400 bg-yellow-400/10 border-yellow-400/30'
+                    : 'text-red-400 bg-red-400/10 border-red-400/30'
+                }`}>
+                  {rationale.recommendation}
+                </span>
+              )}
+              <span className={`text-sm font-mono font-bold ${
+                totalScore >= 15 ? 'text-[#00E87A]' : totalScore >= 12 ? 'text-yellow-400' : 'text-red-400'
+              }`}>
+                {totalScore}/20
+              </span>
+            </div>
+          </div>
+
+          {scoreDimensions.map((dim) => (
+            <div key={dim.key} className="p-4 space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[#F4F4F2] font-mono text-xs font-bold">{dim.label}</span>
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1">
+                    {[1,2,3,4,5].map((pip) => (
+                      <div key={pip} className={`h-1 w-4 rounded-full ${dim.score !== null && pip <= dim.score ? 'bg-[#00E87A]' : 'bg-[#374151]'}`} />
+                    ))}
+                  </div>
+                  <span className="text-[#6B7280] font-mono text-xs">{dim.score}/5</span>
+                </div>
+              </div>
+              {rationale?.[dim.key] && (
+                <p className="text-[#9CA3AF] font-mono text-xs leading-relaxed">{rationale[dim.key]}</p>
+              )}
+            </div>
+          ))}
+
+          {rationale?.summary && (
+            <div className="p-4">
+              <p className="text-[#9CA3AF] font-mono text-xs leading-relaxed">{rationale.summary}</p>
+            </div>
+          )}
+        </div>
       )}
+
+      <div className="flex flex-col sm:flex-row gap-3">
+        {application.status === 'accepted' && (
+          <Link
+            href={`/${locale}/dashboard`}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#00E87A] text-[#0D0D0D] rounded-lg font-mono text-sm font-bold hover:bg-[#00E87A]/90 transition-colors"
+          >
+            {locale === 'ja' ? 'ダッシュボードを開く' : 'Open Dashboard'}
+          </Link>
+        )}
+
+        {canReapply && (
+          <Link
+            href={`/${locale}/dashboard/apply`}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-[#374151] text-[#F4F4F2] rounded-lg font-mono text-sm hover:border-[#00E87A]/50 hover:text-[#00E87A] transition-colors"
+          >
+            <Send size={14} />
+            {locale === 'ja' ? '新しいアイデアで再応募する' : 'Apply with a new idea'}
+          </Link>
+        )}
+      </div>
     </div>
   );
 }

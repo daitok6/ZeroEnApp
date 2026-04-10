@@ -87,6 +87,20 @@ export function applicationStatusEmail(data: {
   status: 'accepted' | 'rejected';
   locale: 'en' | 'ja';
   dashboardUrl: string;
+  evaluation?: {
+    score_viability: number | null;
+    score_commitment: number | null;
+    score_feasibility: number | null;
+    score_market: number | null;
+    rationale: {
+      viability?: string;
+      commitment?: string;
+      feasibility?: string;
+      market?: string;
+      recommendation?: string;
+      summary?: string;
+    } | null;
+  };
 }): { subject: string; html: string } {
   const isJa = data.locale === 'ja';
   const isAccepted = data.status === 'accepted';
@@ -99,6 +113,40 @@ export function applicationStatusEmail(data: {
     ? `[ZeroEn] You're in — ${data.ideaName}`
     : `[ZeroEn] Application update — ${data.ideaName}`;
 
+  const ev = data.evaluation;
+  const scores = ev
+    ? [ev.score_viability, ev.score_commitment, ev.score_feasibility, ev.score_market].filter((s) => s !== null) as number[]
+    : [];
+  const totalScore = scores.length === 4 ? scores.reduce((a, b) => a + b, 0) : null;
+
+  const scoreBlock = ev && totalScore !== null ? `
+    <div style="border: 1px solid #374151; border-radius: 8px; margin: 24px 0;">
+      <div style="padding: 12px 16px; border-bottom: 1px solid #374151; display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: #9CA3AF; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">${isJa ? '評価結果' : 'Evaluation'}</span>
+        <span style="color: ${totalScore >= 15 ? '#00E87A' : totalScore >= 12 ? '#FBBF24' : '#F87171'}; font-size: 13px; font-weight: 700;">${totalScore}/20</span>
+      </div>
+      ${[
+        { label: isJa ? 'アイデア' : 'Idea Viability', score: ev.score_viability, note: ev.rationale?.viability },
+        { label: isJa ? 'コミット' : 'Commitment', score: ev.score_commitment, note: ev.rationale?.commitment },
+        { label: isJa ? '実現性' : 'Feasibility', score: ev.score_feasibility, note: ev.rationale?.feasibility },
+        { label: isJa ? '市場性' : 'Market', score: ev.score_market, note: ev.rationale?.market },
+      ].map((d) => `
+        <div style="padding: 10px 16px; border-bottom: 1px solid #1F2937;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span style="color: #F4F4F2; font-size: 12px; font-weight: 600;">${d.label}</span>
+            <span style="color: #9CA3AF; font-size: 12px;">${d.score ?? '—'}/5</span>
+          </div>
+          ${d.note ? `<p style="color: #9CA3AF; font-size: 11px; margin: 0; line-height: 1.6;">${d.note}</p>` : ''}
+        </div>
+      `).join('')}
+      ${ev.rationale?.summary ? `
+        <div style="padding: 12px 16px;">
+          <p style="color: #9CA3AF; font-size: 12px; margin: 0; line-height: 1.7;">${ev.rationale.summary}</p>
+        </div>
+      ` : ''}
+    </div>
+  ` : '';
+
   const html = isAccepted
     ? emailWrapper(`
         ${heading(isJa ? '採択されました。' : "You're accepted.")}
@@ -107,6 +155,7 @@ export function applicationStatusEmail(data: {
           ? `${data.ideaName}のMVP構築を開始します。ダッシュボードにアクセスして、次のステップを確認してください。`
           : `We're building your MVP for ${data.ideaName}. Access your dashboard to see next steps and track progress.`
         )}
+        ${scoreBlock}
         ${ctaButton(isJa ? 'ダッシュボードを開く' : 'Open Dashboard', data.dashboardUrl)}
         ${muted(isJa
           ? '今後、キックオフコールの案内をお送りします。'
@@ -120,6 +169,7 @@ export function applicationStatusEmail(data: {
           ? `${data.ideaName}について審査しましたが、今回は採択に至りませんでした。`
           : `We reviewed your application for ${data.ideaName} and it's not a fit for us right now.`
         )}
+        ${scoreBlock}
         ${muted(isJa
           ? 'アイデアが進化した際には、ぜひ再度お申し込みください。'
           : "We encourage you to apply again as your idea evolves. Keep building."
