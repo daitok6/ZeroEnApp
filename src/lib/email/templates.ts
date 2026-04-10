@@ -1,51 +1,124 @@
 function emailWrapper(content: string): string {
   return `
-    <div style="font-family: 'IBM Plex Mono', 'Courier New', monospace; background: #0D0D0D; color: #F4F4F2; padding: 0; margin: 0;">
-      <div style="max-width: 560px; margin: 0 auto; padding: 40px 24px;">
-        <div style="margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid #374151;">
-          <span style="color: #00E87A; font-size: 20px; font-weight: 700; letter-spacing: 0.05em;">ZeroEn</span>
-        </div>
-        ${content}
-        <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #374151;">
-          <p style="color: #6B7280; font-size: 11px; margin: 0; line-height: 1.6;">
-            ZeroEn · <a href="https://zeroen.dev" style="color: #6B7280;">zeroen.dev</a> · Bring your idea to life.
-          </p>
-        </div>
-      </div>
-    </div>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; margin: 0; padding: 0;">
+      <tr>
+        <td align="center" style="padding: 48px 16px 48px 16px;">
+          <table width="560" cellpadding="0" cellspacing="0" border="0" style="max-width: 560px; width: 100%;">
+
+            <!-- Header -->
+            <tr>
+              <td style="padding-bottom: 32px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td style="padding-bottom: 12px;">
+                      <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 22px; font-weight: 700; letter-spacing: 0.06em; text-decoration: none;">ZeroEn</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-bottom: 16px;">
+                      <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;">AI Technical Co-Founder</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td width="48" height="2" style="background: #00E87A; font-size: 0; line-height: 0;">&nbsp;</td>
+                          <td width="8" height="2" style="font-size: 0; line-height: 0;">&nbsp;</td>
+                          <td height="2" style="background: #1A2A1A; font-size: 0; line-height: 0;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Content -->
+            <tr>
+              <td style="padding-bottom: 0; font-family: 'IBM Plex Mono', 'Courier New', monospace;">
+                ${content}
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="padding-top: 40px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td height="1" style="background: #1F2937; font-size: 0; line-height: 0;">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td style="padding-top: 20px;">
+                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td>
+                            <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #374151; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;">ZeroEn</span>
+                            <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #1F2937; font-size: 10px;"> &nbsp;/&nbsp; </span>
+                            <a href="https://zeroen.dev" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 10px; text-decoration: none; letter-spacing: 0.08em; opacity: 0.7;">zeroen.dev</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding-top: 8px;">
+                            <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #374151; font-size: 10px; line-height: 1.7;">Build free. Grow together. &nbsp;You're receiving this because you applied to ZeroEn.</span>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
   `;
 }
 
 function heading(text: string): string {
-  return `<h1 style="color: #F4F4F2; font-size: 22px; font-weight: 700; margin: 0 0 8px 0; line-height: 1.3;">${text}</h1>`;
+  return `<h1 style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 24px; font-weight: 700; margin: 0 0 10px 0; line-height: 1.25; letter-spacing: -0.01em;">${text}</h1>`;
 }
 
 function subheading(text: string): string {
-  return `<p style="color: #9CA3AF; font-size: 13px; margin: 0 0 24px 0; line-height: 1.6;">${text}</p>`;
+  return `<p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 13px; margin: 0 0 32px 0; line-height: 1.7; letter-spacing: 0.02em;">${text}</p>`;
 }
 
 function body(text: string): string {
-  return `<p style="color: #F4F4F2; font-size: 14px; margin: 0 0 16px 0; line-height: 1.7;">${text}</p>`;
+  return `<p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #D1D5DB; font-size: 14px; margin: 0 0 20px 0; line-height: 1.8;">${text}</p>`;
 }
 
 function muted(text: string): string {
-  return `<p style="color: #9CA3AF; font-size: 13px; margin: 0 0 12px 0; line-height: 1.6;">${text}</p>`;
+  return `<p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 12px; margin: 0 0 14px 0; line-height: 1.7; letter-spacing: 0.02em;">${text}</p>`;
 }
 
 function ctaButton(text: string, href: string): string {
   return `
-    <a href="${href}" style="display: inline-block; background: #00E87A; color: #0D0D0D; font-size: 11px; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 4px; letter-spacing: 0.1em; text-transform: uppercase; margin: 16px 0;">
-      ${text}
-    </a>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 28px 0;">
+      <tr>
+        <td align="center">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td style="background: #00E87A; border-radius: 3px;">
+                <a href="${href}" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; display: inline-block; background: #00E87A; color: #0D0D0D; font-size: 11px; font-weight: 700; text-decoration: none; padding: 16px 48px; border-radius: 3px; letter-spacing: 0.15em; text-transform: uppercase; white-space: nowrap;">${text}</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   `;
 }
 
 function dataRow(label: string, value: string): string {
   return `
-    <div style="display: flex; gap: 16px; padding: 8px 0; border-bottom: 1px solid #1F2937;">
-      <span style="color: #6B7280; font-size: 12px; min-width: 140px; flex-shrink: 0;">${label}</span>
-      <span style="color: #F4F4F2; font-size: 12px;">${value}</span>
-    </div>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td width="140" valign="top" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; padding: 10px 16px 10px 16px; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid #161616; vertical-align: top;">${label}</td>
+        <td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #E5E7EB; font-size: 12px; padding: 10px 16px 10px 0; border-bottom: 1px solid #161616; line-height: 1.6; vertical-align: top;">${value}</td>
+      </tr>
+    </table>
   `;
 }
 
@@ -61,21 +134,23 @@ export function newApplicationEmail(data: {
   locale: string;
 }): { subject: string; html: string } {
   return {
-    subject: `[ZeroEn] New Application — ${data.ideaName}`,
+    subject: `[ZeroEn] New application: ${data.ideaName} — ${data.founderName}`,
     html: emailWrapper(`
-      ${heading('New Application Received')}
-      ${subheading(`${data.founderName} wants to build something.`)}
-      <div style="border: 1px solid #374151; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
-        ${dataRow('Idea', data.ideaName)}
-        ${dataRow('Founder', data.founderName)}
-        ${dataRow('Email', data.founderEmail)}
-        ${dataRow('Commitment', data.commitment)}
-        ${dataRow('Locale', data.locale)}
-      </div>
+      ${heading('New application.')}
+      ${subheading(`${data.founderName} applied with ${data.ideaName}.`)}
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border: 1px solid #374151; border-radius: 8px; margin-bottom: 24px;">
+        <tr><td>
+          ${dataRow('Idea', data.ideaName)}
+          ${dataRow('Founder', data.founderName)}
+          ${dataRow('Email', data.founderEmail)}
+          ${dataRow('Commitment', data.commitment)}
+          ${dataRow('Locale', data.locale)}
+        </td></tr>
+      </table>
       ${body(`<strong style="color: #F4F4F2;">${data.ideaDescription}</strong>`)}
       ${muted(`Target users: ${data.targetUsers}`)}
       ${muted(`Monetization: ${data.monetization}`)}
-      ${ctaButton('Review Application', 'https://zeroen.dev/en/dashboard')}
+      ${ctaButton('Review Application', 'https://zeroen.dev/en/admin/applications')}
     `),
   };
 }
@@ -107,11 +182,11 @@ export function applicationStatusEmail(data: {
 
   const subject = isJa
     ? isAccepted
-      ? `[ZeroEn] 採択されました — ${data.ideaName}`
-      : `[ZeroEn] 申込結果について — ${data.ideaName}`
+      ? `[ZeroEn] ${data.ideaName}の採択について`
+      : `[ZeroEn] ${data.ideaName}のご応募について`
     : isAccepted
-    ? `[ZeroEn] You're in — ${data.ideaName}`
-    : `[ZeroEn] Application update — ${data.ideaName}`;
+    ? `[ZeroEn] You're in — next steps for ${data.ideaName}`
+    : `[ZeroEn] Your ZeroEn application for ${data.ideaName}`;
 
   const ev = data.evaluation;
   const scores = ev
@@ -120,59 +195,77 @@ export function applicationStatusEmail(data: {
   const totalScore = scores.length === 4 ? scores.reduce((a, b) => a + b, 0) : null;
 
   const scoreBlock = ev && totalScore !== null ? `
-    <div style="border: 1px solid #374151; border-radius: 8px; margin: 24px 0;">
-      <div style="padding: 12px 16px; border-bottom: 1px solid #374151; display: flex; justify-content: space-between; align-items: center;">
-        <span style="color: #9CA3AF; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">${isJa ? '評価結果' : 'Evaluation'}</span>
-        <span style="color: ${totalScore >= 15 ? '#00E87A' : totalScore >= 12 ? '#FBBF24' : '#F87171'}; font-size: 13px; font-weight: 700;">${totalScore}/20</span>
-      </div>
-      ${[
-        { label: isJa ? 'アイデア' : 'Idea Viability', score: ev.score_viability, note: ev.rationale?.viability },
-        { label: isJa ? 'コミット' : 'Commitment', score: ev.score_commitment, note: ev.rationale?.commitment },
-        { label: isJa ? '実現性' : 'Feasibility', score: ev.score_feasibility, note: ev.rationale?.feasibility },
-        { label: isJa ? '市場性' : 'Market', score: ev.score_market, note: ev.rationale?.market },
-      ].map((d) => `
-        <div style="padding: 10px 16px; border-bottom: 1px solid #1F2937;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-            <span style="color: #F4F4F2; font-size: 12px; font-weight: 600;">${d.label}</span>
-            <span style="color: #9CA3AF; font-size: 12px;">${d.score ?? '—'}/5</span>
-          </div>
-          ${d.note ? `<p style="color: #9CA3AF; font-size: 11px; margin: 0; line-height: 1.6;">${d.note}</p>` : ''}
-        </div>
-      `).join('')}
-      ${ev.rationale?.summary ? `
-        <div style="padding: 12px 16px;">
-          <p style="color: #9CA3AF; font-size: 12px; margin: 0; line-height: 1.7;">${ev.rationale.summary}</p>
-        </div>
-      ` : ''}
-    </div>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border: 1px solid #374151; border-radius: 8px; margin: 28px 0;">
+      <tr>
+        <td>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td style="padding: 12px 16px; border-bottom: 1px solid #374151;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;">${isJa ? '評価結果' : 'Evaluation'}</td>
+                    <td align="right" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: ${totalScore >= 15 ? '#00E87A' : totalScore >= 12 ? '#FBBF24' : '#F87171'}; font-size: 13px; font-weight: 700;">${totalScore}/20</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            ${[
+              { label: isJa ? 'アイデア' : 'Idea Viability', score: ev.score_viability, note: ev.rationale?.viability },
+              { label: isJa ? 'コミット' : 'Commitment', score: ev.score_commitment, note: ev.rationale?.commitment },
+              { label: isJa ? '実現性' : 'Feasibility', score: ev.score_feasibility, note: ev.rationale?.feasibility },
+              { label: isJa ? '市場性' : 'Market', score: ev.score_market, note: ev.rationale?.market },
+            ].map((d) => `
+              <tr>
+                <td style="padding: 10px 16px; border-bottom: 1px solid #1F2937;">
+                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 12px; font-weight: 600;">${d.label}</td>
+                      <td align="right" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 12px;">${d.score ?? '—'}/5</td>
+                    </tr>
+                    ${d.note ? `<tr><td colspan="2" style="padding-top: 4px; font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; line-height: 1.6;">${d.note}</td></tr>` : ''}
+                  </table>
+                </td>
+              </tr>
+            `).join('')}
+            ${ev.rationale?.summary ? `
+              <tr>
+                <td style="padding: 12px 16px;">
+                  <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; margin: 0; line-height: 1.7;">${ev.rationale.summary}</p>
+                </td>
+              </tr>
+            ` : ''}
+          </table>
+        </td>
+      </tr>
+    </table>
   ` : '';
 
   const html = isAccepted
     ? emailWrapper(`
-        ${heading(isJa ? '採択されました。' : "You're accepted.")}
-        ${subheading(isJa ? `${data.founderName}さん、ZeroEnへようこそ。` : `Welcome to ZeroEn, ${data.founderName}.`)}
+        ${heading(isJa ? '採択されました。' : "You're in.")}
+        ${subheading(isJa ? `${data.ideaName}を一緒に作りましょう。` : `Let's build ${data.ideaName}.`)}
         ${body(isJa
-          ? `${data.ideaName}のMVP構築を開始します。ダッシュボードにアクセスして、次のステップを確認してください。`
-          : `We're building your MVP for ${data.ideaName}. Access your dashboard to see next steps and track progress.`
+          ? '申し込みを審査し、採択しました。MVPの構築を進めます。ダッシュボードで次のステップとキックオフコールの日程調整リンクをご確認ください。'
+          : `Your application was accepted. We're building your MVP — check your dashboard for next steps and a link to schedule your kickoff call.`
         )}
         ${scoreBlock}
-        ${ctaButton(isJa ? 'ダッシュボードを開く' : 'Open Dashboard', data.dashboardUrl)}
+        ${ctaButton(isJa ? 'ダッシュボードへ' : 'Go to Dashboard', data.dashboardUrl)}
         ${muted(isJa
-          ? '今後、キックオフコールの案内をお送りします。'
-          : "We'll be in touch shortly to schedule your kickoff call."
+          ? 'キックオフの詳細はダッシュボードに記載されています。'
+          : "Kickoff call details will be in your dashboard. We move fast."
         )}
       `)
     : emailWrapper(`
-        ${heading(isJa ? '今回は見送りとなりました。' : 'Not a fit right now.')}
-        ${subheading(isJa ? `${data.founderName}さん、申し込みありがとうございました。` : `Thanks for applying, ${data.founderName}.`)}
+        ${heading(isJa ? '今回は見送りです。' : 'Not right now.')}
+        ${subheading(isJa ? `${data.founderName}さん、ご応募ありがとうございました。` : `We reviewed your application, ${data.founderName}.`)}
         ${body(isJa
-          ? `${data.ideaName}について審査しましたが、今回は採択に至りませんでした。`
-          : `We reviewed your application for ${data.ideaName} and it's not a fit for us right now.`
+          ? `${data.ideaName}について審査しました。現時点では私たちの方向性と合わないと判断しましたが、これはアイデアの優劣ではなく、私たちの現在の状況によるものです。`
+          : `We went through your application for ${data.ideaName}. It's not the right fit for us at this stage — the decision is about where we are, not where you are.`
         )}
         ${scoreBlock}
         ${muted(isJa
-          ? 'アイデアが進化した際には、ぜひ再度お申し込みください。'
-          : "We encourage you to apply again as your idea evolves. Keep building."
+          ? 'アイデアが進化したり状況が変わった際には、ぜひ改めてご応募ください。'
+          : "Ideas evolve. If yours does, apply again — we review every application on its own merits."
         )}
       `);
 
@@ -192,13 +285,13 @@ export function newMessageEmail(data: {
 
   return {
     subject: isJa
-      ? `[ZeroEn] ${data.senderName}からメッセージ`
-      : `[ZeroEn] New message from ${data.senderName}`,
+      ? `[ZeroEn] ${data.senderName}さんから${data.projectName}にメッセージが届きました`
+      : `[ZeroEn] ${data.senderName} sent a message on ${data.projectName}`,
     html: emailWrapper(`
-      ${heading(isJa ? '新しいメッセージ' : 'New Message')}
+      ${heading(isJa ? '新しいメッセージ。' : 'New message.')}
       ${subheading(isJa
-        ? `${data.senderName}さんが${data.projectName}にメッセージを送りました`
-        : `${data.senderName} sent a message on ${data.projectName}`
+        ? `${data.senderName}さんが${data.projectName}にメッセージを送りました。`
+        : `${data.senderName} wrote on ${data.projectName}.`
       )}
       <div style="border-left: 3px solid #00E87A; padding-left: 16px; margin: 16px 0;">
         ${body(`"${data.messagePreview}${data.messagePreview.length > 120 ? '...' : ''}"`)}
@@ -223,10 +316,10 @@ export function invoiceDueEmail(data: {
   return {
     subject: isJa
       ? `[ZeroEn] お支払いのご案内 — ${amount}`
-      : `[ZeroEn] Payment due — ${amount}`,
+      : `[ZeroEn] Platform fee due — ${amount}`,
     html: emailWrapper(`
-      ${heading(isJa ? 'お支払いのご案内' : 'Payment Due')}
-      ${subheading(isJa ? `${data.clientName}さん` : `Hi ${data.clientName}`)}
+      ${heading(isJa ? '請求書が届いています。' : 'Invoice ready.')}
+      ${subheading(isJa ? `${data.clientName}さん、月額利用料のお支払い期限が近づいています。` : `${data.clientName}, your monthly platform fee is due.`)}
       <div style="border: 1px solid #374151; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
         ${dataRow(isJa ? '内容' : 'Description', data.description)}
         ${dataRow(isJa ? '金額' : 'Amount', amount)}
