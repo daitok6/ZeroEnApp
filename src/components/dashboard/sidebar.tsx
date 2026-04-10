@@ -19,7 +19,7 @@ export function Sidebar({ locale, navType, basePath }: { locale: string; navType
     <aside className="hidden md:flex flex-col w-56 shrink-0 bg-[#0D0D0D] border-r border-[#374151] h-full">
       {/* Logo */}
       <div className="h-16 flex items-center px-6 border-b border-[#374151]">
-        <Link href={`/${locale}`}>
+        <Link href={`/${locale}${basePath}`}>
           <Image src="/logo-dark.svg" alt="ZeroEn" width={80} height={22} />
         </Link>
       </div>
