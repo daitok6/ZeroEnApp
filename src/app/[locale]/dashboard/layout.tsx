@@ -65,7 +65,7 @@ export default async function DashboardLayout({ children, params }: Props) {
     <div className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
       <Sidebar locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} />
 
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <DashboardTopbar locale={locale} label={topbarLabel} />
 
         <main className="flex-1 overflow-y-auto p-4 md:p-6 pb-24 md:pb-6">

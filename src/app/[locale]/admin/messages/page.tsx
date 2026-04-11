@@ -45,7 +45,7 @@ export default async function AdminMessagesPage({ params }: Props) {
     : [];
 
   return (
-    <div className="flex flex-col h-full" style={{ height: 'calc(100vh - 4rem)' }}>
+    <div className="flex flex-col h-full">
       <div className="mb-4 shrink-0">
         <h1 className="text-xl font-bold font-heading text-[#F4F4F2]">
           {locale === 'ja' ? 'メッセージ' : 'Messages'}
