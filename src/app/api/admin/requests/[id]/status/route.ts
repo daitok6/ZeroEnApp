@@ -32,14 +32,18 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
 
-  const { error } = await supabase
+  const { error, count } = await supabase
     .from('change_requests')
-    .update({ status: body.status })
+    .update({ status: body.status }, { count: 'exact' })
     .eq('id', id);
 
   if (error) {
     console.error('status update error:', error);
     return NextResponse.json({ error: 'Update failed' }, { status: 500 });
+  }
+
+  if (count === 0) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
   return NextResponse.json({ success: true });

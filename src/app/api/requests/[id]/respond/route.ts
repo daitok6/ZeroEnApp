@@ -153,5 +153,13 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   if (crErr) return NextResponse.json({ error: 'Failed to update request' }, { status: 500 });
 
+  if (body.reason && body.reason.trim()) {
+    await adminSupabase.from('request_comments').insert({
+      change_request_id: id,
+      author_id: user.id,
+      content: body.reason.trim(),
+    });
+  }
+
   return NextResponse.json({ declined: true });
 }

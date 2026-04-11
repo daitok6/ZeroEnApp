@@ -49,15 +49,27 @@ export async function POST(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'Request is not in reviewing status' }, { status: 400 });
   }
 
-  // Guard against duplicate invoices
+  // Guard against duplicate invoices — allow re-quote after decline or cancellation
   const { data: existingInvoice } = await supabase
     .from('invoices')
     .select('id')
     .eq('change_request_id', id)
+    .not('status', 'in', '("declined","cancelled")')
     .maybeSingle();
 
   if (existingInvoice) {
     return NextResponse.json({ error: 'Invoice already exists for this request' }, { status: 409 });
+  }
+
+  // Move request to quoted first — if invoice insert fails, a retry is safe (no orphan)
+  const { error: updateError } = await supabase
+    .from('change_requests')
+    .update({ status: 'quoted' })
+    .eq('id', id);
+
+  if (updateError) {
+    console.error('status update error:', updateError);
+    return NextResponse.json({ error: 'Failed to update request status' }, { status: 500 });
   }
 
   // Create invoice tied to the change request
@@ -80,17 +92,6 @@ export async function POST(request: NextRequest, { params }: Params) {
   if (invoiceError) {
     console.error('invoice insert error:', invoiceError);
     return NextResponse.json({ error: 'Failed to create invoice' }, { status: 500 });
-  }
-
-  // Move request to quoted
-  const { error: updateError } = await supabase
-    .from('change_requests')
-    .update({ status: 'quoted' })
-    .eq('id', id);
-
-  if (updateError) {
-    console.error('status update error:', updateError);
-    return NextResponse.json({ error: 'Failed to update request status' }, { status: 500 });
   }
 
   return NextResponse.json({ success: true, invoiceId: invoice.id });
