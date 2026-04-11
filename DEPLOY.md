@@ -63,10 +63,17 @@ Deploy the ZeroEn marketing site and client dashboard to Vercel at `zeroen.dev`.
 
 ## 3. Stripe Setup
 
-1. In the Stripe dashboard, create a subscription product:
-   - Name: `ZeroEn Platform Fee`
-   - Pricing: **$50.00 / month recurring**
-   - Note the **Price ID** (starts with `price_`)
+1. In the Stripe dashboard, create two subscription products for direct clients (JPY):
+
+   **Basic Plan:**
+   - Name: `ZeroEn Basic`
+   - Pricing: **¥5,000 / month recurring** — currency: JPY, amount: `5000` (JPY is zero-decimal)
+   - Note the **Price ID** → this is `STRIPE_BASIC_PRICE_ID`
+
+   **Premium Plan:**
+   - Name: `ZeroEn Premium`
+   - Pricing: **¥10,000 / month recurring** — currency: JPY, amount: `10000`
+   - Note the **Price ID** → this is `STRIPE_PREMIUM_PRICE_ID`
 
 2. Create a webhook endpoint:
    - Stripe Dashboard → **Developers → Webhooks → Add endpoint**
@@ -76,10 +83,15 @@ Deploy the ZeroEn marketing site and client dashboard to Vercel at `zeroen.dev`.
      - `invoice.payment_succeeded`
      - `invoice.payment_failed`
      - `customer.subscription.deleted`
+     - `customer.subscription.updated`
 
 3. After creating the webhook, copy the **Signing secret** (starts with `whsec_`).
 
 4. Copy your **Secret key** (`sk_live_...`) and **Publishable key** (`pk_live_...`) from **Developers → API keys**.
+
+5. Ensure your Stripe account has a **Privacy Policy URL** set:
+   - Stripe Dashboard → **Settings → Public details**
+   - Privacy policy URL: `https://zeroen.dev/en/privacy`
 
 ---
 
@@ -112,7 +124,8 @@ NEXT_PUBLIC_SITE_URL=https://zeroen.dev
 STRIPE_SECRET_KEY=                    # sk_live_... (Developers → API keys)
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=   # pk_live_... (Developers → API keys)
 STRIPE_WEBHOOK_SECRET=                # whsec_... (Developers → Webhooks → signing secret)
-STRIPE_PRICE_ID_PLATFORM=            # price_... (the $50/mo product price ID)
+STRIPE_BASIC_PRICE_ID=               # price_... (ZeroEn Basic ¥5,000/mo JPY price ID)
+STRIPE_PREMIUM_PRICE_ID=             # price_... (ZeroEn Premium ¥10,000/mo JPY price ID)
 
 # Resend
 RESEND_API_KEY=                       # re_... (Resend → API Keys)
@@ -150,7 +163,8 @@ OPERATOR_EMAIL=                       # Your email — receives application noti
    vercel env add STRIPE_SECRET_KEY
    vercel env add NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
    vercel env add STRIPE_WEBHOOK_SECRET
-   vercel env add STRIPE_PRICE_ID_PLATFORM
+   vercel env add STRIPE_BASIC_PRICE_ID
+   vercel env add STRIPE_PREMIUM_PRICE_ID
    vercel env add RESEND_API_KEY
    vercel env add RESEND_FROM_EMAIL
    vercel env add OPERATOR_EMAIL

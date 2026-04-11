@@ -96,9 +96,23 @@ export function Footer({ locale }: { locale: string }) {
           <p className="text-[#6B7280] text-xs font-mono">
             © {new Date().getFullYear()} ZeroEn. All rights reserved.
           </p>
-          <p className="text-[#6B7280] text-xs font-mono">
-            {locale === 'ja' ? '東京 · AI駆動のCTO' : 'Tokyo · AI-Powered CTO'}
-          </p>
+          <div className="flex items-center gap-4">
+            <Link
+              href={`/${locale}/terms`}
+              className="text-[#6B7280] hover:text-[#F4F4F2] text-xs font-mono transition-colors"
+            >
+              {locale === 'ja' ? '利用規約' : 'Terms'}
+            </Link>
+            <Link
+              href={`/${locale}/privacy`}
+              className="text-[#6B7280] hover:text-[#F4F4F2] text-xs font-mono transition-colors"
+            >
+              {locale === 'ja' ? 'プライバシー' : 'Privacy'}
+            </Link>
+            <p className="text-[#6B7280] text-xs font-mono">
+              {locale === 'ja' ? '東京 · AI駆動のCTO' : 'Tokyo · AI-Powered CTO'}
+            </p>
+          </div>
         </div>
       </div>
     </footer>
