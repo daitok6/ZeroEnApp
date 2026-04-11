@@ -86,7 +86,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     // Insert new project row for this client
     const { data, error } = await supabase
       .from('projects')
-      .insert({ client_id: id, ...updatePayload, status: updatePayload.status ?? 'onboarding' })
+      .insert({ client_id: id, name: 'New Project', ...updatePayload, status: updatePayload.status ?? 'onboarding' })
       .select('id, name, status, site_url, github_repo, vercel_project, plan_tier, client_visible, commitment_starts_at, stripe_subscription_id, updated_at')
       .single();
 
