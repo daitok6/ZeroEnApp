@@ -54,11 +54,13 @@ export function PlanWizard({ projectId, locale }: PlanWizardProps) {
   const [selectedPlan, setSelectedPlan] = useState<PlanTier | null>(null);
   const [committed, setCommitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const isJa = locale === 'ja';
 
   const handleSubscribe = async () => {
     if (!selectedPlan || !committed) return;
+    setError(null);
     setLoading(true);
     try {
       const res = await fetch('/api/stripe/create-checkout', {
@@ -71,14 +73,14 @@ export function PlanWizard({ projectId, locale }: PlanWizardProps) {
           projectId,
         }),
       });
-      const { url, error } = await res.json();
-      if (error) {
-        alert(error);
+      const { url, error: apiError } = await res.json();
+      if (apiError) {
+        setError(apiError);
         return;
       }
       if (url) window.location.href = url;
     } catch {
-      alert(isJa ? 'エラーが発生しました' : 'Something went wrong');
+      setError(isJa ? 'エラーが発生しました' : 'Something went wrong');
     } finally {
       setLoading(false);
     }
@@ -187,6 +189,11 @@ export function PlanWizard({ projectId, locale }: PlanWizardProps) {
           ? '登録する'
           : 'Subscribe'}
       </button>
+
+      {/* Inline error */}
+      {error && (
+        <p className="text-red-400 text-xs font-mono mt-2">{error}</p>
+      )}
 
       {/* Have questions? */}
       <div className="border border-[#374151] rounded-lg p-4 bg-[#0D0D0D]">
