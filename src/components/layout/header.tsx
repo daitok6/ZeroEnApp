@@ -51,25 +51,27 @@ export function Header() {
             >
               {t('blog')}
             </Link>
-            <Link
-              href={`/${locale}/login`}
-              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
-            >
-              {t('login')}
-            </Link>
           </nav>
         )}
 
-        {/* Right: locale switcher + CTA */}
+        {/* Right: locale switcher + CTA + Login */}
         <div className="hidden md:flex items-center gap-4">
           <LocaleSwitcher />
           {!isAppScreen && (
-            <Link
-              href={`/${locale}/login?intent=apply`}
-              className="bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:bg-[#00E87A]/90 transition-colors uppercase"
-            >
-              {t('apply')}
-            </Link>
+            <>
+              <Link
+                href={`/${locale}/login?intent=apply`}
+                className="bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:bg-[#00E87A]/90 transition-colors uppercase"
+              >
+                {t('apply')}
+              </Link>
+              <Link
+                href={`/${locale}/login`}
+                className="border border-[#F4F4F2]/30 text-[#F4F4F2] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:border-[#F4F4F2] hover:bg-[#F4F4F2]/5 transition-colors uppercase"
+              >
+                {t('login')}
+              </Link>
+            </>
           )}
         </div>
 
