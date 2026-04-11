@@ -62,15 +62,19 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   if (body.action === 'accept' && invoice.amount_cents === 0) {
     // $0 — auto-approve, no Stripe needed
-    await adminSupabase
+    const { error: invErr } = await adminSupabase
       .from('invoices')
       .update({ status: 'paid', paid_at: new Date().toISOString() })
       .eq('id', invoice.id);
 
-    await adminSupabase
+    if (invErr) return NextResponse.json({ error: 'Failed to update invoice' }, { status: 500 });
+
+    const { error: crErr } = await adminSupabase
       .from('change_requests')
       .update({ status: 'approved' })
       .eq('id', id);
+
+    if (crErr) return NextResponse.json({ error: 'Failed to approve request' }, { status: 500 });
 
     return NextResponse.json({ approved: true });
   }
@@ -90,11 +94,14 @@ export async function POST(request: NextRequest, { params }: Params) {
     let customerId = profile?.stripe_customer_id;
 
     if (!customerId) {
-      const customer = await stripe.customers.create({
-        email: profile?.email ?? user.email,
-        name: profile?.full_name ?? undefined,
-        metadata: { supabase_user_id: user.id },
-      });
+      const customer = await stripe.customers.create(
+        {
+          email: profile?.email ?? user.email,
+          name: profile?.full_name ?? undefined,
+          metadata: { supabase_user_id: user.id },
+        },
+        { idempotencyKey: `customer-${user.id}` }
+      );
       customerId = customer.id;
       await adminSupabase
         .from('profiles')
@@ -132,15 +139,19 @@ export async function POST(request: NextRequest, { params }: Params) {
   }
 
   // action === 'decline'
-  await adminSupabase
+  const { error: invErr } = await adminSupabase
     .from('invoices')
     .update({ status: 'declined' })
     .eq('id', invoice.id);
 
-  await adminSupabase
+  if (invErr) return NextResponse.json({ error: 'Failed to update invoice' }, { status: 500 });
+
+  const { error: crErr } = await adminSupabase
     .from('change_requests')
     .update({ status: 'reviewing' })
     .eq('id', id);
+
+  if (crErr) return NextResponse.json({ error: 'Failed to update request' }, { status: 500 });
 
   return NextResponse.json({ declined: true });
 }

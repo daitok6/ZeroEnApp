@@ -66,16 +66,18 @@ export async function POST(request: NextRequest) {
             .eq('id', invoiceId)
             .single();
 
-          await supabase
+          const { data: updatedInvoices } = await supabase
             .from('invoices')
             .update({
               status: 'paid',
               paid_at: new Date().toISOString(),
-              stripe_payment_intent_id: session.payment_intent as string,
+              stripe_payment_intent_id: session.payment_intent ? (session.payment_intent as string) : null,
             })
-            .eq('id', invoiceId);
+            .eq('id', invoiceId)
+            .eq('status', 'pending')
+            .select('id');
 
-          if (existingInvoice?.change_request_id) {
+          if (existingInvoice?.change_request_id && updatedInvoices && updatedInvoices.length > 0) {
             await supabase
               .from('change_requests')
               .update({ status: 'approved' })
