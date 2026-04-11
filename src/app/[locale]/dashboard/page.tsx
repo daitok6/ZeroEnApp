@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { ProjectStatusCard } from '@/components/dashboard/project-status-card';
 import { MilestoneTracker } from '@/components/dashboard/milestone-tracker';
+import { PlanSummaryCard } from '@/components/dashboard/plan-summary-card';
 import { CongratsModal } from '@/components/onboarding/congrats-modal';
 import { ResumeOnboardingBanner } from '@/components/onboarding/resume-banner';
 import { PlanWizard } from '@/components/dashboard/plan-wizard';
@@ -184,11 +185,27 @@ export default async function DashboardPage({ params, searchParams }: Props) {
         </p>
       </div>
 
-      {/* Project status + milestones — stack on mobile, side by side on md+ */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ProjectStatusCard project={project} locale={locale} />
-        <MilestoneTracker milestones={milestones} locale={locale} />
-      </div>
+      {/* Project status + plan summary + milestones */}
+      {project?.plan_tier ? (
+        <div className="space-y-4">
+          {/* Top row: project status + plan summary */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <ProjectStatusCard project={project} locale={locale} hideAdminLinks={true} />
+            <PlanSummaryCard
+              planTier={project.plan_tier}
+              commitmentStartsAt={project.commitment_starts_at ?? new Date().toISOString()}
+              locale={locale}
+            />
+          </div>
+          {/* Milestones below */}
+          <MilestoneTracker milestones={milestones} locale={locale} />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ProjectStatusCard project={project} locale={locale} />
+          <MilestoneTracker milestones={milestones} locale={locale} />
+        </div>
+      )}
 
       {/* Quick links — 2-col on mobile (2×2 grid), 4-col on md+ */}
       <div>
