@@ -10,6 +10,14 @@ export interface ClientRow {
   projectStatus: string | null;
   projectUpdatedAt: string | null;
   health: ClientHealthStatus;
+  projectId: string | null;
+  siteUrl: string | null;
+  githubRepo: string | null;
+  vercelProject: string | null;
+  planTier: 'basic' | 'premium' | null;
+  clientVisible: boolean;
+  commitmentStartsAt: string | null;
+  stripeSubscriptionId: string | null;
 }
 
 export interface AdminStats {
@@ -170,7 +178,7 @@ export async function getClientList(supabase: SupabaseClient): Promise<ClientRow
   // Batch query 2: all projects for those clients
   const { data: projects } = await supabase
     .from('projects')
-    .select('id, name, status, updated_at, created_at, client_id')
+    .select('id, name, status, updated_at, created_at, client_id, site_url, github_repo, vercel_project, plan_tier, client_visible, commitment_starts_at, stripe_subscription_id')
     .in('client_id', clientIds);
 
   const projectList = projects ?? [];
@@ -199,7 +207,21 @@ export async function getClientList(supabase: SupabaseClient): Promise<ClientRow
   // Build lookup maps for O(1) join in memory
   const projectByClientId = new Map<
     string,
-    { id: string; name: string; status: string; updated_at: string; created_at: string; client_id: string }
+    {
+      id: string;
+      name: string;
+      status: string;
+      updated_at: string;
+      created_at: string;
+      client_id: string;
+      site_url: string | null;
+      github_repo: string | null;
+      vercel_project: string | null;
+      plan_tier: 'basic' | 'premium' | null;
+      client_visible: boolean;
+      commitment_starts_at: string | null;
+      stripe_subscription_id: string | null;
+    }
   >();
   for (const project of projectList) {
     projectByClientId.set(project.client_id, project);
@@ -239,6 +261,14 @@ export async function getClientList(supabase: SupabaseClient): Promise<ClientRow
         projectStatus: project?.status ?? null,
         projectUpdatedAt: project?.updated_at ?? null,
         health,
+        projectId: project?.id ?? null,
+        siteUrl: project?.site_url ?? null,
+        githubRepo: project?.github_repo ?? null,
+        vercelProject: project?.vercel_project ?? null,
+        planTier: project?.plan_tier ?? null,
+        clientVisible: project?.client_visible ?? false,
+        commitmentStartsAt: project?.commitment_starts_at ?? null,
+        stripeSubscriptionId: project?.stripe_subscription_id ?? null,
       };
     }
   );

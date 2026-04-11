@@ -1,8 +1,8 @@
 import { createClient } from '@/lib/supabase/server';
 import { getTranslations } from 'next-intl/server';
 import { getClientList } from '@/lib/admin/queries';
+import { ClientsTable } from '@/components/admin/clients-table';
 import type { Metadata } from 'next';
-import type { ClientHealthStatus } from '@/lib/admin/queries';
 
 export const metadata: Metadata = {
   title: 'Clients — Admin — ZeroEn',
@@ -10,30 +10,6 @@ export const metadata: Metadata = {
 };
 
 type Props = { params: Promise<{ locale: string }> };
-
-const STATUS_STYLES: Record<string, string> = {
-  onboarding: 'bg-[#F59E0B] text-[#0D0D0D]',
-  building: 'bg-[#3B82F6] text-white',
-  launched: 'bg-[#00E87A] text-[#0D0D0D]',
-  operating: 'bg-[#00E87A] text-[#0D0D0D]',
-  paused: 'bg-[#374151] text-[#9CA3AF]',
-  terminated: 'bg-[#EF4444] text-white',
-};
-
-const HEALTH_COLORS: Record<ClientHealthStatus, string> = {
-  green: '#00E87A',
-  yellow: '#F59E0B',
-  red: '#EF4444',
-};
-
-function formatDate(dateStr: string | null, locale: string): string {
-  if (!dateStr) return '—';
-  return new Date(dateStr).toLocaleDateString(locale, {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
-}
 
 export default async function AdminClientsPage({ params }: Props) {
   const { locale } = await params;
@@ -52,115 +28,7 @@ export default async function AdminClientsPage({ params }: Props) {
         </p>
       </div>
 
-      {clients.length === 0 ? (
-        <div className="border border-[#374151] rounded-lg bg-[#111827] p-8 text-center">
-          <p className="text-[#6B7280] font-mono text-sm">{t('noClients')}</p>
-        </div>
-      ) : (
-        <>
-          {/* Mobile: stacked cards */}
-          <div className="flex flex-col gap-3 md:hidden">
-            {clients.map((client) => (
-              <div
-                key={client.id}
-                className="p-4 border border-[#374151] rounded-lg bg-[#111827] space-y-2"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <div className="min-w-0">
-                    <p className="text-[#F4F4F2] text-sm font-mono font-bold truncate">
-                      {client.full_name ?? client.email}
-                    </p>
-                    <p className="text-[#6B7280] text-xs font-mono truncate">{client.email}</p>
-                  </div>
-                  <span
-                    className="shrink-0 inline-block w-2 h-2 rounded-full"
-                    style={{ backgroundColor: HEALTH_COLORS[client.health] }}
-                  />
-                </div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  {client.projectName ? (
-                    <span className="text-[#9CA3AF] text-xs font-mono">
-                      {client.projectName}
-                    </span>
-                  ) : (
-                    <span className="text-[#6B7280] text-xs font-mono">—</span>
-                  )}
-                  {client.projectStatus && (
-                    <span
-                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${STATUS_STYLES[client.projectStatus] ?? 'bg-[#374151] text-[#9CA3AF]'}`}
-                    >
-                      {client.projectStatus}
-                    </span>
-                  )}
-                </div>
-                <p className="text-[#6B7280] text-xs font-mono">
-                  {t('lastUpdated')}: {formatDate(client.projectUpdatedAt, locale)}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Desktop: table layout */}
-          <div className="hidden md:block border border-[#374151] rounded-lg overflow-hidden">
-            <div className="grid grid-cols-[2fr_2fr_1fr_1fr_48px] gap-4 px-4 py-2 bg-[#111827] border-b border-[#374151]">
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">
-                {t('clientName')}
-              </p>
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">
-                {t('projectName')}
-              </p>
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">
-                {t('status')}
-              </p>
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">
-                {t('lastUpdated')}
-              </p>
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider text-center">
-                {t('health')}
-              </p>
-            </div>
-
-            {clients.map((client, idx) => (
-              <div
-                key={client.id}
-                className={`grid grid-cols-[2fr_2fr_1fr_1fr_48px] gap-4 px-4 py-3 items-center ${
-                  idx < clients.length - 1 ? 'border-b border-[#374151]' : ''
-                } hover:bg-[#111827]/60 transition-colors`}
-              >
-                <div className="min-w-0">
-                  <p className="text-[#F4F4F2] text-sm font-mono truncate">
-                    {client.full_name ?? client.email}
-                  </p>
-                  <p className="text-[#6B7280] text-xs font-mono truncate">{client.email}</p>
-                </div>
-                <p className="text-[#9CA3AF] text-sm font-mono truncate">
-                  {client.projectName ?? '—'}
-                </p>
-                <div>
-                  {client.projectStatus ? (
-                    <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded ${STATUS_STYLES[client.projectStatus] ?? 'bg-[#374151] text-[#9CA3AF]'}`}
-                    >
-                      {client.projectStatus}
-                    </span>
-                  ) : (
-                    <span className="text-[#6B7280] text-xs font-mono">—</span>
-                  )}
-                </div>
-                <p className="text-[#6B7280] text-xs font-mono">
-                  {formatDate(client.projectUpdatedAt, locale)}
-                </p>
-                <div className="flex justify-center">
-                  <span
-                    className="inline-block w-2 h-2 rounded-full"
-                    style={{ backgroundColor: HEALTH_COLORS[client.health] }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+      <ClientsTable initialClients={clients} locale={locale} />
     </div>
   );
 }

@@ -2,8 +2,11 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { ProjectStatusCard } from '@/components/dashboard/project-status-card';
 import { MilestoneTracker } from '@/components/dashboard/milestone-tracker';
+import { PlanSummaryCard } from '@/components/dashboard/plan-summary-card';
 import { CongratsModal } from '@/components/onboarding/congrats-modal';
 import { ResumeOnboardingBanner } from '@/components/onboarding/resume-banner';
+import { PlanWizard } from '@/components/dashboard/plan-wizard';
+import { SubscriptionPending } from '@/components/dashboard/subscription-pending';
 import Link from 'next/link';
 import { MessageSquare, FileText, Receipt, PlusCircle, Send, ClipboardList } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -13,10 +16,14 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ subscribed?: string }>;
+};
 
-export default async function DashboardPage({ params }: Props) {
+export default async function DashboardPage({ params, searchParams }: Props) {
   const { locale } = await params;
+  const { subscribed } = await searchParams;
   const supabase = await createClient();
 
   const {
@@ -99,6 +106,23 @@ export default async function DashboardPage({ params }: Props) {
     .eq('client_id', user.id)
     .single();
 
+  // If project is visible to client but no plan chosen → show wizard (or pending state)
+  if (project?.client_visible && !project?.plan_tier) {
+    // ?subscribed=true means Stripe checkout succeeded but webhook hasn't fired yet
+    if (subscribed === 'true') {
+      return (
+        <div className="space-y-6 max-w-2xl">
+          <SubscriptionPending locale={locale} />
+        </div>
+      );
+    }
+    return (
+      <div className="space-y-6 max-w-2xl">
+        <PlanWizard projectId={project.id} locale={locale} />
+      </div>
+    );
+  }
+
   // Fetch milestones if project exists
   const milestones = project
     ? ((
@@ -161,11 +185,29 @@ export default async function DashboardPage({ params }: Props) {
         </p>
       </div>
 
-      {/* Project status + milestones — stack on mobile, side by side on md+ */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ProjectStatusCard project={project} locale={locale} />
-        <MilestoneTracker milestones={milestones} locale={locale} />
-      </div>
+      {/* Project status + plan summary + milestones */}
+      {project?.plan_tier ? (
+        <div className="space-y-4">
+          {/* Top row: project status + plan summary */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <ProjectStatusCard project={project} locale={locale} hideAdminLinks={true} />
+            <PlanSummaryCard
+              planTier={project.plan_tier}
+              // commitment_starts_at should always be set when plan_tier is set;
+              // fallback to now() is purely defensive and should not occur in practice
+              commitmentStartsAt={project.commitment_starts_at ?? new Date().toISOString()}
+              locale={locale}
+            />
+          </div>
+          {/* Milestones below */}
+          <MilestoneTracker milestones={milestones} locale={locale} />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ProjectStatusCard project={project} locale={locale} />
+          <MilestoneTracker milestones={milestones} locale={locale} />
+        </div>
+      )}
 
       {/* Quick links — 2-col on mobile (2×2 grid), 4-col on md+ */}
       <div>

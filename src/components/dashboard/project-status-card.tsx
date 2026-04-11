@@ -6,6 +6,7 @@ type Project = Database['public']['Tables']['projects']['Row'];
 interface ProjectStatusCardProps {
   project: Project | null;
   locale: string;
+  hideAdminLinks?: boolean;
 }
 
 const STATUS_LABELS: Record<string, { en: string; ja: string; color: string }> = {
@@ -17,7 +18,7 @@ const STATUS_LABELS: Record<string, { en: string; ja: string; color: string }> =
   terminated: { en: 'Terminated', ja: '終了', color: 'text-red-400 bg-red-400/10 border-red-400/20' },
 };
 
-export function ProjectStatusCard({ project, locale }: ProjectStatusCardProps) {
+export function ProjectStatusCard({ project, locale, hideAdminLinks = false }: ProjectStatusCardProps) {
   if (!project) {
     return (
       <div className="border border-[#374151] rounded-lg p-6 bg-[#111827]">
@@ -68,7 +69,7 @@ export function ProjectStatusCard({ project, locale }: ProjectStatusCardProps) {
             {locale === 'ja' ? 'サイトを見る' : 'View Live Site'} →
           </a>
         )}
-        {project.github_repo && (
+        {!hideAdminLinks && project.github_repo && (
           <a
             href={project.github_repo}
             target="_blank"
@@ -78,7 +79,7 @@ export function ProjectStatusCard({ project, locale }: ProjectStatusCardProps) {
             GitHub →
           </a>
         )}
-        {project.vercel_project && (
+        {!hideAdminLinks && project.vercel_project && (
           <a
             href="https://vercel.com/dashboard"
             target="_blank"
