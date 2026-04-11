@@ -4,7 +4,7 @@ import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
 import { UnreadBadge } from '@/components/dashboard/unread-badge';
-import { getUnreadCounts, getTotalUnread } from '@/lib/messages/unread';
+import { getUnreadCounts } from '@/lib/messages/unread';
 
 type Props = {
   children: React.ReactNode;
@@ -38,7 +38,7 @@ export default async function DashboardLayout({ children, params }: Props) {
     : (locale === 'ja' ? 'クライアントダッシュボード' : 'Client Dashboard');
 
   // Fetch unread count for approved clients only
-  let initialUnread = 0;
+  let initialCounts: Record<string, number> = {};
   let projectIds: string[] = [];
   if (navType === 'client') {
     const { data: project } = await supabase
@@ -49,14 +49,13 @@ export default async function DashboardLayout({ children, params }: Props) {
 
     if (project) {
       projectIds = [project.id];
-      const counts = await getUnreadCounts(supabase, user.id, projectIds);
-      initialUnread = getTotalUnread(counts);
+      initialCounts = await getUnreadCounts(supabase, user.id, projectIds);
     }
   }
 
   const messagesBadge = navType === 'client' ? (
     <UnreadBadge
-      initialCount={initialUnread}
+      initialCounts={initialCounts}
       projectIds={projectIds}
       userId={user.id}
     />

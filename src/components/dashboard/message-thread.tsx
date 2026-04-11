@@ -58,7 +58,10 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
     supabase.from('message_read_status').upsert(
       { user_id: userId, project_id: projectId, last_read_at: new Date().toISOString() },
       { onConflict: 'user_id,project_id' }
-    ).then(() => {});
+    ).then(() => {
+      // Notify UnreadBadge in the nav sidebar to zero out this project's count
+      window.dispatchEvent(new CustomEvent('zeroen:message-read', { detail: { projectId } }));
+    });
   }, [projectId, userId, messages.length]);
 
   // Scroll to bottom on new messages

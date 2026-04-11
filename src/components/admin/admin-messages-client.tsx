@@ -73,8 +73,9 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
   // When a project is selected, load its messages and mark as read
   const handleSelectProject = async (projectId: string) => {
     setSelectedProjectId(projectId);
-    // Clear unread badge for this project
+    // Clear unread badge locally and notify the nav sidebar badge
     setUnreadCounts((prev) => ({ ...prev, [projectId]: 0 }));
+    window.dispatchEvent(new CustomEvent('zeroen:message-read', { detail: { projectId } }));
 
     if (projectId === initialProjectId) {
       setMessages(initialMessages);

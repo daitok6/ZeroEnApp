@@ -4,7 +4,7 @@ import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
 import { UnreadBadge } from '@/components/dashboard/unread-badge';
-import { getUnreadCounts, getTotalUnread } from '@/lib/messages/unread';
+import { getUnreadCounts } from '@/lib/messages/unread';
 
 type Props = {
   children: React.ReactNode;
@@ -34,12 +34,11 @@ export default async function AdminLayout({ children, params }: Props) {
   // Fetch all project IDs for unread count
   const { data: projects } = await supabase.from('projects').select('id');
   const projectIds = (projects ?? []).map((p: { id: string }) => p.id);
-  const counts = await getUnreadCounts(supabase, user.id, projectIds);
-  const initialUnread = getTotalUnread(counts);
+  const initialCounts = await getUnreadCounts(supabase, user.id, projectIds);
 
   const messagesBadge = (
     <UnreadBadge
-      initialCount={initialUnread}
+      initialCounts={initialCounts}
       projectIds={projectIds}
       userId={user.id}
     />
