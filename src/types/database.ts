@@ -50,7 +50,7 @@ export type Database = {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['projects']['Row'], 'id' | 'created_at' | 'updated_at'> & { id?: string; created_at?: string; updated_at?: string };
+        Insert: Omit<Database['public']['Tables']['projects']['Row'], 'id' | 'created_at' | 'updated_at' | 'client_visible'> & { id?: string; created_at?: string; updated_at?: string; client_visible?: boolean };
         Update: Partial<Database['public']['Tables']['projects']['Insert']>;
       };
       milestones: {
