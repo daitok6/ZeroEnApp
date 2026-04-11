@@ -186,7 +186,6 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
             <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">Visibility</p>
             <div className="border border-[#374151] rounded-lg bg-[#111827] p-4 space-y-3">
               <label
-                htmlFor="client-visible"
                 className="flex items-center justify-between gap-3 cursor-pointer"
               >
                 <span className="text-[#F4F4F2] font-mono text-sm">Enable Project</span>

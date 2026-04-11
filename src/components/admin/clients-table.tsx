@@ -148,9 +148,10 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
         client={selectedClient}
         onClose={() => setSelectedClient(null)}
         onSaved={(updated) => {
+          const savedId = selectedClient?.id;
           setClients((prev) =>
             prev.map((c) =>
-              c.id === selectedClient?.id ? { ...c, ...updated } : c
+              c.id === savedId ? { ...c, ...updated } : c
             )
           );
           setSelectedClient(null);
