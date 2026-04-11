@@ -1,8 +1,16 @@
 import { createClient } from '@/lib/supabase/server';
+import { createClient as createAdminClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 
 type Params = { params: Promise<{ id: string }> };
+
+function getAdminSupabase() {
+  return createAdminClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 const patchBodySchema = z.object({
   name: z.string().min(1).optional(),
@@ -14,8 +22,9 @@ const patchBodySchema = z.object({
 
 export async function PATCH(request: NextRequest, { params }: Params) {
   const { id } = await params;
-  const supabase = await createClient();
 
+  // Auth check with cookie client
+  const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -30,6 +39,9 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   if (profile?.role !== 'admin') {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
+
+  // Use service role client for writes (projects table has no RLS for authenticated users)
+  const adminSupabase = getAdminSupabase();
 
   let body: unknown;
   try {
@@ -60,7 +72,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   }
 
   // Check if a project row exists for this client
-  const { data: existing } = await supabase
+  const { data: existing } = await adminSupabase
     .from('projects')
     .select('id')
     .eq('client_id', id)
@@ -70,7 +82,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
 
   if (existing) {
     // Update existing project
-    const { data, error } = await supabase
+    const { data, error } = await adminSupabase
       .from('projects')
       .update(updatePayload)
       .eq('client_id', id)
@@ -84,7 +96,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     updatedProject = data;
   } else {
     // Insert new project row for this client
-    const { data, error } = await supabase
+    const { data, error } = await adminSupabase
       .from('projects')
       .insert({ client_id: id, name: 'New Project', ...updatePayload, status: updatePayload.status ?? 'onboarding' })
       .select('id, name, status, site_url, github_repo, vercel_project, plan_tier, client_visible, commitment_starts_at, stripe_subscription_id, updated_at')
