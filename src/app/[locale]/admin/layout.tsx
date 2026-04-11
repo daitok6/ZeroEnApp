@@ -45,7 +45,7 @@ export default async function AdminLayout({ children, params }: Props) {
   );
 
   return (
-    <div data-admin className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
+    <div data-admin className="h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
       <Sidebar locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
