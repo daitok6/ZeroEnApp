@@ -40,35 +40,38 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
     selectedProjectIdRef.current = selectedProjectId;
   }, [selectedProjectId]);
 
-  // Real-time: listen for new messages across all projects to update badges
+  // Real-time: one channel per project with an explicit filter.
+  // A no-filter subscription is unreliable when RLS uses is_admin() — Supabase
+  // silently drops events for some subscribers. Filtered channels always work.
   useEffect(() => {
+    if (projects.length === 0) return;
     const supabase = supabaseRef.current;
-    // Suffix generated inside effect so each effect invocation (including
-    // React strict-mode's double-mount) gets a truly unique channel name.
     const suffix = Math.random().toString(36).slice(2, 10);
-    const channelName = `admin-unread-${suffix}`;
 
-    const channel = supabase
-      .channel(channelName)
-      .on('postgres_changes', {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'messages',
-      }, (payload) => {
-        const msg = payload.new as { sender_id: string; project_id: string };
-        // Only count messages from clients (not from admin themselves),
-        // and skip the currently open conversation.
-        if (msg.sender_id !== userId && msg.project_id !== selectedProjectIdRef.current) {
-          setUnreadCounts((prev) => ({
-            ...prev,
-            [msg.project_id]: (prev[msg.project_id] ?? 0) + 1,
-          }));
-        }
-      })
-      .subscribe();
+    const channels = projects.map((project) =>
+      supabase
+        .channel(`admin-msg-${project.id}-${suffix}`)
+        .on('postgres_changes', {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'messages',
+          filter: `project_id=eq.${project.id}`,
+        }, (payload) => {
+          const msg = payload.new as { sender_id: string };
+          // Only count messages from clients (not admin), skip the open conversation.
+          if (msg.sender_id !== userId && project.id !== selectedProjectIdRef.current) {
+            setUnreadCounts((prev) => ({
+              ...prev,
+              [project.id]: (prev[project.id] ?? 0) + 1,
+            }));
+          }
+        })
+        .subscribe()
+    );
 
-    return () => { supabase.removeChannel(channel); };
-  }, [userId]);
+    return () => { channels.forEach((ch) => supabase.removeChannel(ch)); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projects.map((p) => p.id).join(','), userId]);
 
   // When a project is selected, load its messages and mark as read
   const handleSelectProject = async (projectId: string) => {

@@ -13,50 +13,53 @@ interface UnreadBadgeProps {
 
 /**
  * Real-time unread message count badge.
+ * - One Supabase channel per project with a project_id filter (reliable with RLS).
  * - Increments when new messages arrive from other senders.
- * - Decrements to 0 for a project when a 'zeroen:message-read' CustomEvent fires.
+ * - Decrements to 0 for a project when 'zeroen:message-read' CustomEvent fires.
  */
 export function UnreadBadge({ initialCounts, projectIds, userId }: UnreadBadgeProps) {
   const [counts, setCounts] = useState<Record<string, number>>(initialCounts);
   const supabaseRef = useRef(createClient());
+  // Stable string key so the effect doesn't re-run if the array reference changes
+  // but the values haven't actually changed.
+  const projectKey = projectIds.join(',');
 
-  // Sync if server re-renders with new initial values
+  // Sync if server re-renders with different initial values
   useEffect(() => {
     setCounts(initialCounts);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(initialCounts)]);
+  }, [projectKey]);
 
-  // Increment on incoming messages from other senders
+  // One subscription per project with an explicit filter — avoids the no-filter
+  // RLS evaluation issues with postgres_changes.
   useEffect(() => {
     if (projectIds.length === 0) return;
     const supabase = supabaseRef.current;
     const suffix = Math.random().toString(36).slice(2, 10);
-    const channelName = `unread-badge-${suffix}`;
 
-    const filter = projectIds.length === 1
-      ? `project_id=eq.${projectIds[0]}`
-      : undefined;
+    const channels = projectIds.map((projectId) =>
+      supabase
+        .channel(`unread-${projectId}-${suffix}`)
+        .on('postgres_changes', {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'messages',
+          filter: `project_id=eq.${projectId}`,
+        }, (payload) => {
+          const msg = payload.new as { sender_id: string };
+          if (msg.sender_id !== userId) {
+            setCounts((prev) => ({
+              ...prev,
+              [projectId]: (prev[projectId] ?? 0) + 1,
+            }));
+          }
+        })
+        .subscribe()
+    );
 
-    const channel = supabase
-      .channel(channelName)
-      .on('postgres_changes', {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'messages',
-        ...(filter ? { filter } : {}),
-      }, (payload) => {
-        const msg = payload.new as { sender_id: string; project_id: string };
-        if (msg.sender_id !== userId && projectIds.includes(msg.project_id)) {
-          setCounts((prev) => ({
-            ...prev,
-            [msg.project_id]: (prev[msg.project_id] ?? 0) + 1,
-          }));
-        }
-      })
-      .subscribe();
-
-    return () => { supabase.removeChannel(channel); };
-  }, [projectIds, userId]);
+    return () => { channels.forEach((ch) => supabase.removeChannel(ch)); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectKey, userId]);
 
   // Zero out a project's count when the user opens that conversation
   useEffect(() => {
