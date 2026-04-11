@@ -118,7 +118,7 @@ Request cards replace the flat list. Submission form stays at top, unchanged.
 - Visible when discuss is clicked or comments already exist
 - Shows all comments (client + admin) in chronological order
 - Textarea + send button at the bottom
-- New client comment resurfaces request in admin "Needs Review" view
+- New client comment adds a comment badge to the request row in the admin "Quoted" tab so the admin knows a reply is waiting
 
 ---
 
