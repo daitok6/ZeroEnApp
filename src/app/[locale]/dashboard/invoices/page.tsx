@@ -98,8 +98,8 @@ export default async function InvoicesPage({ params }: Props) {
           </p>
           <p className="text-[#6B7280] font-mono text-xs mb-6">
             {locale === 'ja'
-              ? 'ローンチ後、月$50のプラットフォーム料金が発生します'
-              : 'The $50/mo platform fee begins after your app launches'}
+              ? '変更リクエストの請求書が作成されるとここに表示されます'
+              : 'Invoices for change requests will appear here once created'}
           </p>
         </div>
       )}
