@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { ProjectStatusCard } from '@/components/dashboard/project-status-card';
 import { MilestoneTracker } from '@/components/dashboard/milestone-tracker';
 import { CongratsModal } from '@/components/onboarding/congrats-modal';
+import { ResumeOnboardingBanner } from '@/components/onboarding/resume-banner';
 import Link from 'next/link';
 import { MessageSquare, FileText, Receipt, PlusCircle, Send, ClipboardList } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -25,12 +26,16 @@ export default async function DashboardPage({ params }: Props) {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('status')
+    .select('status, onboarding_progress')
     .eq('id', user.id)
     .single();
 
-  // Onboarding users: show congrats modal overlay
+  // Onboarding users: first visit = congrats modal, return visit = resume banner
   if (profile?.status === 'onboarding') {
+    if (profile.onboarding_progress) {
+      const progress = profile.onboarding_progress as { current_step: number };
+      return <ResumeOnboardingBanner locale={locale} currentStep={progress.current_step} />;
+    }
     return <CongratsModal locale={locale} />;
   }
 

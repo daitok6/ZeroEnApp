@@ -31,12 +31,13 @@ export async function GET(request: NextRequest) {
       if (!userError && user) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('role, locale')
+          .select('role, locale, status')
           .eq('id', user.id)
           .single();
 
         const locale = profile?.locale ?? 'en';
         const role = profile?.role ?? 'client';
+        const status = profile?.status ?? 'pending';
 
         const intent = cookieStore.get('zeroen_auth_intent')?.value;
         cookieStore.set('zeroen_auth_intent', '', { maxAge: 0, path: '/' });
@@ -47,6 +48,8 @@ export async function GET(request: NextRequest) {
         } else if (intent === 'apply') {
           destination = `/${locale}/dashboard/apply`;
         } else {
+          // Onboarding users land on /dashboard — it shows the congrats modal (first visit)
+          // or the resume banner (return visit) based on saved progress.
           destination = `/${locale}/dashboard`;
         }
 

@@ -14,30 +14,51 @@ import type { OnboardingFormData } from '@/lib/validations/onboarding';
 
 const TOTAL_STEPS = 4;
 
+interface OnboardingProgress {
+  current_step: number;
+  form_data: Partial<OnboardingFormData>;
+}
+
 interface Props {
   locale: string;
   applicationId: string | null;
   application: ApplicationData | null;
   userEmail: string;
   userName: string;
+  initialProgress?: OnboardingProgress | null;
 }
 
-export function OnboardingWizard({ locale, applicationId, application, userEmail, userName }: Props) {
+export function OnboardingWizard({ locale, applicationId, application, userEmail, userName, initialProgress }: Props) {
   const router = useRouter();
   const isJa = locale === 'ja';
 
-  const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<Partial<OnboardingFormData>>({});
+  const [currentStep, setCurrentStep] = useState(initialProgress?.current_step ?? 1);
+  const [formData, setFormData] = useState<Partial<OnboardingFormData>>(initialProgress?.form_data ?? {});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const updateFormData = (data: Partial<OnboardingFormData>) => {
-    setFormData((prev) => ({ ...prev, ...data }));
+  const saveProgress = (step: number, data: Partial<OnboardingFormData>) => {
+    fetch('/api/onboarding/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ current_step: step, form_data: data }),
+    }).catch(() => {});
   };
 
-  const goToNext = () => setCurrentStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
-  const goToPrev = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
+  const saveAndAdvance = (stepData: Partial<OnboardingFormData>) => {
+    const merged = { ...formData, ...stepData };
+    setFormData(merged);
+    const nextStep = Math.min(currentStep + 1, TOTAL_STEPS);
+    setCurrentStep(nextStep);
+    saveProgress(nextStep, merged);
+  };
+
+  const saveAndGoBack = () => {
+    const prevStep = Math.max(currentStep - 1, 1);
+    setCurrentStep(prevStep);
+    saveProgress(prevStep, formData);
+  };
 
   const handleSubmit = async (step4Data: Partial<OnboardingFormData>) => {
     const finalData = { ...formData, ...step4Data };
@@ -89,23 +110,23 @@ export function OnboardingWizard({ locale, applicationId, application, userEmail
         {currentStep === 1 && (
           <Step1Project
             data={formData}
-            onNext={(data) => { updateFormData(data); goToNext(); }}
+            onNext={saveAndAdvance}
             locale={locale}
           />
         )}
         {currentStep === 2 && (
           <Step2Technical
             data={formData}
-            onNext={(data) => { updateFormData(data); goToNext(); }}
-            onBack={goToPrev}
+            onNext={saveAndAdvance}
+            onBack={saveAndGoBack}
             locale={locale}
           />
         )}
         {currentStep === 3 && (
           <Step3Terms
             data={formData}
-            onNext={(data) => { updateFormData(data); goToNext(); }}
-            onBack={goToPrev}
+            onNext={saveAndAdvance}
+            onBack={saveAndGoBack}
             locale={locale}
             userEmail={userEmail}
             userName={userName}
@@ -115,7 +136,7 @@ export function OnboardingWizard({ locale, applicationId, application, userEmail
           <Step4Kickoff
             data={formData}
             onSubmit={handleSubmit}
-            onBack={goToPrev}
+            onBack={saveAndGoBack}
             isSubmitting={isSubmitting}
             locale={locale}
           />
