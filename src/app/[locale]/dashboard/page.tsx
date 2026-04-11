@@ -118,7 +118,7 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     }
     return (
       <div className="space-y-6 max-w-2xl">
-        <PlanWizard projectId={project.id} locale={locale} />
+        <PlanWizard projectId={project.id} locale={locale} siteUrl={project.site_url} />
       </div>
     );
   }

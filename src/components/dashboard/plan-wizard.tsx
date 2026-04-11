@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, ExternalLink } from 'lucide-react';
 
 interface PlanWizardProps {
   projectId: string;
   locale: string;
+  siteUrl?: string | null;
 }
 
 type PlanTier = 'basic' | 'premium';
@@ -50,7 +51,7 @@ const PLANS = {
   },
 } as const;
 
-export function PlanWizard({ projectId, locale }: PlanWizardProps) {
+export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
   const [selectedPlan, setSelectedPlan] = useState<PlanTier | null>(null);
   const [committed, setCommitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -99,6 +100,33 @@ export function PlanWizard({ projectId, locale }: PlanWizardProps) {
           {isJa
             ? 'プロジェクトに合ったプランをお選びください'
             : 'Select the plan that fits your project'}
+        </p>
+      </div>
+
+      {/* Live site preview */}
+      {siteUrl && (
+        <div className="border border-[#00E87A]/20 rounded-lg p-4 bg-[#00E87A]/5">
+          <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest mb-2">
+            {isJa ? 'あなたのウェブサイト' : 'Your Website'}
+          </p>
+          <a
+            href={siteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[#00E87A] text-sm font-mono font-bold hover:text-[#00E87A]/80 transition-colors"
+          >
+            {siteUrl.replace(/^https?:\/\//, '')}
+            <ExternalLink size={14} />
+          </a>
+        </div>
+      )}
+
+      {/* Payment deadline warning */}
+      <div className="border border-[#F59E0B]/20 rounded-lg p-4 bg-[#F59E0B]/5">
+        <p className="text-[#F59E0B] text-xs font-mono leading-relaxed">
+          {isJa
+            ? '⚠ サブスクリプションの登録が14日以内に完了しない場合、ウェブサイトは一時停止されます。'
+            : '⚠ If a subscription is not set up within 14 days, your website will be taken offline.'}
         </p>
       </div>
 
