@@ -116,6 +116,7 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
       </div>
     ) : (
       <MessageThread
+        key={selectedProjectId}
         initialMessages={messages}
         projectId={selectedProjectId}
         userId={userId}
