@@ -54,7 +54,7 @@ export default async function MessagesPage({ params }: Props) {
   }
 
   return (
-    <div className="flex flex-col h-full max-w-3xl" style={{ height: 'calc(100vh - 8rem)' }}>
+    <div className="flex flex-col h-full max-w-3xl">
       <div className="mb-4 shrink-0">
         <h1 className="text-xl font-bold font-heading text-[#F4F4F2]">
           {locale === 'ja' ? 'メッセージ' : 'Messages'}
