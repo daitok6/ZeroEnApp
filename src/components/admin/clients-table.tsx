@@ -80,6 +80,17 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
                       {client.projectStatus}
                     </span>
                   )}
+                  {client.planTier && (
+                    <span
+                      className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border ${
+                        client.planTier === 'premium'
+                          ? 'text-[#00E87A] bg-[#00E87A]/10 border-[#00E87A]/30'
+                          : 'text-[#9CA3AF] bg-[#374151]/50 border-[#374151]'
+                      }`}
+                    >
+                      {client.planTier === 'premium' ? 'Premium' : 'Basic'}
+                    </span>
+                  )}
                 </div>
                 <p className="text-[#6B7280] text-xs font-mono">
                   Last updated: {formatDate(client.projectUpdatedAt, locale)}
@@ -90,10 +101,11 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
 
           {/* Desktop: table layout */}
           <div className="hidden md:block border border-[#374151] rounded-lg overflow-hidden">
-            <div className="grid grid-cols-[2fr_2fr_1fr_1fr_48px] gap-4 px-4 py-2 bg-[#111827] border-b border-[#374151]">
+            <div className="grid grid-cols-[2fr_2fr_1fr_80px_1fr_48px] gap-4 px-4 py-2 bg-[#111827] border-b border-[#374151]">
               <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Client</p>
               <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Project</p>
               <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Status</p>
+              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Plan</p>
               <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Last Updated</p>
               <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider text-center">
                 Health
@@ -104,7 +116,7 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
               <div
                 key={client.id}
                 onClick={() => setSelectedClient(client)}
-                className={`grid grid-cols-[2fr_2fr_1fr_1fr_48px] gap-4 px-4 py-3 items-center cursor-pointer ${
+                className={`grid grid-cols-[2fr_2fr_1fr_80px_1fr_48px] gap-4 px-4 py-3 items-center cursor-pointer ${
                   idx < clients.length - 1 ? 'border-b border-[#374151]' : ''
                 } hover:bg-[#111827]/60 transition-colors`}
               >
@@ -123,6 +135,21 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
                       className={`text-[10px] font-mono px-2 py-0.5 rounded ${STATUS_STYLES[client.projectStatus] ?? 'bg-[#374151] text-[#9CA3AF]'}`}
                     >
                       {client.projectStatus}
+                    </span>
+                  ) : (
+                    <span className="text-[#6B7280] text-xs font-mono">—</span>
+                  )}
+                </div>
+                <div>
+                  {client.planTier ? (
+                    <span
+                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${
+                        client.planTier === 'premium'
+                          ? 'text-[#00E87A] bg-[#00E87A]/10 border-[#00E87A]/30'
+                          : 'text-[#9CA3AF] bg-[#374151]/50 border-[#374151]'
+                      }`}
+                    >
+                      {client.planTier === 'premium' ? 'Premium' : 'Basic'}
                     </span>
                   ) : (
                     <span className="text-[#6B7280] text-xs font-mono">—</span>

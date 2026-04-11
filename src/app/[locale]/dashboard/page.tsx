@@ -177,9 +177,22 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     <div className="space-y-6 max-w-4xl">
       {/* Page title */}
       <div>
-        <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
-          {locale === 'ja' ? 'ダッシュボード' : 'Dashboard'}
-        </h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
+            {locale === 'ja' ? 'ダッシュボード' : 'Dashboard'}
+          </h1>
+          {project?.plan_tier && (
+            <span
+              className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${
+                project.plan_tier === 'premium'
+                  ? 'text-[#00E87A] bg-[#00E87A]/10 border-[#00E87A]/30'
+                  : 'text-[#9CA3AF] bg-[#374151]/50 border-[#374151]'
+              }`}
+            >
+              {project.plan_tier === 'premium' ? 'Premium' : 'Basic'}
+            </span>
+          )}
+        </div>
         <p className="text-[#6B7280] text-sm font-mono mt-1">
           {locale === 'ja' ? 'プロジェクトの状況を確認' : 'Track your project progress'}
         </p>
