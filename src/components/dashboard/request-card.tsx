@@ -65,7 +65,7 @@ export function RequestCard({ request, invoice, locale, userId }: RequestCardPro
             {isJa ? tierInfo.ja : tierInfo.en}
           </span>
         )}
-        {request.estimated_cost_cents && (
+        {request.estimated_cost_cents != null && (
           <span className="text-[#00E87A] text-xs font-mono">
             ${(request.estimated_cost_cents / 100).toLocaleString()}
           </span>

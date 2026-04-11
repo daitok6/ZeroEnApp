@@ -30,32 +30,37 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
 
   async function handleAccept() {
     setLoading('accept');
-    const res = await fetch(`/api/requests/${requestId}/respond`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'accept', locale }),
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else if (data.approved) {
-      setSuccess(true);
-      router.refresh();
-    } else {
+    try {
+      const res = await fetch(`/api/requests/${requestId}/respond`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'accept', locale }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else if (data.approved) {
+        setSuccess(true);
+        router.refresh();
+      }
+    } finally {
       setLoading(null);
     }
   }
 
   async function handleDecline() {
     setLoading('decline');
-    await fetch(`/api/requests/${requestId}/respond`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'decline', locale, reason: declineReason }),
-    });
-    setLoading(null);
-    setShowDeclineModal(false);
-    router.refresh();
+    try {
+      await fetch(`/api/requests/${requestId}/respond`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'decline', locale, reason: declineReason }),
+      });
+      setShowDeclineModal(false);
+      router.refresh();
+    } finally {
+      setLoading(null);
+    }
   }
 
   if (success) {
