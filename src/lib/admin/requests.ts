@@ -60,7 +60,7 @@ export async function getAdminRequests(supabase: SupabaseClient): Promise<Reques
     projectMap.set(p.id, { name: p.name });
   }
 
-  const invoiceMap = new Map<string, { id: string; amount_cents: number }>();
+  const invoiceMap = new Map<string, { id: string; amount_cents: number | null }>();
   for (const inv of invoicesResult.data ?? []) {
     if (inv.change_request_id) {
       invoiceMap.set(inv.change_request_id, { id: inv.id, amount_cents: inv.amount_cents });
