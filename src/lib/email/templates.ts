@@ -334,6 +334,85 @@ export function invoiceDueEmail(data: {
   };
 }
 
+// ── Email: Agreement Acceptance Confirmation ───────────────
+export function agreementConfirmationEmail(data: {
+  founderName: string;
+  founderEmail: string;
+  signatureName: string;
+  entityName: string | null;
+  termsVersion: string;
+  acceptedAt: string;
+  ipAddress: string;
+  userAgent: string;
+  isOperatorCopy: boolean;
+}): { subject: string; html: string } {
+  const { founderName, founderEmail, signatureName, entityName, termsVersion, acceptedAt, ipAddress, userAgent, isOperatorCopy } = data;
+
+  const formattedDate = new Date(acceptedAt).toUTCString();
+
+  const evidenceBlock = `
+    <div style="border: 1px solid #374151; border-radius: 8px; padding: 16px; margin: 20px 0; font-family: 'IBM Plex Mono', 'Courier New', monospace;">
+      <p style="color: #9CA3AF; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin: 0 0 12px 0;">Acceptance Record</p>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0; width: 140px;">Signatory Name</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${signatureName}</td></tr>
+        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">Email</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${founderEmail}</td></tr>
+        ${entityName ? `<tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">Entity</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${entityName}</td></tr>` : ''}
+        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">Terms Version</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${termsVersion}</td></tr>
+        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">Accepted At</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${formattedDate}</td></tr>
+        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">IP Address</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${ipAddress}</td></tr>
+        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0; vertical-align: top;">User Agent</td><td style="color: #4B5563; font-size: 10px; padding: 4px 0; word-break: break-all; line-height: 1.5;">${userAgent}</td></tr>
+      </table>
+    </div>
+  `;
+
+  const termsDetail = `
+    <div style="border: 1px solid #1F2937; border-radius: 6px; padding: 14px 16px; margin: 16px 0;">
+      <p style="color: #9CA3AF; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin: 0 0 12px 0;">Agreement Terms (${termsVersion})</p>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        ${[
+          ['Equity', '10% via SAFE note (converts on incorporation)'],
+          ['Revenue Share', '~10% of app revenue (flexible per deal)'],
+          ['Platform Fee', '$50/mo after launch (hosting + 1 fix/mo)'],
+          ['MVP Scope', 'Locked at kickoff. Changes are charged separately.'],
+          ['IP Ownership', 'Shared — proportional to equity stake'],
+          ['Kill Switch', '90 days unpaid → agreement terminates, code rights to operator'],
+          ['Reversion', 'No launch within 6 months → code rights revert to operator'],
+          ['Portfolio Rights', 'Operator retains right to showcase this work at all times'],
+        ].map(([k, v]) => `<tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 11px; padding: 4px 0; width: 140px; vertical-align: top;">${k}</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #9CA3AF; font-size: 11px; padding: 4px 0;">${v}</td></tr>`).join('')}
+      </table>
+    </div>
+  `;
+
+  if (isOperatorCopy) {
+    return {
+      subject: `[ZeroEn] Agreement accepted — ${founderName} (${termsVersion})`,
+      html: emailWrapper(`
+        ${heading('New agreement signed.')}
+        ${subheading(`${founderName} accepted the ZeroEn partnership terms.`)}
+        ${evidenceBlock}
+        ${termsDetail}
+        <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; line-height: 1.7; margin: 0;">Keep this record for your files. The founder also received a copy at ${founderEmail}.</p>
+      `),
+    };
+  }
+
+  return {
+    subject: `[ZeroEn] Your partnership agreement — confirmed`,
+    html: emailWrapper(`
+      ${heading('Agreement confirmed.')}
+      ${subheading(`Welcome, ${founderName}. You're officially a ZeroEn partner.`)}
+      <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #9CA3AF; font-size: 13px; line-height: 1.8; margin: 0 0 20px 0;">
+        This email confirms that you electronically accepted the ZeroEn partnership agreement on ${formattedDate}. Keep this for your records.
+      </p>
+      ${evidenceBlock}
+      ${termsDetail}
+      <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; line-height: 1.7; margin: 16px 0 0 0;">
+        Your electronic signature ("${signatureName}") and checkbox acceptance constitute a legally binding agreement under the U.S. Electronic Signatures in Global and National Commerce Act (E-SIGN) and equivalent regulations. If you have questions about these terms, reply to this email.
+      </p>
+    `),
+  };
+}
+
 // ── Email: Admin Message Digest ────────────────────────────
 export function adminDigestEmail(data: {
   threads: Array<{

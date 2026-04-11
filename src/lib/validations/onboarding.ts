@@ -17,9 +17,9 @@ export const step2Schema = z.object({
 
 export const step3Schema = z.object({
   entity_name: z.string().optional(),
-  envelope_id: z.string().min(1, 'Agreement must be signed'),
-  signing_completed: z.literal(true, {
-    error: 'You must sign the partnership agreement to continue',
+  signature_name: z.string().min(2, 'Please type your full name to sign'),
+  terms_accepted: z.literal(true, {
+    error: 'You must accept the terms to continue',
   }),
 });
 
@@ -34,3 +34,5 @@ export type OnboardingFormData = z.infer<typeof step1Schema> &
   z.infer<typeof step2Schema> &
   z.infer<typeof step3Schema> &
   z.infer<typeof step4Schema>;
+
+export const TERMS_VERSION = 'v1.0-2026-04-10';
