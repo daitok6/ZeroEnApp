@@ -30,7 +30,7 @@ export default async function LoginPage({ params, searchParams }: Props) {
   }
 
   const subtitle = isApplyIntent
-    ? (locale === 'ja' ? 'ログインして応募してください' : 'Log in to submit your application')
+    ? (locale === 'ja' ? 'アイデアを送るにはアカウントが必要です' : 'You need an account to submit your idea')
     : (locale === 'ja' ? 'ファウンダーダッシュボードにアクセス' : 'Access your founder dashboard');
 
   const terminalPrompt = isApplyIntent ? '$ auth --provider oauth --apply' : '$ auth --provider oauth';
@@ -42,7 +42,9 @@ export default async function LoginPage({ params, searchParams }: Props) {
         <div className="text-center mb-8">
           <p className="text-[#00E87A] text-xs font-mono uppercase tracking-widest mb-2">ZeroEn</p>
           <h1 className="text-2xl font-bold font-heading text-[#F4F4F2]">
-            {locale === 'ja' ? 'ログイン' : 'Log in'}
+            {isApplyIntent
+              ? (locale === 'ja' ? 'ログイン / アカウント作成' : 'Log in or create an account')
+              : (locale === 'ja' ? 'ログイン' : 'Log in')}
           </h1>
           <p className="text-[#9CA3AF] text-sm font-mono mt-2">
             {subtitle}
@@ -59,7 +61,9 @@ export default async function LoginPage({ params, searchParams }: Props) {
         </TerminalWindow>
 
         <p className="text-center text-[#6B7280] text-xs font-mono mt-6">
-          {locale === 'ja' ? 'Googleアカウントでサインインしてください' : 'Sign in with your Google account to continue'}
+          {isApplyIntent
+            ? (locale === 'ja' ? 'Googleで続けると新規登録またはログインされます' : 'New or returning — Google handles both')
+            : (locale === 'ja' ? 'Googleアカウントでサインインしてください' : 'Sign in with your Google account to continue')}
         </p>
       </div>
     </div>
