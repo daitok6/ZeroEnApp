@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
 import type { RequestRow } from '@/lib/admin/requests';
@@ -25,6 +25,14 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
@@ -48,8 +56,8 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
       }),
     });
     if (res.ok) {
-      onClose();
       router.refresh();
+      onClose();
     } else {
       const data = await res.json().catch(() => ({}));
       setError(data.error ?? (isJa ? 'エラーが発生しました' : 'Something went wrong'));
@@ -66,17 +74,22 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
         aria-hidden="true"
       />
       {/* Panel */}
-      <div className="relative w-full max-w-md bg-[#111827] border border-[#374151] rounded-xl p-6 space-y-5">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="invoice-dialog-title"
+        className="relative w-full max-w-md bg-[#111827] border border-[#374151] rounded-xl p-6 space-y-5"
+      >
         <div className="flex items-start justify-between gap-3">
           <div>
-            <h2 className="text-[#F4F4F2] text-sm font-bold font-heading">
+            <h2 id="invoice-dialog-title" className="text-[#F4F4F2] text-sm font-bold font-heading">
               {isJa ? '請求書を送信' : 'Send Invoice'}
             </h2>
             <p className="text-[#6B7280] text-xs font-mono mt-0.5 line-clamp-1">
               {request.title}
             </p>
           </div>
-          <button onClick={onClose} className="text-[#6B7280] hover:text-[#F4F4F2] transition-colors shrink-0">
+          <button onClick={onClose} aria-label={isJa ? '閉じる' : 'Close'} className="text-[#6B7280] hover:text-[#F4F4F2] transition-colors shrink-0">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -97,13 +110,14 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
                 type="number"
                 min="0"
                 step="0.01"
+                inputMode="decimal"
                 value={amountDollars}
                 onChange={(e) => setAmountDollars(e.target.value)}
                 placeholder="0.00"
                 className="flex-1 bg-[#0D0D0D] border border-[#374151] rounded px-3 py-2 text-sm font-mono text-[#F4F4F2] placeholder-[#6B7280] focus:outline-none focus:border-[#00E87A]/50"
               />
             </div>
-            <p className="text-[#374151] text-[10px] font-mono mt-1">
+            <p className="text-[#6B7280] text-[10px] font-mono mt-1">
               {isJa ? '$0 = 無料（プランに含む）' : '$0 = included in plan, no payment required'}
             </p>
           </div>

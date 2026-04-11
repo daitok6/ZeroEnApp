@@ -22,14 +22,19 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [fetchError, setFetchError] = useState('');
+  const [postError, setPostError] = useState('');
 
   const fetchComments = useCallback(async () => {
     const res = await fetch(`/api/requests/${requestId}/comments`);
     if (res.ok) {
       setComments(await res.json());
+      setFetchError('');
+    } else {
+      setFetchError(locale === 'ja' ? 'コメントの読み込みに失敗しました' : 'Failed to load comments');
     }
     setLoading(false);
-  }, [requestId]);
+  }, [requestId, locale]);
 
   useEffect(() => {
     fetchComments();
@@ -39,6 +44,7 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
     e.preventDefault();
     if (!content.trim() || submitting) return;
     setSubmitting(true);
+    setPostError('');
     const res = await fetch(`/api/requests/${requestId}/comments`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -47,6 +53,9 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
     if (res.ok) {
       setContent('');
       await fetchComments();
+    } else {
+      const data = await res.json().catch(() => ({}));
+      setPostError(data.error ?? (locale === 'ja' ? '送信に失敗しました' : 'Failed to send comment'));
     }
     setSubmitting(false);
   }
@@ -61,12 +70,13 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
         </p>
       ) : (
         <>
+          {fetchError && <p className="text-red-400 text-xs font-mono">{fetchError}</p>}
           {comments.length === 0 && (
             <p className="text-[#6B7280] text-xs font-mono">
               {isJa ? 'コメントはまだありません' : 'No comments yet'}
             </p>
           )}
-          <div className="space-y-2">
+          <div className="space-y-2" aria-live="polite" aria-relevant="additions">
             {comments.map((c) => {
               const isAdmin = c.author?.role === 'admin';
               const isOwn = c.author_id === currentUserId;
@@ -83,7 +93,9 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
                     <span className="text-[#6B7280] text-[10px] font-mono">
                       {isAdmin
                         ? 'ZeroEn'
-                        : (c.author?.full_name ?? (isJa ? 'あなた' : 'You'))}
+                        : isOwn
+                          ? (c.author?.full_name ?? (isJa ? 'あなた' : 'You'))
+                          : (c.author?.full_name ?? (isJa ? '匿名' : 'User'))}
                     </span>
                     {isOwn && !isAdmin && (
                       <span className="text-[#374151] text-[10px] font-mono">
@@ -91,7 +103,7 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
                       </span>
                     )}
                     <span className="text-[#374151] text-[10px] font-mono ml-auto">
-                      {new Date(c.created_at).toLocaleDateString()}
+                      {new Date(c.created_at).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US')}
                     </span>
                   </div>
                   <p className="text-[#F4F4F2] text-xs font-mono whitespace-pre-wrap">
@@ -121,6 +133,7 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
           <Send className="w-3.5 h-3.5" />
         </button>
       </form>
+      {postError && <p className="text-red-400 text-xs font-mono mt-1">{postError}</p>}
     </div>
   );
 }
