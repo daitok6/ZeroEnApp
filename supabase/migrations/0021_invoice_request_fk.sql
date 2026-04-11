@@ -15,6 +15,9 @@ CREATE POLICY "Admins can update change requests"
   ON public.change_requests FOR UPDATE
   USING (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
+  )
+  WITH CHECK (
+    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
   );
 
 -- Admin RLS: invoices (insert + select all)
@@ -26,6 +29,15 @@ CREATE POLICY "Admins can view all invoices"
 
 CREATE POLICY "Admins can insert invoices"
   ON public.invoices FOR INSERT
+  WITH CHECK (
+    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
+  );
+
+CREATE POLICY "Admins can update invoices"
+  ON public.invoices FOR UPDATE
+  USING (
+    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
+  )
   WITH CHECK (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
   );
