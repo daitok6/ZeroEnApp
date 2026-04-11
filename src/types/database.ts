@@ -43,6 +43,10 @@ export type Database = {
           supabase_project: string | null;
           site_url: string | null;
           onboarding_data: Json | null;
+          plan_tier: 'basic' | 'premium' | null;
+          commitment_starts_at: string | null;
+          client_visible: boolean;
+          stripe_subscription_id: string | null;
           created_at: string;
           updated_at: string;
         };
