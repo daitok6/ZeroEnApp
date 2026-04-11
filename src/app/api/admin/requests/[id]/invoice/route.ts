@@ -49,6 +49,17 @@ export async function POST(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'Request is not in reviewing status' }, { status: 400 });
   }
 
+  // Guard against duplicate invoices
+  const { data: existingInvoice } = await supabase
+    .from('invoices')
+    .select('id')
+    .eq('change_request_id', id)
+    .maybeSingle();
+
+  if (existingInvoice) {
+    return NextResponse.json({ error: 'Invoice already exists for this request' }, { status: 409 });
+  }
+
   // Create invoice tied to the change request
   const { data: invoice, error: invoiceError } = await supabase
     .from('invoices')
