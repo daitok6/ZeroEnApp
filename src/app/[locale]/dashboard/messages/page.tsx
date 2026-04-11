@@ -1,5 +1,6 @@
 import { requireApproved } from '@/lib/auth/require-approved';
 import { MessageThread } from '@/components/dashboard/message-thread';
+import { createClient as createAdminClient } from '@supabase/supabase-js';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -14,11 +15,25 @@ export default async function MessagesPage({ params }: Props) {
   const { user, supabase } = await requireApproved(locale);
 
   // Get user's project
-  const { data: project } = await supabase
+  let { data: project } = await supabase
     .from('projects')
     .select('id, name')
     .eq('client_id', user.id)
-    .single();
+    .maybeSingle();
+
+  // Auto-create a project row so messaging is always available
+  if (!project) {
+    const adminSupabase = createAdminClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+    const { data: newProject } = await adminSupabase
+      .from('projects')
+      .insert({ client_id: user.id, name: 'Your Project', status: 'onboarding' })
+      .select('id, name')
+      .single();
+    project = newProject;
+  }
 
   // Get initial messages
   const messages = project
@@ -60,15 +75,11 @@ export default async function MessagesPage({ params }: Props) {
           {locale === 'ja' ? 'メッセージ' : 'Messages'}
         </h1>
         <p className="text-[#6B7280] text-xs font-mono mt-1">
-          {project
-            ? project.name
-            : locale === 'ja'
-            ? 'プロジェクト開始後に利用可能'
-            : 'Available once your project starts'}
+          {project?.name ?? (locale === 'ja' ? 'チームとチャット' : 'Chat with the team')}
         </p>
       </div>
 
-      {project ? (
+      {project && (
         <MessageThread
           initialMessages={messages as Message[]}
           projectId={project.id}
@@ -76,14 +87,6 @@ export default async function MessagesPage({ params }: Props) {
           locale={locale}
           adminLastReadAt={adminLastReadAt}
         />
-      ) : (
-        <div className="flex-1 border border-[#374151] rounded-lg bg-[#111827] flex items-center justify-center">
-          <p className="text-[#6B7280] font-mono text-sm text-center px-4">
-            {locale === 'ja'
-              ? 'プロジェクトが開始されると、チームとメッセージのやり取りができます。'
-              : 'Messages will appear here once your project starts.'}
-          </p>
-        </div>
       )}
     </div>
   );
