@@ -7,8 +7,8 @@ interface PlanSummaryCardProps {
 }
 
 const PLAN_PRICES: Record<'basic' | 'premium', string> = {
-  basic: '¥8,000/mo',
-  premium: '¥15,000/mo',
+  basic: '¥5,000/mo',
+  premium: '¥10,000/mo',
 };
 
 const PLAN_FEATURES: Record<'basic' | 'premium', { en: string; ja: string }[]> = {
