@@ -31,7 +31,7 @@ export default async function LoginPage({ params, searchParams }: Props) {
 
   const subtitle = isApplyIntent
     ? (locale === 'ja' ? 'ログインして応募してください' : 'Log in to submit your application')
-    : (locale === 'ja' ? 'クライアントダッシュボードにアクセス' : 'Access your client dashboard');
+    : (locale === 'ja' ? 'ファウンダーダッシュボードにアクセス' : 'Access your founder dashboard');
 
   const terminalPrompt = isApplyIntent ? '$ auth --provider oauth --apply' : '$ auth --provider oauth';
 

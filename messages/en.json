@@ -28,7 +28,7 @@
         "Authentication, database, APIs — all included",
         "Deployed to production on Vercel",
         "30 days of post-launch support",
-        "Client dashboard access"
+        "Founder dashboard access"
       ],
       "weAskTitle": "What we ask",
       "weAsk": [
@@ -223,7 +223,7 @@
       },
       "build": {
         "name": "BUILD",
-        "desc": "Development begins. We build your full-stack MVP using Next.js + Supabase. Regular updates in your client dashboard."
+        "desc": "Development begins. We build your full-stack MVP using Next.js + Supabase. Regular updates in your founder dashboard."
       },
       "launch": {
         "name": "LAUNCH",

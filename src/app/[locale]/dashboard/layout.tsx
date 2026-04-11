@@ -35,7 +35,7 @@ export default async function DashboardLayout({ children, params }: Props) {
 
   const topbarLabel = navType === 'onboarding'
     ? (locale === 'ja' ? 'オンボーディング' : 'Onboarding')
-    : (locale === 'ja' ? 'クライアントダッシュボード' : 'Client Dashboard');
+    : (locale === 'ja' ? 'ファウンダーダッシュボード' : 'Founder Dashboard');
 
   // Fetch unread count for approved clients only
   let initialCounts: Record<string, number> = {};
