@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { IBM_Plex_Mono, Syne, Murecho, DM_Sans, DM_Mono } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -75,6 +76,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider messages={messages}>
           <MarketingShell locale={locale}>{children}</MarketingShell>
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );

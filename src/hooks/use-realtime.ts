@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useId } from 'react';
+import { useEffect, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import type { RealtimeChannel } from '@supabase/supabase-js';
 
 interface UseRealtimeOptions {
   table: string;
@@ -15,7 +14,6 @@ interface UseRealtimeOptions {
 export function useRealtime({ table, filter, onInsert, onUpdate, onDelete }: UseRealtimeOptions) {
   // Stable supabase client — never recreated between renders
   const supabaseRef = useRef(createClient());
-  const uid = useId();
   // Store callbacks in refs so they don't trigger effect re-runs
   const onInsertRef = useRef(onInsert);
   const onUpdateRef = useRef(onUpdate);
@@ -27,11 +25,12 @@ export function useRealtime({ table, filter, onInsert, onUpdate, onDelete }: Use
 
   useEffect(() => {
     const supabase = supabaseRef.current;
-    // Unique channel name per hook instance prevents strict-mode collisions
-    const channelName = `${table}-${uid.replace(/:/g, '')}-${filter ?? 'all'}`;
-    let channel: RealtimeChannel;
+    // Suffix generated inside effect so each invocation (including strict-mode
+    // double-mount) gets a unique channel name and never collides.
+    const suffix = Math.random().toString(36).slice(2, 10);
+    const channelName = `${table}-${suffix}-${filter ?? 'all'}`;
 
-    channel = supabase
+    const channel = supabase
       .channel(channelName)
       .on(
         'postgres_changes',
@@ -54,5 +53,5 @@ export function useRealtime({ table, filter, onInsert, onUpdate, onDelete }: Use
       supabase.removeChannel(channel);
     };
     // Only re-subscribe if the table/filter change — callbacks are handled via refs
-  }, [table, filter, uid]);
+  }, [table, filter]);
 }

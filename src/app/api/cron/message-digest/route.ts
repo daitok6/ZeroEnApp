@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient as createServerClient } from '@/lib/supabase/server';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { sendEmail, OPERATOR_EMAIL_ADDRESS } from '@/lib/email/send';
 import { newMessageEmail, adminDigestEmail } from '@/lib/email/templates';

@@ -106,7 +106,7 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
             </p>
           </div>
         ) : (
-          messages.map((msg, idx) => {
+          messages.map((msg) => {
             const isOwn = msg.sender_id === userId;
             const senderName = msg.sender?.full_name || (isOwn ? 'You' : 'ZeroEn');
             const isAdmin = msg.sender?.role === 'admin';
