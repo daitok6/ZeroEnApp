@@ -1,11 +1,12 @@
 import type { LucideIcon } from 'lucide-react';
-import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox, CreditCard } from 'lucide-react';
 
 export const navItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/dashboard' },
   { key: 'messages', icon: MessageSquare, labelEn: 'Messages', labelJa: 'メッセージ', path: '/dashboard/messages' },
   { key: 'documents', icon: FileText, labelEn: 'Documents', labelJa: '書類', path: '/dashboard/documents' },
   { key: 'invoices', icon: Receipt, labelEn: 'Invoices', labelJa: '請求書', path: '/dashboard/invoices' },
+  { key: 'billing', icon: CreditCard, labelEn: 'Billing', labelJa: 'お支払い', path: '/dashboard/billing' },
   { key: 'requests', icon: PlusCircle, labelEn: 'Requests', labelJa: 'リクエスト', path: '/dashboard/requests' },
 ] as const;
 
