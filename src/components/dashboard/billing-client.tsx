@@ -246,7 +246,7 @@ export function BillingClient({
               {isJa ? '戻る' : 'Go back'}
             </button>
           </>
-        ) : cancelStep === 'confirm' ? (
+        ) : (cancelStep === 'confirm' || cancelStep === 'loading') ? (
           <div className="space-y-4">
             {/* Final warning */}
             <div className="border border-red-400/30 bg-red-400/10 rounded-lg p-4 space-y-2">
@@ -292,7 +292,8 @@ export function BillingClient({
               </button>
               <button
                 onClick={() => setCancelStep('idle')}
-                className="px-4 py-2 text-xs font-mono text-[#9CA3AF] hover:text-[#F4F4F2] transition-colors"
+                disabled={cancelStep === 'loading'}
+                className="px-4 py-2 text-xs font-mono text-[#9CA3AF] hover:text-[#F4F4F2] transition-colors disabled:opacity-50"
               >
                 {isJa ? 'キャンセル' : 'Go Back'}
               </button>
