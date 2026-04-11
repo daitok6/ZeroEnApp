@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useId } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Send } from 'lucide-react';
 
@@ -17,19 +17,27 @@ interface MessageThreadProps {
   projectId: string;
   userId: string;
   locale: string;
+  /** Admin's last_read_at for this project — used to show Seen indicator for client */
+  adminLastReadAt?: string | null;
 }
 
-export function MessageThread({ initialMessages, projectId, userId, locale }: MessageThreadProps) {
+export function MessageThread({ initialMessages, projectId, userId, locale, adminLastReadAt }: MessageThreadProps) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [newMessage, setNewMessage] = useState('');
   const [sending, setSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const supabase = createClient();
+  // Stable supabase client reference — never changes between renders
+  const supabaseRef = useRef(createClient());
+  const uid = useId();
 
   // Subscribe to new messages via Realtime
   useEffect(() => {
+    const supabase = supabaseRef.current;
+    // Unique channel name per component instance prevents strict-mode collisions
+    const channelName = `messages-${projectId}-${uid.replace(/:/g, '')}`;
+
     const channel = supabase
-      .channel(`messages-${projectId}`)
+      .channel(channelName)
       .on('postgres_changes', {
         event: 'INSERT',
         schema: 'public',
@@ -41,7 +49,16 @@ export function MessageThread({ initialMessages, projectId, userId, locale }: Me
       .subscribe();
 
     return () => { supabase.removeChannel(channel); };
-  }, [projectId, supabase]);
+  }, [projectId, uid]);
+
+  // Mark conversation as read on mount and when new messages arrive
+  useEffect(() => {
+    const supabase = supabaseRef.current;
+    supabase.from('message_read_status').upsert(
+      { user_id: userId, project_id: projectId, last_read_at: new Date().toISOString() },
+      { onConflict: 'user_id,project_id' }
+    ).then(() => {});
+  }, [projectId, userId, messages.length]);
 
   // Scroll to bottom on new messages
   useEffect(() => {
@@ -52,7 +69,7 @@ export function MessageThread({ initialMessages, projectId, userId, locale }: Me
     if (!newMessage.trim() || sending) return;
     setSending(true);
 
-    const { error } = await supabase.from('messages').insert({
+    const { error } = await supabaseRef.current.from('messages').insert({
       project_id: projectId,
       sender_id: userId,
       content: newMessage.trim(),
@@ -69,6 +86,14 @@ export function MessageThread({ initialMessages, projectId, userId, locale }: Me
     }
   };
 
+  // Find the last message sent by this user, then check if admin has seen it
+  const myMessages = messages.filter((m) => m.sender_id === userId);
+  const lastMyMessage = myMessages[myMessages.length - 1] ?? null;
+  const adminHasSeen =
+    adminLastReadAt != null &&
+    lastMyMessage != null &&
+    adminLastReadAt >= lastMyMessage.created_at;
+
   return (
     <div className="flex flex-col flex-1 min-h-0 border border-[#374151] rounded-lg overflow-hidden bg-[#111827]">
       {/* Messages list */}
@@ -80,39 +105,47 @@ export function MessageThread({ initialMessages, projectId, userId, locale }: Me
             </p>
           </div>
         ) : (
-          messages.map((msg) => {
+          messages.map((msg, idx) => {
             const isOwn = msg.sender_id === userId;
             const senderName = msg.sender?.full_name || (isOwn ? 'You' : 'ZeroEn');
             const isAdmin = msg.sender?.role === 'admin';
+            const isLastMine = lastMyMessage?.id === msg.id;
 
             return (
-              <div key={msg.id} className={`flex gap-3 ${isOwn ? 'flex-row-reverse' : ''}`}>
-                {/* Avatar */}
-                <div className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-xs font-bold font-mono ${
-                  isAdmin ? 'bg-[#00E87A] text-[#0D0D0D]' : 'bg-[#1F2937] text-[#9CA3AF] border border-[#374151]'
-                }`}>
-                  {isAdmin ? 'Z' : senderName.charAt(0).toUpperCase()}
+              <div key={msg.id}>
+                <div className={`flex gap-3 ${isOwn ? 'flex-row-reverse' : ''}`}>
+                  {/* Avatar */}
+                  <div className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-xs font-bold font-mono ${
+                    isAdmin ? 'bg-[#00E87A] text-[#0D0D0D]' : 'bg-[#1F2937] text-[#9CA3AF] border border-[#374151]'
+                  }`}>
+                    {isAdmin ? 'Z' : senderName.charAt(0).toUpperCase()}
+                  </div>
+
+                  <div className={`flex flex-col gap-1 max-w-[75%] ${isOwn ? 'items-end' : ''}`}>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#6B7280] text-xs font-mono">
+                        {isAdmin ? 'ZeroEn' : senderName}
+                      </span>
+                      <time className="text-[#374151] text-xs font-mono">
+                        {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </time>
+                    </div>
+                    <div className={`px-3 py-2 rounded-lg text-sm font-mono ${
+                      isAdmin
+                        ? 'bg-[#00E87A]/10 border border-[#00E87A]/20 text-[#F4F4F2]'
+                        : isOwn
+                        ? 'bg-[#1F2937] text-[#F4F4F2]'
+                        : 'bg-[#1F2937] border border-[#374151] text-[#F4F4F2]'
+                    }`}>
+                      {msg.content}
+                    </div>
+                  </div>
                 </div>
 
-                <div className={`flex flex-col gap-1 max-w-[75%] ${isOwn ? 'items-end' : ''}`}>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[#6B7280] text-xs font-mono">
-                      {isAdmin ? 'ZeroEn' : senderName}
-                    </span>
-                    <time className="text-[#374151] text-xs font-mono">
-                      {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </time>
-                  </div>
-                  <div className={`px-3 py-2 rounded-lg text-sm font-mono ${
-                    isAdmin
-                      ? 'bg-[#00E87A]/10 border border-[#00E87A]/20 text-[#F4F4F2]'
-                      : isOwn
-                      ? 'bg-[#1F2937] text-[#F4F4F2]'
-                      : 'bg-[#1F2937] border border-[#374151] text-[#F4F4F2]'
-                  }`}>
-                    {msg.content}
-                  </div>
-                </div>
+                {/* Seen indicator — only below the last message sent by this user */}
+                {isOwn && isLastMine && adminHasSeen && adminLastReadAt && (
+                  <SeenRelativeTime lastReadAt={adminLastReadAt} locale={locale} />
+                )}
               </div>
             );
           })
@@ -141,4 +174,31 @@ export function MessageThread({ initialMessages, projectId, userId, locale }: Me
       </div>
     </div>
   );
+}
+
+// Inline seen indicator — updates every 30s
+function SeenRelativeTime({ lastReadAt, locale }: { lastReadAt: string; locale: string }) {
+  const [label, setLabel] = useState(() => formatRelative(lastReadAt, locale));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLabel(formatRelative(lastReadAt, locale));
+    }, 30_000);
+    return () => clearInterval(interval);
+  }, [lastReadAt, locale]);
+
+  return (
+    <div className="flex justify-end mt-1 pr-10">
+      <span className="text-[#6B7280] text-[10px] font-mono">{label}</span>
+    </div>
+  );
+}
+
+function formatRelative(dateStr: string, locale: string): string {
+  const isJa = locale === 'ja';
+  const diff = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
+  if (diff < 60) return isJa ? '既読 今' : 'Seen just now';
+  if (diff < 3600) return isJa ? `既読 ${Math.floor(diff / 60)}分前` : `Seen ${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return isJa ? `既読 ${Math.floor(diff / 3600)}時間前` : `Seen ${Math.floor(diff / 3600)}h ago`;
+  return isJa ? `既読 ${Math.floor(diff / 86400)}日前` : `Seen ${Math.floor(diff / 86400)}d ago`;
 }

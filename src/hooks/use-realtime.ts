@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef, useId } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 
@@ -13,42 +13,46 @@ interface UseRealtimeOptions {
 }
 
 export function useRealtime({ table, filter, onInsert, onUpdate, onDelete }: UseRealtimeOptions) {
+  // Stable supabase client — never recreated between renders
+  const supabaseRef = useRef(createClient());
+  const uid = useId();
+  // Store callbacks in refs so they don't trigger effect re-runs
+  const onInsertRef = useRef(onInsert);
+  const onUpdateRef = useRef(onUpdate);
+  const onDeleteRef = useRef(onDelete);
+
+  useEffect(() => { onInsertRef.current = onInsert; }, [onInsert]);
+  useEffect(() => { onUpdateRef.current = onUpdate; }, [onUpdate]);
+  useEffect(() => { onDeleteRef.current = onDelete; }, [onDelete]);
+
   useEffect(() => {
-    const supabase = createClient();
+    const supabase = supabaseRef.current;
+    // Unique channel name per hook instance prevents strict-mode collisions
+    const channelName = `${table}-${uid.replace(/:/g, '')}-${filter ?? 'all'}`;
     let channel: RealtimeChannel;
 
-    const setup = () => {
-      channel = supabase
-        .channel(`${table}-changes`)
-        .on(
-          'postgres_changes',
-          {
-            event: '*',
-            schema: 'public',
-            table,
-            filter,
-          },
-          (payload) => {
-            if (payload.eventType === 'INSERT' && onInsert) {
-              onInsert(payload.new as Record<string, unknown>);
-            }
-            if (payload.eventType === 'UPDATE' && onUpdate) {
-              onUpdate(payload.new as Record<string, unknown>);
-            }
-            if (payload.eventType === 'DELETE' && onDelete) {
-              onDelete(payload.old as Record<string, unknown>);
-            }
+    channel = supabase
+      .channel(channelName)
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table, filter },
+        (payload) => {
+          if (payload.eventType === 'INSERT' && onInsertRef.current) {
+            onInsertRef.current(payload.new as Record<string, unknown>);
           }
-        )
-        .subscribe();
-    };
-
-    setup();
+          if (payload.eventType === 'UPDATE' && onUpdateRef.current) {
+            onUpdateRef.current(payload.new as Record<string, unknown>);
+          }
+          if (payload.eventType === 'DELETE' && onDeleteRef.current) {
+            onDeleteRef.current(payload.old as Record<string, unknown>);
+          }
+        }
+      )
+      .subscribe();
 
     return () => {
-      if (channel) {
-        supabase.removeChannel(channel);
-      }
+      supabase.removeChannel(channel);
     };
-  }, [table, filter, onInsert, onUpdate, onDelete]);
+    // Only re-subscribe if the table/filter change — callbacks are handled via refs
+  }, [table, filter, uid]);
 }

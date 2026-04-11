@@ -125,6 +125,30 @@ export type Database = {
         Insert: Omit<Database['public']['Tables']['change_requests']['Row'], 'id' | 'created_at' | 'updated_at'> & { id?: string; created_at?: string; updated_at?: string };
         Update: Partial<Database['public']['Tables']['change_requests']['Insert']>;
       };
+      message_read_status: {
+        Row: {
+          user_id: string;
+          project_id: string;
+          last_read_at: string;
+        };
+        Insert: {
+          user_id: string;
+          project_id: string;
+          last_read_at?: string;
+        };
+        Update: Partial<Database['public']['Tables']['message_read_status']['Insert']>;
+      };
+      message_notification_log: {
+        Row: {
+          id: string;
+          recipient_id: string;
+          project_id: string;
+          sent_at: string;
+          type: 'client_instant' | 'admin_digest';
+        };
+        Insert: Omit<Database['public']['Tables']['message_notification_log']['Row'], 'id' | 'sent_at'> & { id?: string; sent_at?: string };
+        Update: Partial<Database['public']['Tables']['message_notification_log']['Insert']>;
+      };
       newsletter_subscribers: {
         Row: {
           id: string;

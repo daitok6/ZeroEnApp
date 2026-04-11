@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import type { ReactNode } from 'react';
 import { navItems, pendingNavItems, onboardingNavItems, adminNavItems } from './nav-items';
 import { SidebarNavLink } from './sidebar-nav-link';
 
@@ -14,7 +15,15 @@ const NAV_MAP = {
   admin: adminNavItems,
 } as const;
 
-export function Sidebar({ locale, navType, basePath }: { locale: string; navType: NavType; basePath: string }) {
+interface SidebarProps {
+  locale: string;
+  navType: NavType;
+  basePath: string;
+  /** Badge to show on the Messages nav item */
+  messagesBadge?: ReactNode;
+}
+
+export function Sidebar({ locale, navType, basePath, messagesBadge }: SidebarProps) {
   const items = NAV_MAP[navType];
   return (
     <aside className="hidden md:flex flex-col w-56 shrink-0 bg-[#0D0D0D] border-r border-[#374151] h-full">
@@ -35,6 +44,7 @@ export function Sidebar({ locale, navType, basePath }: { locale: string; navType
               icon={item.icon}
               label={locale === 'ja' ? item.labelJa : item.labelEn}
               exact={item.path === basePath}
+              badge={item.key === 'messages' ? messagesBadge : undefined}
             />
           ))}
         </div>

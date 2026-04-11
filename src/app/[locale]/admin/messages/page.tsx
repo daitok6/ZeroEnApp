@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { getProjectsWithLatestMessage } from '@/lib/admin/queries';
+import { getUnreadCounts } from '@/lib/messages/unread';
 import { AdminMessagesClient } from '@/components/admin/admin-messages-client';
 import type { Metadata } from 'next';
 
@@ -25,6 +26,12 @@ export default async function AdminMessagesPage({ params }: Props) {
   const { data: { user } } = await supabase.auth.getUser();
 
   const projects = await getProjectsWithLatestMessage(supabase);
+
+  // Per-project unread counts (admin perspective)
+  const projectIds = projects.map((p) => p.id);
+  const unreadCounts = user
+    ? await getUnreadCounts(supabase, user.id, projectIds)
+    : {};
 
   // Load initial messages for the first project
   const firstProject = projects[0] ?? null;
@@ -54,6 +61,7 @@ export default async function AdminMessagesPage({ params }: Props) {
         initialProjectId={firstProject?.id ?? null}
         userId={user?.id ?? ''}
         locale={locale}
+        initialUnreadCounts={unreadCounts}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useId } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { MessageThread } from '@/components/dashboard/message-thread';
@@ -20,32 +20,68 @@ interface Props {
   initialProjectId: string | null;
   userId: string;
   locale: string;
+  initialUnreadCounts: Record<string, number>;
 }
 
-export function AdminMessagesClient({ projects, initialMessages, initialProjectId, userId, locale }: Props) {
+export function AdminMessagesClient({ projects, initialMessages, initialProjectId, userId, locale, initialUnreadCounts }: Props) {
   const isJa = locale === 'ja';
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(initialProjectId);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
+  const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(initialUnreadCounts);
+  const supabaseRef = useRef(createClient());
+  const uid = useId();
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId) ?? null;
 
+  // Real-time: listen for new messages across all projects to update badges
   useEffect(() => {
-    if (!selectedProjectId || selectedProjectId === initialProjectId) return;
+    const supabase = supabaseRef.current;
+    const channelName = `admin-unread-${uid.replace(/:/g, '')}`;
+
+    const channel = supabase
+      .channel(channelName)
+      .on('postgres_changes', {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'messages',
+      }, (payload) => {
+        const msg = payload.new as { sender_id: string; project_id: string };
+        // Only count messages from clients (not from admin themselves)
+        if (msg.sender_id !== userId && msg.project_id !== selectedProjectId) {
+          setUnreadCounts((prev) => ({
+            ...prev,
+            [msg.project_id]: (prev[msg.project_id] ?? 0) + 1,
+          }));
+        }
+      })
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+  }, [userId, selectedProjectId, uid]);
+
+  // When a project is selected, load its messages and mark as read
+  const handleSelectProject = async (projectId: string) => {
+    setSelectedProjectId(projectId);
+    // Clear unread badge for this project
+    setUnreadCounts((prev) => ({ ...prev, [projectId]: 0 }));
+
+    if (projectId === initialProjectId) {
+      setMessages(initialMessages);
+      return;
+    }
 
     setLoading(true);
-    supabase
+    const supabase = supabaseRef.current;
+    const { data } = await supabase
       .from('messages')
       .select('*, sender:profiles(full_name, avatar_url, role)')
-      .eq('project_id', selectedProjectId)
+      .eq('project_id', projectId)
       .order('created_at', { ascending: true })
-      .limit(50)
-      .then(({ data }) => {
-        setMessages((data as Message[]) ?? []);
-        setLoading(false);
-      });
-  }, [selectedProjectId, initialProjectId, supabase]);
+      .limit(50);
+    setMessages((data as Message[]) ?? []);
+    setLoading(false);
+  };
 
   function formatTime(dateStr: string | null): string {
     if (!dateStr) return '';
@@ -73,10 +109,12 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
         ) : (
           projects.map((project) => {
             const isSelected = project.id === selectedProjectId;
+            const unread = unreadCounts[project.id] ?? 0;
+
             return (
               <button
                 key={project.id}
-                onClick={() => setSelectedProjectId(project.id)}
+                onClick={() => handleSelectProject(project.id)}
                 className={`w-full text-left px-4 py-3 border-b border-[#374151] transition-colors hover:bg-[#0D0D0D]/60 ${
                   isSelected ? 'bg-[#00E87A]/5 border-l-2 border-l-[#00E87A]' : ''
                 }`}
@@ -85,11 +123,18 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
                   <p className={`text-sm font-mono font-bold truncate ${isSelected ? 'text-[#00E87A]' : 'text-[#F4F4F2]'}`}>
                     {project.name}
                   </p>
-                  {project.lastMessageAt && (
-                    <time className="text-[#374151] text-xs font-mono shrink-0">
-                      {formatTime(project.lastMessageAt)}
-                    </time>
-                  )}
+                  <div className="flex items-center gap-2 shrink-0">
+                    {unread > 0 && (
+                      <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-[#00E87A] text-[#0D0D0D] text-[10px] font-bold font-mono leading-none">
+                        {unread > 99 ? '99+' : unread}
+                      </span>
+                    )}
+                    {project.lastMessageAt && (
+                      <time className="text-[#374151] text-xs font-mono">
+                        {formatTime(project.lastMessageAt)}
+                      </time>
+                    )}
+                  </div>
                 </div>
                 <p className="text-[#9CA3AF] text-xs font-mono truncate">
                   {project.clientName ?? project.clientEmail}

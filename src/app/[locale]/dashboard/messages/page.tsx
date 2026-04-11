@@ -30,6 +30,29 @@ export default async function MessagesPage({ params }: Props) {
         .limit(50)).data ?? []
     : [];
 
+  // Get admin's last_read_at for this project (for Seen indicator)
+  let adminLastReadAt: string | null = null;
+  if (project) {
+    // Find the admin user ID
+    const { data: adminProfile } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('role', 'admin')
+      .limit(1)
+      .single();
+
+    if (adminProfile) {
+      const { data: readStatus } = await supabase
+        .from('message_read_status')
+        .select('last_read_at')
+        .eq('user_id', adminProfile.id)
+        .eq('project_id', project.id)
+        .single();
+
+      adminLastReadAt = readStatus?.last_read_at ?? null;
+    }
+  }
+
   return (
     <div className="flex flex-col h-full max-w-3xl" style={{ height: 'calc(100vh - 8rem)' }}>
       <div className="mb-4 shrink-0">
@@ -51,6 +74,7 @@ export default async function MessagesPage({ params }: Props) {
           projectId={project.id}
           userId={user.id}
           locale={locale}
+          adminLastReadAt={adminLastReadAt}
         />
       ) : (
         <div className="flex-1 border border-[#374151] rounded-lg bg-[#111827] flex items-center justify-center">

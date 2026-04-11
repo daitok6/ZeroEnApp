@@ -3,15 +3,17 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { LucideIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 interface SidebarNavLinkProps {
   href: string;
   icon: LucideIcon;
   label: string;
   exact?: boolean;
+  badge?: ReactNode;
 }
 
-export function SidebarNavLink({ href, icon: Icon, label, exact = false }: SidebarNavLinkProps) {
+export function SidebarNavLink({ href, icon: Icon, label, exact = false, badge }: SidebarNavLinkProps) {
   const pathname = usePathname();
   const isActive = exact ? pathname === href : pathname.startsWith(href);
 
@@ -25,7 +27,8 @@ export function SidebarNavLink({ href, icon: Icon, label, exact = false }: Sideb
       }`}
     >
       <Icon size={16} strokeWidth={isActive ? 2.5 : 1.5} />
-      {label}
+      <span className="flex-1">{label}</span>
+      {badge}
     </Link>
   );
 }

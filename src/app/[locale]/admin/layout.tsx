@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
+import { UnreadBadge } from '@/components/dashboard/unread-badge';
+import { getUnreadCounts, getTotalUnread } from '@/lib/messages/unread';
 
 type Props = {
   children: React.ReactNode;
@@ -13,9 +15,7 @@ export default async function AdminLayout({ children, params }: Props) {
   const { locale } = await params;
 
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
     redirect(`/${locale}/login`);
@@ -31,9 +31,23 @@ export default async function AdminLayout({ children, params }: Props) {
     redirect(`/${locale}/dashboard`);
   }
 
+  // Fetch all project IDs for unread count
+  const { data: projects } = await supabase.from('projects').select('id');
+  const projectIds = (projects ?? []).map((p: { id: string }) => p.id);
+  const counts = await getUnreadCounts(supabase, user.id, projectIds);
+  const initialUnread = getTotalUnread(counts);
+
+  const messagesBadge = (
+    <UnreadBadge
+      initialCount={initialUnread}
+      projectIds={projectIds}
+      userId={user.id}
+    />
+  );
+
   return (
     <div data-admin className="min-h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
-      <Sidebar locale={locale} navType="admin" basePath="/admin" />
+      <Sidebar locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} />
 
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
         <DashboardTopbar
@@ -46,7 +60,7 @@ export default async function AdminLayout({ children, params }: Props) {
         </main>
       </div>
 
-      <BottomNav locale={locale} navType="admin" basePath="/admin" />
+      <BottomNav locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} />
     </div>
   );
 }

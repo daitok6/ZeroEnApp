@@ -333,3 +333,43 @@ export function invoiceDueEmail(data: {
     `),
   };
 }
+
+// ── Email: Admin Message Digest ────────────────────────────
+export function adminDigestEmail(data: {
+  threads: Array<{
+    projectName: string;
+    clientName: string;
+    unreadCount: number;
+    latestMessage: string;
+    conversationUrl: string;
+  }>;
+  totalUnread: number;
+  dashboardUrl: string;
+}): { subject: string; html: string } {
+  const { threads, totalUnread, dashboardUrl } = data;
+  const clientCount = threads.length;
+
+  const threadRows = threads.map((t) => `
+    <div style="border: 1px solid #1F2937; border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+        <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 13px; font-weight: 700;">${t.projectName}</span>
+        <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; background: #00E87A; color: #0D0D0D; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 9999px;">${t.unreadCount}</span>
+      </div>
+      <div style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; margin-bottom: 8px;">${t.clientName}</div>
+      <div style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #9CA3AF; font-size: 12px; border-left: 2px solid #374151; padding-left: 10px; margin-bottom: 10px; font-style: italic;">"${t.latestMessage.length > 120 ? t.latestMessage.slice(0, 120) + '...' : t.latestMessage}"</div>
+      <a href="${t.conversationUrl}" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 11px; text-decoration: none;">Reply →</a>
+    </div>
+  `).join('');
+
+  return {
+    subject: `[ZeroEn] ${totalUnread} unread message${totalUnread === 1 ? '' : 's'} from ${clientCount} client${clientCount === 1 ? '' : 's'}`,
+    html: emailWrapper(`
+      ${heading(`${totalUnread} unread.`)}
+      ${subheading(`You have unread messages from ${clientCount} client${clientCount === 1 ? '' : 's'}.`)}
+      <div style="margin: 20px 0;">
+        ${threadRows}
+      </div>
+      ${ctaButton('Open Admin Dashboard', dashboardUrl)}
+    `),
+  };
+}
