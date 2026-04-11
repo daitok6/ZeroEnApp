@@ -25,12 +25,12 @@ export function ProjectStatusCard({ project, locale }: ProjectStatusCardProps) {
           {locale === 'ja' ? 'プロジェクト' : 'Project'}
         </p>
         <p className="text-[#F4F4F2] font-mono font-bold text-lg mb-2">
-          {locale === 'ja' ? '申請を確認中' : 'Application Under Review'}
+          {locale === 'ja' ? 'プロジェクト準備中' : 'Project Being Set Up'}
         </p>
         <p className="text-[#9CA3AF] text-sm font-mono">
           {locale === 'ja'
-            ? '審査が完了次第、プロジェクトが開始されます。'
-            : 'Your project will appear here once your application is accepted.'}
+            ? 'オンボーディング完了。プロジェクトの準備ができたらここに表示されます。'
+            : "You're all set. Your project will appear here once it's been created."}
         </p>
       </div>
     );
