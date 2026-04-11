@@ -13,6 +13,7 @@ interface UnreadBadgeProps {
 
 /**
  * Real-time unread message count badge.
+ * - Fetches fresh counts on mount (server layout may be cached/stale).
  * - One Supabase channel per project with a project_id filter (reliable with RLS).
  * - Increments when new messages arrive from other senders.
  * - Decrements to 0 for a project when 'zeroen:message-read' CustomEvent fires.
@@ -24,11 +25,42 @@ export function UnreadBadge({ initialCounts, projectIds, userId }: UnreadBadgePr
   // but the values haven't actually changed.
   const projectKey = projectIds.join(',');
 
-  // Sync if server re-renders with different initial values
+  // Re-fetch on mount so stale router-cached layouts don't show a wrong count.
   useEffect(() => {
-    setCounts(initialCounts);
+    if (projectIds.length === 0) return;
+    const supabase = supabaseRef.current;
+
+    async function fetchCounts() {
+      const { data: readStatus } = await supabase
+        .from('message_read_status')
+        .select('project_id, last_read_at')
+        .eq('user_id', userId)
+        .in('project_id', projectIds);
+
+      const readMap = new Map<string, string>();
+      for (const row of readStatus ?? []) {
+        readMap.set(row.project_id, row.last_read_at);
+      }
+
+      const { data: messages } = await supabase
+        .from('messages')
+        .select('project_id, created_at, sender_id')
+        .in('project_id', projectIds)
+        .neq('sender_id', userId);
+
+      const fresh: Record<string, number> = {};
+      for (const msg of messages ?? []) {
+        const lastRead = readMap.get(msg.project_id);
+        if (!lastRead || msg.created_at > lastRead) {
+          fresh[msg.project_id] = (fresh[msg.project_id] ?? 0) + 1;
+        }
+      }
+      setCounts(fresh);
+    }
+
+    fetchCounts();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projectKey]);
+  }, [projectKey, userId]);
 
   // One subscription per project with an explicit filter — avoids the no-filter
   // RLS evaluation issues with postgres_changes.
