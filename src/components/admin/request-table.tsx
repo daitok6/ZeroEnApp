@@ -73,13 +73,19 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
 
   async function updateStatus(requestId: string, status: string) {
     setStatusLoading(requestId);
-    await fetch(`/api/admin/requests/${requestId}/status`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status }),
-    });
-    setStatusLoading(null);
-    router.refresh();
+    try {
+      const res = await fetch(`/api/admin/requests/${requestId}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status }),
+      });
+      if (!res.ok) return;
+      router.refresh();
+    } catch {
+      // network error — loading spinner cleared in finally
+    } finally {
+      setStatusLoading(null);
+    }
   }
 
   const tabCounts: Record<Tab, number> = {
