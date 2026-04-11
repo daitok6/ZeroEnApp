@@ -80,37 +80,48 @@ export async function POST(request: NextRequest) {
 
     let session;
 
-    if (type === 'subscription') {
-      const PLATFORM_PRICE_ID = process.env.STRIPE_PLATFORM_PRICE_ID;
+    if (type === 'subscription' && planTier) {
+      // JPY tier-specific price IDs
+      const BASIC_PRICE_ID = process.env.STRIPE_BASIC_PRICE_ID;
+      const PREMIUM_PRICE_ID = process.env.STRIPE_PREMIUM_PRICE_ID;
+      const priceId = planTier === 'premium' ? PREMIUM_PRICE_ID : BASIC_PRICE_ID;
 
       const subscriptionMeta = {
         supabase_user_id: user.id,
         type: 'subscription',
-        plan_tier: planTier ?? 'basic',
+        plan_tier: planTier,
         ...(projectId ? { project_id: projectId } : {}),
       };
 
-      // Prices per tier (used when no env price ID is configured)
-      const tierAmounts: Record<string, number> = { basic: 3500, premium: 7000 };
-      const tierAmount = tierAmounts[planTier ?? 'basic'] ?? 3500;
-      const tierName = planTier === 'premium' ? 'ZeroEn Premium' : 'ZeroEn Basic';
-      const tierDesc = planTier === 'premium'
-        ? 'Monthly hosting, 2 small changes OR 1 medium, full-year analytics, quarterly audits'
-        : 'Monthly hosting, 1 small change/mo, analytics PDF';
+      if (priceId) {
+        session = await stripe.checkout.sessions.create({
+          customer: customerId,
+          mode: 'subscription',
+          line_items: [{ price: priceId, quantity: 1 }],
+          success_url: successUrl,
+          cancel_url: cancelUrl,
+          metadata: subscriptionMeta,
+        });
+      } else {
+        // Fallback: inline JPY price_data (zero-decimal: ¥5,000 = 5000, ¥10,000 = 10000)
+        const tierName = planTier === 'premium' ? 'ZeroEn Premium' : 'ZeroEn Basic';
+        const tierDesc = planTier === 'premium'
+          ? 'Monthly hosting, 2 small changes OR 1 medium, full-year analytics, quarterly audits'
+          : 'Monthly hosting, 1 small change/mo, analytics PDF';
+        const unitAmount = planTier === 'premium' ? 10000 : 5000;
 
-      if (!PLATFORM_PRICE_ID) {
         session = await stripe.checkout.sessions.create({
           customer: customerId,
           mode: 'subscription',
           line_items: [
             {
               price_data: {
-                currency: 'usd',
+                currency: 'jpy',
                 product_data: {
                   name: tierName,
                   description: tierDesc,
                 },
-                unit_amount: tierAmount,
+                unit_amount: unitAmount,
                 recurring: { interval: 'month' },
               },
               quantity: 1,
@@ -120,11 +131,41 @@ export async function POST(request: NextRequest) {
           cancel_url: cancelUrl,
           metadata: subscriptionMeta,
         });
-      } else {
+      }
+    } else if (type === 'subscription' && !planTier) {
+      // Backward-compat: no planTier — keep old USD fallback path
+      const PLATFORM_PRICE_ID = process.env.STRIPE_PLATFORM_PRICE_ID;
+
+      const subscriptionMeta = {
+        supabase_user_id: user.id,
+        type: 'subscription',
+        ...(projectId ? { project_id: projectId } : {}),
+      };
+
+      if (PLATFORM_PRICE_ID) {
         session = await stripe.checkout.sessions.create({
           customer: customerId,
           mode: 'subscription',
           line_items: [{ price: PLATFORM_PRICE_ID, quantity: 1 }],
+          success_url: successUrl,
+          cancel_url: cancelUrl,
+          metadata: subscriptionMeta,
+        });
+      } else {
+        session = await stripe.checkout.sessions.create({
+          customer: customerId,
+          mode: 'subscription',
+          line_items: [
+            {
+              price_data: {
+                currency: 'usd',
+                product_data: { name: 'ZeroEn Platform' },
+                unit_amount: 5000,
+                recurring: { interval: 'month' },
+              },
+              quantity: 1,
+            },
+          ],
           success_url: successUrl,
           cancel_url: cancelUrl,
           metadata: subscriptionMeta,
