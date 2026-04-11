@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useId } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { MessageThread } from '@/components/dashboard/message-thread';
@@ -30,14 +30,23 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
   const [loading, setLoading] = useState(false);
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(initialUnreadCounts);
   const supabaseRef = useRef(createClient());
-  const uid = useId();
+  // Track selected project in a ref so the realtime callback always sees the
+  // current value without needing to re-subscribe when the selection changes.
+  const selectedProjectIdRef = useRef(selectedProjectId);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId) ?? null;
+
+  useEffect(() => {
+    selectedProjectIdRef.current = selectedProjectId;
+  }, [selectedProjectId]);
 
   // Real-time: listen for new messages across all projects to update badges
   useEffect(() => {
     const supabase = supabaseRef.current;
-    const channelName = `admin-unread-${uid.replace(/:/g, '')}`;
+    // Suffix generated inside effect so each effect invocation (including
+    // React strict-mode's double-mount) gets a truly unique channel name.
+    const suffix = Math.random().toString(36).slice(2, 10);
+    const channelName = `admin-unread-${suffix}`;
 
     const channel = supabase
       .channel(channelName)
@@ -47,8 +56,9 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
         table: 'messages',
       }, (payload) => {
         const msg = payload.new as { sender_id: string; project_id: string };
-        // Only count messages from clients (not from admin themselves)
-        if (msg.sender_id !== userId && msg.project_id !== selectedProjectId) {
+        // Only count messages from clients (not from admin themselves),
+        // and skip the currently open conversation.
+        if (msg.sender_id !== userId && msg.project_id !== selectedProjectIdRef.current) {
           setUnreadCounts((prev) => ({
             ...prev,
             [msg.project_id]: (prev[msg.project_id] ?? 0) + 1,
@@ -58,7 +68,7 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
       .subscribe();
 
     return () => { supabase.removeChannel(channel); };
-  }, [userId, selectedProjectId, uid]);
+  }, [userId]);
 
   // When a project is selected, load its messages and mark as read
   const handleSelectProject = async (projectId: string) => {

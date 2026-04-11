@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useId } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Send } from 'lucide-react';
 
@@ -28,13 +28,14 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
   const bottomRef = useRef<HTMLDivElement>(null);
   // Stable supabase client reference — never changes between renders
   const supabaseRef = useRef(createClient());
-  const uid = useId();
 
   // Subscribe to new messages via Realtime
   useEffect(() => {
     const supabase = supabaseRef.current;
-    // Unique channel name per component instance prevents strict-mode collisions
-    const channelName = `messages-${projectId}-${uid.replace(/:/g, '')}`;
+    // Suffix generated inside effect so each effect invocation (including
+    // React strict-mode's double-mount) gets a truly unique channel name.
+    const suffix = Math.random().toString(36).slice(2, 10);
+    const channelName = `messages-${projectId}-${suffix}`;
 
     const channel = supabase
       .channel(channelName)
@@ -49,7 +50,7 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
       .subscribe();
 
     return () => { supabase.removeChannel(channel); };
-  }, [projectId, uid]);
+  }, [projectId]);
 
   // Mark conversation as read on mount and when new messages arrive
   useEffect(() => {

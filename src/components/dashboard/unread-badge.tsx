@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useId } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
 interface UnreadBadgeProps {
@@ -19,7 +19,6 @@ interface UnreadBadgeProps {
 export function UnreadBadge({ initialCount, projectIds, userId, filterProjectId }: UnreadBadgeProps) {
   const [count, setCount] = useState(initialCount);
   const supabaseRef = useRef(createClient());
-  const uid = useId();
 
   useEffect(() => {
     setCount(initialCount);
@@ -28,7 +27,10 @@ export function UnreadBadge({ initialCount, projectIds, userId, filterProjectId 
   useEffect(() => {
     if (projectIds.length === 0) return;
     const supabase = supabaseRef.current;
-    const channelName = `unread-badge-${uid.replace(/:/g, '')}`;
+    // Suffix generated inside effect so each effect invocation (including
+    // React strict-mode's double-mount) gets a truly unique channel name.
+    const suffix = Math.random().toString(36).slice(2, 10);
+    const channelName = `unread-badge-${suffix}`;
 
     const filter = filterProjectId
       ? `project_id=eq.${filterProjectId}`
@@ -53,7 +55,7 @@ export function UnreadBadge({ initialCount, projectIds, userId, filterProjectId 
       .subscribe();
 
     return () => { supabase.removeChannel(channel); };
-  }, [projectIds, userId, filterProjectId, uid]);
+  }, [projectIds, userId, filterProjectId]);
 
   if (count === 0) return null;
 
