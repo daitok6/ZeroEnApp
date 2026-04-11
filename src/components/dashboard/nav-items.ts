@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox } from 'lucide-react';
 
 export const navItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/dashboard' },
@@ -17,7 +17,6 @@ export type NavItem = {
   readonly path: string;
 };
 
-// Nav for users who haven't been approved yet — apply + check status only
 export const pendingNavItems = [
   { key: 'apply', icon: Send, labelEn: 'Apply', labelJa: '応募', path: '/dashboard/apply' },
   { key: 'application-status', icon: ClipboardList, labelEn: 'Application Status', labelJa: '応募状況', path: '/dashboard/application-status' },
@@ -31,6 +30,7 @@ export const adminNavItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/admin' },
   { key: 'clients', icon: Users, labelEn: 'Clients', labelJa: 'クライアント', path: '/admin/clients' },
   { key: 'applications', icon: ClipboardList, labelEn: 'Applications', labelJa: '応募', path: '/admin/applications' },
+  { key: 'requests', icon: Inbox, labelEn: 'Requests', labelJa: 'リクエスト', path: '/admin/requests' },
   { key: 'messages', icon: MessageSquare, labelEn: 'Messages', labelJa: 'メッセージ', path: '/admin/messages' },
   { key: 'documents', icon: FileText, labelEn: 'Documents', labelJa: '書類', path: '/admin/documents' },
 ] as const;
