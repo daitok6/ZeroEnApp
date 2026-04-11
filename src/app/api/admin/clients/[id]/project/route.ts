@@ -59,16 +59,42 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     }
   }
 
-  const { data: updatedProject, error } = await supabase
+  // Check if a project row exists for this client
+  const { data: existing } = await supabase
     .from('projects')
-    .update(updatePayload)
+    .select('id')
     .eq('client_id', id)
-    .select('id, name, status, site_url, github_repo, vercel_project, plan_tier, client_visible, commitment_starts_at, stripe_subscription_id, updated_at')
-    .single();
+    .maybeSingle();
 
-  if (error) {
-    console.error('project update error:', error);
-    return NextResponse.json({ error: 'Failed to update project' }, { status: 500 });
+  let updatedProject;
+
+  if (existing) {
+    // Update existing project
+    const { data, error } = await supabase
+      .from('projects')
+      .update(updatePayload)
+      .eq('client_id', id)
+      .select('id, name, status, site_url, github_repo, vercel_project, plan_tier, client_visible, commitment_starts_at, stripe_subscription_id, updated_at')
+      .single();
+
+    if (error) {
+      console.error('project update error:', error);
+      return NextResponse.json({ error: 'Failed to update project' }, { status: 500 });
+    }
+    updatedProject = data;
+  } else {
+    // Insert new project row for this client
+    const { data, error } = await supabase
+      .from('projects')
+      .insert({ client_id: id, ...updatePayload, status: updatePayload.status ?? 'onboarding' })
+      .select('id, name, status, site_url, github_repo, vercel_project, plan_tier, client_visible, commitment_starts_at, stripe_subscription_id, updated_at')
+      .single();
+
+    if (error) {
+      console.error('project insert error:', error);
+      return NextResponse.json({ error: 'Failed to create project' }, { status: 500 });
+    }
+    updatedProject = data;
   }
 
   return NextResponse.json({ project: updatedProject });
