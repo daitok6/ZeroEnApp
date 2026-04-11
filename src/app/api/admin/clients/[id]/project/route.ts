@@ -68,6 +68,8 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     updatePayload.client_visible = client_visible;
     if (client_visible === true) {
       updatePayload.status = 'launched';
+    } else {
+      updatePayload.status = 'building';
     }
   }
 
