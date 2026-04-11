@@ -1,6 +1,7 @@
 import { requireApproved } from '@/lib/auth/require-approved';
 import { ChangeRequestForm } from '@/components/dashboard/change-request-form';
 import { RequestCard } from '@/components/dashboard/request-card';
+import { SubscriptionRequired } from '@/components/dashboard/subscription-required';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -16,9 +17,13 @@ export default async function RequestsPage({ params }: Props) {
 
   const { data: project } = await supabase
     .from('projects')
-    .select('id')
+    .select('id, client_visible, plan_tier')
     .eq('client_id', user.id)
     .single();
+
+  if (project && project.client_visible && !project.plan_tier) {
+    return <SubscriptionRequired locale={locale} />;
+  }
 
   const requests = project
     ? (await supabase

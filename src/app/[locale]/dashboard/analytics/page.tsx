@@ -1,4 +1,5 @@
 import { requireApproved } from '@/lib/auth/require-approved';
+import { SubscriptionRequired } from '@/components/dashboard/subscription-required';
 import { Download, FileText } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -11,7 +12,17 @@ type Props = { params: Promise<{ locale: string }> };
 
 export default async function AnalyticsPage({ params }: Props) {
   const { locale } = await params;
-  await requireApproved(locale);
+  const { user, supabase } = await requireApproved(locale);
+
+  const { data: project } = await supabase
+    .from('projects')
+    .select('id, client_visible, plan_tier')
+    .eq('client_id', user.id)
+    .single();
+
+  if (project && project.client_visible && !project.plan_tier) {
+    return <SubscriptionRequired locale={locale} />;
+  }
 
   // In production: list files from Supabase Storage bucket "analytics-reports"
   // For now, show empty state

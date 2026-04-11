@@ -7,6 +7,8 @@ import { z } from 'zod';
 const checkoutSchema = z.object({
   type: z.enum(['subscription', 'per_request']),
   invoiceId: z.string().uuid().optional(),
+  planTier: z.enum(['basic', 'premium']).optional(),
+  projectId: z.string().uuid().optional(),
   locale: z.enum(['en', 'ja']).default('en'),
 });
 
@@ -17,7 +19,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { type, invoiceId, locale } = checkoutSchema.parse(body);
+    const { type, invoiceId, planTier, projectId, locale } = checkoutSchema.parse(body);
 
     const cookieStore = await cookies();
     const supabase = createServerClient(
@@ -68,13 +70,33 @@ export async function POST(request: NextRequest) {
     }
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const successUrl = `${appUrl}/${locale}/dashboard/invoices?success=true`;
-    const cancelUrl = `${appUrl}/${locale}/dashboard/invoices`;
+    const subscriptionSuccessUrl = `${appUrl}/${locale}/dashboard?subscribed=true`;
+    const successUrl = type === 'subscription'
+      ? subscriptionSuccessUrl
+      : `${appUrl}/${locale}/dashboard/invoices?success=true`;
+    const cancelUrl = type === 'subscription'
+      ? `${appUrl}/${locale}/dashboard`
+      : `${appUrl}/${locale}/dashboard/invoices`;
 
     let session;
 
     if (type === 'subscription') {
       const PLATFORM_PRICE_ID = process.env.STRIPE_PLATFORM_PRICE_ID;
+
+      const subscriptionMeta = {
+        supabase_user_id: user.id,
+        type: 'subscription',
+        plan_tier: planTier ?? 'basic',
+        ...(projectId ? { project_id: projectId } : {}),
+      };
+
+      // Prices per tier (used when no env price ID is configured)
+      const tierAmounts: Record<string, number> = { basic: 3500, premium: 7000 };
+      const tierAmount = tierAmounts[planTier ?? 'basic'] ?? 3500;
+      const tierName = planTier === 'premium' ? 'ZeroEn Premium' : 'ZeroEn Basic';
+      const tierDesc = planTier === 'premium'
+        ? 'Monthly hosting, 2 small changes OR 1 medium, full-year analytics, quarterly audits'
+        : 'Monthly hosting, 1 small change/mo, analytics PDF';
 
       if (!PLATFORM_PRICE_ID) {
         session = await stripe.checkout.sessions.create({
@@ -85,10 +107,10 @@ export async function POST(request: NextRequest) {
               price_data: {
                 currency: 'usd',
                 product_data: {
-                  name: 'ZeroEn Platform',
-                  description: 'Monthly hosting, 1 fix/mo, analytics PDF',
+                  name: tierName,
+                  description: tierDesc,
                 },
-                unit_amount: 5000,
+                unit_amount: tierAmount,
                 recurring: { interval: 'month' },
               },
               quantity: 1,
@@ -96,7 +118,7 @@ export async function POST(request: NextRequest) {
           ],
           success_url: successUrl,
           cancel_url: cancelUrl,
-          metadata: { supabase_user_id: user.id, type: 'subscription' },
+          metadata: subscriptionMeta,
         });
       } else {
         session = await stripe.checkout.sessions.create({
@@ -105,7 +127,7 @@ export async function POST(request: NextRequest) {
           line_items: [{ price: PLATFORM_PRICE_ID, quantity: 1 }],
           success_url: successUrl,
           cancel_url: cancelUrl,
-          metadata: { supabase_user_id: user.id, type: 'subscription' },
+          metadata: subscriptionMeta,
         });
       }
     } else {
