@@ -1,4 +1,5 @@
 import { PlanChangeTrigger } from './plan-change-trigger';
+import { addMonths, formatDate } from '@/lib/date-utils';
 
 interface PlanSummaryCardProps {
   planTier: 'basic' | 'premium';
@@ -25,17 +26,8 @@ const PLAN_FEATURES: Record<'basic' | 'premium', { en: string; ja: string }[]> =
   ],
 };
 
-function formatDate(isoString: string, locale: string): string {
-  return new Date(isoString).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
-
 export function PlanSummaryCard({ planTier, commitmentStartsAt, locale }: PlanSummaryCardProps) {
-  const commitmentEnd = new Date(commitmentStartsAt);
-  commitmentEnd.setMonth(commitmentEnd.getMonth() + 6);
+  const commitmentEnd = addMonths(commitmentStartsAt, 6);
 
   const features = PLAN_FEATURES[planTier];
   const isPremium = planTier === 'premium';
@@ -67,8 +59,8 @@ export function PlanSummaryCard({ planTier, commitmentStartsAt, locale }: PlanSu
 
       {/* Features */}
       <ul className="space-y-1.5">
-        {features.map((f, i) => (
-          <li key={i} className="flex items-center gap-2 text-xs font-mono text-[#9CA3AF]">
+        {features.map((f) => (
+          <li key={f.en} className="flex items-center gap-2 text-xs font-mono text-[#9CA3AF]">
             <span className={isPremium ? 'text-[#00E87A]' : 'text-[#6B7280]'}>✓</span>
             {locale === 'ja' ? f.ja : f.en}
           </li>

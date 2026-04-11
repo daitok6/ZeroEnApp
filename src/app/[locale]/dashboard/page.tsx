@@ -193,6 +193,8 @@ export default async function DashboardPage({ params, searchParams }: Props) {
             <ProjectStatusCard project={project} locale={locale} hideAdminLinks={true} />
             <PlanSummaryCard
               planTier={project.plan_tier}
+              // commitment_starts_at should always be set when plan_tier is set;
+              // fallback to now() is purely defensive and should not occur in practice
               commitmentStartsAt={project.commitment_starts_at ?? new Date().toISOString()}
               locale={locale}
             />

@@ -9,6 +9,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { addMonths, formatDate } from '@/lib/date-utils';
 
 interface PlanChangeModalProps {
   currentPlan: 'basic' | 'premium';
@@ -21,8 +22,8 @@ interface PlanChangeModalProps {
 type ModalState = 'idle' | 'loading' | 'success' | 'error' | 'downgrade_locked';
 
 const PLAN_PRICES: Record<'basic' | 'premium', string> = {
-  basic: '¥8,000/mo',
-  premium: '¥15,000/mo',
+  basic: '¥5,000/mo',
+  premium: '¥10,000/mo',
 };
 
 const PLAN_FEATURES: Record<'basic' | 'premium', { en: string; ja: string }[]> = {
@@ -39,14 +40,6 @@ const PLAN_FEATURES: Record<'basic' | 'premium', { en: string; ja: string }[]> =
   ],
 };
 
-function formatDate(isoString: string, locale: string): string {
-  return new Date(isoString).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
-
 export function PlanChangeModal({
   currentPlan,
   commitmentStartsAt,
@@ -62,8 +55,7 @@ export function PlanChangeModal({
   const isUpgrade = targetPlan === 'premium';
 
   // Check downgrade lock on the client side as well
-  const commitmentEnd = new Date(commitmentStartsAt);
-  commitmentEnd.setMonth(commitmentEnd.getMonth() + 6);
+  const commitmentEnd = addMonths(commitmentStartsAt, 6);
   const isDowngradeLocked = !isUpgrade && commitmentEnd > new Date();
 
   const handleClose = () => {
@@ -76,6 +68,7 @@ export function PlanChangeModal({
   const handleConfirm = async () => {
     setState('loading');
     try {
+      // The API identifies the client from the authenticated session (no clientId needed in body)
       const res = await fetch('/api/stripe/change-plan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -137,7 +130,7 @@ export function PlanChangeModal({
               </p>
               <p className="text-[#9CA3AF] text-xs font-mono mt-1">
                 {locale === 'ja'
-                  ? '新しいプランは次の請求サイクルから有効になります'
+                  ? '新しいプランがすぐに適用されました'
                   : 'Your new plan takes effect immediately'}
               </p>
             </div>
@@ -202,8 +195,8 @@ export function PlanChangeModal({
               </div>
 
               <ul className="space-y-1">
-                {targetFeatures.map((f, i) => (
-                  <li key={i} className="flex items-center gap-2 text-xs font-mono text-[#9CA3AF]">
+                {targetFeatures.map((f) => (
+                  <li key={f.en} className="flex items-center gap-2 text-xs font-mono text-[#9CA3AF]">
                     <span className={targetPlan === 'premium' ? 'text-[#00E87A]' : 'text-[#6B7280]'}>
                       ✓
                     </span>
