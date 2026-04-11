@@ -71,7 +71,7 @@ export function WhyZeroEn({
             {urgency}
           </p>
           <Link
-            href={`/${locale}/apply`}
+            href={`/${locale}/login?intent=apply`}
             className="inline-block px-8 py-3 font-heading text-sm font-bold border border-[#00E87A] text-[#00E87A] rounded hover:bg-[#00E87A] hover:text-[#0D0D0D] transition-all duration-300"
           >
             {ctaText}

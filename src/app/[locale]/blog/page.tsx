@@ -35,6 +35,8 @@ export async function generateMetadata({
   });
 }
 
+export const revalidate = 3600;
+
 const CATEGORIES: { value: BlogCategory | 'all'; en: string; ja: string }[] = [
   { value: 'all', en: 'All', ja: 'すべて' },
   { value: 'build-update', en: 'Build Update', ja: 'ビルド更新' },

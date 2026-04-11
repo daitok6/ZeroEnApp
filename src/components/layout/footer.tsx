@@ -47,7 +47,7 @@ export function Footer({ locale }: { locale: string }) {
                   label: locale === 'ja' ? '仕組み' : 'How It Works',
                 },
                 {
-                  href: `/${locale}/apply`,
+                  href: `/${locale}/login?intent=apply`,
                   label: locale === 'ja' ? '申し込む' : 'Apply Free',
                 },
               ].map((item) => (

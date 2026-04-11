@@ -53,6 +53,10 @@ export const metadata: Metadata = {
     'ZeroEn builds free MVPs for founders in exchange for equity. No upfront cost. No hourly billing. We become your technical co-founder.',
 };
 
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'ja' }];
+}
+
 type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;

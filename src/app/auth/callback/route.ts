@@ -37,7 +37,18 @@ export async function GET(request: NextRequest) {
 
         const locale = profile?.locale ?? 'en';
         const role = profile?.role ?? 'client';
-        const destination = role === 'admin' ? `/${locale}/admin` : `/${locale}/dashboard`;
+
+        const intent = cookieStore.get('zeroen_auth_intent')?.value;
+        cookieStore.set('zeroen_auth_intent', '', { maxAge: 0, path: '/' });
+
+        let destination: string;
+        if (role === 'admin') {
+          destination = `/${locale}/admin`;
+        } else if (intent === 'apply') {
+          destination = `/${locale}/dashboard/apply`;
+        } else {
+          destination = `/${locale}/dashboard`;
+        }
 
         return NextResponse.redirect(`${origin}${destination}`);
       }

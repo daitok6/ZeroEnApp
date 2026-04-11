@@ -80,7 +80,7 @@ export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <Link
-            href={`/${locale}/apply`}
+            href={`/${locale}/login?intent=apply`}
             className="
               inline-block
               bg-[#00E87A] text-[#0D0D0D]

@@ -12,6 +12,8 @@ import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-chi
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
 import { buildMetadata } from '@/lib/seo/metadata';
 
+export const revalidate = 3600;
+
 type Props = {
   params: Promise<{ locale: string }>;
 };
@@ -259,7 +261,7 @@ export default async function HomePage({ params }: Props) {
                   ))}
                 </ul>
                 <Link
-                  href={`/${locale}/apply`}
+                  href={`/${locale}/login?intent=apply`}
                   className="mt-8 block text-center bg-[#00E87A] text-[#0D0D0D] font-heading font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00ff88] transition-all duration-200 shadow-[0_0_16px_rgba(0,232,122,0.4)]"
                 >
                   {t('valueProp.cta')}
@@ -282,7 +284,7 @@ export default async function HomePage({ params }: Props) {
               {t('applySection.subtitle')}
             </p>
             <Link
-              href={`/${locale}/apply`}
+              href={`/${locale}/login?intent=apply`}
               className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-8 py-4 md:px-12 md:py-5 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)] hover:shadow-[0_0_48px_rgba(0,232,122,0.7)] mb-6"
             >
               {t('applySection.cta')}

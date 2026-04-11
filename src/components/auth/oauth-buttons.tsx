@@ -3,7 +3,7 @@
 import { createClient } from '@/lib/supabase/client';
 import { useState } from 'react';
 
-export function OAuthButtons({ mode }: { mode: 'login' | 'signup' }) {
+export function OAuthButtons({ mode, intent }: { mode: 'login' | 'signup'; intent?: string }) {
   const [loading, setLoading] = useState(false);
   const supabase = createClient();
 
@@ -22,6 +22,9 @@ export function OAuthButtons({ mode }: { mode: 'login' | 'signup' }) {
       return;
     }
     if (data?.url) {
+      if (intent) {
+        document.cookie = `zeroen_auth_intent=${intent}; path=/; max-age=300; SameSite=Lax`;
+      }
       window.location.href = data.url;
     }
   };

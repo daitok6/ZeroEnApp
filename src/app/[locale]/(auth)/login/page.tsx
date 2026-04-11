@@ -1,6 +1,7 @@
+import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 import { TerminalWindow } from '@/components/marketing/terminal-window';
 import { OAuthButtons } from '@/components/auth/oauth-buttons';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -11,10 +12,28 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ intent?: string }>;
+};
 
-export default async function LoginPage({ params }: Props) {
+export default async function LoginPage({ params, searchParams }: Props) {
   const { locale } = await params;
+  const { intent } = await searchParams;
+  const isApplyIntent = intent === 'apply';
+
+  // Redirect already-authenticated users
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) {
+    redirect(isApplyIntent ? `/${locale}/dashboard/apply` : `/${locale}/dashboard`);
+  }
+
+  const subtitle = isApplyIntent
+    ? (locale === 'ja' ? 'ログインして応募してください' : 'Log in to submit your application')
+    : (locale === 'ja' ? 'クライアントダッシュボードにアクセス' : 'Access your client dashboard');
+
+  const terminalPrompt = isApplyIntent ? '$ auth --provider oauth --apply' : '$ auth --provider oauth';
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] flex items-center justify-center px-4 py-16">
@@ -26,24 +45,21 @@ export default async function LoginPage({ params }: Props) {
             {locale === 'ja' ? 'ログイン' : 'Log in'}
           </h1>
           <p className="text-[#9CA3AF] text-sm font-mono mt-2">
-            {locale === 'ja' ? 'クライアントダッシュボードにアクセス' : 'Access your client dashboard'}
+            {subtitle}
           </p>
         </div>
 
         <TerminalWindow title="zeroen — auth" className="w-full">
           <div className="space-y-4">
             <p className="text-[#6B7280] text-xs font-mono mb-4">
-              $ auth --provider oauth
+              {terminalPrompt}
             </p>
-            <OAuthButtons mode="login" />
+            <OAuthButtons mode="login" intent={isApplyIntent ? 'apply' : undefined} />
           </div>
         </TerminalWindow>
 
         <p className="text-center text-[#6B7280] text-xs font-mono mt-6">
-          {locale === 'ja' ? 'アカウントをお持ちでない方は' : "Don't have an account?"}{' '}
-          <Link href={`/${locale}/apply`} className="text-[#00E87A] hover:underline">
-            {locale === 'ja' ? '申し込む' : 'Apply free'}
-          </Link>
+          {locale === 'ja' ? 'Googleアカウントでサインインしてください' : 'Sign in with your Google account to continue'}
         </p>
       </div>
     </div>

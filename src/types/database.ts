@@ -76,20 +76,6 @@ export type Database = {
         Insert: Omit<Database['public']['Tables']['messages']['Row'], 'id' | 'created_at'> & { id?: string; created_at?: string };
         Update: Partial<Database['public']['Tables']['messages']['Insert']>;
       };
-      files: {
-        Row: {
-          id: string;
-          project_id: string;
-          uploaded_by: string;
-          file_name: string;
-          file_size: number;
-          mime_type: string;
-          storage_path: string;
-          created_at: string;
-        };
-        Insert: Omit<Database['public']['Tables']['files']['Row'], 'id' | 'created_at'> & { id?: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['files']['Insert']>;
-      };
       invoices: {
         Row: {
           id: string;

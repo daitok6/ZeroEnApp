@@ -41,11 +41,11 @@ export function ProjectStatusCard({ project, locale }: ProjectStatusCardProps) {
   return (
     <div className="border border-[#374151] rounded-lg p-6 bg-[#111827]">
       <div className="flex items-start justify-between gap-4 mb-4">
-        <div>
+        <div className="min-w-0">
           <p className="text-[#00E87A] text-xs font-mono uppercase tracking-widest mb-1">
             {locale === 'ja' ? 'プロジェクト' : 'Project'}
           </p>
-          <h2 className="text-[#F4F4F2] font-mono font-bold text-xl">{project.name}</h2>
+          <h2 className="text-[#F4F4F2] font-mono font-bold text-xl truncate">{project.name}</h2>
           {project.description && (
             <p className="text-[#9CA3AF] text-sm font-mono mt-1">{project.description}</p>
           )}
