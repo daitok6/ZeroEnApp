@@ -59,6 +59,13 @@ export async function POST(request: NextRequest) {
         }
 
         if (type === 'per_request' && invoiceId) {
+          // Fetch change_request_id before updating
+          const { data: existingInvoice } = await supabase
+            .from('invoices')
+            .select('change_request_id')
+            .eq('id', invoiceId)
+            .single();
+
           await supabase
             .from('invoices')
             .update({
@@ -67,6 +74,13 @@ export async function POST(request: NextRequest) {
               stripe_payment_intent_id: session.payment_intent as string,
             })
             .eq('id', invoiceId);
+
+          if (existingInvoice?.change_request_id) {
+            await supabase
+              .from('change_requests')
+              .update({ status: 'approved' })
+              .eq('id', existingInvoice.change_request_id);
+          }
         }
 
         if (type === 'subscription') {
