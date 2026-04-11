@@ -632,3 +632,11 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-11 19:39] edited: `HQ/platform/src/app/auth/callback/route.ts`
 - [2026-04-11 19:50] edited: `HQ/platform/src/components/dashboard/project-status-card.tsx`
 - [2026-04-11 19:51] created: `docs/superpowers/specs/2026-04-11-request-invoicing-design.md`
+- [2026-04-11 19:51] edited: `docs/superpowers/specs/2026-04-11-request-invoicing-design.md`
+- [2026-04-11 19:52] edited: `HQ/platform/src/app/[locale]/dashboard/layout.tsx`
+- [2026-04-11 19:52] edited: `HQ/platform/src/app/[locale]/(auth)/login/page.tsx`
+- [2026-04-11 19:52] edited: `HQ/platform/messages/en.json`
+- [2026-04-11 19:52] edited: `HQ/platform/messages/en.json`
+- [2026-04-11 19:53] edited: `HQ/platform/messages/ja.json`
+- [2026-04-11 19:53] edited: `HQ/platform/messages/ja.json`
+- [2026-04-11 19:59] created: `docs/superpowers/plans/2026-04-11-request-invoicing.md`
