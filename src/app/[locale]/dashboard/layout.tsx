@@ -22,11 +22,11 @@ export default async function DashboardLayout({ children, params }: Props) {
     redirect(`/${locale}/login`);
   }
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('status, managed, onboarding_status')
-    .eq('id', user.id)
-    .single();
+  // Fetch profile + project in parallel — both only need user.id
+  const [{ data: profile }, { data: project }] = await Promise.all([
+    supabase.from('profiles').select('status, managed, onboarding_status').eq('id', user.id).single(),
+    supabase.from('projects').select('id, client_visible, plan_tier').eq('client_id', user.id).single(),
+  ]);
 
   if (profile?.managed && profile?.onboarding_status !== 'complete') {
     redirect(`/${locale}/design-wizard`);
@@ -42,18 +42,12 @@ export default async function DashboardLayout({ children, params }: Props) {
     ? (locale === 'ja' ? 'オンボーディング' : 'Onboarding')
     : (locale === 'ja' ? 'ファウンダーダッシュボード' : 'Founder Dashboard');
 
-  // Fetch project for unread counts + locked-key computation
+  // Fetch unread counts now that we have the project id
   let initialCounts: Record<string, number> = {};
   let projectIds: string[] = [];
   let lockedKeys: Set<string> = new Set();
 
   if (navType === 'client') {
-    const { data: project } = await supabase
-      .from('projects')
-      .select('id, client_visible, plan_tier')
-      .eq('client_id', user.id)
-      .single();
-
     if (project) {
       projectIds = [project.id];
       initialCounts = await getUnreadCounts(supabase, user.id, projectIds);

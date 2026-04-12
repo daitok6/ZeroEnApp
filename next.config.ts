@@ -4,6 +4,9 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizePackageImports: ['framer-motion', '@base-ui/react'],
+  },
   async redirects() {
     return [
       { source: '/pricing', destination: '/en', permanent: true },
