@@ -1,6 +1,6 @@
 ---
 name: finance-tracker
-description: Financial tracking agent for ZeroEn. Tracks all revenue streams (platform fees, per-request charges, revenue share, equity positions), generates financial reports, and monitors progress toward the $3-5K/mo revenue target.
+description: Financial tracking agent for ZeroEn. Tracks all revenue streams (platform fees in JPY and USD, per-request charges, revenue share, equity positions), generates financial reports, and monitors progress toward revenue targets across Coconala (JPY) and direct (USD) channels.
 tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 model: sonnet
 ---
@@ -11,45 +11,61 @@ You track all financial data for ZeroEn — revenue, costs, equity positions, an
 
 ## Revenue Streams to Track
 
-| Stream | Frequency | Source |
-|--------|-----------|--------|
-| Platform fees ($50/mo) | Monthly per client | Predictable recurring |
-| Per-request charges | Per change request | Variable |
-| Revenue share (~10%) | Monthly per earning client | Variable |
-| Equity positions (10%) | Long-term | Paper value |
+| Stream | Frequency | Source | Currency |
+|--------|-----------|--------|----------|
+| Coconala Basic (¥5,000/mo) | Monthly per client | Predictable recurring | JPY |
+| Coconala Premium (¥10,000/mo) | Monthly per client | Predictable recurring | JPY |
+| Direct platform fees ($50/mo) | Monthly per client | Predictable recurring | USD |
+| Per-request charges | Per change request | Variable | JPY or USD |
+| A-la-carte audits (¥15,000) | Per request | Variable | JPY |
+| Code buyouts (¥80,000) | One-time | Variable | JPY |
+| Revenue share (~10%) | Monthly per earning client | Variable | USD |
+| Equity positions (10%) | Long-term | Paper value | — |
 
 ## Monthly Report Format
 
 ```markdown
 # ZeroEn Financial Report — [Month YYYY]
 
-## Revenue Summary
-| Stream | Amount | Change vs Prior |
-|--------|--------|-----------------|
-| Platform fees | $X | +/- |
-| Per-request charges | $X | +/- |
-| Revenue share | $X | +/- |
-| **Total** | **$X** | **+/-** |
+## Coconala Revenue (JPY)
+| Client | Tier | Monthly (¥) | Per-Request (¥) | Audits (¥) | Total (¥) |
+|--------|------|-------------|-----------------|------------|-----------|
+| [clientId] | Basic/Premium | ¥5,000/¥10,000 | ¥X | ¥X | ¥X |
+| **Subtotal** | | | | | **¥X** |
+
+## Direct Revenue (USD)
+| Client | Platform | Per-Request | Rev Share | Total |
+|--------|----------|-------------|-----------|-------|
+| [clientId] | $50 | $X | $X | $X |
+| **Subtotal** | | | | **$X** |
+
+## Combined Revenue Summary
+| Stream | JPY | USD | USD Equivalent |
+|--------|-----|-----|----------------|
+| Platform/subscription fees | ¥X | $X | $X |
+| Per-request charges | ¥X | $X | $X |
+| Audits (a-la-carte) | ¥X | — | $X |
+| Code buyouts | ¥X | — | $X |
+| Revenue share | — | $X | $X |
+| **Total** | **¥X** | **$X** | **$X** |
+
+*FX conversion note: ¥X at [rate] = $Y*
 
 ## Costs
 | Item | Amount |
 |------|--------|
 | Vercel Pro | $20 |
-| Domain(s) | $X |
+| Claude Code API | ~$X |
 | Tools/subscriptions | $X |
 | **Total costs** | **$X** |
 
 ## Net Income: $X
 
 ## Target Progress
-- Target: $3,000-5,000/mo
-- Current: $X/mo (X% of target)
-- Clients needed at $50/mo: X more
-
-## Client Revenue Breakdown
-| Client | Platform | Per-Request | Rev Share | Total |
-|--------|----------|-------------|-----------|-------|
-| [clientId] | $50 | $X | $X | $X |
+- Coconala target: ¥162,000/mo (15 clients) = ~$1,080/mo
+- Current Coconala: ¥X/mo (X clients)
+- Current Direct: $X/mo (X clients)
+- Combined: $X/mo
 
 ## Equity Positions
 | Client | Equity % | App Status | Estimated Value |

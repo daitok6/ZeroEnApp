@@ -1,25 +1,25 @@
 # CLAUDE.md — ZeroEn
 ### The ONE TRUTH for Claude Code in this repository
-**Last updated:** 2026-04-09
+**Last updated:** 2026-04-11
 
 ---
 
 ## What This Repository Is
 
-This is the **Claude Code operating system for ZeroEn** — a solo, AI-powered technical co-founder service. Build free MVPs for founders in exchange for equity, revenue share, and recurring hosting fees.
+This is the **Claude Code operating system for ZeroEn** — a solo, AI-powered technical co-founder service. Build free homepages and landing pages in exchange for recurring hosting subscriptions, with equity and revenue share on select deals.
 
 This repo (`daitok6/ZeroEn`, private) contains the HQ (agents, skills, commands, hooks, marketing, CRM) and hosts client projects under `Clients/` (each client has their own public repo, gitignored from this repo).
 
 **Domain:** `zeroen.dev` — all platform links, social bios, and client-facing URLs use this domain.
 
-The full business plan is in `PRD.md`.
+The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/crm/coconala-playbook.md`.
 
 **You are the build engine, business ops, and marketing team. Your job:**
-1. Build free MVPs for clients using Next.js + Supabase
-2. Deploy client apps on the operator's Vercel account
+1. Build free landing pages/homepages for clients using Next.js (Phase 1 — no Supabase needed)
+2. Deploy client sites on the operator's Vercel account
 3. Generate monthly analytics report PDFs per client
 4. Run marketing automation — build-in-public content, SEO, outreach
-5. Manage client lifecycle — onboarding, scoring, tracking, billing
+5. Manage client lifecycle — onboarding, scoring, tracking, billing (JPY via Coconala + USD via Stripe)
 6. Maintain quality gates — automated testing, validation, client UAT
 
 ---
@@ -29,25 +29,57 @@ The full business plan is in `PRD.md`.
 1. **Every command requires a `clientId`.** No agent or command runs without knowing which client it operates on.
 2. **Client code lives in `Clients/<clientId>/`.** Never mix client code into HQ.
 3. **HQ code lives in `HQ/`.** Business logic, agents, templates, marketing — all in HQ.
-4. **Free tier per client on Supabase.** Each client gets their own Supabase project (free tier). Never share databases between clients.
-5. **All apps deploy on the operator's Vercel account.** The operator controls hosting infrastructure.
-6. **Scope is locked at kickoff.** The MVP scope agreed during onboarding is the scope. Anything beyond = per-request charge.
+4. **Phase 1: Landing pages only — no Supabase needed.** Phase 2 (dynamic sites) comes after 15+ clients. See `HQ/crm/coconala-playbook.md`.
+5. **All sites deploy on the operator's Vercel account.** The operator controls hosting infrastructure.
+6. **Scope is locked at kickoff.** The scope agreed during onboarding is the scope. Anything beyond = per-request charge (see `HQ/crm/change-catalogue.md`).
 7. **Never expose client secrets.** Redact API keys, tokens, and credentials in all outputs.
 8. **Operator reviews everything before client delivery.** Never auto-send anything to clients.
 9. **All social posts go through the marketing team.** Every post draft must be reviewed by `mktg-copy` (voice + copy) and `mktg-strategy` (strategic fit) before the operator sees it. No exceptions.
-9. **Quality gates must pass before production deploy.** Linting, type checking, and tests must pass.
+10. **Quality gates must pass before production deploy.** Linting, type checking, and tests must pass.
+11. **ZeroEn retains code ownership.** Client licenses the live site via active subscription. Buyout = ¥80,000 flat.
+12. **Coconala clients must be billed through Coconala.** Never suggest direct billing for Coconala-acquired clients — it violates their ToS and risks an account ban.
+13. **All clients require a 6-month minimum subscription commitment.** Early cancellation = remaining months or ¥80,000 buyout (whichever is less).
 
 ---
 
 ## Revenue Model
 
+### Subscription Tiers (Coconala — JPY)
+
+| | Basic | Premium |
+|---|---|---|
+| Monthly fee | ¥5,000 | ¥10,000 |
+| Hosting (Vercel) | Included | Included |
+| Monthly changes | 1 small | 2 small OR 1 medium |
+| Analytics | Prior-month PDF | Full-year dashboard |
+| Security audit (WebMori) | — | Quarterly |
+| SEO audit (WebMori) | — | Quarterly |
+
+### Direct Clients (USD)
+
 | Stream | Amount | Details |
 |--------|--------|---------|
-| Free MVP Build | $0 to client | Build complete app, earn equity + rev share |
 | Platform Fee | $50/mo/client | Hosting + 1 small fix/mo + monthly analytics PDF |
+
+### Additional Revenue
+
+| Stream | Amount | Details |
+|--------|--------|---------|
+| Free Build (Phase 1) | $0 to client | First 15 clients. After that: ¥30,000-50,000 build fee |
+| Per-Request | ¥4,000-25,000+ | Small (¥4,000), Medium (¥10,000), Large (¥25,000+). See `HQ/crm/change-catalogue.md` |
+| A-la-carte audits | ¥15,000 each | Security or SEO audit for Basic-tier clients |
+| Code buyout | ¥80,000 flat | Client receives full source code on exit |
 | Equity | 10% | SAFE note (converts on incorporation) + profit-sharing fallback |
 | Revenue Share | ~10% | Percentage of app revenue, flexible per deal |
-| Per-Request | $50-2,000 | Small ($50-100), Medium ($200-500), Large ($500-2,000) |
+
+**Coconala commission:** ~22% on Coconala-billed clients. ¥5,000 nets ¥3,900. ¥10,000 nets ¥7,800.
+
+### Upgrade / Downgrade
+
+- **Upgrade (Basic → Premium):** Allowed anytime
+- **Downgrade (Premium → Basic):** After 3-month minimum on Premium
+
+Full pricing details: `HQ/crm/coconala-playbook.md` and `HQ/crm/change-catalogue.md`
 
 ---
 
@@ -93,11 +125,13 @@ ZeroEn/
 │   ├── brand/              ← Brand kit, CSS tokens, JSON tokens
 │   ├── commands/           ← /new-client, /report, /deploy, /status
 │   ├── skills/             ← Reusable build patterns
-│   ├── templates/          ← Next.js + Supabase starter template
+│   ├── templates/          ← Next.js landing page starter template
 │   ├── platform/           ← ZeroEn website + client dashboard
 │   ├── marketing/          ← Marketing ops, content, SEO, outreach
 │   ├── crm/                ← Client registry, scoring, contracts
-│   │   └── clients.json    ← Master client registry
+│   │   ├── clients.json    ← Master client registry
+│   │   ├── coconala-playbook.md  ← Coconala channel strategy & policies
+│   │   └── change-catalogue.md   ← Change size definitions & pricing
 │   └── scripts/            ← Utility scripts (clone-all.sh, etc.)
 ├── Clients/                ← NOT tracked (gitignored)
 │   ├── <clientId>/         ← Each client = own public repo
@@ -106,30 +140,57 @@ ZeroEn/
 
 ---
 
-## Tech Stack (Client Apps)
+## Tech Stack (Client Sites)
+
+### Phase 1 — Landing Pages (Current)
 
 | Layer | Technology |
 |-------|-----------|
 | Framework | Next.js (App Router) |
 | UI | React, Tailwind CSS, shadcn/ui |
-| Backend/DB | Supabase (Auth, Database, Storage) |
 | Hosting | Vercel (operator's Pro account) |
 | Deployment | GitHub → Vercel auto-deploy |
-| Validation | Zod |
+| Forms | External service (Formspree, Google Forms, etc.) |
 | Icons | Lucide React |
+
+No Supabase needed for landing pages. Pure static/SSG.
+
+### Phase 2 — Dynamic Sites (After 15+ Clients)
+
+| Layer | Technology |
+|-------|-----------|
+| Backend/DB | Supabase (Auth, Database, Storage) — free tier per client |
+| Validation | Zod |
+| + everything from Phase 1 |
 
 ---
 
 ## Client Lifecycle
 
+### Coconala Clients (Japan)
+
 ```
-1. DISCOVER  → Build-in-public content, social media, communities, outreach
-2. APPLY     → Detailed application form on ZeroEn platform
+1. DISCOVER  → Coconala listing, build-in-public content, social media
+2. INQUIRE   → Client contacts via Coconala messaging
+3. QUALIFY   → 5-question scoring: purpose, audience, content readiness, commitment, responsiveness
+4. ONBOARD   → Form-based scoping → scope locked → 6-month commitment agreed in writing
+5. BUILD     → /new-client <clientId> → landing page (1-3 days)
+6. LAUNCH    → Deploy to Vercel → billing starts (through Coconala)
+7. OPERATE   → ¥5,000 or ¥10,000/mo → analytics PDF → included changes
+8. GROW      → Per-request charges for extras → upgrade Basic → Premium
+9. UPSELL    → Quarterly audits surface issues → WebMori audit service
+```
+
+### Direct Clients (zeroen.dev — Phase 2)
+
+```
+1. DISCOVER  → zeroen.dev, build-in-public content, referrals
+2. APPLY     → Application form on zeroen.dev
 3. SCORE     → Viability + Commitment + Feasibility + Market (15+/20 to accept)
-4. ONBOARD   → Questionnaire → kickoff call → scope locked
-5. BUILD     → /new-client <clientId> → MVP development
-6. LAUNCH    → Deploy to Vercel → 30 days free support
-7. OPERATE   → $50/mo begins → monthly analytics PDF → 1 free fix/mo
+4. ONBOARD   → Questionnaire → scope locked → 6-month commitment → Stripe billing setup
+5. BUILD     → /new-client <clientId> → landing page or dynamic site
+6. LAUNCH    → Deploy to Vercel → billing starts (Stripe direct)
+7. OPERATE   → $50/mo → monthly analytics PDF → 1 free fix/mo
 8. GROW      → Per-request charges for new features → rev share active
 9. UPSELL    → Analytics surface issues → WebMori audit service
 ```
@@ -140,10 +201,10 @@ ZeroEn/
 
 | Command | Purpose |
 |---------|---------|
-| `/new-client <clientId>` | Clone template, set up CLAUDE.md, create Supabase project, register in CRM |
+| `/new-client <clientId>` | Clone template, set up CLAUDE.md, register in CRM (no Supabase in Phase 1) |
 | `/report <clientId>` | Playwright scrapes Vercel analytics → generate PDF report |
 | `/deploy <clientId>` | Run quality gates → deploy to production |
-| `/status <clientId>` | Show project status, last deploy, next report date |
+| `/status <clientId>` | Show project status, last deploy, next report date, plan tier, billing status |
 
 ---
 
@@ -206,14 +267,16 @@ Adapted from SiteAudit's wave-based pipeline:
 
 | Clause | Detail |
 |--------|--------|
-| Equity | 10% via SAFE note + profit-sharing fallback |
+| Code ownership | ZeroEn retains all code rights. Client licenses via active subscription. |
+| Code buyout | ¥80,000 flat fee for full source code handover |
+| 6-month minimum | All clients commit to 6 months. Early cancel = remaining months or buyout (lesser of). |
+| Scope freeze | Scope locked at kickoff. Changes = per-request charge per catalogue. |
+| Non-payment | 14 days grace → site paused → 44 days → archived. Reactivation within 90 days by paying arrears. |
+| Equity | 10% via SAFE note + profit-sharing fallback (select deals) |
 | Revenue share | ~10%, flexible per deal |
-| IP ownership | Shared — proportional to equity stake |
-| Scope freeze | MVP scope locked at kickoff. Changes = paid. |
-| Kill switch | 90 days unpaid → agreement terminates, full code rights to operator |
-| Reversion | Client doesn't launch in 6 months → code rights revert to operator |
 | Portfolio rights | Operator always retains right to showcase the work |
 | Anti-dilution | Minimum equity floor if client raises funding |
+| Domain | Client-owned. ZeroEn manages DNS only. |
 
 ---
 
@@ -226,12 +289,27 @@ Adapted from SiteAudit's wave-based pipeline:
 
 ---
 
+## Key References
+
+| Document | Path | Purpose |
+|----------|------|---------|
+| Coconala playbook | `HQ/crm/coconala-playbook.md` | Channel strategy, tiers, policies, milestones |
+| Change catalogue | `HQ/crm/change-catalogue.md` | Change size definitions, a-la-carte pricing |
+| Client profiles | `HQ/crm/clients/<clientId>/profile.md` | Per-client data, billing, status |
+| Client registry | `HQ/crm/clients.json` | Master list of all clients |
+| PRD | `PRD.md` | Full business plan |
+
+---
+
 ## Anti-Patterns
 
 - Never run a command without a `clientId`
 - Never commit client code to the ZeroEn private repo
-- Never share Supabase projects between clients
 - Never deploy without quality gates passing
 - Never auto-send anything to clients without operator review
 - Never modify a client's scope without documenting it and updating pricing
 - Never store secrets in client repos — use environment variables
+- Never suggest direct billing for Coconala-acquired clients (violates ToS)
+- Never build dynamic sites (auth, database) in Phase 1 — landing pages only
+- Never accept a client without confirming the 6-month commitment in writing
+- Never quote change sizes without referencing `HQ/crm/change-catalogue.md`

@@ -14,13 +14,15 @@ A solo, AI-powered technical co-founder service. Build free MVPs for founders in
 | Stream | Amount | When it pays |
 |--------|--------|-------------|
 | **Free MVP Build** | $0 to client | You invest time, earn equity + rev share |
-| **$50/mo Platform Fee** | $50/client/mo | Hosting on your Vercel + 1 small fix/mo + monthly analytics PDF |
+| **Monthly Subscription** | ¥5,000-10,000 (Coconala) or $50 (direct) | Hosting + changes + analytics. Two tiers: Basic and Premium. See `HQ/crm/coconala-playbook.md` |
 | **10% Equity** | SAFE + profit-sharing | Long-term: converts when client incorporates, or profit-sharing if they don't |
 | **~10% Revenue Share** | % of app revenue | Ongoing passive income, negotiated per deal |
-| **Per-Request Charges** | $50-2,000 | Small ($50-100), Medium ($200-500), Large ($500-2,000) for extra changes |
+| **Per-Request Charges** | ¥4,000-25,000+ (Coconala) or $50-2,000 (direct) | Small, Medium, Large. See `HQ/crm/change-catalogue.md` |
 
-**Revenue target:** $3,000-5,000/mo
-**Path to target:** 60 clients × $50/mo = $3,000 from platform fees alone. Per-request charges and rev share add on top.
+**Revenue target:** $3,000-5,000/mo (long-term)
+**Interim target:** $1,000-1,500/mo by November 2026 (Malaysia move)
+**Path to interim target:** 15-20 clients across Coconala (¥5,000-10,000/mo) and direct (zeroen.dev) channels. See `HQ/crm/coconala-playbook.md` for channel-specific projections.
+**Path to long-term target:** 40-60 clients across multiple channels. Coconala for Japan market, zeroen.dev for global.
 
 ---
 
@@ -62,10 +64,19 @@ A solo, AI-powered technical co-founder service. Build free MVPs for founders in
 ## Deliverables
 
 ### What's FREE (the MVP build):
+
+**Phase 1 — Landing pages only:**
+- Homepage or landing page (single-page or up to 3-5 pages)
+- Responsive, mobile-first design
+- Contact form (external service)
+- Basic SEO setup (meta tags, OG tags, sitemap)
+- Deployed on Vercel (no Supabase needed)
+
+**Phase 2 — Dynamic sites (after 15+ clients):**
 - Working app with core features
 - Deployed on your Vercel
 - Connected to client's Supabase (free tier)
-- Ready to use by end users
+- Quoted and priced individually (¥30,000-50,000 build fee)
 
 ### What's included in $50/mo:
 - Hosting on your Vercel account
@@ -228,20 +239,29 @@ ZeroEn feeds WebMori. Two businesses, one pipeline. Kept as separate brands.
 | Legal disputes | Sole prop → LLC. Written contracts for every deal. |
 | Equity = $0 | Platform fees + per-request = real income. Equity is bonus. |
 | Scope creep | Locked scope. Changes = paid. No exceptions. |
-| Client stops paying | Kill switch: site offline after 90 days unpaid. You control Vercel. |
-| Burnout | Start with 3 clients max. Automate everything. Template system accelerates each build. |
-| Client copies code | Shared IP. Code on YOUR Vercel. They can't easily leave. |
-| Revenue too slow | Need other income stream while building client base to 60+. |
+| Client stops paying | 14-day grace → site paused → 44 days → archived. See `coconala-playbook.md`. |
+| Burnout | Template everything. Free builds capped at 15 clients, then discounted builds. |
+| Client copies code | ZeroEn owns code. ¥80,000 buyout option for exit. |
+| Revenue too slow | Coconala (Japan) + zeroen.dev (global) dual channel. Direct billing avoids 22% commission. |
+| Coconala platform risk | ToS compliance: bill through Coconala for Coconala-acquired clients. Build zeroen.dev as independent channel. |
+| Free build exploitation | 6-month minimum commitment. Early cancellation = pay remaining months or buyout fee. |
+| Supabase limits | Client pays for Supabase Pro upgrade if usage exceeds free tier. Stated in terms. |
 
 ---
 
 ## Immediate Next Steps
 
-1. Set up ZeroEn Claude Code project (CLAUDE.md, agents, commands, template)
-2. NotebookLM research on Claude Code best practices
+1. ~~Set up ZeroEn Claude Code project (CLAUDE.md, agents, commands, template)~~ ✅
+2. ~~NotebookLM research on Claude Code best practices~~ ✅
 3. Build application form + scoring system
-4. Create SAFE + profit-sharing contract template
+4. Create SAFE + profit-sharing contract template (include 6-month minimum, code buyout terms)
 5. Create Next.js + Supabase starter template
-6. Build ZeroEn website + client dashboard
-7. Start build-in-public content
-8. Land first 3 clients
+6. **Launch Coconala listing by Apr 25** — first 5 priority slots, free build
+7. Land first 5 clients on Coconala (promo phase)
+8. **Build zeroen.dev by Jul 31** — application form, Stripe billing, portfolio
+9. Start build-in-public content
+10. **Form Wyoming LLC by Sep 15**
+11. **Apply for DE Rantau visa by Oct 1**
+12. **GO/NO-GO on Malaysia move by Oct 15** — need ¥150,000+/mo net MRR for 2+ months
+
+See `HQ/crm/coconala-playbook.md` for full timeline and milestones.
