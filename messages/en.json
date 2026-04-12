@@ -401,6 +401,7 @@
     "title": "Admin Dashboard",
     "overview": "Overview",
     "clients": "Clients",
+    "managedClients": "Add Client",
     "applications": "Applications",
     "requests": "Requests",
     "messages": "Messages",

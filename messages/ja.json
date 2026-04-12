@@ -368,6 +368,7 @@
     "title": "管理ダッシュボード",
     "overview": "概要",
     "clients": "クライアント",
+    "managedClients": "クライアント追加",
     "applications": "応募",
     "requests": "リクエスト",
     "messages": "メッセージ",
