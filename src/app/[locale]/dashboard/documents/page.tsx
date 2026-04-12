@@ -14,53 +14,23 @@ export default async function DocumentsPage({ params }: Props) {
   const { locale } = await params;
   const { user, supabase } = await requireApproved(locale);
 
-  const { data: project } = await supabase
-    .from('projects')
-    .select('id, application_id, onboarding_data')
-    .eq('client_id', user.id)
-    .single();
+  // Fetch from signed_documents — the immutable source of truth
+  const { data: signedDocs } = await supabase
+    .from('signed_documents')
+    .select('id, document_type, document_version, signature_name, signed_at')
+    .eq('user_id', user.id)
+    .order('signed_at', { ascending: true });
 
-  const documents: DocumentItem[] = [];
-
-  if (project) {
-    // NDA — derived from the application submission date
-    if (project.application_id) {
-      const { data: application } = await supabase
-        .from('applications')
-        .select('created_at')
-        .eq('id', project.application_id)
-        .single();
-
-      if (application) {
-        documents.push({
-          id: 'nda',
-          type: 'nda',
-          signedAt: application.created_at,
-        });
-      }
-    }
-
-    // Partnership Agreement — from onboarding_data
-    if (project.onboarding_data) {
-      const od = project.onboarding_data as Record<string, unknown>;
-      const signedAt =
-        typeof od.terms_accepted_at === 'string' ? od.terms_accepted_at : project.id;
-
-      documents.push({
-        id: 'partnership',
-        type: 'partnership',
-        signedAt,
-        details: {
-          signature_name:
-            typeof od.signature_name === 'string' ? od.signature_name : undefined,
-          entity_name:
-            typeof od.entity_name === 'string' ? od.entity_name : null,
-          terms_version:
-            typeof od.terms_version === 'string' ? od.terms_version : undefined,
-        },
-      });
-    }
-  }
+  const documents: DocumentItem[] = (signedDocs ?? []).map((d) => ({
+    id: d.id,
+    type: d.document_type === 'nda' ? 'nda' : 'partnership',
+    signedAt: d.signed_at,
+    details: {
+      signature_name: d.signature_name,
+      terms_version: d.document_version,
+    },
+    downloadUrl: `/api/documents/${d.id}/pdf`,
+  }));
 
   return (
     <div className="max-w-2xl space-y-6">

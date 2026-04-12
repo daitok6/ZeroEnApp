@@ -745,7 +745,8 @@
     "signature": "Signature",
     "entity": "Entity",
     "termsVersion": "Terms Version",
-    "signedAt": "Signed At"
+    "signedAt": "Signed At",
+    "download": "Download"
   },
   "onboarding": {
     "step0": {

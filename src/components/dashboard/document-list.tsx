@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { FileText, ChevronDown, ChevronUp } from 'lucide-react';
+import { FileText, ChevronDown, ChevronUp, Download } from 'lucide-react';
 
 export type DocumentItem = {
   id: string;
   type: 'nda' | 'partnership';
   signedAt: string;
+  downloadUrl?: string;
   details?: {
     signature_name?: string;
     entity_name?: string | null;
@@ -78,6 +79,16 @@ export function DocumentList({ documents, locale }: Props) {
                 <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#00E87A]/10 text-[#00E87A] border border-[#00E87A]/20">
                   {t('signedBadge')}
                 </span>
+                {doc.downloadUrl && (
+                  <a
+                    href={doc.downloadUrl}
+                    download
+                    className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-[#00E87A] text-xs font-mono transition-colors"
+                  >
+                    <Download size={14} />
+                    {t('download')}
+                  </a>
+                )}
                 <button
                   onClick={() => toggle(doc.id)}
                   className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-[#F4F4F2] text-xs font-mono transition-colors"

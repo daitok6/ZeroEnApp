@@ -712,7 +712,8 @@
     "signature": "電子署名",
     "entity": "会社・プロジェクト名",
     "termsVersion": "条件バージョン",
-    "signedAt": "署名日時"
+    "signedAt": "署名日時",
+    "download": "ダウンロード"
   },
   "onboarding": {
     "step0": {
