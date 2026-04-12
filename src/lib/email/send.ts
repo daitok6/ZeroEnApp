@@ -2,7 +2,7 @@ import { Resend } from 'resend';
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const OPERATOR_EMAIL = 'hello@zeroen.dev';
-const FROM_ADDRESS = 'ZeroEn <hello@zeroen.dev>';
+const FROM_ADDRESS = 'ZeroEn <noreply@zeroen.dev>';
 
 function getResend(): Resend | null {
   if (!RESEND_API_KEY || RESEND_API_KEY === 're_placeholder') return null;
