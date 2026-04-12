@@ -14,13 +14,6 @@ interface Step0Props {
 
 const errorClass = 'mt-1 text-red-400 text-xs font-mono';
 
-const NDA_POINTS = [
-  'Both parties agree to keep each other\'s confidential information private.',
-  'Confidential information includes: application data, business plans, technical specs, financial projections, user research.',
-  'Neither party will share or use the other\'s confidential information without written consent.',
-  'This obligation survives termination and lasts 3 years (or indefinitely for personal data).',
-  'You may request deletion of your data at any time.',
-];
 
 export function Step0Nda({ data, onNext, locale }: Step0Props) {
   const t = useTranslations('apply');
@@ -76,7 +69,7 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
           Confidentiality Agreement — Key Terms
         </p>
         <ul className="space-y-3">
-          {NDA_POINTS.map((point, i) => (
+          {(t.raw('step0.ndaPoints') as string[]).map((point, i) => (
             <li key={i} className="flex items-start gap-3 text-sm font-mono text-[#F4F4F2]">
               <span className="text-[#00E87A] mt-0.5 shrink-0">✓</span>
               <span>{point}</span>
@@ -85,7 +78,7 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
         </ul>
         {!hasScrolled && (
           <p className="mt-4 text-[#9CA3AF] text-xs font-mono text-center animate-pulse">
-            ↓ Scroll to read all terms
+            {t('step0.scrollHint')}
           </p>
         )}
       </div>
@@ -139,17 +132,17 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
       {/* Typed signature field */}
       <div className="space-y-2">
         <label className="block text-sm font-mono text-[#F4F4F2]">
-          Type your full name to sign
+          {t('step0.signatureLabel')}
         </label>
         <input
           type="text"
           value={signatureName}
           onChange={(e) => setSignatureName(e.target.value)}
-          placeholder="Your full name"
+          placeholder={t('step0.signaturePlaceholder')}
           className="w-full bg-[#111827] border border-[#374151] rounded px-4 py-2.5 text-[#F4F4F2] font-mono text-sm placeholder-[#4B5563] focus:outline-none focus:border-[#00E87A] transition-colors"
         />
         <p className="text-[#9CA3AF] text-xs font-mono">
-          This constitutes your electronic signature on the confidentiality agreement.
+          {t('step0.signatureHelper')}
         </p>
       </div>
 

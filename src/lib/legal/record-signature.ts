@@ -13,6 +13,11 @@ export interface SignatureRecord {
   locale: 'en' | 'ja';
 }
 
+const DB_DOCUMENT_TYPE: Record<LegalDocumentType, 'nda' | 'partnership_agreement'> = {
+  nda: 'nda',
+  partnership: 'partnership_agreement',
+};
+
 /**
  * Record an immutable signing event.
  * Hashes the exact document body the user saw, then inserts into signed_documents.
@@ -27,7 +32,7 @@ export async function recordSignature(record: SignatureRecord): Promise<string> 
     .from('signed_documents')
     .insert({
       user_id: record.userId,
-      document_type: record.documentType === 'nda' ? 'nda' : 'partnership_agreement',
+      document_type: DB_DOCUMENT_TYPE[record.documentType],
       document_version: record.documentVersion,
       document_sha256: sha256,
       document_body: record.documentBody,

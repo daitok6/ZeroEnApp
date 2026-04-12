@@ -175,7 +175,18 @@
       "linkText": "Read full confidentiality terms",
       "checkboxLabel": "I've read and agree to the mutual confidentiality agreement",
       "continueButton": "Continue to application →",
-      "ndaError": "You must agree to the confidentiality agreement"
+      "ndaError": "You must agree to the confidentiality agreement",
+      "signatureLabel": "Type your full name to sign",
+      "signaturePlaceholder": "Your full name",
+      "signatureHelper": "This constitutes your electronic signature on the confidentiality agreement.",
+      "scrollHint": "↓ Scroll to read the full agreement",
+      "ndaPoints": [
+        "Both parties agree to keep each other's confidential information private.",
+        "Confidential information includes: application data, business plans, technical specs, financial projections, user research.",
+        "Neither party will share or use the other's confidential information without written consent.",
+        "This obligation survives termination and lasts 3 years (or indefinitely for personal data).",
+        "You may request deletion of your data at any time."
+      ]
     },
     "step1": {
       "title": "Your Idea",
