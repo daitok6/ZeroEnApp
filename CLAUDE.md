@@ -36,9 +36,9 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 8. **Operator reviews everything before client delivery.** Never auto-send anything to clients.
 9. **All social posts go through the marketing team.** Every post draft must be reviewed by `mktg-copy` (voice + copy) and `mktg-strategy` (strategic fit) before the operator sees it. No exceptions.
 10. **Quality gates must pass before production deploy.** Linting, type checking, and tests must pass.
-11. **ZeroEn retains code ownership.** Client licenses the live site via active subscription. Buyout = ¥80,000 flat.
+11. **ZeroEn retains code ownership.** Client licenses the live site via active subscription. Code is never transferred to the client — on cancellation the site is archived and ZeroEn keeps the code.
 12. **Coconala is lead-gen only.** Coconala listing charges a one-time ¥500 intake fee (casual "buy me a beer" framing). All recurring subscription fees (¥5,000/¥10,000/mo) are billed directly through Stripe via zeroen.dev — for all clients regardless of acquisition channel.
-13. **All clients require a 6-month minimum subscription commitment.** Early cancellation = remaining months or ¥80,000 buyout (whichever is less).
+13. **All clients require a 6-month minimum subscription commitment.** Early cancellation = client pays the remaining months on the commitment. Site is archived, code is retained by ZeroEn.
 
 ---
 
