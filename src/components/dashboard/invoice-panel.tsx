@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { CheckCircle, XCircle, MessageCircle } from 'lucide-react';
+import { CheckCircle, XCircle, MessageCircle, ExternalLink } from 'lucide-react';
 import { CommentThread } from '@/components/shared/comment-thread';
 
 interface InvoicePanelProps {
@@ -15,12 +15,14 @@ interface InvoicePanelProps {
     description: string;
     due_date: string | null;
     currency: string;
+    stripe_hosted_invoice_url?: string | null;
   };
   locale: string;
   userId: string;
 }
 
 export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePanelProps) {
+  const hostedUrl = invoice.stripe_hosted_invoice_url ?? null;
   const router = useRouter();
   const t = useTranslations('invoices');
   const tCommon = useTranslations('common');
@@ -114,6 +116,18 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
               ? '…'
               : (invoice.amount_cents > 0 ? t('acceptAndPay') : t('accept'))}
           </button>
+
+          {hostedUrl && invoice.amount_cents > 0 && (
+            <a
+              href={hostedUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-[#374151] text-[#9CA3AF] text-xs font-mono hover:border-[#6B7280] transition-colors"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              {locale === 'ja' ? '請求書を見る' : 'View invoice'}
+            </a>
+          )}
 
           <button
             onClick={() => setShowComments((v) => !v)}

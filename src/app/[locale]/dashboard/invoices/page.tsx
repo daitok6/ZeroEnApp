@@ -1,5 +1,5 @@
 import { requireApproved } from '@/lib/auth/require-approved';
-import { CheckCircle, Clock, AlertCircle, XCircle, Receipt } from 'lucide-react';
+import { CheckCircle, Clock, AlertCircle, XCircle, Receipt, FileText, ExternalLink } from 'lucide-react';
 import { PayButton } from '@/components/dashboard/pay-button';
 import type { Metadata } from 'next';
 
@@ -39,6 +39,13 @@ const STATUS_CONFIG = {
     labelEn: 'Cancelled',
     labelJa: 'キャンセル',
   },
+  declined: {
+    icon: XCircle,
+    color: 'text-[#6B7280]',
+    bgColor: 'bg-[#6B7280]/10 border-[#6B7280]/20',
+    labelEn: 'Declined',
+    labelJa: '辞退',
+  },
 };
 
 export default async function InvoicesPage({ params }: Props) {
@@ -56,7 +63,13 @@ export default async function InvoicesPage({ params }: Props) {
 
   const pendingTotal = invoices
     .filter((inv) => inv.status === 'pending' || inv.status === 'overdue')
+    .filter((inv) => inv.type === 'subscription') // subscription invoices use PayButton
     .reduce((sum, inv) => sum + inv.amount_cents, 0);
+
+  function formatAmount(inv: (typeof invoices)[number]): string {
+    if (inv.currency === 'jpy') return `¥${inv.amount_cents.toLocaleString()}`;
+    return `$${(inv.amount_cents / 100).toFixed(2)}`;
+  }
 
   return (
     <div className="max-w-3xl space-y-6">
@@ -124,8 +137,11 @@ export default async function InvoicesPage({ params }: Props) {
               STATUS_CONFIG[invoice.status as keyof typeof STATUS_CONFIG] ||
               STATUS_CONFIG.pending;
             const Icon = config.icon;
-            const isPending =
-              invoice.status === 'pending' || invoice.status === 'overdue';
+            const isSubscriptionPending =
+              (invoice.status === 'pending' || invoice.status === 'overdue') &&
+              invoice.type === 'subscription';
+            const hasStripeInvoice =
+              invoice.stripe_hosted_invoice_url || invoice.stripe_invoice_pdf_url;
 
             return (
               <div
@@ -137,11 +153,18 @@ export default async function InvoicesPage({ params }: Props) {
                   <p className="text-[#F4F4F2] text-sm font-mono">
                     {invoice.description}
                   </p>
-                  <p className="text-[#6B7280] text-xs font-mono mt-0.5">
-                    {new Date(invoice.created_at).toLocaleDateString(
-                      locale === 'ja' ? 'ja-JP' : 'en-US'
+                  <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                    <p className="text-[#6B7280] text-xs font-mono">
+                      {new Date(invoice.created_at).toLocaleDateString(
+                        locale === 'ja' ? 'ja-JP' : 'en-US'
+                      )}
+                    </p>
+                    {invoice.stripe_invoice_number && (
+                      <p className="text-[#6B7280] text-xs font-mono">
+                        #{invoice.stripe_invoice_number}
+                      </p>
                     )}
-                  </p>
+                  </div>
                 </div>
 
                 {/* Type badge */}
@@ -157,7 +180,7 @@ export default async function InvoicesPage({ params }: Props) {
 
                 {/* Amount */}
                 <p className="text-[#F4F4F2] font-mono font-bold text-sm">
-                  ${(invoice.amount_cents / 100).toFixed(2)}
+                  {formatAmount(invoice)}
                 </p>
 
                 {/* Status */}
@@ -169,18 +192,39 @@ export default async function InvoicesPage({ params }: Props) {
                 </span>
 
                 {/* Action */}
-                {isPending ? (
+                {isSubscriptionPending ? (
                   <PayButton
-                    type={
-                      invoice.type === 'subscription'
-                        ? 'subscription'
-                        : 'per_request'
-                    }
+                    type="subscription"
                     invoiceId={invoice.id}
                     locale={locale}
                     label={locale === 'ja' ? '支払う' : 'Pay'}
                     compact
                   />
+                ) : hasStripeInvoice ? (
+                  <div className="flex items-center gap-1.5">
+                    {invoice.stripe_hosted_invoice_url && (
+                      <a
+                        href={invoice.stripe_hosted_invoice_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[#9CA3AF] hover:text-[#F4F4F2] transition-colors"
+                        title={locale === 'ja' ? '請求書を見る' : 'View invoice'}
+                      >
+                        <ExternalLink size={13} />
+                      </a>
+                    )}
+                    {invoice.stripe_invoice_pdf_url && (
+                      <a
+                        href={invoice.stripe_invoice_pdf_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[#9CA3AF] hover:text-[#F4F4F2] transition-colors"
+                        title={locale === 'ja' ? 'PDFをダウンロード' : 'Download PDF'}
+                      >
+                        <FileText size={13} />
+                      </a>
+                    )}
+                  </div>
                 ) : (
                   <div className="hidden md:block" />
                 )}

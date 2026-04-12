@@ -138,10 +138,57 @@ export async function POST(request: NextRequest) {
         break;
       }
 
+      case 'invoice.paid': {
+        const stripeInvoice = event.data.object as Stripe.Invoice;
+
+        // Only handle per_request invoices — subscription invoices are handled via checkout.session.completed
+        const changeRequestId = stripeInvoice.metadata?.change_request_id;
+        if (!changeRequestId) break;
+
+        const { data: existingInvoice } = await supabase
+          .from('invoices')
+          .select('id, change_request_id')
+          .eq('stripe_invoice_id', stripeInvoice.id)
+          .maybeSingle();
+
+        if (!existingInvoice) break;
+
+        const { data: updated } = await supabase
+          .from('invoices')
+          .update({
+            status: 'paid',
+            paid_at: new Date().toISOString(),
+          })
+          .eq('id', existingInvoice.id)
+          .eq('status', 'pending')
+          .select('id');
+
+        if (updated && updated.length > 0 && existingInvoice.change_request_id) {
+          await supabase
+            .from('change_requests')
+            .update({ status: 'approved' })
+            .eq('id', existingInvoice.change_request_id)
+            .eq('status', 'quoted');
+        }
+        break;
+      }
+
       case 'invoice.payment_failed': {
         const stripeInvoice = event.data.object as Stripe.Invoice;
-        const customerId = stripeInvoice.customer as string;
 
+        // Per-request invoice payment failed — mark overdue
+        const changeRequestId = stripeInvoice.metadata?.change_request_id;
+        if (changeRequestId) {
+          await supabase
+            .from('invoices')
+            .update({ status: 'overdue' })
+            .eq('stripe_invoice_id', stripeInvoice.id)
+            .eq('status', 'pending');
+          break;
+        }
+
+        // Subscription invoice payment failed — existing behavior
+        const customerId = stripeInvoice.customer as string;
         const { data: profile } = await supabase
           .from('profiles')
           .select('id')
@@ -155,6 +202,17 @@ export async function POST(request: NextRequest) {
             .eq('client_id', profile.id)
             .eq('stripe_invoice_id', stripeInvoice.id);
         }
+        break;
+      }
+
+      case 'invoice.voided': {
+        const stripeInvoice = event.data.object as Stripe.Invoice;
+
+        await supabase
+          .from('invoices')
+          .update({ status: 'declined' })
+          .eq('stripe_invoice_id', stripeInvoice.id)
+          .eq('status', 'pending');
         break;
       }
 

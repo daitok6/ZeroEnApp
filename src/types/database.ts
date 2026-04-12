@@ -88,13 +88,17 @@ export type Database = {
           id: string;
           project_id: string;
           client_id: string;
+          change_request_id: string | null;
           stripe_invoice_id: string | null;
           stripe_payment_intent_id: string | null;
+          stripe_hosted_invoice_url: string | null;
+          stripe_invoice_pdf_url: string | null;
+          stripe_invoice_number: string | null;
           amount_cents: number;
           currency: string;
           description: string;
           type: 'subscription' | 'per_request' | null;
-          status: 'pending' | 'paid' | 'overdue' | 'cancelled';
+          status: 'pending' | 'paid' | 'overdue' | 'cancelled' | 'declined';
           due_date: string | null;
           paid_at: string | null;
           created_at: string;

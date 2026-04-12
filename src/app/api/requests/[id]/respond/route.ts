@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { createClient as createAdminClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
-import { stripe } from '@/lib/stripe/client';
+import { voidStripeInvoice } from '@/lib/stripe/invoices';
 import { z } from 'zod';
 
 const bodySchema = z.object({
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
 
-  // Verify ownership — user's RLS client
+  // Verify ownership via user's RLS client
   const { data: changeRequest } = await supabase
     .from('change_requests')
     .select('id, status, client_id')
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest, { params }: Params) {
   // Fetch linked invoice — user's RLS client
   const { data: invoice } = await supabase
     .from('invoices')
-    .select('id, amount_cents, description, currency, status')
+    .select('id, amount_cents, stripe_invoice_id, stripe_hosted_invoice_url, status')
     .eq('change_request_id', id)
     .eq('client_id', user.id)
     .eq('status', 'pending')
@@ -60,8 +60,10 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   const adminSupabase = getAdminSupabase();
 
+  // ── Accept ──────────────────────────────────────────────────────────────────
+
   if (body.action === 'accept' && invoice.amount_cents === 0) {
-    // $0 — auto-approve, no Stripe needed
+    // ¥0 — auto-approve, no Stripe needed
     const { error: invErr } = await adminSupabase
       .from('invoices')
       .update({ status: 'paid', paid_at: new Date().toISOString() })
@@ -80,65 +82,25 @@ export async function POST(request: NextRequest, { params }: Params) {
   }
 
   if (body.action === 'accept') {
-    // Amount > $0 — create Stripe checkout session
-    if (!stripe) {
-      return NextResponse.json({ error: 'Stripe not configured' }, { status: 503 });
+    // Amount > ¥0 — return the stored Stripe hosted invoice URL (created at quote time)
+    if (!invoice.stripe_hosted_invoice_url) {
+      return NextResponse.json({ error: 'Payment link not available' }, { status: 500 });
     }
-
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('stripe_customer_id, email, full_name')
-      .eq('id', user.id)
-      .single();
-
-    let customerId = profile?.stripe_customer_id;
-
-    if (!customerId) {
-      const customer = await stripe.customers.create(
-        {
-          email: profile?.email ?? user.email,
-          name: profile?.full_name ?? undefined,
-          metadata: { supabase_user_id: user.id },
-        },
-        { idempotencyKey: `customer-${user.id}` }
-      );
-      customerId = customer.id;
-      await adminSupabase
-        .from('profiles')
-        .update({ stripe_customer_id: customerId })
-        .eq('id', user.id);
-    }
-
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const successUrl = `${appUrl}/${body.locale}/dashboard/requests?success=true`;
-    const cancelUrl = `${appUrl}/${body.locale}/dashboard/requests`;
-
-    const session = await stripe.checkout.sessions.create({
-      customer: customerId,
-      mode: 'payment',
-      line_items: [
-        {
-          price_data: {
-            currency: invoice.currency,
-            product_data: { name: invoice.description },
-            unit_amount: invoice.amount_cents,
-          },
-          quantity: 1,
-        },
-      ],
-      success_url: successUrl,
-      cancel_url: cancelUrl,
-      metadata: {
-        supabase_user_id: user.id,
-        invoice_id: invoice.id,
-        type: 'per_request',
-      },
-    });
-
-    return NextResponse.json({ url: session.url });
+    return NextResponse.json({ url: invoice.stripe_hosted_invoice_url });
   }
 
-  // action === 'decline'
+  // ── Decline ─────────────────────────────────────────────────────────────────
+
+  // Void the Stripe invoice so the hosted URL can no longer be paid
+  if (invoice.stripe_invoice_id) {
+    try {
+      await voidStripeInvoice(invoice.stripe_invoice_id);
+    } catch (err) {
+      console.error('Failed to void Stripe invoice:', err);
+      // Non-fatal — continue with local status update
+    }
+  }
+
   const { error: invErr } = await adminSupabase
     .from('invoices')
     .update({ status: 'declined' })
@@ -153,7 +115,7 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   if (crErr) return NextResponse.json({ error: 'Failed to update request' }, { status: 500 });
 
-  if (body.reason && body.reason.trim()) {
+  if (body.reason?.trim()) {
     await adminSupabase.from('request_comments').insert({
       change_request_id: id,
       author_id: user.id,

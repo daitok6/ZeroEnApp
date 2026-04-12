@@ -21,11 +21,12 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
     ? String(request.estimatedCostCents / 100)
     : '';
 
-  const [amountDollars, setAmountDollars] = useState(defaultAmount);
+  const [amountYen, setAmountYen] = useState(defaultAmount);
   const [description, setDescription] = useState(request.title);
   const [dueDate, setDueDate] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [hostedUrl, setHostedUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -38,8 +39,9 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
-    const amountCents = Math.round(parseFloat(amountDollars || '0') * 100);
-    if (isNaN(amountCents) || amountCents < 0) {
+    // JPY is zero-decimal — store as integer yen, not cents
+    const amountYenInt = Math.round(parseFloat(amountYen || '0'));
+    if (isNaN(amountYenInt) || amountYenInt < 0) {
       setError(t('invalidAmount'));
       return;
     }
@@ -52,14 +54,19 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        amount_cents: amountCents,
+        amount_cents: amountYenInt,
         description: description.trim(),
         due_date: dueDate || null,
       }),
     });
     if (res.ok) {
+      const data = await res.json().catch(() => ({}));
       router.refresh();
-      onClose();
+      if (data.hostedInvoiceUrl) {
+        setHostedUrl(data.hostedInvoiceUrl);
+      } else {
+        onClose();
+      }
     } else {
       const data = await res.json().catch(() => ({}));
       setError(data.error ?? tCommon('somethingWentWrong'));
@@ -101,21 +108,46 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
           <p className="text-[#9CA3AF] text-xs font-mono line-clamp-3">{request.description}</p>
         </div>
 
+        {hostedUrl && (
+          <div className="space-y-3">
+            <p className="text-[#00E87A] text-xs font-mono">
+              {t('invoiceSent')}
+            </p>
+            <div className="flex items-center gap-2 bg-[#0D0D0D] border border-[#374151] rounded px-3 py-2">
+              <span className="text-[#9CA3AF] text-xs font-mono truncate flex-1">{hostedUrl}</span>
+              <button
+                type="button"
+                onClick={() => { navigator.clipboard.writeText(hostedUrl); }}
+                className="text-[#6B7280] hover:text-[#F4F4F2] text-xs font-mono shrink-0 transition-colors"
+              >
+                {t('copy')}
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full py-2 rounded-lg border border-[#374151] text-[#9CA3AF] text-xs font-mono hover:border-[#6B7280] transition-colors"
+            >
+              {tCommon('close')}
+            </button>
+          </div>
+        )}
+        {!hostedUrl && (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-[#6B7280] text-xs font-mono uppercase tracking-wider mb-1.5">
               {t('amount')}
             </label>
             <div className="flex items-center gap-2">
-              <span className="text-[#6B7280] font-mono text-sm">$</span>
+              <span className="text-[#6B7280] font-mono text-sm">¥</span>
               <input
                 type="number"
                 min="0"
-                step="0.01"
-                inputMode="decimal"
-                value={amountDollars}
-                onChange={(e) => setAmountDollars(e.target.value)}
-                placeholder="0.00"
+                step="1"
+                inputMode="numeric"
+                value={amountYen}
+                onChange={(e) => setAmountYen(e.target.value)}
+                placeholder="0"
                 className="flex-1 bg-[#0D0D0D] border border-[#374151] rounded px-3 py-2 text-sm font-mono text-[#F4F4F2] placeholder-[#6B7280] focus:outline-none focus:border-[#00E87A]/50"
               />
             </div>
@@ -160,6 +192,7 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
             {submitting ? t('sending') : t('sendInvoice')}
           </button>
         </form>
+        )}
       </div>
     </div>
   );
