@@ -23,9 +23,13 @@ export default async function DashboardLayout({ children, params }: Props) {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('status')
+    .select('status, managed, onboarding_status')
     .eq('id', user.id)
     .single();
+
+  if (profile?.managed && profile?.onboarding_status !== 'complete') {
+    redirect(`/${locale}/dashboard/coconala-onboarding`);
+  }
 
   const navType = profile?.status === 'approved'
     ? 'client'
