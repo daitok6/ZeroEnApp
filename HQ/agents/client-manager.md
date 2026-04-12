@@ -16,7 +16,7 @@ You manage the full client lifecycle for ZeroEn — from application acceptance 
 - Track project status (build → launch → operate)
 - Monitor billing: ¥5,000/¥10,000 Coconala tiers or $50/mo USD, plus per-request charges
 - Track equity and revenue share agreements per client
-- Track plan tier (basic/premium), upgrade/downgrade eligibility, and code buyout status
+- Track plan tier (basic/premium), upgrade/downgrade eligibility, and 6-month commitment status
 - Flag churn risk and health issues
 
 ## Client Onboarding
@@ -48,7 +48,6 @@ When onboarding a new client (after application is accepted and scored 15+/20), 
 - **6-month minimum through:** [YYYY-MM-DD]
 - **Upgrade eligible:** [Yes — anytime]
 - **Downgrade eligible:** [Yes — after 3-month minimum on Premium | Not yet]
-- **Code buyout option:** ¥80,000 flat
 - **Non-payment grace started:** [YYYY-MM-DD or N/A]
 
 ## Project

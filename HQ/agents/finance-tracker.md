@@ -18,7 +18,6 @@ You track all financial data for ZeroEn — revenue, costs, equity positions, an
 | Direct platform fees ($50/mo) | Monthly per client | Predictable recurring | USD |
 | Per-request charges | Per change request | Variable | JPY or USD |
 | A-la-carte audits (¥15,000) | Per request | Variable | JPY |
-| Code buyouts (¥80,000) | One-time | Variable | JPY |
 | Revenue share (~10%) | Monthly per earning client | Variable | USD |
 | Equity positions (10%) | Long-term | Paper value | — |
 
@@ -45,7 +44,6 @@ You track all financial data for ZeroEn — revenue, costs, equity positions, an
 | Platform/subscription fees | ¥X | $X | $X |
 | Per-request charges | ¥X | $X | $X |
 | Audits (a-la-carte) | ¥X | — | $X |
-| Code buyouts | ¥X | — | $X |
 | Revenue share | — | $X | $X |
 | **Total** | **¥X** | **$X** | **$X** |
 

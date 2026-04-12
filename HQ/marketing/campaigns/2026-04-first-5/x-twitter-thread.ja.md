@@ -1,0 +1,96 @@
+# X (Twitter) Thread — JP Launch (Draft)
+
+**Status:** Draft. Requires `mktg-copy` + `mktg-strategy` review before posting.
+**Posts after:** `note-article.ja.md` is live (Day 1)
+**Day:** 2
+**Handle:** operator's JP account
+**Length:** 7 tweets
+
+---
+
+**1/7**
+```
+元日立・元楽天でWebエンジニアをやっていた大都です。
+
+独立してZeroEnという個人サービスを立ち上げました。
+
+先着5名様、ランディングページを「ビール1杯分（¥500）」で作ります。
+
+理由は下のスレッドに書きました。🧵
+```
+
+**2/7**
+```
+なぜ¥500なのか。
+
+本音は「無料で作らせてください」です。
+
+Coconalaの最低価格が¥500なので、そこに合わせているだけで、制作費ではありません。レビューと実績を積ませていただくためのお気持ち代です。
+```
+
+**3/7**
+```
+なぜ無料で作るのか。
+
+ZeroEnは「初期費用ゼロ、月額ホスティング契約のみ」というモデルで運営したいと考えています。
+
+通常だと初期20〜50万かかる制作費を、こちら側で吸収する仕組みです。
+
+最初の5名様は、このモデルを回すための第1陣として募集しています。
+```
+
+**4/7**
+```
+含まれるもの：
+
+・ランディングページ 1ページ（3セクションまで）
+・モバイルファースト設計
+・SEO基本対策
+・Vercelでの高速ホスティング
+・1〜3営業日で納品
+```
+
+**5/7**
+```
+条件：
+
+・月額¥5,000のホスティング契約（6ヶ月〜）が必要です
+・コードの所有権はZeroEnに帰属（サブスク期間中ライセンス）
+・スコープはヒアリング時に確定
+
+「一生無料」ではありません。正直に書きます。
+```
+
+**6/7**
+```
+向いている方：
+
+・これから個人でサービスを立ち上げる方
+・既存ビジネスのLPがないor古い方
+・Web制作会社に数十万払う余裕はないけど、ちゃんとしたサイトが欲しい方
+
+向いていない方：
+
+・EC・会員制などの複雑な要件
+・無料でコード買い取りを希望される方
+```
+
+**7/7**
+```
+詳細とお申し込みはCoconalaから。DMでのご相談も歓迎です。
+
+Coconala: [URL]
+背景＆経歴詳細（note）: [URL]
+ポートフォリオ: https://zeroen.dev
+
+#ZeroEn #個人開発 #ホームページ制作
+```
+
+---
+
+## Voice notes
+
+- Terse. Short sentences. No hype.
+- No emojis except the single 🧵 on tweet 1/7 (X convention for thread opener).
+- Honest about trade-offs (tweet 5, tweet 6) — this is what build-in-public audiences reward.
+- Credentials drop once (tweet 1), not repeated — overclaiming erodes trust.

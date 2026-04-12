@@ -113,7 +113,6 @@ Changes within your monthly allowance are processed within 3 business days. A-la
 | Large change (a-la-carte) | ¥25,000+ (quoted per request) |
 | Security audit (a-la-carte) | ¥15,000 |
 | SEO audit (a-la-carte) | ¥15,000 |
-| Code buyout / handover | ¥80,000 flat |
 
 ---
 

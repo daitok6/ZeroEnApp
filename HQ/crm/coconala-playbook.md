@@ -74,11 +74,11 @@ Unused monthly changes **do not roll over**.
 - All free-build clients require a **6-month minimum subscription commitment**
 - Do NOT use "April only" framing — it becomes dishonest when the free model continues
 
-### Phase 2: After 15 Clients (Discounted Build)
-- Charge a discounted build fee: **¥30,000-50,000** (still well below the ¥50,000-300,000 market rate)
-- Frame as: "Limited free partner slots are filled. Discounted partner rate available."
+### Phase 2: After 15 Clients (Selective Free Builds)
+- Free builds continue but become selective — prioritize clients with strong revenue potential, referral value, or equity fit
+- Frame as: "Limited partner slots — applications reviewed on strategic fit"
 - 6-month minimum subscription still required
-- **Why the cap:** Free builds consume ~1 week of unbilled labor each. At 20+ clients, maintenance compounds (20+ changes/month) and you can't sustain building for free indefinitely.
+- **Why selective:** Free builds consume ~1 week of unbilled labor each. At 20+ clients, maintenance compounds (20+ changes/month), so incoming free-build capacity is limited — not sold.
 
 ---
 
@@ -100,9 +100,9 @@ Basic-tier clients can purchase premium services individually. See `HQ/crm/chang
 
 ## Code Ownership & Exit
 
-- **ZeroEn retains code rights.** Client licenses the live site via active subscription.
-- **Code buyout:** ¥80,000 flat fee — client receives full source code handover.
-- **State this upfront in listings.** An exit path builds trust. ¥80,000 compensates fairly for the free build.
+- **ZeroEn retains code rights permanently.** Client licenses the live site via active subscription — similar to Squarespace, Wix, or Shopify.
+- **No code buyout option.** On cancellation, the site is archived and ZeroEn keeps the code. Clients rebuild elsewhere if they want to leave.
+- **State this upfront in listings.** Clear upfront disclosure is essential — clients must understand they are paying for a hosted service, not receiving ownership of the codebase.
 
 ---
 
@@ -186,7 +186,8 @@ Coconala skews price-sensitive. Clients who choose "free" are often the highest-
 The free build is justified by the 6-month subscription. Without enforcement, clients churn after month 1 and you've worked for free.
 
 **Early cancellation policy:**
-- Cancel within 6 months → client pays the **lesser of:** remaining months on commitment OR ¥80,000 code buyout
+- Cancel within 6 months → client pays the remaining months on commitment
+- Site is archived on cancellation; code is retained by ZeroEn (no handover)
 - This must be agreed to **in writing before the build starts**
 - On Coconala: include in the service description and confirm via message before accepting the order
 

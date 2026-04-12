@@ -76,7 +76,7 @@ A solo, AI-powered technical co-founder service. Build free MVPs for founders in
 - Working app with core features
 - Deployed on your Vercel
 - Connected to client's Supabase (free tier)
-- Quoted and priced individually (¥30,000-50,000 build fee)
+- Subscription-only — no upfront build fee; recurring revenue via monthly plan
 
 ### What's included in $50/mo:
 - Hosting on your Vercel account
@@ -240,11 +240,11 @@ ZeroEn feeds WebMori. Two businesses, one pipeline. Kept as separate brands.
 | Equity = $0 | Platform fees + per-request = real income. Equity is bonus. |
 | Scope creep | Locked scope. Changes = paid. No exceptions. |
 | Client stops paying | 14-day grace → site paused → 44 days → archived. See `coconala-playbook.md`. |
-| Burnout | Template everything. Free builds capped at 15 clients, then discounted builds. |
-| Client copies code | ZeroEn owns code. ¥80,000 buyout option for exit. |
+| Burnout | Template everything. All builds are free but scope is strictly locked. |
+| Client copies code | ZeroEn owns code permanently. No buyout option. Site is archived on cancellation; ZeroEn retains the code. |
 | Revenue too slow | Coconala (Japan) + zeroen.dev (global) dual channel. Direct billing avoids 22% commission. |
-| Coconala platform risk | ToS compliance: bill through Coconala for Coconala-acquired clients. Build zeroen.dev as independent channel. |
-| Free build exploitation | 6-month minimum commitment. Early cancellation = pay remaining months or buyout fee. |
+| Coconala platform risk | ToS compliance: Coconala is lead-gen only (¥500 intake). Recurring billing via Stripe for all clients. |
+| Free build exploitation | 6-month minimum commitment. Early cancellation = pay remaining months on commitment. |
 | Supabase limits | Client pays for Supabase Pro upgrade if usage exceeds free tier. Stated in terms. |
 
 ---
@@ -254,7 +254,7 @@ ZeroEn feeds WebMori. Two businesses, one pipeline. Kept as separate brands.
 1. ~~Set up ZeroEn Claude Code project (CLAUDE.md, agents, commands, template)~~ ✅
 2. ~~NotebookLM research on Claude Code best practices~~ ✅
 3. Build application form + scoring system
-4. Create SAFE + profit-sharing contract template (include 6-month minimum, code buyout terms)
+4. Create SAFE + profit-sharing contract template (include 6-month minimum; no code buyout — ZeroEn retains code permanently)
 5. Create Next.js + Supabase starter template
 6. **Launch Coconala listing by Apr 25** — first 5 priority slots, free build
 7. Land first 5 clients on Coconala (promo phase)
