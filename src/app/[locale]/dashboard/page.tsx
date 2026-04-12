@@ -138,8 +138,17 @@ export default async function DashboardPage({ params, searchParams }: Props) {
 
   // If project is visible to client but no plan chosen → show plan gate
   if (project?.client_visible && !project?.plan_tier) {
-    // ?subscribed=true means Stripe checkout succeeded but webhook hasn't fired yet
-    if (subscribed === 'true') {
+    // checkout_pending_at is set when the Stripe Checkout session is created and
+    // cleared by the webhook on success. Show pending UI for up to 15 minutes —
+    // this survives page refreshes (unlike relying solely on ?subscribed=true).
+    const checkoutPendingAt = project?.checkout_pending_at
+      ? new Date(project.checkout_pending_at)
+      : null;
+    const isPendingRecently =
+      checkoutPendingAt !== null &&
+      Date.now() - checkoutPendingAt.getTime() < 15 * 60 * 1000;
+
+    if (isPendingRecently || subscribed === 'true') {
       return (
         <div className="space-y-6 max-w-2xl">
           <SubscriptionPending locale={locale} />

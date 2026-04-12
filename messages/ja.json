@@ -689,6 +689,7 @@
     "pendingDesc": "サブスクリプションを設定しています。このページは自動的に更新されます。",
     "pendingTakingLong": "設定に時間がかかっています",
     "pendingTakingLongDesc": "ページを更新するか、メッセージでお問い合わせください。",
+    "pendingContactSupport": "サポートに連絡する",
     "subscribeToAccess": "この機能を利用するにはプランへの登録が必要です",
     "subscribeToAccessDesc": "プランを選択してサブスクリプションを開始してください。",
     "choosePlan": "プランを選択する"

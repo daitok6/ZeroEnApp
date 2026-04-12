@@ -125,6 +125,8 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   // Fire site-ready email when client_visible flips from false → true
   const wasVisible = existing?.client_visible ?? false;
   const isNowVisible = updatedProject.client_visible === true;
+  let emailResult: { sent: boolean; reason?: string } = { sent: false, reason: 'no-transition' };
+
   if (!wasVisible && isNowVisible) {
     const { data: clientProfile } = await adminSupabase
       .from('profiles')
@@ -132,7 +134,10 @@ export async function PATCH(request: NextRequest, { params }: Params) {
       .eq('id', id)
       .single();
 
-    if (clientProfile?.email) {
+    if (!clientProfile?.email) {
+      console.warn('[admin/project PATCH] site-ready email skipped: no email on profiles row', { clientId: id });
+      emailResult = { sent: false, reason: 'no-client-email' };
+    } else {
       const locale = (clientProfile.locale === 'ja' ? 'ja' : 'en') as 'en' | 'ja';
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://zeroen.dev';
       const { subject, html } = siteReadyEmail({
@@ -140,9 +145,18 @@ export async function PATCH(request: NextRequest, { params }: Params) {
         locale,
         loginUrl: `${siteUrl}/${locale}/login`,
       });
-      await sendEmail({ to: clientProfile.email, subject, html });
+      const result = await sendEmail({ to: clientProfile.email, subject, html });
+      if (result.ok) {
+        console.log('[admin/project PATCH] site-ready email sent', { clientId: id, emailId: result.id });
+        emailResult = { sent: true };
+      } else {
+        console.error('[admin/project PATCH] site-ready email failed', { clientId: id, reason: result.reason, error: result.error });
+        emailResult = { sent: false, reason: result.reason };
+      }
     }
+  } else if (wasVisible && isNowVisible) {
+    console.log('[admin/project PATCH] site-ready email skipped: already visible', { clientId: id });
   }
 
-  return NextResponse.json({ project: updatedProject });
+  return NextResponse.json({ project: updatedProject, email: emailResult });
 }

@@ -18,12 +18,19 @@ export async function POST(request: NextRequest) {
   const body = await request.text();
   const signature = request.headers.get('stripe-signature');
 
-  if (
-    !signature ||
+  const isProduction = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
+  const missingSecret =
     !process.env.STRIPE_WEBHOOK_SECRET ||
-    process.env.STRIPE_WEBHOOK_SECRET === 'whsec_placeholder'
-  ) {
-    // In development without real webhook secret, return OK
+    process.env.STRIPE_WEBHOOK_SECRET === 'whsec_placeholder';
+
+  if (!signature || missingSecret) {
+    if (isProduction) {
+      // In production a missing/invalid secret is a configuration error — fail loudly
+      // so Stripe retries and Vercel logs surface the problem.
+      console.error('STRIPE_WEBHOOK_SECRET is not configured in production');
+      return NextResponse.json({ error: 'Webhook not configured' }, { status: 500 });
+    }
+    // In development without a real webhook secret, skip verification
     return NextResponse.json({ received: true });
   }
 
@@ -103,6 +110,7 @@ export async function POST(request: NextRequest) {
                 commitment_starts_at: new Date().toISOString(),
                 stripe_subscription_id: subscriptionId,
                 status: 'operating',
+                checkout_pending_at: null,
               })
               .eq('client_id', userId);
           }

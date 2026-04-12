@@ -215,6 +215,16 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    // For subscription checkouts, stamp the project so the dashboard can show
+    // the pending UI even after the user refreshes (losing ?subscribed=true).
+    // The webhook clears this to null once checkout.session.completed is handled.
+    if (type === 'subscription' && session) {
+      await supabase
+        .from('projects')
+        .update({ checkout_pending_at: new Date().toISOString() })
+        .eq('client_id', user.id);
+    }
+
     return NextResponse.json({ url: session.url });
   } catch (err) {
     if (err instanceof z.ZodError) {

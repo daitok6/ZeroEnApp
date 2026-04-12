@@ -1,33 +1,27 @@
 function emailWrapper(content: string): string {
   return `
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; margin: 0; padding: 0;">
+
+      <!-- Top accent strip -->
       <tr>
-        <td align="center" style="padding: 48px 16px 48px 16px;">
-          <table width="560" cellpadding="0" cellspacing="0" border="0" style="max-width: 560px; width: 100%;">
+        <td height="3" style="background: #00E87A; font-size: 0; line-height: 0;">&nbsp;</td>
+      </tr>
+
+      <!-- Body -->
+      <tr>
+        <td align="center" style="padding: 48px 16px 56px 16px;">
+          <table width="560" cellpadding="0" cellspacing="0" border="0" style="max-width: 560px; width: 100%; background: #111111; border: 1px solid #1F2937; border-radius: 16px;">
 
             <!-- Header -->
             <tr>
-              <td style="padding-bottom: 32px;">
+              <td style="padding: 32px 40px 28px 40px; border-bottom: 1px solid #1A1A1A;">
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                   <tr>
-                    <td style="padding-bottom: 12px;">
-                      <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 22px; font-weight: 700; letter-spacing: 0.06em; text-decoration: none;">ZeroEn</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding-bottom: 16px;">
-                      <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;">AI Technical Co-Founder</span>
-                    </td>
-                  </tr>
-                  <tr>
                     <td>
-                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                        <tr>
-                          <td width="48" height="2" style="background: #00E87A; font-size: 0; line-height: 0;">&nbsp;</td>
-                          <td width="8" height="2" style="font-size: 0; line-height: 0;">&nbsp;</td>
-                          <td height="2" style="background: #1A2A1A; font-size: 0; line-height: 0;">&nbsp;</td>
-                        </tr>
-                      </table>
+                      <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 18px; font-weight: 700; letter-spacing: 0.06em;">ZeroEn</span>
+                    </td>
+                    <td align="right">
+                      <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #2D3748; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;">zeroen.dev</span>
                     </td>
                   </tr>
                 </table>
@@ -36,34 +30,25 @@ function emailWrapper(content: string): string {
 
             <!-- Content -->
             <tr>
-              <td style="padding-bottom: 0; font-family: 'IBM Plex Mono', 'Courier New', monospace;">
+              <td style="padding: 40px 40px 0 40px; font-family: 'IBM Plex Mono', 'Courier New', monospace;">
                 ${content}
               </td>
             </tr>
 
             <!-- Footer -->
             <tr>
-              <td style="padding-top: 40px;">
+              <td style="padding: 32px 40px 36px 40px; border-top: 1px solid #1A1A1A; margin-top: 40px;">
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                   <tr>
-                    <td height="1" style="background: #1F2937; font-size: 0; line-height: 0;">&nbsp;</td>
+                    <td>
+                      <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #2D3748; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;">ZeroEn</span>
+                      <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #1F2937; font-size: 10px;">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+                      <a href="https://zeroen.dev" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #374151; font-size: 10px; text-decoration: none; letter-spacing: 0.08em;">zeroen.dev</a>
+                    </td>
                   </tr>
                   <tr>
-                    <td style="padding-top: 20px;">
-                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                        <tr>
-                          <td>
-                            <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #374151; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;">ZeroEn</span>
-                            <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #1F2937; font-size: 10px;"> &nbsp;/&nbsp; </span>
-                            <a href="https://zeroen.dev" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 10px; text-decoration: none; letter-spacing: 0.08em; opacity: 0.7;">zeroen.dev</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="padding-top: 8px;">
-                            <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #374151; font-size: 10px; line-height: 1.7;">Build free. Grow together. &nbsp;You're receiving this because you applied to ZeroEn.</span>
-                          </td>
-                        </tr>
-                      </table>
+                    <td style="padding-top: 6px;">
+                      <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #2D3748; font-size: 10px; line-height: 1.7; letter-spacing: 0.04em;">AI Technical Co-Founder &nbsp;·&nbsp; You're receiving this because you applied to ZeroEn.</span>
                     </td>
                   </tr>
                 </table>
@@ -78,15 +63,15 @@ function emailWrapper(content: string): string {
 }
 
 function heading(text: string): string {
-  return `<h1 style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 24px; font-weight: 700; margin: 0 0 10px 0; line-height: 1.25; letter-spacing: -0.01em;">${text}</h1>`;
+  return `<h1 style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 28px; font-weight: 700; margin: 0 0 8px 0; line-height: 1.2; letter-spacing: -0.02em;">${text}</h1>`;
 }
 
 function subheading(text: string): string {
-  return `<p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 13px; margin: 0 0 32px 0; line-height: 1.7; letter-spacing: 0.02em;">${text}</p>`;
+  return `<p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 14px; margin: 0 0 36px 0; line-height: 1.7; letter-spacing: 0.01em;">${text}</p>`;
 }
 
 function body(text: string): string {
-  return `<p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #D1D5DB; font-size: 14px; margin: 0 0 20px 0; line-height: 1.8;">${text}</p>`;
+  return `<p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #D1D5DB; font-size: 14px; margin: 0 0 20px 0; line-height: 1.85;">${text}</p>`;
 }
 
 function muted(text: string): string {
@@ -95,13 +80,13 @@ function muted(text: string): string {
 
 function ctaButton(text: string, href: string): string {
   return `
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 28px 0;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 32px 0 28px 0;">
       <tr>
-        <td align="center">
+        <td>
           <table cellpadding="0" cellspacing="0" border="0">
             <tr>
-              <td style="background: #00E87A; border-radius: 3px;">
-                <a href="${href}" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; display: inline-block; background: #00E87A; color: #0D0D0D; font-size: 11px; font-weight: 700; text-decoration: none; padding: 16px 48px; border-radius: 3px; letter-spacing: 0.15em; text-transform: uppercase; white-space: nowrap;">${text}</a>
+              <td style="background: #00E87A; border-radius: 4px;">
+                <a href="${href}" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; display: inline-block; background: #00E87A; color: #0A0A0A; font-size: 11px; font-weight: 700; text-decoration: none; padding: 15px 40px; border-radius: 4px; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap;">${text}</a>
               </td>
             </tr>
           </table>
@@ -111,15 +96,23 @@ function ctaButton(text: string, href: string): string {
   `;
 }
 
+function divider(): string {
+  return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 24px 0;"><tr><td height="1" style="background: #1A1A1A; font-size: 0; line-height: 0;">&nbsp;</td></tr></table>`;
+}
+
 function dataRow(label: string, value: string): string {
   return `
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <td width="140" valign="top" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; padding: 10px 16px 10px 16px; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid #161616; vertical-align: top;">${label}</td>
-        <td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #E5E7EB; font-size: 12px; padding: 10px 16px 10px 0; border-bottom: 1px solid #161616; line-height: 1.6; vertical-align: top;">${value}</td>
+        <td width="144" valign="top" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 10px; padding: 11px 16px 11px 20px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid #171717; vertical-align: top;">${label}</td>
+        <td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #E5E7EB; font-size: 12px; padding: 11px 20px 11px 0; border-bottom: 1px solid #171717; line-height: 1.65; vertical-align: top;">${value}</td>
       </tr>
     </table>
   `;
+}
+
+function dataCard(rows: string): string {
+  return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; border: 1px solid #252525; border-radius: 10px; margin-bottom: 28px;">${rows}</table>`;
 }
 
 // ── Email: New Application (to operator) ──────────────────
@@ -137,8 +130,8 @@ export function newApplicationEmail(data: {
     subject: `[ZeroEn] New application: ${data.ideaName} — ${data.founderName}`,
     html: emailWrapper(`
       ${heading('New application.')}
-      ${subheading(`${data.founderName} applied with ${data.ideaName}.`)}
-      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border: 1px solid #374151; border-radius: 8px; margin-bottom: 24px;">
+      ${subheading(`${data.founderName} just applied with ${data.ideaName}.`)}
+      ${dataCard(`
         <tr><td>
           ${dataRow('Idea', data.ideaName)}
           ${dataRow('Founder', data.founderName)}
@@ -146,7 +139,7 @@ export function newApplicationEmail(data: {
           ${dataRow('Commitment', data.commitment)}
           ${dataRow('Locale', data.locale)}
         </td></tr>
-      </table>
+      `)}
       ${body(`<strong style="color: #F4F4F2;">${data.ideaDescription}</strong>`)}
       ${muted(`Target users: ${data.targetUsers}`)}
       ${muted(`Monetization: ${data.monetization}`)}
@@ -194,17 +187,22 @@ export function applicationStatusEmail(data: {
     : [];
   const totalScore = scores.length === 4 ? scores.reduce((a, b) => a + b, 0) : null;
 
+  const scoreColor = totalScore !== null
+    ? (totalScore >= 15 ? '#00E87A' : totalScore >= 12 ? '#FBBF24' : '#F87171')
+    : '#6B7280';
+
   const scoreBlock = ev && totalScore !== null ? `
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border: 1px solid #374151; border-radius: 8px; margin: 28px 0;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; border: 1px solid #252525; border-radius: 10px; margin: 28px 0;">
       <tr>
         <td>
+          <!-- Score header -->
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
-              <td style="padding: 12px 16px; border-bottom: 1px solid #374151;">
+              <td style="padding: 14px 20px; border-bottom: 1px solid #1A1A1A;">
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                   <tr>
-                    <td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;">${isJa ? '評価結果' : 'Evaluation'}</td>
-                    <td align="right" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: ${totalScore >= 15 ? '#00E87A' : totalScore >= 12 ? '#FBBF24' : '#F87171'}; font-size: 13px; font-weight: 700;">${totalScore}/20</td>
+                    <td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;">${isJa ? '評価結果' : 'Evaluation'}</td>
+                    <td align="right" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: ${scoreColor}; font-size: 14px; font-weight: 700;">${totalScore}<span style="color: #374151; font-size: 11px;">/20</span></td>
                   </tr>
                 </table>
               </td>
@@ -216,21 +214,21 @@ export function applicationStatusEmail(data: {
               { label: isJa ? '市場性' : 'Market', score: ev.score_market, note: ev.rationale?.market },
             ].map((d) => `
               <tr>
-                <td style="padding: 10px 16px; border-bottom: 1px solid #1F2937;">
+                <td style="padding: 12px 20px; border-bottom: 1px solid #171717;">
                   <table width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                      <td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 12px; font-weight: 600;">${d.label}</td>
-                      <td align="right" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 12px;">${d.score ?? '—'}/5</td>
+                      <td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #D1D5DB; font-size: 12px;">${d.label}</td>
+                      <td align="right" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 12px; white-space: nowrap;">${d.score ?? '—'}<span style="color: #374151;">/5</span></td>
                     </tr>
-                    ${d.note ? `<tr><td colspan="2" style="padding-top: 4px; font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; line-height: 1.6;">${d.note}</td></tr>` : ''}
+                    ${d.note ? `<tr><td colspan="2" style="padding-top: 5px; font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; line-height: 1.65;">${d.note}</td></tr>` : ''}
                   </table>
                 </td>
               </tr>
             `).join('')}
             ${ev.rationale?.summary ? `
               <tr>
-                <td style="padding: 12px 16px;">
-                  <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; margin: 0; line-height: 1.7;">${ev.rationale.summary}</p>
+                <td style="padding: 14px 20px;">
+                  <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; margin: 0; line-height: 1.75;">${ev.rationale.summary}</p>
                 </td>
               </tr>
             ` : ''}
@@ -243,29 +241,29 @@ export function applicationStatusEmail(data: {
   const html = isAccepted
     ? emailWrapper(`
         ${heading(isJa ? '採択されました。' : "You're in.")}
-        ${subheading(isJa ? `${data.ideaName}を一緒に作りましょう。` : `Let's build ${data.ideaName}.`)}
+        ${subheading(isJa ? `${data.ideaName}を一緒に作りましょう。` : `Time to build ${data.ideaName}.`)}
         ${body(isJa
           ? '申し込みを審査し、採択しました。MVPの構築を進めます。ダッシュボードで次のステップとキックオフコールの日程調整リンクをご確認ください。'
-          : `Your application was accepted. We're building your MVP — check your dashboard for next steps and a link to schedule your kickoff call.`
+          : `Your application cleared review. We're building your MVP — log in to your dashboard to see next steps and schedule your kickoff call.`
         )}
         ${scoreBlock}
         ${ctaButton(isJa ? 'ダッシュボードへ' : 'Go to Dashboard', data.dashboardUrl)}
         ${muted(isJa
           ? 'キックオフの詳細はダッシュボードに記載されています。'
-          : "Kickoff call details will be in your dashboard. We move fast."
+          : "Kickoff details are waiting in your dashboard. We move fast."
         )}
       `)
     : emailWrapper(`
-        ${heading(isJa ? '今回は見送りとなりました。' : 'Not right now.')}
+        ${heading(isJa ? '今回は見送りとなりました。' : 'Not this time.')}
         ${subheading(isJa ? `${data.founderName}さん、ご応募ありがとうございました。` : `We reviewed your application, ${data.founderName}.`)}
         ${body(isJa
           ? `${data.ideaName}について審査しました。現時点では私たちの方向性と合わないと判断しましたが、これはアイデアの優劣ではなく、私たちの現在の状況によるものです。`
-          : `We went through your application for ${data.ideaName}. It's not the right fit for us at this stage — the decision is about where we are, not where you are.`
+          : `We went through your application for ${data.ideaName}. It's not the right fit for us at this stage — this is about where we are, not where you are.`
         )}
         ${scoreBlock}
         ${muted(isJa
           ? 'アイデアが進化したり状況が変わった際には、ぜひ改めてご応募ください。'
-          : "Ideas evolve. If yours does, apply again — we review every application on its own merits."
+          : "Ideas evolve. If yours does, apply again — every application gets a fresh look."
         )}
       `);
 
@@ -282,6 +280,9 @@ export function newMessageEmail(data: {
   dashboardUrl: string;
 }): { subject: string; html: string } {
   const isJa = data.locale === 'ja';
+  const preview = data.messagePreview.length > 140
+    ? data.messagePreview.slice(0, 140) + '…'
+    : data.messagePreview;
 
   return {
     subject: isJa
@@ -291,12 +292,16 @@ export function newMessageEmail(data: {
       ${heading(isJa ? '新しいメッセージ。' : 'New message.')}
       ${subheading(isJa
         ? `${data.senderName}さんが${data.projectName}にメッセージを送りました。`
-        : `${data.senderName} wrote on ${data.projectName}.`
+        : `${data.senderName} · ${data.projectName}`
       )}
-      <div style="border-left: 3px solid #00E87A; padding-left: 16px; margin: 16px 0;">
-        ${body(`"${data.messagePreview}${data.messagePreview.length > 120 ? '...' : ''}"`)}
-      </div>
-      ${ctaButton(isJa ? 'メッセージを見る' : 'View Message', data.dashboardUrl)}
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; border: 1px solid #252525; border-left: 3px solid #00E87A; border-radius: 0 8px 8px 0; margin: 0 0 28px 0;">
+        <tr>
+          <td style="padding: 18px 20px;">
+            <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #9CA3AF; font-size: 13px; margin: 0; line-height: 1.8; font-style: italic;">"${preview}"</p>
+          </td>
+        </tr>
+      </table>
+      ${ctaButton(isJa ? 'メッセージを見る' : 'Reply in Dashboard', data.dashboardUrl)}
     `),
   };
 }
@@ -311,7 +316,7 @@ export function invoiceDueEmail(data: {
   payUrl: string;
 }): { subject: string; html: string } {
   const isJa = data.locale === 'ja';
-  const amount = `$${(data.amount / 100).toFixed(2)}`;
+  const amount = `¥${data.amount.toLocaleString()}`;
 
   return {
     subject: isJa
@@ -319,12 +324,17 @@ export function invoiceDueEmail(data: {
       : `[ZeroEn] Platform fee due — ${amount}`,
     html: emailWrapper(`
       ${heading(isJa ? '請求書が届いています。' : 'Invoice ready.')}
-      ${subheading(isJa ? `${data.clientName}さん、月額利用料のお支払い期限が近づいています。` : `${data.clientName}, your monthly platform fee is due.`)}
-      <div style="border: 1px solid #374151; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
-        ${dataRow(isJa ? '内容' : 'Description', data.description)}
-        ${dataRow(isJa ? '金額' : 'Amount', amount)}
-        ${dataRow(isJa ? '支払期限' : 'Due Date', data.dueDate)}
-      </div>
+      ${subheading(isJa
+        ? `${data.clientName}さん、月額利用料のお支払い期限が近づいています。`
+        : `${data.clientName}, your monthly platform fee is due.`
+      )}
+      ${dataCard(`
+        <tr><td>
+          ${dataRow(isJa ? '内容' : 'Description', data.description)}
+          ${dataRow(isJa ? '金額' : 'Amount', `<strong style="color: #F4F4F2; font-size: 14px;">${amount}</strong>`)}
+          ${dataRow(isJa ? '支払期限' : 'Due', data.dueDate)}
+        </td></tr>
+      `)}
       ${ctaButton(isJa ? '今すぐ支払う' : 'Pay Now', data.payUrl)}
       ${muted(isJa
         ? 'ご不明な点はダッシュボードからお問い合わせください。'
@@ -351,36 +361,64 @@ export function agreementConfirmationEmail(data: {
   const formattedDate = new Date(acceptedAt).toUTCString();
 
   const evidenceBlock = `
-    <div style="border: 1px solid #374151; border-radius: 8px; padding: 16px; margin: 20px 0; font-family: 'IBM Plex Mono', 'Courier New', monospace;">
-      <p style="color: #9CA3AF; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin: 0 0 12px 0;">Acceptance Record</p>
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0; width: 140px;">Signatory Name</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${signatureName}</td></tr>
-        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">Email</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${founderEmail}</td></tr>
-        ${entityName ? `<tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">Entity</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${entityName}</td></tr>` : ''}
-        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">Terms Version</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${termsVersion}</td></tr>
-        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">Accepted At</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${formattedDate}</td></tr>
-        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0;">IP Address</td><td style="color: #F4F4F2; font-size: 11px; padding: 4px 0;">${ipAddress}</td></tr>
-        <tr><td style="color: #6B7280; font-size: 11px; padding: 4px 0; vertical-align: top;">User Agent</td><td style="color: #4B5563; font-size: 10px; padding: 4px 0; word-break: break-all; line-height: 1.5;">${userAgent}</td></tr>
-      </table>
-    </div>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; border: 1px solid #252525; border-radius: 10px; margin: 24px 0;">
+      <tr>
+        <td>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td style="padding: 12px 20px; border-bottom: 1px solid #1A1A1A;">
+                <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;">Acceptance Record</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 16px 20px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; padding: 4px 0; width: 140px;">Signatory Name</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 11px; padding: 4px 0;">${signatureName}</td></tr>
+                  <tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; padding: 4px 0;">Email</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 11px; padding: 4px 0;">${founderEmail}</td></tr>
+                  ${entityName ? `<tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; padding: 4px 0;">Entity</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 11px; padding: 4px 0;">${entityName}</td></tr>` : ''}
+                  <tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; padding: 4px 0;">Terms Version</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 11px; padding: 4px 0;">${termsVersion}</td></tr>
+                  <tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; padding: 4px 0;">Accepted At</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 11px; padding: 4px 0;">${formattedDate}</td></tr>
+                  <tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; padding: 4px 0;">IP Address</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 11px; padding: 4px 0;">${ipAddress}</td></tr>
+                  <tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px; padding: 4px 0; vertical-align: top;">User Agent</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #374151; font-size: 10px; padding: 4px 0; word-break: break-all; line-height: 1.55;">${userAgent}</td></tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   `;
 
   const termsDetail = `
-    <div style="border: 1px solid #1F2937; border-radius: 6px; padding: 14px 16px; margin: 16px 0;">
-      <p style="color: #9CA3AF; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin: 0 0 12px 0;">Agreement Terms (${termsVersion})</p>
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        ${[
-          ['Equity', '10% via SAFE note (converts on incorporation)'],
-          ['Revenue Share', '~10% of app revenue (flexible per deal)'],
-          ['Platform Fee', '$50/mo after launch (hosting + 1 fix/mo)'],
-          ['MVP Scope', 'Locked at kickoff. Changes are charged separately.'],
-          ['IP Ownership', 'Shared — proportional to equity stake'],
-          ['Kill Switch', '90 days unpaid → agreement terminates, code rights to operator'],
-          ['Reversion', 'No launch within 6 months → code rights revert to operator'],
-          ['Portfolio Rights', 'Operator retains right to showcase this work at all times'],
-        ].map(([k, v]) => `<tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 11px; padding: 4px 0; width: 140px; vertical-align: top;">${k}</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #9CA3AF; font-size: 11px; padding: 4px 0;">${v}</td></tr>`).join('')}
-      </table>
-    </div>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; border: 1px solid #1F2937; border-radius: 10px; margin: 20px 0;">
+      <tr>
+        <td>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td style="padding: 12px 20px; border-bottom: 1px solid #1A1A1A;">
+                <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;">Agreement Terms (${termsVersion})</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 16px 20px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  ${[
+                    ['Equity', '10% via SAFE note (converts on incorporation)'],
+                    ['Revenue Share', '~10% of app revenue (flexible per deal)'],
+                    ['Platform Fee', '$50/mo after launch (hosting + 1 fix/mo)'],
+                    ['MVP Scope', 'Locked at kickoff. Changes are charged separately.'],
+                    ['IP Ownership', 'Shared — proportional to equity stake'],
+                    ['Kill Switch', '90 days unpaid → agreement terminates, code rights to operator'],
+                    ['Reversion', 'No launch within 6 months → code rights revert to operator'],
+                    ['Portfolio Rights', 'Operator retains right to showcase this work at all times'],
+                  ].map(([k, v]) => `<tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 11px; padding: 5px 0; width: 140px; vertical-align: top;">${k}</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; padding: 5px 0; line-height: 1.55;">${v}</td></tr>`).join('')}
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   `;
 
   if (isOperatorCopy) {
@@ -391,7 +429,7 @@ export function agreementConfirmationEmail(data: {
         ${subheading(`${founderName} accepted the ZeroEn partnership terms.`)}
         ${evidenceBlock}
         ${termsDetail}
-        <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; line-height: 1.7; margin: 0;">Keep this record for your files. The founder also received a copy at ${founderEmail}.</p>
+        ${muted(`Keep this record for your files. The founder also received a copy at ${founderEmail}.`)}
       `),
     };
   }
@@ -401,14 +439,10 @@ export function agreementConfirmationEmail(data: {
     html: emailWrapper(`
       ${heading('Agreement confirmed.')}
       ${subheading(`Welcome, ${founderName}. You're officially a ZeroEn partner.`)}
-      <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #9CA3AF; font-size: 13px; line-height: 1.8; margin: 0 0 20px 0;">
-        This email confirms that you electronically accepted the ZeroEn partnership agreement on ${formattedDate}. Keep this for your records.
-      </p>
+      ${body(`This email confirms your electronic acceptance of the ZeroEn partnership agreement on ${formattedDate}. Keep it for your records.`)}
       ${evidenceBlock}
       ${termsDetail}
-      <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; line-height: 1.7; margin: 16px 0 0 0;">
-        Your electronic signature ("${signatureName}") and checkbox acceptance constitute a legally binding agreement under the U.S. Electronic Signatures in Global and National Commerce Act (E-SIGN) and equivalent regulations. If you have questions about these terms, reply to this email.
-      </p>
+      ${muted(`Your electronic signature ("${signatureName}") and checkbox acceptance constitute a legally binding agreement under the U.S. Electronic Signatures in Global and National Commerce Act (E-SIGN) and equivalent regulations. Questions? Reply to this email.`)}
     `),
   };
 }
@@ -424,21 +458,21 @@ export function siteReadyEmail(data: {
   return {
     subject: isJa
       ? '[ZeroEn] ウェブサイトの準備ができました'
-      : '[ZeroEn] Your site is ready',
+      : '[ZeroEn] Your site is live',
     html: emailWrapper(`
       ${heading(isJa ? 'サイトの準備ができました。' : 'Your site is ready.')}
       ${subheading(isJa
         ? `${data.clientName}さん、ウェブサイトが完成しました。`
-        : `${data.clientName}, your website has been built.`
+        : `${data.clientName}, we just shipped your website.`
       )}
       ${body(isJa
         ? 'ログインしてサイトをプレビューし、次のステップに進んでください。'
-        : 'Log in to preview your site and move on to the next steps.'
+        : 'Log in to preview it, leave feedback, and get your launch checklist.'
       )}
-      ${ctaButton(isJa ? 'ログインする' : 'Log in', data.loginUrl)}
+      ${ctaButton(isJa ? 'ログインする' : 'Preview Your Site', data.loginUrl)}
       ${muted(isJa
         ? 'ご質問はダッシュボードのメッセージからお気軽にどうぞ。'
-        : 'Questions? Use the Messages feature in your dashboard.'
+        : 'Questions or changes? Use the Messages tab in your dashboard.'
       )}
     `),
   };
@@ -460,23 +494,41 @@ export function adminDigestEmail(data: {
   const clientCount = threads.length;
 
   const threadRows = threads.map((t) => `
-    <div style="border: 1px solid #1F2937; border-radius: 6px; padding: 14px 16px; margin-bottom: 12px;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
-        <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 13px; font-weight: 700;">${t.projectName}</span>
-        <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; background: #00E87A; color: #0D0D0D; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 9999px;">${t.unreadCount}</span>
-      </div>
-      <div style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; margin-bottom: 8px;">${t.clientName}</div>
-      <div style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #9CA3AF; font-size: 12px; border-left: 2px solid #374151; padding-left: 10px; margin-bottom: 10px; font-style: italic;">"${t.latestMessage.length > 120 ? t.latestMessage.slice(0, 120) + '...' : t.latestMessage}"</div>
-      <a href="${t.conversationUrl}" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 11px; text-decoration: none;">Reply →</a>
-    </div>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; border: 1px solid #252525; border-radius: 8px; margin-bottom: 10px;">
+      <tr>
+        <td style="padding: 14px 18px;">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td>
+                <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 13px; font-weight: 700;">${t.projectName}</span>
+                <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px;">&nbsp;·&nbsp;${t.clientName}</span>
+              </td>
+              <td align="right">
+                <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; background: #00E87A; color: #0A0A0A; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 9999px;">${t.unreadCount}</span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-top: 10px;">
+                <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 12px; margin: 0; line-height: 1.7; font-style: italic; border-left: 2px solid #252525; padding-left: 10px;">"${t.latestMessage.length > 120 ? t.latestMessage.slice(0, 120) + '…' : t.latestMessage}"</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-top: 10px;">
+                <a href="${t.conversationUrl}" style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 11px; text-decoration: none; letter-spacing: 0.04em;">Reply →</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   `).join('');
 
   return {
     subject: `[ZeroEn] ${totalUnread} unread message${totalUnread === 1 ? '' : 's'} from ${clientCount} client${clientCount === 1 ? '' : 's'}`,
     html: emailWrapper(`
       ${heading(`${totalUnread} unread.`)}
-      ${subheading(`You have unread messages from ${clientCount} client${clientCount === 1 ? '' : 's'}.`)}
-      <div style="margin: 20px 0;">
+      ${subheading(`${clientCount} client${clientCount === 1 ? '' : 's'} waiting on you.`)}
+      <div style="margin: 8px 0 24px 0;">
         ${threadRows}
       </div>
       ${ctaButton('Open Admin Dashboard', dashboardUrl)}
@@ -522,18 +574,18 @@ export function morningDigestEmail(data: {
 
   const taskRows = sorted.map((t) => `
     <tr>
-      <td style="padding: 10px 16px; border-bottom: 1px solid #1F2937; vertical-align: top;">
+      <td style="padding: 11px 20px; border-bottom: 1px solid #171717; vertical-align: top;">
         <table width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td>
-              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: ${URGENCY_COLORS[t.urgency] ?? '#6B7280'}; margin-right: 8px; vertical-align: middle;"></span>
-              <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 13px;">${t.title}</span>
+              <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: ${URGENCY_COLORS[t.urgency] ?? '#6B7280'}; margin-right: 9px; vertical-align: middle;"></span>
+              <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #E5E7EB; font-size: 13px;">${t.title}</span>
             </td>
-            <td align="right" style="white-space: nowrap;">
-              <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; background: ${CATEGORY_COLORS[t.category] ?? '#374151'}22; color: ${CATEGORY_COLORS[t.category] ?? '#6B7280'}; font-size: 10px; padding: 2px 7px; border-radius: 9999px; letter-spacing: 0.06em;">${t.category.replace('_', ' ')}</span>
+            <td align="right" style="white-space: nowrap; padding-left: 12px;">
+              <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; background: ${CATEGORY_COLORS[t.category] ?? '#374151'}22; color: ${CATEGORY_COLORS[t.category] ?? '#6B7280'}; font-size: 10px; padding: 2px 8px; border-radius: 9999px; letter-spacing: 0.06em;">${t.category.replace('_', ' ')}</span>
             </td>
           </tr>
-          ${t.client_name ? `<tr><td colspan="2" style="padding-top: 3px; font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px;">${t.client_name}</td></tr>` : ''}
+          ${t.client_name ? `<tr><td colspan="2" style="padding-top: 4px; padding-left: 16px; font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px;">${t.client_name}</td></tr>` : ''}
         </table>
       </td>
     </tr>
@@ -544,17 +596,19 @@ export function morningDigestEmail(data: {
   });
 
   const subject = criticalCount > 0
-    ? `[ZeroEn] ⚠ ${criticalCount} critical + ${tasks.length - criticalCount} more tasks — ${formattedDate}`
-    : `[ZeroEn] ${tasks.length} task${tasks.length === 1 ? '' : 's'} due today — ${formattedDate}`;
+    ? `[ZeroEn] ${criticalCount} critical + ${tasks.length - criticalCount} more — ${formattedDate}`
+    : `[ZeroEn] ${tasks.length} task${tasks.length === 1 ? '' : 's'} today — ${formattedDate}`;
 
   return {
     subject,
     html: emailWrapper(`
       ${heading(`${tasks.length} task${tasks.length === 1 ? '' : 's'} today.`)}
       ${subheading(formattedDate)}
-      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border: 1px solid #374151; border-radius: 8px; margin-bottom: 24px;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; border: 1px solid #252525; border-radius: 10px; margin-bottom: 28px;">
         <tr><td>
-          ${taskRows}
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            ${taskRows}
+          </table>
         </td></tr>
       </table>
       ${ctaButton('Open Task Dashboard', dashboardUrl)}

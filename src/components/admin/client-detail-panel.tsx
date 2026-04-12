@@ -61,6 +61,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [emailWarning, setEmailWarning] = useState<string | null>(null);
 
   // Sync form state when client changes
   useEffect(() => {
@@ -71,6 +72,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
       setVercelProject(client.vercelProject ?? '');
       setClientVisible(client.clientVisible ?? false);
       setError(null);
+      setEmailWarning(null);
     }
   }, [client]);
 
@@ -78,6 +80,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
     if (!client) return;
     setLoading(true);
     setError(null);
+    setEmailWarning(null);
 
     try {
       const body: Record<string, unknown> = {
@@ -102,6 +105,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
 
       const data = await res.json();
       const proj = data.project;
+      const email = data.email as { sent: boolean; reason?: string } | undefined;
 
       onSaved({
         projectName: proj.name ?? projectName,
@@ -116,7 +120,16 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
         stripeSubscriptionId: proj.stripe_subscription_id ?? null,
       });
 
-      onClose();
+      if (email && !email.sent && email.reason && email.reason !== 'no-transition') {
+        const reasonMap: Record<string, string> = {
+          'not-configured': 'Resend not configured — check RESEND_API_KEY env var',
+          'send-failed': 'Resend rejected the send — check sender domain verification',
+          'no-client-email': 'Client profile has no email address',
+        };
+        setEmailWarning(`Site-ready email not sent: ${reasonMap[email.reason] ?? email.reason}`);
+      } else {
+        onClose();
+      }
     } catch {
       setError(tCommon('networkError'));
     } finally {
@@ -219,6 +232,19 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
           {/* Error */}
           {error && (
             <p className="text-red-400 font-mono text-xs">{error}</p>
+          )}
+
+          {/* Email warning (non-fatal) */}
+          {emailWarning && (
+            <div className="border border-[#F59E0B]/30 bg-[#F59E0B]/5 rounded px-3 py-2 space-y-2">
+              <p className="text-[#F59E0B] font-mono text-xs leading-relaxed">{emailWarning}</p>
+              <button
+                onClick={onClose}
+                className="text-[#F59E0B]/70 font-mono text-xs underline underline-offset-2 hover:text-[#F59E0B]"
+              >
+                Dismiss
+              </button>
+            </div>
           )}
 
           {/* Save button */}

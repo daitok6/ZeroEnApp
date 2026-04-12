@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { Loader2 } from 'lucide-react';
+import { Loader2, MessageSquare } from 'lucide-react';
+import Link from 'next/link';
 
 interface SubscriptionPendingProps {
   locale: string;
@@ -42,13 +43,20 @@ export function SubscriptionPending({ locale }: SubscriptionPendingProps) {
 
   if (timedOut) {
     return (
-      <div className="border border-[#374151] rounded-lg bg-[#111827] p-6 space-y-3">
+      <div className="border border-[#374151] rounded-lg bg-[#111827] p-6 space-y-4">
         <p className="text-[#F4F4F2] font-mono font-bold text-sm">
           {t('pendingTakingLong')}
         </p>
         <p className="text-[#6B7280] text-xs font-mono leading-relaxed">
           {t('pendingTakingLongDesc')}
         </p>
+        <Link
+          href={`/${locale}/dashboard/messages`}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#00E87A]/30 bg-[#00E87A]/5 hover:bg-[#00E87A]/10 hover:border-[#00E87A]/60 transition-all text-[#00E87A] font-mono text-xs font-bold"
+        >
+          <MessageSquare size={14} />
+          {t('pendingContactSupport')}
+        </Link>
       </div>
     );
   }

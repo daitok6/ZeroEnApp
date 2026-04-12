@@ -722,6 +722,7 @@
     "pendingDesc": "Your subscription is being set up. This page will refresh automatically.",
     "pendingTakingLong": "This is taking longer than expected",
     "pendingTakingLongDesc": "If this is taking too long, please refresh the page or contact us via Messages.",
+    "pendingContactSupport": "Contact Support",
     "subscribeToAccess": "Subscribe to access this feature",
     "subscribeToAccessDesc": "Choose a plan and start your subscription to unlock this section.",
     "choosePlan": "Choose a Plan"
