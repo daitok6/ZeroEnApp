@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 type IntakePatch = {
   scope_ack?: boolean;
   commitment_ack_at?: string | null;
+  ownership_ack?: boolean;
   brand_kit?: Record<string, unknown> | null;
   assets?: Record<string, unknown> | null;
   domain?: Record<string, unknown> | null;
@@ -14,6 +15,7 @@ type IntakePatch = {
 const ALLOWED_KEYS: (keyof IntakePatch)[] = [
   'scope_ack',
   'commitment_ack_at',
+  'ownership_ack',
   'brand_kit',
   'assets',
   'domain',

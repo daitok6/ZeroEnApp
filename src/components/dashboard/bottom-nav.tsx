@@ -21,9 +21,11 @@ interface BottomNavProps {
   basePath: string;
   /** Badge to show on the Messages nav item */
   messagesBadge?: ReactNode;
+  /** Keys that should render as locked/disabled */
+  lockedKeys?: Set<string>;
 }
 
-export function BottomNav({ locale, navType, basePath, messagesBadge }: BottomNavProps) {
+export function BottomNav({ locale, navType, basePath, messagesBadge, lockedKeys }: BottomNavProps) {
   const pathname = usePathname();
   const tDash = useTranslations('dashboard.nav');
   const tAdmin = useTranslations('admin');
@@ -40,9 +42,25 @@ export function BottomNav({ locale, navType, basePath, messagesBadge }: BottomNa
       <div className="flex items-center justify-around h-16 px-2">
         {items.map((item) => {
           const href = `/${locale}${item.path}`;
-          const isActive = pathname === href ||
-            (item.path !== basePath && pathname.startsWith(`/${locale}${item.path}`));
+          const isLocked = lockedKeys?.has(item.key) ?? false;
+          const isActive = !isLocked && (pathname === href ||
+            (item.path !== basePath && pathname.startsWith(`/${locale}${item.path}`)));
           const Icon = item.icon;
+
+          if (isLocked) {
+            return (
+              <div
+                key={item.key}
+                title="Available once your project is ready"
+                className="relative flex flex-col items-center gap-1 px-3 py-2 rounded-lg min-w-[48px] opacity-30 cursor-not-allowed select-none text-[#6B7280]"
+              >
+                <Icon size={20} strokeWidth={1.5} />
+                <span className="text-[10px] font-mono leading-none">
+                  {getLabel(item.key)}
+                </span>
+              </div>
+            );
+          }
 
           return (
             <Link

@@ -413,6 +413,37 @@ export function agreementConfirmationEmail(data: {
   };
 }
 
+// ── Email: Site Ready Notification (to client) ────────────
+export function siteReadyEmail(data: {
+  clientName: string;
+  locale: 'en' | 'ja';
+  loginUrl: string;
+}): { subject: string; html: string } {
+  const isJa = data.locale === 'ja';
+
+  return {
+    subject: isJa
+      ? '[ZeroEn] ウェブサイトの準備ができました'
+      : '[ZeroEn] Your site is ready',
+    html: emailWrapper(`
+      ${heading(isJa ? 'サイトの準備ができました。' : 'Your site is ready.')}
+      ${subheading(isJa
+        ? `${data.clientName}さん、ウェブサイトが完成しました。`
+        : `${data.clientName}, your website has been built.`
+      )}
+      ${body(isJa
+        ? 'ログインしてサイトをプレビューし、次のステップに進んでください。'
+        : 'Log in to preview your site and move on to the next steps.'
+      )}
+      ${ctaButton(isJa ? 'ログインする' : 'Log in', data.loginUrl)}
+      ${muted(isJa
+        ? 'ご質問はダッシュボードのメッセージからお気軽にどうぞ。'
+        : 'Questions? Use the Messages feature in your dashboard.'
+      )}
+    `),
+  };
+}
+
 // ── Email: Admin Message Digest ────────────────────────────
 export function adminDigestEmail(data: {
   threads: Array<{

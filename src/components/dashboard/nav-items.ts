@@ -19,6 +19,17 @@ export type NavItem = {
   readonly path: string;
 };
 
+/** Keys that are locked until the project is visible AND a plan is chosen. */
+export const PROJECT_LOCKED_KEYS = new Set(['documents', 'invoices', 'billing', 'requests']);
+
+/** Compute which nav keys should be locked for a given project state. */
+export function getLockedKeys(project: { client_visible: boolean; plan_tier: string | null } | null): Set<string> {
+  if (!project || !project.client_visible || !project.plan_tier) {
+    return PROJECT_LOCKED_KEYS;
+  }
+  return new Set<string>();
+}
+
 export const pendingNavItems = [
   { key: 'apply', icon: Send, labelEn: 'Apply', labelJa: '応募', path: '/dashboard/apply' },
   { key: 'applicationStatus', icon: ClipboardList, labelEn: 'Application Status', labelJa: '応募状況', path: '/dashboard/application-status' },

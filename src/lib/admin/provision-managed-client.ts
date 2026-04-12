@@ -33,13 +33,16 @@ export async function provisionManagedClient(
   if (!locale) return { success: false, error: 'locale is required' };
   if (!source) return { success: false, error: 'source is required' };
   if (!scopeMd) return { success: false, error: 'scopeMd is required' };
-  if (!planTier) return { success: false, error: 'planTier is required' };
 
   const adminClient = createAdminClient();
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? '';
   const { data: inviteData, error: inviteError } = await adminClient.auth.admin.inviteUserByEmail(
     email,
-    { data: { full_name: fullName } }
+    {
+      data: { full_name: fullName },
+      redirectTo: `${siteUrl}/${locale}/login`,
+    }
   );
 
   if (inviteError) {
@@ -57,7 +60,7 @@ export async function provisionManagedClient(
     p_source: source,
     p_scope_md: scopeMd,
     p_order_ref: orderRef,
-    p_plan_tier: planTier,
+    p_plan_tier: planTier ?? null,
   });
 
   if (rpcError) {

@@ -6,6 +6,7 @@ import { PlanSummaryCard } from '@/components/dashboard/plan-summary-card';
 import { CongratsModal } from '@/components/onboarding/congrats-modal';
 import { ResumeOnboardingBanner } from '@/components/onboarding/resume-banner';
 import { PlanWizard } from '@/components/dashboard/plan-wizard';
+import { ManagedPlanGate } from '@/components/dashboard/managed-plan-gate';
 import { SubscriptionPending } from '@/components/dashboard/subscription-pending';
 import Link from 'next/link';
 import { MessageSquare, FileText, Receipt, PlusCircle, Send, ClipboardList } from 'lucide-react';
@@ -33,7 +34,7 @@ export default async function DashboardPage({ params, searchParams }: Props) {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('status, onboarding_progress')
+    .select('status, managed, onboarding_progress')
     .eq('id', user.id)
     .single();
 
@@ -99,14 +100,43 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     );
   }
 
-  // Fetch project (may not exist yet — placeholder DB returns null gracefully)
+  // Fetch project (may not exist yet)
   const { data: project } = await supabase
     .from('projects')
     .select('*')
     .eq('client_id', user.id)
     .single();
 
-  // If project is visible to client but no plan chosen → show wizard (or pending state)
+  // Managed clients whose site isn't ready yet → show "being prepared" overview
+  if (profile?.managed && !project?.client_visible) {
+    return (
+      <div className="space-y-6 max-w-2xl">
+        <div>
+          <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
+            {locale === 'ja' ? 'ダッシュボード' : 'Dashboard'}
+          </h1>
+        </div>
+        <div className="border border-[#374151] rounded-lg bg-[#111827] p-8 text-center space-y-4">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[#00E87A]/30 bg-[#00E87A]/5 mx-auto">
+            <span className="text-[#00E87A] text-xl">◎</span>
+          </div>
+          <h2 className="text-[#F4F4F2] font-mono font-bold text-lg">
+            {locale === 'ja' ? 'ウェブサイトを制作中です' : 'Your website is being prepared'}
+          </h2>
+          <p className="text-[#6B7280] font-mono text-sm leading-relaxed max-w-md mx-auto">
+            {locale === 'ja'
+              ? 'デザインブリーフを受け取りました。サイトの準備ができ次第、メールでお知らせします。'
+              : "We've received your design brief. You'll get an email when your site is ready to preview."}
+          </p>
+          <p className="text-[#4B5563] font-mono text-xs">
+            {locale === 'ja' ? '質問はメッセージから' : 'Questions? Use Messages to reach us.'}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // If project is visible to client but no plan chosen → show plan gate
   if (project?.client_visible && !project?.plan_tier) {
     // ?subscribed=true means Stripe checkout succeeded but webhook hasn't fired yet
     if (subscribed === 'true') {
@@ -116,6 +146,24 @@ export default async function DashboardPage({ params, searchParams }: Props) {
         </div>
       );
     }
+
+    // Managed clients get plan gate with scope ack + ownership ack
+    if (profile?.managed) {
+      const { data: intake } = await supabase
+        .from('managed_client_intake')
+        .select('scope_md')
+        .eq('profile_id', user.id)
+        .single();
+      return (
+        <ManagedPlanGate
+          projectId={project.id}
+          locale={locale}
+          siteUrl={project.site_url}
+          scopeMd={intake?.scope_md ?? null}
+        />
+      );
+    }
+
     return (
       <div className="space-y-6 max-w-2xl">
         <PlanWizard projectId={project.id} locale={locale} siteUrl={project.site_url} />

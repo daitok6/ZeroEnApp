@@ -19,19 +19,6 @@ export async function POST() {
     return NextResponse.json({ error: 'Not a managed client' }, { status: 403 });
   }
 
-  const { data: intake } = await supabase
-    .from('managed_client_intake')
-    .select('scope_ack, commitment_ack_at')
-    .eq('profile_id', user.id)
-    .single();
-
-  if (!intake?.scope_ack || !intake?.commitment_ack_at) {
-    return NextResponse.json(
-      { error: 'Scope and commitment acknowledgement required' },
-      { status: 422 }
-    );
-  }
-
   const { error: updateErr } = await supabase
     .from('profiles')
     .update({ onboarding_status: 'complete' })

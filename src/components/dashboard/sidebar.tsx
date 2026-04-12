@@ -22,9 +22,11 @@ interface SidebarProps {
   basePath: string;
   /** Badge to show on the Messages nav item */
   messagesBadge?: ReactNode;
+  /** Keys that should render as locked/disabled */
+  lockedKeys?: Set<string>;
 }
 
-export function Sidebar({ locale, navType, basePath, messagesBadge }: SidebarProps) {
+export function Sidebar({ locale, navType, basePath, messagesBadge, lockedKeys }: SidebarProps) {
   const tDash = useTranslations('dashboard.nav');
   const tAdmin = useTranslations('admin');
 
@@ -55,6 +57,7 @@ export function Sidebar({ locale, navType, basePath, messagesBadge }: SidebarPro
               label={getLabel(item.key)}
               exact={item.path === basePath}
               badge={item.key === 'messages' ? messagesBadge : undefined}
+              locked={lockedKeys?.has(item.key) ?? false}
             />
           ))}
         </div>

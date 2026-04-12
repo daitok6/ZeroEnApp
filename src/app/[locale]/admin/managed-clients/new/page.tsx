@@ -131,17 +131,6 @@ export default function NewManagedClientPage() {
           </select>
         </div>
 
-        {/* Plan tier */}
-        <div>
-          <label htmlFor="planTier" className={LABEL_CLASS}>
-            Plan tier <span className="text-red-400">*</span>
-          </label>
-          <select id="planTier" name="planTier" required className={FIELD_CLASS}>
-            <option value="basic">Basic (¥5,000/mo)</option>
-            <option value="premium">Premium (¥10,000/mo)</option>
-          </select>
-        </div>
-
         {/* Scope */}
         <div>
           <label htmlFor="scopeMd" className={LABEL_CLASS}>

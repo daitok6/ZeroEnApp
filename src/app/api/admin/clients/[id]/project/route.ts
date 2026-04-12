@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server';
 import { createClient as createAdminClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
+import { sendEmail } from '@/lib/email/send';
+import { siteReadyEmail } from '@/lib/email/templates';
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -73,10 +75,10 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     }
   }
 
-  // Check if a project row exists for this client
+  // Check if a project row exists for this client (also capture previous client_visible)
   const { data: existing } = await adminSupabase
     .from('projects')
-    .select('id')
+    .select('id, client_visible')
     .eq('client_id', id)
     .maybeSingle();
 
@@ -109,6 +111,28 @@ export async function PATCH(request: NextRequest, { params }: Params) {
       return NextResponse.json({ error: 'Failed to create project' }, { status: 500 });
     }
     updatedProject = data;
+  }
+
+  // Fire site-ready email when client_visible flips from false → true
+  const wasVisible = existing?.client_visible ?? false;
+  const isNowVisible = updatedProject.client_visible === true;
+  if (!wasVisible && isNowVisible) {
+    const { data: clientProfile } = await adminSupabase
+      .from('profiles')
+      .select('email, full_name, locale')
+      .eq('id', id)
+      .single();
+
+    if (clientProfile?.email) {
+      const locale = (clientProfile.locale === 'ja' ? 'ja' : 'en') as 'en' | 'ja';
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://zeroen.dev';
+      const { subject, html } = siteReadyEmail({
+        clientName: clientProfile.full_name ?? clientProfile.email,
+        locale,
+        loginUrl: `${siteUrl}/${locale}/login`,
+      });
+      await sendEmail({ to: clientProfile.email, subject, html });
+    }
   }
 
   return NextResponse.json({ project: updatedProject });

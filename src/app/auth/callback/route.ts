@@ -31,13 +31,12 @@ export async function GET(request: NextRequest) {
       if (!userError && user) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('role, locale, status')
+          .select('role, locale, status, managed, onboarding_status')
           .eq('id', user.id)
           .single();
 
         const locale = profile?.locale ?? 'en';
         const role = profile?.role ?? 'client';
-        const status = profile?.status ?? 'pending';
 
         const intent = cookieStore.get('zeroen_auth_intent')?.value;
         cookieStore.set('zeroen_auth_intent', '', { maxAge: 0, path: '/' });
@@ -45,11 +44,12 @@ export async function GET(request: NextRequest) {
         let destination: string;
         if (role === 'admin') {
           destination = `/${locale}/admin`;
+        } else if (profile?.managed && profile?.onboarding_status !== 'complete') {
+          // Managed clients who haven't completed the design wizard go there first
+          destination = `/${locale}/design-wizard`;
         } else if (intent === 'apply') {
           destination = `/${locale}/dashboard/apply`;
         } else {
-          // Onboarding users land on /dashboard — it shows the congrats modal (first visit)
-          // or the resume banner (return visit) based on saved progress.
           destination = `/${locale}/dashboard`;
         }
 

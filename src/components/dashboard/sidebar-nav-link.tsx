@@ -11,11 +11,24 @@ interface SidebarNavLinkProps {
   label: string;
   exact?: boolean;
   badge?: ReactNode;
+  locked?: boolean;
 }
 
-export function SidebarNavLink({ href, icon: Icon, label, exact = false, badge }: SidebarNavLinkProps) {
+export function SidebarNavLink({ href, icon: Icon, label, exact = false, badge, locked = false }: SidebarNavLinkProps) {
   const pathname = usePathname();
-  const isActive = exact ? pathname === href : pathname.startsWith(href);
+  const isActive = !locked && (exact ? pathname === href : pathname.startsWith(href));
+
+  if (locked) {
+    return (
+      <div
+        title="Available once your project is ready"
+        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-mono opacity-35 cursor-not-allowed select-none"
+      >
+        <Icon size={16} strokeWidth={1.5} />
+        <span className="flex-1">{label}</span>
+      </div>
+    );
+  }
 
   return (
     <Link

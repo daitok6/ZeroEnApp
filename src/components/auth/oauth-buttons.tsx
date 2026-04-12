@@ -4,11 +4,14 @@ import { createClient } from '@/lib/supabase/client';
 import { useState } from 'react';
 
 export function OAuthButtons({ mode, intent }: { mode: 'login' | 'signup'; intent?: string }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<'google' | 'magic' | null>(null);
+  const [magicEmail, setMagicEmail] = useState('');
+  const [magicSent, setMagicSent] = useState(false);
+  const [magicError, setMagicError] = useState<string | null>(null);
   const supabase = createClient();
 
   const handleGoogle = async () => {
-    setLoading(true);
+    setLoading('google');
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -18,7 +21,7 @@ export function OAuthButtons({ mode, intent }: { mode: 'login' | 'signup'; inten
     });
     if (error) {
       console.error('OAuth error:', error);
-      setLoading(false);
+      setLoading(null);
       return;
     }
     if (data?.url) {
@@ -29,14 +32,33 @@ export function OAuthButtons({ mode, intent }: { mode: 'login' | 'signup'; inten
     }
   };
 
+  const handleMagicLink = async () => {
+    if (!magicEmail.trim()) return;
+    setLoading('magic');
+    setMagicError(null);
+    const { error } = await supabase.auth.signInWithOtp({
+      email: magicEmail.trim(),
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        shouldCreateUser: mode === 'signup',
+      },
+    });
+    setLoading(null);
+    if (error) {
+      setMagicError(error.message);
+    } else {
+      setMagicSent(true);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-3 w-full">
       <button
         onClick={handleGoogle}
-        disabled={loading}
+        disabled={loading !== null}
         className="flex items-center justify-center gap-3 w-full bg-[#1F2937] border border-[#374151] text-[#F4F4F2] text-sm font-mono py-3 px-4 rounded hover:border-[#00E87A] hover:bg-[#1F2937]/80 transition-all disabled:opacity-50"
       >
-        {loading ? (
+        {loading === 'google' ? (
           <span className="text-[#00E87A]">connecting...</span>
         ) : (
           <>
@@ -50,6 +72,40 @@ export function OAuthButtons({ mode, intent }: { mode: 'login' | 'signup'; inten
           </>
         )}
       </button>
+
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-px bg-[#374151]" />
+        <span className="text-[#4B5563] text-xs font-mono">or</span>
+        <div className="flex-1 h-px bg-[#374151]" />
+      </div>
+
+      {magicSent ? (
+        <p className="text-[#00E87A] text-xs font-mono text-center py-2">
+          Magic link sent — check your email.
+        </p>
+      ) : (
+        <div className="flex flex-col gap-2">
+          <input
+            type="email"
+            value={magicEmail}
+            onChange={(e) => setMagicEmail(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleMagicLink(); }}
+            placeholder="email@example.com"
+            disabled={loading !== null}
+            className="w-full bg-[#111827] border border-[#374151] text-[#F4F4F2] text-sm font-mono py-3 px-4 rounded placeholder:text-[#4B5563] focus:outline-none focus:border-[#00E87A] disabled:opacity-50"
+          />
+          <button
+            onClick={handleMagicLink}
+            disabled={loading !== null || !magicEmail.trim()}
+            className="w-full bg-transparent border border-[#374151] text-[#9CA3AF] text-sm font-mono py-3 px-4 rounded hover:border-[#00E87A] hover:text-[#F4F4F2] transition-all disabled:opacity-50"
+          >
+            {loading === 'magic' ? 'sending...' : 'Send magic link'}
+          </button>
+          {magicError && (
+            <p className="text-red-400 text-xs font-mono">{magicError}</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
