@@ -62,20 +62,6 @@ export async function POST(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'Request is not in reviewing status' }, { status: 400 });
   }
 
-  // Coconala clients must be billed through Coconala — block Stripe invoice creation
-  const { data: clientProfile } = await adminSupabase
-    .from('profiles')
-    .select('source')
-    .eq('id', changeRequest.client_id)
-    .single();
-
-  if (clientProfile?.source === 'coconala') {
-    return NextResponse.json(
-      { error: 'Coconala clients must be billed through Coconala — direct Stripe invoicing is not permitted.' },
-      { status: 422 }
-    );
-  }
-
   // Guard against duplicate active invoices (allow re-quote after decline/cancellation)
   const { data: existingInvoice } = await adminSupabase
     .from('invoices')
