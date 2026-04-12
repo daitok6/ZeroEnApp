@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { BrandKit } from '@/types/managed-client-intake';
-import { VIBE_TAGS, PRESET_PALETTES, FONT_PAIRINGS, inputClass, labelClass, t } from './constants';
+import { VIBE_TAGS, VIBE_TAG_LABELS_JA, PRESET_PALETTES, FONT_PAIRINGS, inputClass, labelClass, t } from './constants';
 import { ErrorBanner } from './ErrorBanner';
 
 interface Props {
@@ -66,7 +66,7 @@ export function BrandKitStep({
       </div>
 
       <div className="mb-8">
-        <h3 className={labelClass}>{t(locale, 'Vibe Tags', 'バイブタグ')}</h3>
+        <h3 className={labelClass}>{t(locale, 'Vibe Tags', '雰囲気')}</h3>
         <div className="flex flex-wrap gap-2">
           {VIBE_TAGS.map((tag) => {
             const selected = brandKit.vibe_tags.includes(tag);
@@ -81,7 +81,7 @@ export function BrandKitStep({
                     : 'bg-transparent border-[#374151] text-[#F4F4F2] hover:border-[#00E87A]'
                 }`}
               >
-                {tag}
+                {locale === 'ja' ? (VIBE_TAG_LABELS_JA[tag] ?? tag) : tag}
               </button>
             );
           })}

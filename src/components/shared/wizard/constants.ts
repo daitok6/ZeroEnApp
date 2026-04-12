@@ -3,6 +3,21 @@ export const VIBE_TAGS = [
   'Premium', 'Bold', 'Elegant', 'Energetic', 'Trustworthy', 'Creative',
 ];
 
+export const VIBE_TAG_LABELS_JA: Record<string, string> = {
+  Modern:      'モダン',
+  Classic:     'クラシック',
+  Warm:        '温かみ',
+  Clean:       'クリーン',
+  Technical:   'テクニカル',
+  Friendly:    'フレンドリー',
+  Premium:     'プレミアム',
+  Bold:        '大胆',
+  Elegant:     'エレガント',
+  Energetic:   'エネルギッシュ',
+  Trustworthy: '信頼感',
+  Creative:    'クリエイティブ',
+};
+
 export const PRESET_PALETTES = [
   { id: 'dark-tech',    name: 'Dark Tech',    bg: '#0D0D0D', accent: '#00E87A', text: '#F4F4F2' },
   { id: 'clean-light',  name: 'Clean Light',  bg: '#FFFFFF', accent: '#1A1A2E', text: '#333333' },

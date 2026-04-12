@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import type { BrandKit, AssetsData, DomainData } from '@/types/managed-client-intake';
+import { VIBE_TAG_LABELS_JA } from '@/components/shared/wizard/constants';
 
 export const metadata: Metadata = {
   title: 'Client Detail — Admin — ZeroEn',
@@ -216,14 +217,14 @@ export default async function ManagedClientDetailPage({ params }: Props) {
             {/* Vibe tags */}
             {brandKit.vibe_tags.length > 0 && (
               <div className="space-y-2">
-                <p className="text-[#6B7280] text-xs font-mono">{locale === 'ja' ? 'バイブタグ' : 'Vibe tags'}</p>
+                <p className="text-[#6B7280] text-xs font-mono">{locale === 'ja' ? '雰囲気' : 'Vibe tags'}</p>
                 <div className="flex flex-wrap gap-2">
                   {brandKit.vibe_tags.map((tag) => (
                     <span
                       key={tag}
                       className="px-2 py-0.5 rounded border border-[#374151] bg-[#1F2937] text-[#F4F4F2] text-xs font-mono"
                     >
-                      {tag}
+                      {locale === 'ja' ? (VIBE_TAG_LABELS_JA[tag] ?? tag) : tag}
                     </span>
                   ))}
                 </div>
