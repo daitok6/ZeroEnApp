@@ -1278,3 +1278,6 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-12 19:28] edited: `HQ/platform/src/components/dashboard/billing-client.tsx`
 - [2026-04-12 19:28] edited: `HQ/platform/src/components/dashboard/plan-change-trigger.tsx`
 - [2026-04-12 19:29] edited: `HQ/platform/tsconfig.json`
+- [2026-04-12 20:58] edited: `CLAUDE.md`
+- [2026-04-12 20:58] edited: `CLAUDE.md`
+- [2026-04-12 20:59] edited: `docs/superpowers/plans/2026-04-11-request-invoicing.md`

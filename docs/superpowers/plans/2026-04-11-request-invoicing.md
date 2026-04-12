@@ -1,6 +1,30 @@
 # Request Tracking & Invoicing Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> ## ✅ SHIPPED — this blueprint has been implemented. Do not execute it again.
+>
+> **Status as of 2026-04-12:** The core request-invoicing system is live in `HQ/platform/`. This doc is preserved as a historical design record.
+>
+> **Migration numbering has drifted from the plan:**
+> - Plan called for `0021_invoice_request_fk.sql`, `0022_request_comments.sql`, `0023_invoice_status_declined.sql`
+> - Live migrations that implement this functionality are actually at `0009_invoices.sql`, `0025_plan_tiers.sql`, `0027_pending_plan_change.sql`, `0031_invoice_stripe_hosted.sql`
+> - Do not recreate the 0021-0023 numbers; they conflict with shipped state
+>
+> **Authoritative current state — read these instead of the checkboxes below:**
+> - `HQ/platform/src/lib/stripe/invoices.ts` — `createAndFinalizeInvoice()` helper
+> - `HQ/platform/src/lib/stripe/customer.ts` — `getOrCreateStripeCustomer()`
+> - `HQ/platform/src/app/api/admin/requests/[id]/invoice/route.ts` — admin send-invoice endpoint
+> - `HQ/platform/src/app/api/requests/[id]/respond/route.ts` — client accept/decline
+> - `HQ/platform/src/app/api/stripe/webhook/route.ts` — payment-success handling
+> - `HQ/platform/src/components/admin/send-invoice-panel.tsx` — admin UI
+> - `HQ/platform/src/components/dashboard/invoice-panel.tsx` — client UI
+>
+> **Follow-up work (tracked elsewhere, not in this doc):** Payment Links automation, SetupIntent for ad-hoc clients, invoice line-items tied to Stripe Products, subscription-overage auto-invoicing.
+>
+> **For agentic workers:** Do NOT use this plan as an implementation target. It has been executed. Read the shipped code paths above and extend from there.
+
+---
+
+## Original plan (historical)
 
 **Goal:** Add an admin requests dashboard where admins can track all client change requests, send invoices tied to requests, and clients can accept (Stripe or $0 auto-approve), discuss inline, or decline — all from the requests page.
 
