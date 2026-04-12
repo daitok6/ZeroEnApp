@@ -61,7 +61,7 @@ export default async function DashboardPage({ params, searchParams }: Props) {
         <div className="border border-[#374151] rounded-lg bg-[#111827] p-6 space-y-4">
           <p className="text-[#F4F4F2] font-mono text-sm leading-relaxed">
             {locale === 'ja'
-              ? 'アカウントが作成されました。次のステップは、アプリケーションを提出することです。審査後、フルダッシュボードへのアクセスが付与されます。'
+              ? 'アカウントが作成されました。次は応募フォームの提出です。審査後、フルダッシュボードへのアクセスが付与されます。'
               : "Your account is set up. The next step is to submit your application. Once reviewed and accepted, you'll get access to the full dashboard."}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">

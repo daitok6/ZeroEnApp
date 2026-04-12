@@ -25,7 +25,7 @@ export default async function SignupPage({ params }: Props) {
           </h1>
           <p className="text-[#9CA3AF] text-sm font-mono mt-2">
             {locale === 'ja'
-              ? 'ZeroEnはご招待制です'
+              ? 'ZeroEnは招待制です'
               : 'ZeroEn is invite-only'}
           </p>
         </div>

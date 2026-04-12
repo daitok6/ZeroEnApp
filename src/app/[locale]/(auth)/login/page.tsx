@@ -62,7 +62,7 @@ export default async function LoginPage({ params, searchParams }: Props) {
 
         <p className="text-center text-[#6B7280] text-xs font-mono mt-6">
           {isApplyIntent
-            ? (locale === 'ja' ? 'Googleで続けると新規登録またはログインされます' : 'New or returning — Google handles both')
+            ? (locale === 'ja' ? 'Googleで新規登録・ログインできます' : 'New or returning — Google handles both')
             : (locale === 'ja' ? 'Googleアカウントでサインインしてください' : 'Sign in with your Google account to continue')}
         </p>
       </div>

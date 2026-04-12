@@ -256,7 +256,7 @@ export function applicationStatusEmail(data: {
         )}
       `)
     : emailWrapper(`
-        ${heading(isJa ? '今回は見送りです。' : 'Not right now.')}
+        ${heading(isJa ? '今回は見送りとなりました。' : 'Not right now.')}
         ${subheading(isJa ? `${data.founderName}さん、ご応募ありがとうございました。` : `We reviewed your application, ${data.founderName}.`)}
         ${body(isJa
           ? `${data.ideaName}について審査しました。現時点では私たちの方向性と合わないと判断しましたが、これはアイデアの優劣ではなく、私たちの現在の状況によるものです。`

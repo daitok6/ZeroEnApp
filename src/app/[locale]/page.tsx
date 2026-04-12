@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return buildMetadata({
       title: 'ZeroEn — 無料MVP・10%エクイティ。AIテクニカル共同創業者。',
       description:
-        'スタートアップのMVPをエクイティと引き換えに無料で構築。AIを活用したフルスタックのテクニカル共同創業者を提供します。',
+        'エクイティと引き換えに、スタートアップのMVPを無料で構築。AIを活用したフルスタックのテクニカル共同創業者です。',
       path: '',
       locale,
       ogTitle: 'ZeroEn',

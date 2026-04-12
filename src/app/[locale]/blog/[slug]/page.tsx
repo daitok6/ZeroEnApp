@@ -96,13 +96,13 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Newsletter */}
       <NewsletterSection
         eyebrow={locale === 'ja' ? 'ニュースレター' : 'Newsletter'}
-        title={locale === 'ja' ? '週次ビルドアップデートを受け取る。' : 'Get weekly build updates.'}
+        title={locale === 'ja' ? '毎週の開発レポートをお届けします。' : 'Get weekly build updates.'}
         subtitle={
           locale === 'ja'
-            ? 'リアルな数字、リアルなクライアント、無駄なし。毎週月曜日配信。'
+            ? '数字も、クライアントも、すべて本物。飾りなし。毎週月曜日配信。'
             : 'Real numbers, real clients, no fluff. Every Monday.'
         }
-        note={locale === 'ja' ? 'スパムなし。いつでも解除可能。' : 'No spam. Unsubscribe anytime.'}
+        note={locale === 'ja' ? '迷惑メールは送りません。いつでも配信停止できます。' : 'No spam. Unsubscribe anytime.'}
         locale={locale}
       />
     </div>

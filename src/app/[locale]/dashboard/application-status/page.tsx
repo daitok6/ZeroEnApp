@@ -59,9 +59,9 @@ const STATUS_CONFIG = {
     color: 'text-red-400',
     bgColor: 'bg-red-400/10 border-red-400/20',
     labelEn: 'Not a Match',
-    labelJa: 'マッチしませんでした',
+    labelJa: '今回はご縁がありませんでした',
     descEn: "Unfortunately your application wasn't a fit at this time. You're welcome to reapply in the future.",
-    descJa: '今回は残念ながらマッチしませんでした。将来また応募していただけます。',
+    descJa: '今回は残念ながらご縁がありませんでした。状況が変わりましたら、ぜひまたご応募ください。',
   },
 };
 

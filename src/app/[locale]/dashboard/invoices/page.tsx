@@ -148,10 +148,10 @@ export default async function InvoicesPage({ params }: Props) {
                 <span className="w-fit text-xs font-mono border border-[#374151] text-[#9CA3AF] px-2 py-0.5 rounded">
                   {invoice.type === 'subscription'
                     ? locale === 'ja'
-                      ? 'サブスク'
+                      ? '月額'
                       : 'Subscription'
                     : locale === 'ja'
-                      ? '都度'
+                      ? '単発'
                       : 'One-time'}
                 </span>
 
