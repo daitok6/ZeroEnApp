@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import type { BrandKit, AssetsData, DomainData } from '@/types/managed-client-intake';
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 4;
 
 interface InitialIntake {
   scope_ack: boolean;
@@ -17,7 +17,6 @@ interface InitialIntake {
   brand_kit: BrandKit | null;
   assets: AssetsData | null;
   domain: DomainData | null;
-  coconala_order_ref: string | null;
   plan_tier: string | null;
 }
 
@@ -91,10 +90,6 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
     initialIntake?.domain ?? { type: 'own', value: '' }
   );
 
-  // Step 5 state
-  const [orderRef, setOrderRef] = useState(initialIntake?.coconala_order_ref ?? '');
-  const [uploadingOrder, setUploadingOrder] = useState(false);
-
   async function savePatch(patch: Record<string, unknown>) {
     setIsSaving(true);
     setError(null);
@@ -165,27 +160,13 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
       return;
     }
     const ok = await savePatch({ domain });
-    if (ok) setCurrentStep(5);
+    if (ok) await handleComplete();
   }
 
   async function handleComplete() {
-    if (!orderRef.trim()) {
-      setError(t(locale, 'Order reference is required', '注文参照番号は必須です'));
-      return;
-    }
     setIsSaving(true);
     setError(null);
     try {
-      const saved = await fetch('/api/coconala-onboarding/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ coconala_order_ref: orderRef }),
-      });
-      if (!saved.ok) {
-        const j = await saved.json().catch(() => ({}));
-        setError(j.error || t(locale, 'Failed to save', '保存に失敗しました'));
-        return;
-      }
       const done = await fetch('/api/coconala-onboarding/complete', { method: 'POST' });
       if (!done.ok) {
         const j = await done.json().catch(() => ({}));
@@ -262,13 +243,6 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
       extra_image_urls: [...prev.extra_image_urls, ...urls].slice(0, 3),
     }));
     setUploadingExtra(false);
-  }
-
-  async function handleOrderScreenshot(file: File) {
-    setUploadingOrder(true);
-    const ext = file.name.split('.').pop() || 'png';
-    await uploadFile(file, `order-screenshot.${ext}`);
-    setUploadingOrder(false);
   }
 
   const progressPct = (currentStep / TOTAL_STEPS) * 100;
@@ -730,53 +704,6 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
             <Button
               onClick={handleStep4Next}
               disabled={isSaving}
-              className="bg-[#00E87A] text-[#0D0D0D] hover:bg-[#00E87A]/90 font-mono"
-            >
-              {t(locale, 'Continue', '次へ')}
-            </Button>
-          </div>
-        </section>
-      )}
-
-      {currentStep === 5 && (
-        <section>
-          <h2 className="font-heading text-2xl md:text-3xl text-[#F4F4F2] mb-4">
-            {t(locale, 'Coconala Order Reference', 'ココナラ注文参照')}
-          </h2>
-
-          <div className="mb-6">
-            <label className={labelClass}>{t(locale, 'Order # or transaction ID', '注文番号または取引ID')}</label>
-            <Input
-              value={orderRef}
-              onChange={(e) => setOrderRef(e.target.value)}
-              className={inputClass}
-              placeholder="e.g. CO-123456"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className={labelClass}>{t(locale, 'Order screenshot (optional)', '注文スクリーンショット(任意)')}</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => e.target.files?.[0] && handleOrderScreenshot(e.target.files[0])}
-              className="text-[#F4F4F2] text-xs font-mono"
-              disabled={uploadingOrder}
-            />
-            {uploadingOrder && <p className="text-[#6B7280] text-xs font-mono mt-1">{t(locale, 'Uploading...', 'アップロード中...')}</p>}
-          </div>
-
-          <div className="flex gap-2">
-            <Button
-              onClick={() => setCurrentStep(4)}
-              variant="outline"
-              className="bg-transparent border-[#374151] text-[#F4F4F2] font-mono"
-            >
-              {t(locale, 'Back', '戻る')}
-            </Button>
-            <Button
-              onClick={handleComplete}
-              disabled={isSaving || !orderRef.trim()}
               className="bg-[#00E87A] text-[#0D0D0D] hover:bg-[#00E87A]/90 font-mono"
             >
               {isSaving ? t(locale, 'Completing...', '完了中...') : t(locale, 'Complete Onboarding', 'オンボーディング完了')}
