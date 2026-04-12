@@ -25,8 +25,15 @@ export async function proxy(request: NextRequest) {
 
   // Skip locale middleware for auth callback — next-intl would redirect
   // /auth/callback → /en/auth/callback (404), breaking the OAuth code exchange.
+  // Also rewrite locale-prefixed variants (/en/auth/callback) back to /auth/callback
+  // in case Supabase is configured with a locale-prefixed redirect URL.
   if (pathname === '/auth/callback') {
     return NextResponse.next();
+  }
+  if (/^\/[a-z]{2}\/auth\/callback$/.test(pathname)) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/auth/callback';
+    return NextResponse.rewrite(url);
   }
 
   // Run next-intl middleware first to handle locale routing
