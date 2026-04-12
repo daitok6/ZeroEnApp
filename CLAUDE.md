@@ -67,10 +67,9 @@ All recurring billing goes through Stripe regardless of whether the client came 
 
 | Stream | Amount | Details |
 |--------|--------|---------|
-| Free Build (Phase 1) | $0 to client | First 15 clients. After that: ¥30,000-50,000 build fee |
+| Free Build | $0 to client | All builds are free. ZeroEn retains code and monetizes via subscription. |
 | Per-Request | ¥4,000-25,000+ | Small (¥4,000), Medium (¥10,000), Large (¥25,000+). See `HQ/crm/change-catalogue.md` |
 | A-la-carte audits | ¥15,000 each | Security or SEO audit for Basic-tier clients |
-| Code buyout | ¥80,000 flat | Client receives full source code on exit |
 | Equity | 10% | SAFE note (converts on incorporation) + profit-sharing fallback |
 | Revenue Share | ~10% | Percentage of app revenue, flexible per deal |
 
@@ -267,9 +266,8 @@ Adapted from SiteAudit's wave-based pipeline:
 
 | Clause | Detail |
 |--------|--------|
-| Code ownership | ZeroEn retains all code rights. Client licenses via active subscription. |
-| Code buyout | ¥80,000 flat fee for full source code handover |
-| 6-month minimum | All clients commit to 6 months. Early cancel = remaining months or buyout (lesser of). |
+| Code ownership | ZeroEn retains all code rights permanently. No code buyout option. Client licenses the live site via active subscription. |
+| 6-month minimum | All clients commit to 6 months. Early cancel = client pays the remaining months on commitment. Site is archived. |
 | Scope freeze | Scope locked at kickoff. Changes = per-request charge per catalogue. |
 | Non-payment | 14 days grace → site paused → 44 days → archived. Reactivation within 90 days by paying arrears. |
 | Equity | 10% via SAFE note + profit-sharing fallback (select deals) |
