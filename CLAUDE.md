@@ -284,8 +284,10 @@ Adapted from SiteAudit's wave-based pipeline:
 
 - **ZeroEn repo** (private) — HQ, agents, commands, skills, templates, marketing, CRM
 - **Clients/** — gitignored. Each `<clientId>/` is its own standalone public repo
-- **Client registry** — `HQ/crm/clients.json` tracks all clients
-- **Restore script** — `HQ/scripts/clone-all.sh` re-clones all client repos on new machine
+- **Client registry** — two sources with different roles:
+  - `HQ/crm/clients.json` — HQ-side infra registry (clientId, repo URL, vercel project, supabase URL). Consumed by shell scripts (`clone-all.sh`) and agents for file/repo operations.
+  - `HQ/platform/` Supabase — platform-side truth for paying client data (subscriptions, invoices, change requests, dashboard state).
+- **Restore script** — `HQ/scripts/clone-all.sh` re-clones all client repos on new machine (reads `clients.json`)
 
 ---
 
@@ -296,7 +298,8 @@ Adapted from SiteAudit's wave-based pipeline:
 | Coconala playbook | `HQ/crm/coconala-playbook.md` | Channel strategy, tiers, policies, milestones |
 | Change catalogue | `HQ/crm/change-catalogue.md` | Change size definitions, a-la-carte pricing |
 | Client profiles | `HQ/crm/clients/<clientId>/profile.md` | Per-client data, billing, status |
-| Client registry | `HQ/crm/clients.json` | Master list of all clients |
+| Client registry (HQ infra) | `HQ/crm/clients.json` | Repo/Vercel/Supabase URLs per clientId — used by scripts |
+| Client data (platform) | Supabase (`HQ/platform/`) | Paying client records, subscriptions, invoices — authoritative for billing |
 | PRD | `PRD.md` | Full business plan |
 
 ---
