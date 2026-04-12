@@ -1,6 +1,8 @@
 'use client';
 
 import { useActionState } from 'react';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { provisionManagedClient } from '@/lib/admin/provision-managed-client';
 import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -10,11 +12,15 @@ const initialState: ActionState = null;
 
 async function formAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const email = formData.get('email') as string;
-  const result = await provisionManagedClient(formData);
-  if (result.success) {
-    return { success: true, email };
+  try {
+    const result = await provisionManagedClient(formData);
+    if (result.success) {
+      return { success: true, email };
+    }
+    return { success: false, error: result.error };
+  } catch {
+    return { success: false, error: 'An unexpected error occurred. Please try again.' };
   }
-  return { success: false, error: result.error };
 }
 
 const FIELD_CLASS =
@@ -22,6 +28,7 @@ const FIELD_CLASS =
 const LABEL_CLASS = 'block text-xs font-mono font-medium text-[#9CA3AF] mb-1.5 uppercase tracking-wide';
 
 export default function NewManagedClientPage() {
+  const { locale } = useParams<{ locale: string }>();
   const [state, formActionBound, isPending] = useActionState(formAction, initialState);
 
   if (state?.success) {
@@ -41,12 +48,12 @@ export default function NewManagedClientPage() {
             </p>
           </div>
         </div>
-        <a
-          href="../managed-clients"
+        <Link
+          href={`/${locale}/admin/managed-clients`}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#374151] text-[#9CA3AF] font-mono text-sm hover:border-[#4B5563] hover:text-[#F4F4F2] transition-colors"
         >
           ← Back to managed clients
-        </a>
+        </Link>
       </div>
     );
   }
@@ -178,12 +185,12 @@ export default function NewManagedClientPage() {
             {isPending && <Loader2 size={14} className="animate-spin" />}
             {isPending ? 'Provisioning...' : 'Provision client'}
           </button>
-          <a
-            href="../managed-clients"
+          <Link
+            href={`/${locale}/admin/managed-clients`}
             className="px-4 py-2.5 rounded-lg border border-[#374151] text-[#9CA3AF] font-mono text-sm hover:border-[#4B5563] hover:text-[#F4F4F2] transition-colors"
           >
             Cancel
-          </a>
+          </Link>
         </div>
       </form>
     </div>

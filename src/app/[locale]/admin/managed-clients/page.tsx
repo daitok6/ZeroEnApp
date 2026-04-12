@@ -40,6 +40,26 @@ export default async function AdminManagedClientsPage({ params }: Props) {
 
   if (error) {
     console.error('[AdminManagedClientsPage] query error:', error.message);
+    return (
+      <div className="space-y-6 max-w-5xl">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
+              {locale === 'ja' ? 'マネージドクライアント' : 'Managed Clients'}
+            </h1>
+          </div>
+          <Link
+            href={`/${locale}/admin/managed-clients/new`}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#00E87A] text-[#0D0D0D] font-mono font-bold text-sm hover:bg-[#00E87A]/90 transition-colors shrink-0"
+          >
+            + {locale === 'ja' ? '新規追加' : 'New Client'}
+          </Link>
+        </div>
+        <div className="border border-red-500/30 rounded-lg bg-red-500/5 p-4">
+          <p className="text-red-400 font-mono text-sm">Failed to load clients. Refresh to retry.</p>
+        </div>
+      </div>
+    );
   }
 
   const rows = clients ?? [];
