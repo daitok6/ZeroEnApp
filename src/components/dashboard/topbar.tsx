@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { LogoutButton } from '@/components/auth/logout-button';
 import { LocaleSwitcher } from '@/components/layout/locale-switcher';
@@ -27,11 +28,13 @@ export async function DashboardTopbar({ locale, label }: { locale: string; label
         <LocaleSwitcher />
         <div className="flex items-center gap-2">
           {avatarUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={avatarUrl}
               alt={displayName}
-              className="w-7 h-7 rounded-full border border-[#374151]"
+              width={28}
+              height={28}
+              unoptimized
+              className="rounded-full border border-[#374151]"
             />
           ) : (
             <div className="w-7 h-7 rounded-full bg-[#1F2937] border border-[#374151] flex items-center justify-center">

@@ -1,8 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
-import { PlanChangeModal } from './plan-change-modal';
+
+const PlanChangeModal = dynamic(
+  () => import('./plan-change-modal').then((m) => m.PlanChangeModal),
+  { ssr: false }
+);
 import { formatDate } from '@/lib/date-utils';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { PLAN_MONTHLY_JPY } from '@/lib/billing/plan-prices';

@@ -1,6 +1,11 @@
+import dynamic from 'next/dynamic';
 import { requireApproved } from '@/lib/auth/require-approved';
 import { ChangeRequestForm } from '@/components/dashboard/change-request-form';
-import { ChangeCatalogueSheet } from '@/components/dashboard/change-catalogue-sheet';
+
+const ChangeCatalogueSheet = dynamic(
+  () => import('@/components/dashboard/change-catalogue-sheet').then((m) => m.ChangeCatalogueSheet),
+  { ssr: false }
+);
 import { RequestCard } from '@/components/dashboard/request-card';
 import { SubscriptionRequired } from '@/components/dashboard/subscription-required';
 import { EmptyState } from '@/components/dashboard/empty-state';
