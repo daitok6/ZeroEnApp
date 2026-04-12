@@ -15,7 +15,7 @@ export default async function BillingPage({ params }: Props) {
 
   const { data: project } = await supabase
     .from('projects')
-    .select('id, plan_tier, commitment_starts_at, stripe_subscription_id, site_url, status')
+    .select('id, plan_tier, commitment_starts_at, stripe_subscription_id, site_url, status, pending_plan_tier, pending_plan_effective_at, stripe_subscription_schedule_id')
     .eq('client_id', user.id)
     .maybeSingle();
 
@@ -37,6 +37,9 @@ export default async function BillingPage({ params }: Props) {
         commitmentStartsAt={project?.commitment_starts_at ?? null}
         stripeSubscriptionId={project?.stripe_subscription_id ?? null}
         projectStatus={project?.status ?? null}
+        pendingPlanTier={project?.pending_plan_tier ?? null}
+        pendingPlanEffectiveAt={project?.pending_plan_effective_at ?? null}
+        stripeSubscriptionScheduleId={project?.stripe_subscription_schedule_id ?? null}
         locale={locale}
       />
     </div>

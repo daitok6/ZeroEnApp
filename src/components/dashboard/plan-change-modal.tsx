@@ -20,7 +20,7 @@ interface PlanChangeModalProps {
   onClose: () => void;
 }
 
-type ModalState = 'idle' | 'loading' | 'success' | 'error' | 'downgrade_locked';
+type ModalState = 'idle' | 'loading' | 'success' | 'scheduled' | 'error';
 
 const PLAN_PRICES: Record<'basic' | 'premium', string> = {
   basic: '¥5,000/mo',
@@ -39,14 +39,13 @@ export function PlanChangeModal({
   const tCommon = useTranslations('common');
   const [state, setState] = useState<ModalState>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [earliestDowngradeDate, setEarliestDowngradeDate] = useState<string>('');
+  const [scheduledEffectiveAt, setScheduledEffectiveAt] = useState<string>('');
 
   const targetPlan = currentPlan === 'basic' ? 'premium' : 'basic';
   const isUpgrade = targetPlan === 'premium';
 
-  // Check downgrade lock on the client side as well
   const commitmentEnd = addMonths(commitmentStartsAt, 6);
-  const isDowngradeLocked = !isUpgrade && commitmentEnd > new Date();
+  const isDowngradeWithinCommitment = !isUpgrade && commitmentEnd > new Date();
 
   const targetFeatures: string[] = isUpgrade ? [
     tBilling('hostingIncluded'),
@@ -62,7 +61,7 @@ export function PlanChangeModal({
   const handleClose = () => {
     setState('idle');
     setErrorMessage('');
-    setEarliestDowngradeDate('');
+    setScheduledEffectiveAt('');
     onClose();
   };
 
@@ -77,15 +76,15 @@ export function PlanChangeModal({
 
       const data = await res.json();
 
-      if (res.status === 403 && data.error === 'downgrade_locked') {
-        setEarliestDowngradeDate(data.earliest_downgrade_date);
-        setState('downgrade_locked');
-        return;
-      }
-
       if (!res.ok) {
         setErrorMessage(data.error ?? tCommon('error'));
         setState('error');
+        return;
+      }
+
+      if (data.scheduled) {
+        setScheduledEffectiveAt(data.effectiveAt);
+        setState('scheduled');
         return;
       }
 
@@ -124,6 +123,18 @@ export function PlanChangeModal({
             </div>
           )}
 
+          {/* Scheduled state */}
+          {state === 'scheduled' && scheduledEffectiveAt && (
+            <div className="border border-[#00E87A]/30 bg-[#00E87A]/10 rounded-lg p-4">
+              <p className="text-[#00E87A] text-sm font-mono font-bold">
+                {t('downgradeScheduled')}
+              </p>
+              <p className="text-[#9CA3AF] text-xs font-mono mt-1">
+                {t('downgradeScheduledDesc', { date: formatDate(scheduledEffectiveAt, locale) })}
+              </p>
+            </div>
+          )}
+
           {/* Error state */}
           {state === 'error' && (
             <div className="border border-red-400/30 bg-red-400/10 rounded-lg p-4">
@@ -134,32 +145,8 @@ export function PlanChangeModal({
             </div>
           )}
 
-          {/* Downgrade locked (from API response) */}
-          {state === 'downgrade_locked' && earliestDowngradeDate && (
-            <div className="border border-orange-400/30 bg-orange-400/10 rounded-lg p-4">
-              <p className="text-orange-400 text-sm font-mono font-bold">
-                {t('downgradeLocked')}
-              </p>
-              <p className="text-[#9CA3AF] text-xs font-mono mt-1">
-                {t('downgradeLockedAfterDate', { date: formatDate(earliestDowngradeDate, locale) })}
-              </p>
-            </div>
-          )}
-
-          {/* Client-side downgrade lock warning */}
-          {isDowngradeLocked && state === 'idle' && (
-            <div className="border border-orange-400/30 bg-orange-400/10 rounded-lg p-4">
-              <p className="text-orange-400 text-sm font-mono font-bold">
-                {t('downgradeLocked')}
-              </p>
-              <p className="text-[#9CA3AF] text-xs font-mono mt-1">
-                {t('downgradeLockedAfterDate', { date: formatDate(commitmentEnd.toISOString(), locale) })}
-              </p>
-            </div>
-          )}
-
           {/* Target plan details */}
-          {state === 'idle' && !isDowngradeLocked && (
+          {state === 'idle' && (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -189,7 +176,19 @@ export function PlanChangeModal({
                 ))}
               </ul>
 
-              {!isUpgrade && (
+              {/* Downgrade info: shows effective date if within commitment */}
+              {!isUpgrade && isDowngradeWithinCommitment && (
+                <div className="border border-[#374151] rounded-lg p-3 bg-[#0D0D0D] space-y-1">
+                  <p className="text-[#F59E0B] text-xs font-mono">
+                    {t('downgradeWillBeScheduled', { date: formatDate(commitmentEnd.toISOString(), locale) })}
+                  </p>
+                  <p className="text-[#6B7280] text-xs font-mono">
+                    {t('downgradeRemovedFeatures')}
+                  </p>
+                </div>
+              )}
+
+              {!isUpgrade && !isDowngradeWithinCommitment && (
                 <div className="border border-[#374151] rounded-lg p-3 bg-[#0D0D0D]">
                   <p className="text-[#6B7280] text-xs font-mono">
                     {t('downgradeRemovedFeatures')}
@@ -201,14 +200,14 @@ export function PlanChangeModal({
         </div>
 
         <DialogFooter className="border-t border-[#374151] bg-[#0D0D0D] -mx-4 -mb-4 px-4 py-3 rounded-b-xl">
-          {state === 'success' ? (
+          {(state === 'success' || state === 'scheduled') ? (
             <button
               onClick={handleClose}
               className="px-4 py-2 text-xs font-mono font-bold text-[#F4F4F2] bg-[#374151] hover:bg-[#4B5563] rounded-lg transition-colors"
             >
               {tCommon('close')}
             </button>
-          ) : state === 'idle' && !isDowngradeLocked ? (
+          ) : state === 'idle' ? (
             <>
               <button
                 onClick={handleClose}
@@ -218,7 +217,6 @@ export function PlanChangeModal({
               </button>
               <button
                 onClick={handleConfirm}
-                disabled={state !== 'idle'}
                 className={`px-4 py-2 text-xs font-mono font-bold rounded-lg transition-colors ${
                   isUpgrade
                     ? 'bg-[#00E87A] text-[#0D0D0D] hover:bg-[#00E87A]/90'

@@ -3,6 +3,8 @@ import { createClient as createAdminClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { NextResponse, type NextRequest } from 'next/server';
 import { stripe } from '@/lib/stripe/client';
+import { computeCommitmentStatus } from '@/lib/billing/commitment';
+import { PLAN_MONTHLY_JPY } from '@/lib/billing/plan-prices';
 
 export async function POST(request: NextRequest) {
   if (!stripe) {
@@ -52,24 +54,82 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No active subscription found' }, { status: 400 });
     }
 
-    // Check commitment period — cancellation within 6 months requires buyout
-    let earlyTermination = false;
-    let remainingMonths = 0;
-    if (project.commitment_starts_at) {
-      const commitmentStart = new Date(project.commitment_starts_at);
-      const commitmentEnd = new Date(commitmentStart);
-      commitmentEnd.setMonth(commitmentEnd.getMonth() + 6);
+    // Fetch stripe_customer_id from profile
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('stripe_customer_id')
+      .eq('id', user.id)
+      .single();
 
-      if (commitmentEnd > new Date()) {
-        earlyTermination = true;
-        const now = new Date();
-        remainingMonths = Math.ceil(
-          (commitmentEnd.getTime() - now.getTime()) / (30 * 24 * 60 * 60 * 1000)
-        );
-      }
+    if (!profile?.stripe_customer_id) {
+      return NextResponse.json({ error: 'No Stripe customer found' }, { status: 400 });
     }
 
-    // Cancel at period end (Stripe continues service until current billing period ends)
+    const { withinCommitment, remainingMonths } = computeCommitmentStatus(
+      project.commitment_starts_at
+    );
+
+    // Early termination: invoice and charge the full remaining commitment immediately
+    if (withinCommitment && remainingMonths > 0 && project.plan_tier) {
+      const planTier = project.plan_tier as 'basic' | 'premium';
+      const monthlyPrice = PLAN_MONTHLY_JPY[planTier];
+      const earlyTerminationAmount = remainingMonths * monthlyPrice;
+
+      // Create a one-time invoice item for the remaining commitment
+      await stripe.invoiceItems.create({
+        customer: profile.stripe_customer_id,
+        amount: earlyTerminationAmount,
+        currency: 'jpy',
+        description: `Early cancellation fee — ${remainingMonths} month(s) remaining on 6-month commitment`,
+        metadata: { project_id: project.id, reason: 'early_termination' },
+      });
+
+      // Create a draft invoice
+      const invoice = await stripe.invoices.create({
+        customer: profile.stripe_customer_id,
+        auto_advance: false,
+        collection_method: 'charge_automatically',
+        metadata: { project_id: project.id, reason: 'early_termination' },
+      });
+
+      // Finalize the invoice
+      await stripe.invoices.finalizeInvoice(invoice.id, { auto_advance: false });
+
+      // Attempt synchronous payment — throws if card declines
+      let paidInvoice;
+      try {
+        paidInvoice = await stripe.invoices.pay(invoice.id);
+      } catch {
+        // Payment failed — do not cancel subscription, return invoice URL
+        const failedInvoice = await stripe.invoices.retrieve(invoice.id);
+        return NextResponse.json(
+          {
+            error: 'payment_failed',
+            invoice_url: failedInvoice.hosted_invoice_url ?? null,
+          },
+          { status: 402 }
+        );
+      }
+
+      // Record the early-termination invoice in Supabase
+      const earlyTermAdminSupabase = createAdminClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
+      );
+      await earlyTermAdminSupabase.from('invoices').insert({
+        project_id: project.id,
+        client_id: user.id,
+        stripe_invoice_id: paidInvoice.id,
+        amount_cents: earlyTerminationAmount,
+        currency: 'jpy',
+        description: `Early cancellation — ${remainingMonths} month(s) remaining`,
+        type: 'subscription',
+        status: 'paid',
+        paid_at: new Date().toISOString(),
+      });
+    }
+
+    // Cancel at period end (service continues until current billing period ends)
     await stripe.subscriptions.update(project.stripe_subscription_id, {
       cancel_at_period_end: true,
     });
@@ -87,7 +147,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      earlyTermination,
+      earlyTermination: withinCommitment,
       remainingMonths,
     });
   } catch (err) {

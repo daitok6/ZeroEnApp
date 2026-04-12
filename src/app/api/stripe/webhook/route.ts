@@ -179,21 +179,38 @@ export async function POST(request: NextRequest) {
         else if (priceId === premiumPriceId) newPlanTier = 'premium';
 
         if (newPlanTier) {
-          // Fetch current plan_tier to check if it's actually changing
+          // Fetch current project state to determine how to handle this change
           const { data: currentProject } = await supabase
             .from('projects')
-            .select('plan_tier')
+            .select('plan_tier, pending_plan_tier')
             .eq('client_id', profile.id)
             .single();
 
-          const updates: { plan_tier: 'basic' | 'premium'; commitment_starts_at?: string; stripe_subscription_id: string } = {
+          const planActuallyChanged = currentProject?.plan_tier !== newPlanTier;
+
+          const updates: {
+            plan_tier: 'basic' | 'premium';
+            commitment_starts_at?: string;
+            stripe_subscription_id: string;
+            pending_plan_tier?: null;
+            pending_plan_effective_at?: null;
+            stripe_subscription_schedule_id?: null;
+          } = {
             plan_tier: newPlanTier,
             stripe_subscription_id: subscription.id,
           };
 
-          // Only reset the 6-month commitment clock when the plan tier actually changes
-          if (currentProject?.plan_tier !== newPlanTier) {
-            updates.commitment_starts_at = new Date().toISOString();
+          if (planActuallyChanged) {
+            const isScheduledDowngrade = currentProject?.pending_plan_tier === newPlanTier;
+            if (isScheduledDowngrade) {
+              // Downgrade completed via schedule — clear pending fields, don't reset commitment clock
+              updates.pending_plan_tier = null;
+              updates.pending_plan_effective_at = null;
+              updates.stripe_subscription_schedule_id = null;
+            } else {
+              // Upgrade or immediate change — reset the 6-month commitment clock
+              updates.commitment_starts_at = new Date().toISOString();
+            }
           }
 
           await supabase

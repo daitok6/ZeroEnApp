@@ -47,6 +47,9 @@ export type Database = {
           commitment_starts_at: string | null;
           client_visible: boolean;
           stripe_subscription_id: string | null;
+          pending_plan_tier: 'basic' | 'premium' | null;
+          pending_plan_effective_at: string | null;
+          stripe_subscription_schedule_id: string | null;
           created_at: string;
           updated_at: string;
         };

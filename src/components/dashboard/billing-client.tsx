@@ -3,14 +3,19 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { PlanChangeModal } from './plan-change-modal';
-import { addMonths, formatDate } from '@/lib/date-utils';
+import { formatDate } from '@/lib/date-utils';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { PLAN_MONTHLY_JPY } from '@/lib/billing/plan-prices';
+import { computeCommitmentStatus } from '@/lib/billing/commitment';
 
 interface BillingClientProps {
   planTier: 'basic' | 'premium' | null;
   commitmentStartsAt: string | null;
   stripeSubscriptionId: string | null;
   projectStatus: string | null;
+  pendingPlanTier: 'basic' | 'premium' | null;
+  pendingPlanEffectiveAt: string | null;
+  stripeSubscriptionScheduleId: string | null;
   locale: string;
 }
 
@@ -24,13 +29,20 @@ export function BillingClient({
   commitmentStartsAt,
   stripeSubscriptionId,
   projectStatus,
+  pendingPlanTier,
+  pendingPlanEffectiveAt,
+  stripeSubscriptionScheduleId,
   locale,
 }: BillingClientProps) {
   const t = useTranslations('billing');
   const tCommon = useTranslations('common');
   const [changeModalOpen, setChangeModalOpen] = useState(false);
-  const [cancelStep, setCancelStep] = useState<'idle' | 'confirm' | 'loading' | 'done' | 'error'>('idle');
+  const [cancelStep, setCancelStep] = useState<'idle' | 'confirm' | 'loading' | 'done' | 'error' | 'payment_failed'>('idle');
   const [cancelError, setCancelError] = useState('');
+  const [cancelInvoiceUrl, setCancelInvoiceUrl] = useState('');
+  const [cancelConfirmText, setCancelConfirmText] = useState('');
+  const [cancelPendingLoading, setCancelPendingLoading] = useState(false);
+  const [pendingCancelled, setPendingCancelled] = useState(false);
 
   const isPaused = projectStatus === 'paused' || projectStatus === 'terminated';
 
@@ -46,8 +58,7 @@ export function BillingClient({
   }
 
   const isPremium = planTier === 'premium';
-  const commitmentEnd = commitmentStartsAt ? addMonths(commitmentStartsAt, 6) : null;
-  const isWithinCommitment = commitmentEnd ? commitmentEnd > new Date() : false;
+  const { end: commitmentEnd, withinCommitment, remainingMonths } = computeCommitmentStatus(commitmentStartsAt);
 
   const PLAN_FEATURES: Record<'basic' | 'premium', string[]> = {
     basic: [
@@ -65,19 +76,12 @@ export function BillingClient({
 
   const features = PLAN_FEATURES[planTier];
 
-  // Calculate early termination cost
-  let remainingMonths = 0;
-  let earlyCancelCost = '';
-  if (isWithinCommitment && commitmentEnd) {
-    remainingMonths = Math.ceil(
-      (commitmentEnd.getTime() - Date.now()) / (30 * 24 * 60 * 60 * 1000)
-    );
-    const monthlyPrice = planTier === 'premium' ? 10000 : 5000;
-    const remainingCost = remainingMonths * monthlyPrice;
-    const buyout = 80000;
-    const actualCost = Math.min(remainingCost, buyout);
-    earlyCancelCost = `¥${actualCost.toLocaleString()}`;
-  }
+  // Early termination cost (full remaining months, no cap)
+  const monthlyPrice = PLAN_MONTHLY_JPY[planTier];
+  const earlyCancelCost = withinCommitment ? `¥${(remainingMonths * monthlyPrice).toLocaleString()}` : '';
+
+  const cancelConfirmWord = 'CANCEL';
+  const canConfirmCancel = cancelConfirmText.trim().toUpperCase() === cancelConfirmWord;
 
   const handleCancel = async () => {
     setCancelStep('loading');
@@ -88,8 +92,13 @@ export function BillingClient({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ confirm: true }),
       });
+      const data = await res.json();
+      if (res.status === 402 && data.error === 'payment_failed') {
+        setCancelInvoiceUrl(data.invoice_url ?? '');
+        setCancelStep('payment_failed');
+        return;
+      }
       if (!res.ok) {
-        const data = await res.json();
         setCancelError(data.error ?? tCommon('somethingWentWrong'));
         setCancelStep('error');
         return;
@@ -100,6 +109,22 @@ export function BillingClient({
       setCancelStep('error');
     }
   };
+
+  const handleCancelPendingChange = async () => {
+    setCancelPendingLoading(true);
+    try {
+      const res = await fetch('/api/stripe/cancel-pending-change', {
+        method: 'POST',
+      });
+      if (res.ok) {
+        setPendingCancelled(true);
+      }
+    } finally {
+      setCancelPendingLoading(false);
+    }
+  };
+
+  const hasPendingDowngrade = !pendingCancelled && !!pendingPlanTier && !!stripeSubscriptionScheduleId;
 
   return (
     <div className="space-y-6">
@@ -155,7 +180,7 @@ export function BillingClient({
               <span className="text-[#6B7280]">{t('minimumTermEnds')} </span>
               <span className="text-[#F4F4F2]">{formatDate(commitmentEnd.toISOString(), locale)}</span>
             </p>
-            {isWithinCommitment && (
+            {withinCommitment && (
               <p className="text-[#F59E0B] text-xs font-mono mt-2">
                 {t('monthsRemaining', { n: remainingMonths })}
               </p>
@@ -163,6 +188,25 @@ export function BillingClient({
           </div>
         )}
       </section>
+
+      {/* Pending downgrade banner */}
+      {hasPendingDowngrade && pendingPlanEffectiveAt && (
+        <section className="border border-[#F59E0B]/30 rounded-lg bg-[#F59E0B]/5 p-4 space-y-2">
+          <p className="text-[#F59E0B] text-xs font-mono font-bold">
+            {t('scheduledDowngradeTitle')}
+          </p>
+          <p className="text-[#9CA3AF] text-xs font-mono">
+            {t('scheduledDowngradeDesc', { date: formatDate(pendingPlanEffectiveAt, locale) })}
+          </p>
+          <button
+            onClick={handleCancelPendingChange}
+            disabled={cancelPendingLoading}
+            className="text-[#00E87A] text-xs font-mono font-bold hover:text-[#00E87A]/80 transition-colors underline underline-offset-2 disabled:opacity-50"
+          >
+            {cancelPendingLoading ? tCommon('processing') : t('cancelScheduledDowngrade')}
+          </button>
+        </section>
+      )}
 
       {/* Change Plan */}
       <section className="border border-[#374151] rounded-lg bg-[#111827] p-6 space-y-3">
@@ -183,22 +227,24 @@ export function BillingClient({
           </div>
         )}
 
-        {/* Downgrade lock warning */}
-        {isPremium && isWithinCommitment && commitmentEnd && (
-          <div className="border border-[#F59E0B]/20 rounded-lg p-3 bg-[#F59E0B]/5">
-            <p className="text-[#F59E0B] text-xs font-mono leading-relaxed flex items-start gap-2">
-              <AlertTriangle size={14} className="shrink-0 mt-0.5" />
-              {t('downgradeAvailableAfter', { date: formatDate(commitmentEnd.toISOString(), locale) })}
+        {/* Downgrade within commitment — inform, don't block */}
+        {isPremium && withinCommitment && commitmentEnd && !hasPendingDowngrade && (
+          <div className="border border-[#374151]/50 rounded-lg p-3 bg-[#0D0D0D]">
+            <p className="text-[#9CA3AF] text-xs font-mono leading-relaxed flex items-start gap-2">
+              <AlertTriangle size={14} className="shrink-0 mt-0.5 text-[#6B7280]" />
+              {t('downgradeScheduleNote', { date: formatDate(commitmentEnd.toISOString(), locale) })}
             </p>
           </div>
         )}
 
-        <button
-          onClick={() => setChangeModalOpen(true)}
-          className="text-[#00E87A] text-xs font-mono font-bold hover:text-[#00E87A]/80 transition-colors underline underline-offset-2"
-        >
-          {isPremium ? t('downgradeButton') : t('upgradeButton')}
-        </button>
+        {!hasPendingDowngrade && (
+          <button
+            onClick={() => setChangeModalOpen(true)}
+            className="text-[#00E87A] text-xs font-mono font-bold hover:text-[#00E87A]/80 transition-colors underline underline-offset-2"
+          >
+            {isPremium ? t('downgradeButton') : t('upgradeButton')}
+          </button>
+        )}
       </section>
 
       {/* Cancel Subscription */}
@@ -215,6 +261,34 @@ export function BillingClient({
             <p className="text-[#9CA3AF] text-xs font-mono mt-1">
               {t('cancelledDesc')}
             </p>
+          </div>
+        ) : cancelStep === 'payment_failed' ? (
+          <div className="space-y-3">
+            <div className="border border-red-400/30 bg-red-400/10 rounded-lg p-4 space-y-2">
+              <p className="text-red-400 text-sm font-mono font-bold flex items-start gap-2">
+                <AlertTriangle size={14} className="shrink-0 mt-0.5" />
+                {t('paymentFailed')}
+              </p>
+              <p className="text-[#9CA3AF] text-xs font-mono">
+                {t('paymentFailedDesc')}
+              </p>
+              {cancelInvoiceUrl && (
+                <a
+                  href={cancelInvoiceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-[#00E87A] text-xs font-mono font-bold underline underline-offset-2 hover:text-[#00E87A]/80 transition-colors"
+                >
+                  {t('payInvoice')}
+                </a>
+              )}
+            </div>
+            <button
+              onClick={() => { setCancelStep('idle'); setCancelConfirmText(''); }}
+              className="text-[#9CA3AF] text-xs font-mono hover:text-[#F4F4F2] transition-colors"
+            >
+              {t('goBack')}
+            </button>
           </div>
         ) : cancelStep === 'error' ? (
           <>
@@ -243,24 +317,44 @@ export function BillingClient({
                 <li>• {t('cancelWarning1')}</li>
                 <li>• {t('cancelWarning2')}</li>
                 <li>• {t('cancelWarning3')}</li>
-                {isWithinCommitment && (
+                {withinCommitment && (
                   <li className="text-red-400 font-bold">
                     • {t('earlyTerminationFee', { cost: earlyCancelCost, n: remainingMonths })}
+                  </li>
+                )}
+                {withinCommitment && (
+                  <li className="text-red-400 font-bold">
+                    • {t('earlyTerminationChargeImmediate')}
                   </li>
                 )}
               </ul>
             </div>
 
+            {/* Typed confirmation */}
+            <div className="space-y-2">
+              <p className="text-[#9CA3AF] text-xs font-mono">
+                {t('typedConfirmPrompt', { word: cancelConfirmWord })}
+              </p>
+              <input
+                type="text"
+                value={cancelConfirmText}
+                onChange={(e) => setCancelConfirmText(e.target.value)}
+                placeholder={cancelConfirmWord}
+                disabled={cancelStep === 'loading'}
+                className="w-full bg-[#0D0D0D] border border-[#374151] rounded-lg px-3 py-2 text-xs font-mono text-[#F4F4F2] placeholder-[#4B5563] focus:outline-none focus:border-red-400/50 disabled:opacity-50"
+              />
+            </div>
+
             <div className="flex items-center gap-3">
               <button
                 onClick={handleCancel}
-                disabled={cancelStep === 'loading'}
-                className="px-4 py-2 text-xs font-mono font-bold text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors disabled:opacity-50"
+                disabled={cancelStep === 'loading' || !canConfirmCancel}
+                className="px-4 py-2 text-xs font-mono font-bold text-white bg-red-500 hover:bg-red-600 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {cancelStep === 'loading' ? tCommon('processing') : t('confirmCancellation')}
               </button>
               <button
-                onClick={() => setCancelStep('idle')}
+                onClick={() => { setCancelStep('idle'); setCancelConfirmText(''); }}
                 disabled={cancelStep === 'loading'}
                 className="px-4 py-2 text-xs font-mono text-[#9CA3AF] hover:text-[#F4F4F2] transition-colors disabled:opacity-50"
               >
@@ -273,7 +367,7 @@ export function BillingClient({
             <p className="text-[#9CA3AF] text-xs font-mono leading-relaxed">
               {t('cancellationNote')}
             </p>
-            {isWithinCommitment && (
+            {withinCommitment && (
               <div className="border border-red-400/30 bg-red-400/10 rounded-lg p-3">
                 <p className="text-red-400 text-xs font-mono leading-relaxed flex items-start gap-2">
                   <AlertTriangle size={14} className="shrink-0 mt-0.5" />

@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { NextResponse, type NextRequest } from 'next/server';
 import { stripe } from '@/lib/stripe/client';
 import { z } from 'zod';
+import { computeCommitmentStatus } from '@/lib/billing/commitment';
 
 const changePlanSchema = z.object({
   targetPlan: z.enum(['basic', 'premium']),
@@ -65,26 +66,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Downgrade check: premium → basic requires 6-month minimum on Premium
-    if (targetPlan === 'basic' && project.plan_tier === 'premium') {
-      if (project.commitment_starts_at) {
-        const commitmentStart = new Date(project.commitment_starts_at);
-        const earliestDowngrade = new Date(commitmentStart);
-        earliestDowngrade.setMonth(earliestDowngrade.getMonth() + 6);
-
-        if (earliestDowngrade > new Date()) {
-          return NextResponse.json(
-            {
-              error: 'downgrade_locked',
-              earliest_downgrade_date: earliestDowngrade.toISOString(),
-            },
-            { status: 403 }
-          );
-        }
-      }
-    }
-
-    // Resolve new price ID
     const basicPriceId = process.env.STRIPE_BASIC_PRICE_ID;
     const premiumPriceId = process.env.STRIPE_PREMIUM_PRICE_ID;
     const newPriceId = targetPlan === 'premium' ? premiumPriceId : basicPriceId;
@@ -96,7 +77,55 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch and update the Stripe subscription
+    // Downgrade Premium → Basic within commitment: schedule it at commitment end
+    const { withinCommitment, end: commitmentEnd } = computeCommitmentStatus(
+      project.commitment_starts_at
+    );
+
+    if (targetPlan === 'basic' && project.plan_tier === 'premium' && withinCommitment && commitmentEnd) {
+      // Create a subscription schedule from the current subscription
+      const schedule = await stripe.subscriptionSchedules.create({
+        from_subscription: project.stripe_subscription_id,
+      });
+
+      // The first phase start_date mirrors the current subscription's current period
+      const currentPhaseStart = schedule.phases[0].start_date;
+      const commitmentEndUnix = Math.floor(commitmentEnd.getTime() / 1000);
+
+      await stripe.subscriptionSchedules.update(schedule.id, {
+        end_behavior: 'release',
+        phases: [
+          {
+            items: [{ price: premiumPriceId!, quantity: 1 }],
+            start_date: currentPhaseStart,
+            end_date: commitmentEndUnix,
+            proration_behavior: 'none',
+          },
+          {
+            items: [{ price: basicPriceId!, quantity: 1 }],
+            proration_behavior: 'none',
+          },
+        ],
+      });
+
+      // Persist pending downgrade state
+      await supabase
+        .from('projects')
+        .update({
+          pending_plan_tier: 'basic',
+          pending_plan_effective_at: commitmentEnd.toISOString(),
+          stripe_subscription_schedule_id: schedule.id,
+        })
+        .eq('client_id', user.id);
+
+      return NextResponse.json({
+        success: true,
+        scheduled: true,
+        effectiveAt: commitmentEnd.toISOString(),
+      });
+    }
+
+    // Immediate plan change (upgrade, or downgrade after commitment ended)
     const subscription = await stripe.subscriptions.retrieve(project.stripe_subscription_id);
     const subscriptionItemId = subscription.items.data[0]?.id;
 
@@ -114,13 +143,15 @@ export async function POST(request: NextRequest) {
       proration_behavior: 'create_prorations',
     });
 
-    // Update project in DB
+    // Only reset commitment clock on upgrades — downgrades after commitment don't restart the clock
+    const updates: Record<string, string | null> = { plan_tier: targetPlan };
+    if (targetPlan === 'premium') {
+      updates.commitment_starts_at = new Date().toISOString();
+    }
+
     await supabase
       .from('projects')
-      .update({
-        plan_tier: targetPlan,
-        commitment_starts_at: new Date().toISOString(),
-      })
+      .update(updates)
       .eq('client_id', user.id);
 
     return NextResponse.json({ success: true, newPlan: targetPlan });
