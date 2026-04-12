@@ -10,7 +10,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all paths except API routes, Next.js internals, and static metadata files
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|feed.xml).*)',
+    // Match all paths except API routes, Next.js internals, static files, and metadata
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|feed.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff|woff2|ttf|otf|mp4|pdf)).*)',
   ],
 };
