@@ -5,6 +5,7 @@ import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
 import { UnreadBadge } from '@/components/dashboard/unread-badge';
 import { getUnreadCounts } from '@/lib/messages/unread';
+import { generateForDate } from '@/lib/tasks/generator';
 
 type Props = {
   children: React.ReactNode;
@@ -30,6 +31,11 @@ export default async function AdminLayout({ children, params }: Props) {
   if (profile?.role !== 'admin') {
     redirect(`/${locale}/dashboard`);
   }
+
+  // Generate today's cadence tasks (idempotent — early-exits if already done today)
+  generateForDate(new Date()).catch((err) =>
+    console.error('[admin layout] task generation error:', err)
+  );
 
   // Fetch all project IDs for unread count
   const { data: projects } = await supabase.from('projects').select('id');

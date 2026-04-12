@@ -6,6 +6,7 @@ import { sendEmail, OPERATOR_EMAIL_ADDRESS } from '@/lib/email/send';
 import { newApplicationEmail } from '@/lib/email/templates';
 import { recordSignature } from '@/lib/legal/record-signature';
 import { CURRENT_NDA_VERSION, loadLegalBody } from '@/lib/legal/versions';
+import { emitStateTask, applicationScoreTask } from '@/lib/tasks/state-change';
 
 const applicationSchema = z.object({
   // Step 0
@@ -103,6 +104,19 @@ export async function POST(request: NextRequest) {
       });
     } catch (sigErr) {
       console.error('recordSignature error (non-fatal):', sigErr);
+    }
+
+    // Fetch the application id we just inserted so we can link the task
+    const { data: inserted } = await supabase
+      .from('applications')
+      .select('id')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (inserted?.id) {
+      await emitStateTask(applicationScoreTask(inserted.id));
     }
 
     const emailData = newApplicationEmail({

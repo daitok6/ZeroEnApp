@@ -4,6 +4,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { sendEmail } from '@/lib/email/send';
 import { siteReadyEmail } from '@/lib/email/templates';
+import { emitStateTask, draftScopeTask, scheduleFirstReportTask } from '@/lib/tasks/state-change';
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -111,6 +112,14 @@ export async function PATCH(request: NextRequest, { params }: Params) {
       return NextResponse.json({ error: 'Failed to create project' }, { status: 500 });
     }
     updatedProject = data;
+  }
+
+  // Emit state-change tasks based on new project status
+  const newStatus = updatedProject.status;
+  if (newStatus === 'onboarding') {
+    await emitStateTask(draftScopeTask(updatedProject.id, id, updatedProject.name));
+  } else if (newStatus === 'launched' || newStatus === 'operating') {
+    await emitStateTask(scheduleFirstReportTask(updatedProject.id, id, updatedProject.name));
   }
 
   // Fire site-ready email when client_visible flips from false → true

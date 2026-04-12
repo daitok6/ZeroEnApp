@@ -13,9 +13,10 @@ interface SendEmailOptions {
   to: string | string[];
   subject: string;
   html: string;
+  from?: string; // override FROM address (e.g. for noreply@zeroen.dev once domain is set up)
 }
 
-export async function sendEmail({ to, subject, html }: SendEmailOptions): Promise<void> {
+export async function sendEmail({ to, subject, html, from }: SendEmailOptions): Promise<void> {
   const resend = getResend();
   if (!resend) {
     console.log('[Email] Resend not configured — skipping:', subject);
@@ -23,7 +24,7 @@ export async function sendEmail({ to, subject, html }: SendEmailOptions): Promis
   }
 
   try {
-    await resend.emails.send({ from: FROM_ADDRESS, to, subject, html });
+    await resend.emails.send({ from: from ?? FROM_ADDRESS, to, subject, html });
   } catch (err) {
     console.error('[Email] Failed to send:', subject, err);
     // Non-fatal — don't throw

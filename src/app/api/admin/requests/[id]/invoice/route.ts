@@ -5,6 +5,7 @@ import { stripe } from '@/lib/stripe/client';
 import { getOrCreateStripeCustomer } from '@/lib/stripe/customer';
 import { createAndFinalizeInvoice } from '@/lib/stripe/invoices';
 import { z } from 'zod';
+import { emitStateTask, invoiceVerifyTask } from '@/lib/tasks/state-change';
 
 const bodySchema = z.object({
   amount_cents: z.number().int().min(0),
@@ -182,6 +183,8 @@ export async function POST(request: NextRequest, { params }: Params) {
     console.error('invoice insert error:', invoiceError);
     return NextResponse.json({ error: 'Failed to save invoice' }, { status: 500 });
   }
+
+  await emitStateTask(invoiceVerifyTask(invoice.id, changeRequest.client_id, body.due_date ?? null, body.description));
 
   return NextResponse.json({
     success: true,

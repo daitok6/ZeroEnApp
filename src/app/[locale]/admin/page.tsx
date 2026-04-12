@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server';
 import { getTranslations } from 'next-intl/server';
 import { getAdminStats, getClientList } from '@/lib/admin/queries';
+import { getTodayTasks } from '@/lib/tasks/queries';
+import { TodayPanel } from '@/components/admin/tasks/TodayPanel';
 import { Users, Briefcase, ClipboardList, DollarSign } from 'lucide-react';
 import type { Metadata } from 'next';
 import type { ClientHealthStatus } from '@/lib/admin/queries';
@@ -46,9 +48,10 @@ export default async function AdminPage({ params }: Props) {
 
   const t = await getTranslations('admin');
 
-  const [stats, clients] = await Promise.all([
+  const [stats, clients, todayTasks] = await Promise.all([
     getAdminStats(supabase),
     getClientList(supabase),
+    getTodayTasks(supabase),
   ]);
 
   const statCards = [
@@ -88,6 +91,11 @@ export default async function AdminPage({ params }: Props) {
         <p className="text-[#6B7280] text-sm font-mono mt-1">
           {t('overview')}
         </p>
+      </div>
+
+      {/* Today's tasks */}
+      <div className="border border-[#1F2937] rounded-lg p-4 bg-[#0D0D0D]">
+        <TodayPanel tasks={todayTasks} />
       </div>
 
       {/* Stat cards — 2-col mobile, 4-col desktop */}

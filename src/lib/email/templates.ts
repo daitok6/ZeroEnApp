@@ -483,3 +483,81 @@ export function adminDigestEmail(data: {
     `),
   };
 }
+
+// ── Email: Morning Task Digest (to operator) ───────────────────────────────
+export function morningDigestEmail(data: {
+  tasks: Array<{
+    title: string;
+    urgency: string;
+    category: string;
+    client_name: string | null;
+    due_date: string;
+  }>;
+  date: string;
+  dashboardUrl: string;
+}): { subject: string; html: string } {
+  const { tasks, date, dashboardUrl } = data;
+
+  const URGENCY_COLORS: Record<string, string> = {
+    critical: '#EF4444',
+    high:     '#F59E0B',
+    normal:   '#6B7280',
+    low:      '#374151',
+  };
+
+  const CATEGORY_COLORS: Record<string, string> = {
+    client_ops: '#3B82F6',
+    billing:    '#F59E0B',
+    marketing:  '#8B5CF6',
+    content:    '#06B6D4',
+    admin:      '#6B7280',
+    personal:   '#EC4899',
+  };
+
+  const criticalCount = tasks.filter((t) => t.urgency === 'critical').length;
+  const urgencyOrder = ['critical', 'high', 'normal', 'low'];
+  const sorted = [...tasks].sort(
+    (a, b) => urgencyOrder.indexOf(a.urgency) - urgencyOrder.indexOf(b.urgency)
+  );
+
+  const taskRows = sorted.map((t) => `
+    <tr>
+      <td style="padding: 10px 16px; border-bottom: 1px solid #1F2937; vertical-align: top;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td>
+              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: ${URGENCY_COLORS[t.urgency] ?? '#6B7280'}; margin-right: 8px; vertical-align: middle;"></span>
+              <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #F4F4F2; font-size: 13px;">${t.title}</span>
+            </td>
+            <td align="right" style="white-space: nowrap;">
+              <span style="font-family: 'IBM Plex Mono', 'Courier New', monospace; background: ${CATEGORY_COLORS[t.category] ?? '#374151'}22; color: ${CATEGORY_COLORS[t.category] ?? '#6B7280'}; font-size: 10px; padding: 2px 7px; border-radius: 9999px; letter-spacing: 0.06em;">${t.category.replace('_', ' ')}</span>
+            </td>
+          </tr>
+          ${t.client_name ? `<tr><td colspan="2" style="padding-top: 3px; font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #4B5563; font-size: 11px;">${t.client_name}</td></tr>` : ''}
+        </table>
+      </td>
+    </tr>
+  `).join('');
+
+  const formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-US', {
+    weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
+  });
+
+  const subject = criticalCount > 0
+    ? `[ZeroEn] ⚠ ${criticalCount} critical + ${tasks.length - criticalCount} more tasks — ${formattedDate}`
+    : `[ZeroEn] ${tasks.length} task${tasks.length === 1 ? '' : 's'} due today — ${formattedDate}`;
+
+  return {
+    subject,
+    html: emailWrapper(`
+      ${heading(`${tasks.length} task${tasks.length === 1 ? '' : 's'} today.`)}
+      ${subheading(formattedDate)}
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border: 1px solid #374151; border-radius: 8px; margin-bottom: 24px;">
+        <tr><td>
+          ${taskRows}
+        </td></tr>
+      </table>
+      ${ctaButton('Open Task Dashboard', dashboardUrl)}
+    `),
+  };
+}
