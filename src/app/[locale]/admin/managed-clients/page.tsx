@@ -101,9 +101,10 @@ export default async function AdminManagedClientsPage({ params }: Props) {
                 : client.managed_client_intake;
 
               return (
-                <div
+                <Link
                   key={client.id}
-                  className="p-4 border border-[#374151] rounded-lg bg-[#111827] space-y-2"
+                  href={`/${locale}/admin/managed-clients/${client.id}`}
+                  className="block p-4 border border-[#374151] rounded-lg bg-[#111827] space-y-2 hover:border-[#4B5563] hover:bg-[#1F2937]/50 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
@@ -125,7 +126,7 @@ export default async function AdminManagedClientsPage({ params }: Props) {
                     <span>·</span>
                     <span>{formatDate(client.created_at, locale)}</span>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -153,6 +154,7 @@ export default async function AdminManagedClientsPage({ params }: Props) {
                   <th className="text-left px-4 py-3 text-[#6B7280] font-medium">
                     {locale === 'ja' ? '登録日' : 'Created'}
                   </th>
+                  <th className="px-4 py-3" />
                 </tr>
               </thead>
               <tbody>
@@ -187,6 +189,14 @@ export default async function AdminManagedClientsPage({ params }: Props) {
                       </td>
                       <td className="px-4 py-3 text-[#6B7280]">
                         {formatDate(client.created_at, locale)}
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <Link
+                          href={`/${locale}/admin/managed-clients/${client.id}`}
+                          className="text-xs font-mono text-[#3B82F6] hover:text-[#60A5FA] transition-colors"
+                        >
+                          {locale === 'ja' ? '詳細' : 'View'}
+                        </Link>
                       </td>
                     </tr>
                   );

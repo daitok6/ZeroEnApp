@@ -7,28 +7,9 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import type { BrandKit, AssetsData, DomainData } from '@/types/managed-client-intake';
 
 const TOTAL_STEPS = 4;
-
-type BrandKit = {
-  tone: { playful: number; minimal: number; corporate: number };
-  vibe_tags: string[];
-  palette: { preset: string | null; colors: { bg: string; accent: string; text: string } };
-  font_pairing: string;
-  sample_sites: string[];
-};
-
-type AssetsData = {
-  logo_url: string | null;
-  copy: string;
-  tagline: string | null;
-  extra_image_urls: string[];
-};
-
-type DomainData = {
-  type: 'own' | 'help';
-  value: string;
-};
 
 interface InitialIntake {
   brand_kit: BrandKit | null;
