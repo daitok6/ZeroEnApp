@@ -329,11 +329,11 @@
     "summary": {
       "heading": "TL;DR",
       "items": [
-        { "label": "Equity", "value": "10% via SAFE note. Converts when you incorporate." },
-        { "label": "Revenue share", "value": "~10% of app revenue, negotiated per deal." },
         { "label": "Platform fee", "value": "$50/mo after your MVP launches. Covers hosting + 1 fix/mo." },
         { "label": "Scope freeze", "value": "MVP scope locked at kickoff. New features = per-request charge." },
         { "label": "Kill switch", "value": "90 days unpaid → agreement terminates. We keep the code." },
+        { "label": "IP", "value": "ZeroEn retains code ownership. You license the live site via active subscription." },
+        { "label": "Liability", "value": "ZeroEn's liability is capped at fees paid in the prior 12 months." },
         { "label": "Portfolio rights", "value": "We always retain the right to showcase this work." }
       ]
     },
@@ -341,16 +341,16 @@
       "heading": "Full Terms",
       "sections": [
         {
-          "title": "1. Equity Agreement",
-          "body": "ZeroEn receives 10% equity via a Simple Agreement for Future Equity (SAFE note). The SAFE converts to equity shares upon the client's incorporation or qualifying financing event. If the client never incorporates, a profit-sharing arrangement of approximately 10% of net revenue applies instead. ZeroEn retains an anti-dilution floor: a minimum equity percentage is maintained if the client raises external funding."
+          "title": "1. Future Equity (Phase 2)",
+          "body": "Equity arrangements (SAFE notes, revenue share) are not part of Phase 1 agreements. ZeroEn currently operates as a subscription hosting service. Equity terms may be offered on select Phase 2 deals and will be documented in a separate, individually signed agreement at that time. Nothing in these terms grants or implies any equity interest."
         },
         {
-          "title": "2. Revenue Share",
-          "body": "A revenue share of approximately 10% of the client's app revenue is negotiated at kickoff and documented in the individual agreement. Revenue share activates once the client's application generates revenue. The exact percentage is flexible per deal and is fixed in writing before the build begins."
+          "title": "2. Revenue Share (Phase 2)",
+          "body": "Revenue share arrangements are not active in Phase 1. If a revenue share is agreed for a specific client, it will be documented in a separate written agreement signed by both parties before it takes effect. These standard terms do not constitute a revenue share agreement."
         },
         {
           "title": "3. Platform Fee",
-          "body": "After the MVP launches, a platform fee of USD $50 per month applies. This covers: hosting on ZeroEn's Vercel Pro account, one small fix or minor change per month (at ZeroEn's discretion), and a monthly analytics PDF report. The platform fee begins 30 days after launch. Payment is via Stripe subscription. The client's application remains live only while the platform fee is paid."
+          "body": "After the MVP launches, a platform fee of USD $50 per month applies. This covers: hosting on ZeroEn's Vercel Pro account, one small fix or minor change per month (at ZeroEn's discretion), and a monthly analytics PDF report. The platform fee begins 30 days after launch. Payment is via Stripe subscription. The client's application remains live only while the platform fee is paid. ZeroEn's total liability under this agreement is limited to the platform fees paid by the client in the 12 months preceding any claim. ZeroEn provides the service \"as is\" and makes no warranties beyond uptime of the underlying Vercel infrastructure."
         },
         {
           "title": "4. Scope Freeze",
@@ -362,7 +362,7 @@
         },
         {
           "title": "6. Kill Switch",
-          "body": "If the platform fee remains unpaid for 90 consecutive days, the agreement terminates automatically. Upon termination: the client's hosted application is taken offline, ZeroEn retains full rights to the codebase, and all equity and revenue share arrangements are voided. ZeroEn will make reasonable efforts to notify the client before reaching the 90-day threshold."
+          "body": "If the platform fee remains unpaid for 90 consecutive days, the agreement terminates automatically. Upon termination: the client's hosted application is taken offline, ZeroEn retains full rights to the codebase. ZeroEn will make reasonable efforts to notify the client before reaching the 90-day threshold."
         },
         {
           "title": "7. Reversion Clause",
@@ -370,15 +370,15 @@
         },
         {
           "title": "8. IP Ownership",
-          "body": "Intellectual property is shared proportionally to equity stake. ZeroEn holds 10% IP rights corresponding to its equity. The client holds the remaining rights. ZeroEn always retains the right to use the work in its portfolio and marketing materials, including screenshots, case studies, and build logs."
+          "body": "ZeroEn retains full ownership of all code, designs, and assets created under this agreement. The client receives a non-exclusive license to use the live hosted application for as long as the platform fee is paid. This license is non-transferable and does not include access to source code unless the client purchases a code buyout (see Kill Switch clause). ZeroEn always retains the right to use the work in its portfolio and marketing materials, including screenshots, case studies, and build logs."
         },
         {
-          "title": "9. Founder Vesting",
-          "body": "The client's equity interest vests over time. If the client abandons the project (defined as no communication or active use for 6+ months), their equity stake reduces proportionally. This clause protects ZeroEn from building for founders who disengage."
+          "title": "9. Service Standards",
+          "body": "ZeroEn will make reasonable efforts to keep the client's application live and performant on Vercel's infrastructure. If the client is unresponsive for 6 or more consecutive months (no replies to communications, no active use of the service), ZeroEn may pause the service with 14 days written notice. This clause exists to ensure ZeroEn can manage its active client roster effectively."
         },
         {
           "title": "10. Governing Law",
-          "body": "These terms are governed by the laws of Canada (Ontario). Any disputes are resolved first through good-faith negotiation, then through binding arbitration if necessary. ZeroEn and the client agree to resolve disputes without litigation where possible."
+          "body": "These terms are governed by the laws of Japan. Any disputes are resolved first through good-faith negotiation, then through the Tokyo District Court if necessary. ZeroEn and the client agree to resolve disputes without litigation where possible."
         },
         {
           "title": "11. Confidentiality & Non-Disclosure",
@@ -745,14 +745,14 @@
     "electronicAcceptance": "Electronically accepted on {date}",
     "partnershipTitle": "Key Partnership Terms",
     "partnershipTerms": [
-      { "label": "Equity", "value": "10% via SAFE note (converts on incorporation)" },
-      { "label": "Revenue Share", "value": "~10% of app revenue (flexible per deal)" },
       { "label": "Platform Fee", "value": "$50/mo after launch (hosting + 1 fix/mo)" },
       { "label": "MVP Scope", "value": "Locked at kickoff. Changes are charged separately." },
-      { "label": "IP Ownership", "value": "Shared — proportional to equity stake" },
+      { "label": "IP Ownership", "value": "ZeroEn retains code. You license the live site via subscription." },
+      { "label": "Liability Cap", "value": "ZeroEn's liability capped at fees paid in prior 12 months." },
       { "label": "Kill Switch", "value": "90 days unpaid → agreement terminates, code rights to operator" },
       { "label": "Reversion", "value": "No launch within 6 months → code rights revert to operator" },
-      { "label": "Portfolio Rights", "value": "Operator retains right to showcase this work at all times" }
+      { "label": "Portfolio Rights", "value": "Operator retains right to showcase this work at all times" },
+      { "label": "Governing Law", "value": "Japan (Tokyo District Court)" }
     ],
     "signature": "Signature",
     "entity": "Entity",
@@ -804,16 +804,16 @@
       "entityNamePlaceholder": "Your company name, or personal name",
       "partnershipTitle": "Key Partnership Terms",
       "terms": [
-        { "label": "Equity", "value": "10% via SAFE note (converts on incorporation)" },
-        { "label": "Revenue Share", "value": "~10% of app revenue (flexible per deal)" },
         { "label": "Platform Fee", "value": "$50/mo after launch (hosting + 1 fix/mo)" },
         { "label": "MVP Scope", "value": "Locked at kickoff. Changes are charged separately." },
-        { "label": "IP Ownership", "value": "Shared — proportional to equity stake" },
+        { "label": "IP Ownership", "value": "ZeroEn retains code. You license the live site via subscription." },
+        { "label": "Liability Cap", "value": "ZeroEn's liability capped at fees paid in prior 12 months." },
         { "label": "Kill Switch", "value": "90 days unpaid → agreement terminates, code rights to operator" },
         { "label": "Reversion", "value": "No launch within 6 months → code rights revert to operator" },
-        { "label": "Portfolio Rights", "value": "Operator retains right to showcase this work at all times" }
+        { "label": "Portfolio Rights", "value": "Operator retains right to showcase this work at all times" },
+        { "label": "Governing Law", "value": "Japan (Tokyo District Court)" }
       ],
-      "disclaimer": "These are the key terms of the standard ZeroEn partnership agreement (Terms v1.0). Your electronic acceptance constitutes a legally binding agreement.",
+      "disclaimer": "These are the key terms of the standard ZeroEn partnership agreement (Terms v1.1). Your electronic acceptance constitutes a legally binding agreement.",
       "signatureLabel": "Type Your Full Name to Sign *",
       "signaturePlaceholder": "e.g. Jane Smith",
       "signatureHelper": "This serves as your legal electronic signature.",

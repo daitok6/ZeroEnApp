@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 export const CURRENT_NDA_VERSION = 'v1.0-2026-04-10';
-export const CURRENT_PARTNERSHIP_VERSION = 'v1.0-2026-04-10';
+export const CURRENT_PARTNERSHIP_VERSION = 'v1.1-2026-04-12';
 
 export type LegalDocumentType = 'nda' | 'partnership';
 
