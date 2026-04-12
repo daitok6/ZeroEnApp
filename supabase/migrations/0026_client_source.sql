@@ -85,7 +85,7 @@ create trigger managed_client_intake_updated_at
 
 insert into storage.buckets (id, name, public)
   values ('client-assets', 'client-assets', false)
-  on conflict do nothing;
+  on conflict (id) do update set public = false;
 
 -- Authenticated users can manage their own folder (first path segment = uid)
 create policy "Authenticated users manage own assets"
