@@ -34,7 +34,7 @@ export default async function CoconalaOnboardingPage({ params }: Props) {
 
   const { data: intake } = await supabase
     .from('managed_client_intake')
-    .select('scope_md, plan_tier, scope_ack, commitment_ack_at, brand_kit, assets, domain, coconala_order_ref')
+    .select('scope_md, plan_tier, scope_ack, commitment_ack_at, brand_kit, assets, domain')
     .eq('profile_id', user.id)
     .single();
 
@@ -51,7 +51,6 @@ export default async function CoconalaOnboardingPage({ params }: Props) {
               brand_kit: intake.brand_kit ?? null,
               assets: intake.assets ?? null,
               domain: intake.domain ?? null,
-              coconala_order_ref: intake.coconala_order_ref ?? null,
               plan_tier: intake.plan_tier ?? null,
             }
           : null
