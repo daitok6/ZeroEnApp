@@ -19,7 +19,7 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 2. Deploy client sites on the operator's Vercel account
 3. Generate monthly analytics report PDFs per client
 4. Run marketing automation — build-in-public content, SEO, outreach
-5. Manage client lifecycle — onboarding, scoring, tracking, billing (JPY via Coconala + USD via Stripe)
+5. Manage client lifecycle — onboarding, scoring, tracking, billing (¥500 intake via Coconala + recurring via Stripe)
 6. Maintain quality gates — automated testing, validation, client UAT
 
 ---
@@ -37,14 +37,20 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 9. **All social posts go through the marketing team.** Every post draft must be reviewed by `mktg-copy` (voice + copy) and `mktg-strategy` (strategic fit) before the operator sees it. No exceptions.
 10. **Quality gates must pass before production deploy.** Linting, type checking, and tests must pass.
 11. **ZeroEn retains code ownership.** Client licenses the live site via active subscription. Buyout = ¥80,000 flat.
-12. **Coconala clients must be billed through Coconala.** Never suggest direct billing for Coconala-acquired clients — it violates their ToS and risks an account ban.
+12. **Coconala is lead-gen only.** Coconala listing charges a one-time ¥500 intake fee (casual "buy me a beer" framing). All recurring subscription fees (¥5,000/¥10,000/mo) are billed directly through Stripe via zeroen.dev — for all clients regardless of acquisition channel.
 13. **All clients require a 6-month minimum subscription commitment.** Early cancellation = remaining months or ¥80,000 buyout (whichever is less).
 
 ---
 
 ## Revenue Model
 
-### Subscription Tiers (Coconala — JPY)
+### Coconala Channel
+
+| Fee | Amount | Notes |
+|---|---|---|
+| Intake fee (one-time) | ¥500 | Charged through Coconala ("buy me a beer" framing). Coconala ~22% cut = you net ¥390. Lead-gen only. |
+
+### Subscription Tiers (All Clients — Stripe via zeroen.dev)
 
 | | Basic | Premium |
 |---|---|---|
@@ -55,11 +61,7 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 | Security audit (WebMori) | — | Quarterly |
 | SEO audit (WebMori) | — | Quarterly |
 
-### Direct Clients (USD)
-
-| Stream | Amount | Details |
-|--------|--------|---------|
-| Platform Fee | $50/mo/client | Hosting + 1 small fix/mo + monthly analytics PDF |
+All recurring billing goes through Stripe regardless of whether the client came via Coconala or zeroen.dev.
 
 ### Additional Revenue
 
@@ -71,8 +73,6 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 | Code buyout | ¥80,000 flat | Client receives full source code on exit |
 | Equity | 10% | SAFE note (converts on incorporation) + profit-sharing fallback |
 | Revenue Share | ~10% | Percentage of app revenue, flexible per deal |
-
-**Coconala commission:** ~22% on Coconala-billed clients. ¥5,000 nets ¥3,900. ¥10,000 nets ¥7,800.
 
 ### Upgrade / Downgrade
 
@@ -173,15 +173,15 @@ No Supabase needed for landing pages. Pure static/SSG.
 1. DISCOVER  → Coconala listing, build-in-public content, social media
 2. INQUIRE   → Client contacts via Coconala messaging
 3. QUALIFY   → 5-question scoring: purpose, audience, content readiness, commitment, responsiveness
-4. ONBOARD   → Form-based scoping → scope locked → 6-month commitment agreed in writing
+4. ONBOARD   → Client pays ¥500 intake fee on Coconala → form-based scoping → scope locked → 6-month commitment agreed in writing
 5. BUILD     → /new-client <clientId> → landing page (1-3 days)
-6. LAUNCH    → Deploy to Vercel → billing starts (through Coconala)
-7. OPERATE   → ¥5,000 or ¥10,000/mo → analytics PDF → included changes
-8. GROW      → Per-request charges for extras → upgrade Basic → Premium
+6. LAUNCH    → Deploy to Vercel → Stripe subscription starts (¥5,000 or ¥10,000/mo via zeroen.dev)
+7. OPERATE   → Monthly analytics PDF → included changes
+8. GROW      → Per-request charges via Stripe invoice → upgrade Basic → Premium
 9. UPSELL    → Quarterly audits surface issues → WebMori audit service
 ```
 
-### Direct Clients (zeroen.dev — Phase 2)
+### Direct Clients (zeroen.dev)
 
 ```
 1. DISCOVER  → zeroen.dev, build-in-public content, referrals
@@ -189,9 +189,9 @@ No Supabase needed for landing pages. Pure static/SSG.
 3. SCORE     → Viability + Commitment + Feasibility + Market (15+/20 to accept)
 4. ONBOARD   → Questionnaire → scope locked → 6-month commitment → Stripe billing setup
 5. BUILD     → /new-client <clientId> → landing page or dynamic site
-6. LAUNCH    → Deploy to Vercel → billing starts (Stripe direct)
-7. OPERATE   → $50/mo → monthly analytics PDF → 1 free fix/mo
-8. GROW      → Per-request charges for new features → rev share active
+6. LAUNCH    → Deploy to Vercel → Stripe subscription starts (¥5,000 or ¥10,000/mo)
+7. OPERATE   → Monthly analytics PDF → included changes
+8. GROW      → Per-request charges via Stripe invoice → rev share active
 9. UPSELL    → Analytics surface issues → WebMori audit service
 ```
 
@@ -309,7 +309,7 @@ Adapted from SiteAudit's wave-based pipeline:
 - Never auto-send anything to clients without operator review
 - Never modify a client's scope without documenting it and updating pricing
 - Never store secrets in client repos — use environment variables
-- Never suggest direct billing for Coconala-acquired clients (violates ToS)
+- Never bill Coconala intake fees outside of Coconala (the ¥500 must go through Coconala)
 - Never build dynamic sites (auth, database) in Phase 1 — landing pages only
 - Never accept a client without confirming the 6-month commitment in writing
 - Never quote change sizes without referencing `HQ/crm/change-catalogue.md`
