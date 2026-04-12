@@ -1334,3 +1334,10 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-12 22:10] created: `HQ/marketing/campaigns/2026-04-first-5/webmori-takedown-checklist.md`
 - [2026-04-12] campaign: `HQ/marketing/campaigns/2026-04-first-5/` — Coconala First-5 launch campaign drafted (8 files: README, Coconala listing + profile, X threads JP/EN, Note article, Lancers/CrowdWorks, MENTA/TimeTicket, WebMori takedown checklist). Coconala account to be rebranded `webmori` → `ZeroEn / 大都`. ¥10,000 audit listing paused. All copy requires mktg-copy + mktg-strategy review before publish.
 - [2026-04-12 22:26] created: `HQ/platform/src/middleware.ts`
+- [2026-04-12 22:31] edited: `HQ/platform/src/components/shared/wizard/constants.ts`
+- [2026-04-12 22:32] edited: `HQ/platform/src/components/shared/wizard/BrandKitStep.tsx`
+- [2026-04-12 22:32] edited: `HQ/platform/src/components/shared/wizard/BrandKitStep.tsx`
+- [2026-04-12 22:32] edited: `HQ/platform/src/components/shared/wizard/BrandKitStep.tsx`
+- [2026-04-12 22:32] edited: `HQ/platform/src/app/[locale]/admin/managed-clients/[id]/page.tsx`
+- [2026-04-12 22:32] edited: `HQ/platform/src/app/[locale]/admin/managed-clients/[id]/page.tsx`
+- [2026-04-12 22:37] edited: `HQ/platform/src/app/layout.tsx`
