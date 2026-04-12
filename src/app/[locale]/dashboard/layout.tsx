@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
@@ -27,7 +28,11 @@ export default async function DashboardLayout({ children, params }: Props) {
     .eq('id', user.id)
     .single();
 
-  if (profile?.managed && profile?.onboarding_status !== 'complete') {
+  const hdrs = await headers();
+  const currentPath = hdrs.get('x-pathname') ?? '';
+  const onCoconalaOnboarding = currentPath.endsWith('/dashboard/coconala-onboarding');
+
+  if (profile?.managed && profile?.onboarding_status !== 'complete' && !onCoconalaOnboarding) {
     redirect(`/${locale}/dashboard/coconala-onboarding`);
   }
 

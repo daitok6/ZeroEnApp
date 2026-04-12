@@ -32,6 +32,9 @@ export async function proxy(request: NextRequest) {
   // Run next-intl middleware first to handle locale routing
   const response = intlMiddleware(request);
 
+  // Expose pathname to server components via header
+  response.headers.set('x-pathname', pathname);
+
   // Then handle Supabase auth cookie refresh
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
