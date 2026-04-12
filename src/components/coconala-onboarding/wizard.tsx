@@ -326,7 +326,7 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
                   id: 'basic' as const,
                   nameEn: 'Basic',
                   nameJa: 'ベーシック',
-                  price: '¥8,000 / mo',
+                  price: '¥5,000 / mo',
                   featuresEn: ['1 small change/mo', 'Monthly analytics PDF', 'Hosting included'],
                   featuresJa: ['小変更1回/月', '月次PDFレポート', 'ホスティング込み'],
                 },
@@ -334,7 +334,7 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
                   id: 'premium' as const,
                   nameEn: 'Premium',
                   nameJa: 'プレミアム',
-                  price: '¥15,000 / mo',
+                  price: '¥10,000 / mo',
                   featuresEn: ['2 small or 1 medium change/mo', 'Full-year dashboard', 'Quarterly audits', 'Hosting included'],
                   featuresJa: ['小変更2回 or 中変更1回/月', '年間ダッシュボード', '四半期監査', 'ホスティング込み'],
                 },
@@ -384,8 +384,8 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
             <span className="text-[#F4F4F2] text-sm font-mono leading-relaxed">
               {t(
                 locale,
-                'I confirm the scope above and commit to the 6-month minimum subscription (¥8,000/mo Basic or ¥15,000/mo Premium). Early cancellation = remaining months or ¥80,000 buyout.',
-                '上記のスコープを確認し、6ヶ月の最低契約期間(ベーシック¥8,000/月 または プレミアム¥15,000/月)に同意します。早期解約の場合は残月数分または¥80,000の買取。'
+                'I confirm the scope above and commit to the 6-month minimum subscription (¥5,000/mo Basic or ¥10,000/mo Premium). Early cancellation = remaining months or ¥80,000 buyout.',
+                '上記のスコープを確認し、6ヶ月の最低契約期間(ベーシック¥5,000/月 または プレミアム¥10,000/月)に同意します。早期解約の場合は残月数分または¥80,000の買取。'
               )}
             </span>
           </label>
