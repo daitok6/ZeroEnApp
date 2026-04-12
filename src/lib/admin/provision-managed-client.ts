@@ -13,6 +13,21 @@ export async function provisionManagedClient(
   const orderRef = formData.get('orderRef') as string | null;
   const planTier = formData.get('planTier') as 'basic' | 'premium' | null;
 
+  // Verify caller is an admin
+  const userClient = await import('@/lib/supabase/server').then(m => m.createClient());
+  const { data: { user: callerUser } } = await userClient.auth.getUser();
+  if (!callerUser) {
+    return { success: false, error: 'Unauthorized.' };
+  }
+  const { data: callerProfile } = await userClient
+    .from('profiles')
+    .select('role')
+    .eq('id', callerUser.id)
+    .single();
+  if (callerProfile?.role !== 'admin') {
+    return { success: false, error: 'Unauthorized.' };
+  }
+
   if (!email) return { success: false, error: 'email is required' };
   if (!fullName) return { success: false, error: 'fullName is required' };
   if (!locale) return { success: false, error: 'locale is required' };
@@ -47,6 +62,12 @@ export async function provisionManagedClient(
 
   if (rpcError) {
     console.error('[provisionManagedClient] rpc error:', rpcError.message);
+    // Rollback: delete the auth user since the profile/intake setup failed
+    try {
+      await adminClient.auth.admin.deleteUser(userId);
+    } catch (rollbackErr) {
+      console.error('[provisionManagedClient] rollback failed:', rollbackErr);
+    }
     return { success: false, error: 'Failed to provision client record. Please try again.' };
   }
 
