@@ -3,6 +3,8 @@ import { ChangeRequestForm } from '@/components/dashboard/change-request-form';
 import { ChangeCatalogueSheet } from '@/components/dashboard/change-catalogue-sheet';
 import { RequestCard } from '@/components/dashboard/request-card';
 import { SubscriptionRequired } from '@/components/dashboard/subscription-required';
+import { EmptyState } from '@/components/dashboard/empty-state';
+import { PlusCircle } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -107,14 +109,31 @@ export default async function RequestsPage({ params }: Props) {
         </div>
       )}
 
+      {project && requests.length === 0 && (
+        <EmptyState
+          icon={PlusCircle}
+          locale={locale}
+          titleEn="No requests yet"
+          titleJa="リクエストはまだありません"
+          bodyEn="Use the form above to request changes. Small (¥4,000), Medium (¥10,000), or Large (¥25,000+). Your plan includes a free monthly allowance."
+          bodyJa="上のフォームから変更リクエストを送信できます。Small（¥4,000）・Medium（¥10,000）・Large（¥25,000+）。プランに応じた無料枠が毎月付与されます。"
+          cta={{
+            labelEn: "See what counts as small / medium / large →",
+            labelJa: "変更サイズの定義を確認する →",
+            href: `/${locale}/dashboard/help/requesting-changes`,
+          }}
+        />
+      )}
+
       {!project && (
-        <div className="border border-[#374151] rounded-lg p-8 bg-[#111827] text-center">
-          <p className="text-[#9CA3AF] font-mono text-sm">
-            {isJa
-              ? 'プロジェクト開始後に変更リクエストが送れます'
-              : 'Change requests are available once your project starts'}
-          </p>
-        </div>
+        <EmptyState
+          icon={PlusCircle}
+          locale={locale}
+          titleEn="Not available yet"
+          titleJa="まだご利用いただけません"
+          bodyEn="Change requests become available once your project is set up and your subscription is active."
+          bodyJa="変更リクエストはプロジェクトの設定とサブスクリプション開始後にご利用いただけます。"
+        />
       )}
     </div>
   );

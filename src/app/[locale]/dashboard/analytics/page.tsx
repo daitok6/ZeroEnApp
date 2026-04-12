@@ -1,5 +1,6 @@
 import { requireApproved } from '@/lib/auth/require-approved';
 import { SubscriptionRequired } from '@/components/dashboard/subscription-required';
+import { EmptyState } from '@/components/dashboard/empty-state';
 import { Download, FileText } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -42,19 +43,19 @@ export default async function AnalyticsPage({ params }: Props) {
       </div>
 
       {reports.length === 0 ? (
-        <div className="border border-[#374151] rounded-lg p-8 bg-[#111827] text-center">
-          <FileText size={32} className="mx-auto text-[#374151] mb-4" />
-          <p className="text-[#9CA3AF] font-mono text-sm mb-2">
-            {locale === 'ja'
-              ? '最初のレポートはローンチ後1ヶ月で届きます'
-              : 'Your first report arrives one month after launch'}
-          </p>
-          <p className="text-[#6B7280] font-mono text-xs">
-            {locale === 'ja'
-              ? '訪問者数、ページビュー、パフォーマンス指標が含まれます'
-              : 'Includes: visitors, page views, top pages, and performance scores'}
-          </p>
-        </div>
+        <EmptyState
+          icon={FileText}
+          locale={locale}
+          titleEn="No reports yet"
+          titleJa="レポートはまだありません"
+          bodyEn="Your first report arrives one month after your site launches. Includes: visitors, page views, top pages, and performance scores."
+          bodyJa="最初のレポートはサイト公開後1ヶ月で届きます。訪問者数・ページビュー・人気ページ・パフォーマンス指標が含まれます。"
+          cta={{
+            labelEn: "What's in your report →",
+            labelJa: "レポートの内容を確認する →",
+            href: `/${locale}/dashboard/help/analytics-reports`,
+          }}
+        />
       ) : (
         <div className="space-y-3">
           {reports.map((report) => (

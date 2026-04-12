@@ -1,6 +1,7 @@
 import { requireApproved } from '@/lib/auth/require-approved';
 import { DocumentList } from '@/components/dashboard/document-list';
 import type { DocumentItem } from '@/components/dashboard/document-list';
+import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -44,6 +45,17 @@ export default async function DocumentsPage({ params }: Props) {
       </div>
 
       <DocumentList documents={documents} locale={locale} />
+
+      {documents.length === 0 && (
+        <p className="text-center mt-4">
+          <Link
+            href={`/${locale}/dashboard/help/messages-and-documents`}
+            className="text-xs font-mono text-[#00E87A] hover:underline"
+          >
+            {locale === 'ja' ? '書類について詳しく見る →' : 'Learn about documents →'}
+          </Link>
+        </p>
+      )}
     </div>
   );
 }

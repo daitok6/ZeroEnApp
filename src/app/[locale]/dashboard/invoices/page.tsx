@@ -1,6 +1,7 @@
 import { requireApproved } from '@/lib/auth/require-approved';
 import { CheckCircle, Clock, AlertCircle, XCircle, Receipt, FileText, ExternalLink } from 'lucide-react';
 import { PayButton } from '@/components/dashboard/pay-button';
+import { EmptyState } from '@/components/dashboard/empty-state';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -104,17 +105,19 @@ export default async function InvoicesPage({ params }: Props) {
 
       {/* Empty state */}
       {invoices.length === 0 && (
-        <div className="border border-[#374151] rounded-lg p-8 bg-[#111827] text-center">
-          <Receipt size={32} className="mx-auto text-[#374151] mb-4" />
-          <p className="text-[#9CA3AF] font-mono text-sm mb-1">
-            {locale === 'ja' ? '請求書はまだありません' : 'No invoices yet'}
-          </p>
-          <p className="text-[#6B7280] font-mono text-xs mb-6">
-            {locale === 'ja'
-              ? '変更リクエストの請求書が作成されるとここに表示されます'
-              : 'Invoices for change requests will appear here once created'}
-          </p>
-        </div>
+        <EmptyState
+          icon={Receipt}
+          locale={locale}
+          titleEn="No invoices yet"
+          titleJa="請求書はまだありません"
+          bodyEn="Your first subscription invoice is generated on the 1st of next month. Invoices for approved change requests also appear here."
+          bodyJa="最初の月額請求書は翌月1日に発行されます。承認された変更リクエストの請求書もここに表示されます。"
+          cta={{
+            labelEn: "Learn about billing →",
+            labelJa: "請求の詳細を見る →",
+            href: `/${locale}/dashboard/help/invoices-and-billing`,
+          }}
+        />
       )}
 
       {/* Invoice list — cards on mobile, grid on md+ */}

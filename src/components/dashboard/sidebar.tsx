@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
+import { HelpCircle } from 'lucide-react';
 import { navItems, pendingNavItems, onboardingNavItems, adminNavItems } from './nav-items';
 import { SidebarNavLink } from './sidebar-nav-link';
 
@@ -63,8 +64,17 @@ export function Sidebar({ locale, navType, basePath, messagesBadge, lockedKeys }
         </div>
       </nav>
 
-      {/* Back to site link */}
-      <div className="px-3 py-4 border-t border-[#374151]">
+      {/* Footer links */}
+      <div className="px-3 py-4 border-t border-[#374151] space-y-1">
+        {navType !== 'admin' && (
+          <Link
+            href={`/${locale}/dashboard/help`}
+            className="flex items-center gap-2 text-[#6B7280] hover:text-[#F4F4F2] text-xs font-mono transition-colors px-3 py-2 rounded hover:bg-[#1F2937]"
+          >
+            <HelpCircle size={13} />
+            {tDash('help')}
+          </Link>
+        )}
         <Link
           href={`/${locale}`}
           className="flex items-center gap-2 text-[#6B7280] hover:text-[#F4F4F2] text-xs font-mono transition-colors px-3 py-2 rounded hover:bg-[#1F2937]"
