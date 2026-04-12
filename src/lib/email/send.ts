@@ -1,7 +1,7 @@
 import { Resend } from 'resend';
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const OPERATOR_EMAIL = 'hello@zeroen.dev';
+const OPERATOR_EMAIL = process.env.OPERATOR_EMAIL ?? 'hello@zeroen.dev';
 const FROM_ADDRESS = 'ZeroEn <noreply@zeroen.dev>';
 
 function getResend(): Resend | null {

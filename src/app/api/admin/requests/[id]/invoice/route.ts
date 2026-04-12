@@ -7,10 +7,20 @@ import { createAndFinalizeInvoice } from '@/lib/stripe/invoices';
 import { z } from 'zod';
 import { emitStateTask, invoiceVerifyTask } from '@/lib/tasks/state-change';
 
+const PRODUCT_ENV_MAP: Record<string, string> = {
+  small: 'STRIPE_PRODUCT_CHANGE_SMALL',
+  medium: 'STRIPE_PRODUCT_CHANGE_MEDIUM',
+  large: 'STRIPE_PRODUCT_CHANGE_LARGE',
+  audit_security: 'STRIPE_PRODUCT_AUDIT_SECURITY',
+  audit_seo: 'STRIPE_PRODUCT_AUDIT_SEO',
+};
+
 const bodySchema = z.object({
   amount_cents: z.number().int().min(0),
   description: z.string().min(1),
   due_date: z.string().nullable().optional(),
+  /** Optional: links the Stripe invoice line item to a product for revenue reporting. */
+  change_size: z.enum(['small', 'medium', 'large', 'audit_security', 'audit_seo']).optional(),
 });
 
 function getAdminSupabase() {
@@ -130,12 +140,17 @@ export async function POST(request: NextRequest, { params }: Params) {
       daysUntilDue = Math.max(1, Math.ceil(msUntilDue / (1000 * 60 * 60 * 24)));
     }
 
+    const productId = body.change_size
+      ? process.env[PRODUCT_ENV_MAP[body.change_size]]
+      : undefined;
+
     stripeData = await createAndFinalizeInvoice({
       customerId,
       amountCents: body.amount_cents,
       currency: 'jpy',
       description: body.description,
       daysUntilDue,
+      productId,
       metadata: {
         change_request_id: id,
         supabase_project_id: changeRequest.project_id,

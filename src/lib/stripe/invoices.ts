@@ -7,6 +7,8 @@ export interface CreateInvoiceOptions {
   description: string;
   daysUntilDue?: number | null;
   metadata?: Record<string, string>;
+  /** Optional Stripe Product ID — links the invoice line item to a catalogue product for reporting. */
+  productId?: string;
 }
 
 export interface FinalizedInvoice {
@@ -27,7 +29,7 @@ export async function createAndFinalizeInvoice(
 ): Promise<FinalizedInvoice> {
   if (!stripe) throw new Error('Stripe is not configured');
 
-  const { customerId, amountCents, currency, description, daysUntilDue, metadata } = options;
+  const { customerId, amountCents, currency, description, daysUntilDue, metadata, productId } = options;
 
   const draftInvoice = await stripe.invoices.create({
     customer: customerId,
@@ -38,13 +40,27 @@ export async function createAndFinalizeInvoice(
     metadata: metadata ?? {},
   });
 
-  await stripe.invoiceItems.create({
-    customer: customerId,
-    invoice: draftInvoice.id,
-    amount: amountCents,
-    currency,
-    description,
-  });
+  if (productId) {
+    // Link the line item to a Stripe Product so revenue appears in product-level reports.
+    await stripe.invoiceItems.create({
+      customer: customerId,
+      invoice: draftInvoice.id,
+      price_data: {
+        currency,
+        product: productId,
+        unit_amount: amountCents,
+      },
+      description,
+    });
+  } else {
+    await stripe.invoiceItems.create({
+      customer: customerId,
+      invoice: draftInvoice.id,
+      amount: amountCents,
+      currency,
+      description,
+    });
+  }
 
   const finalized = await stripe.invoices.finalizeInvoice(draftInvoice.id, {
     auto_advance: false,
