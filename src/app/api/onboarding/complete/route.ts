@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server';
 import { step1Schema, step2Schema, step3Schema, step4Schema, TERMS_VERSION } from '@/lib/validations/onboarding';
 import { sendEmail, OPERATOR_EMAIL_ADDRESS } from '@/lib/email/send';
 import { agreementConfirmationEmail } from '@/lib/email/templates';
+import { recordSignature } from '@/lib/legal/record-signature';
+import { loadLegalBody, CURRENT_PARTNERSHIP_VERSION } from '@/lib/legal/versions';
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
@@ -81,6 +83,24 @@ export async function POST(request: NextRequest) {
   if (error) {
     console.error('complete_onboarding RPC error:', error);
     return NextResponse.json({ error: 'Failed to complete onboarding' }, { status: 500 });
+  }
+
+  // Record partnership signature (non-fatal)
+  const bodyLocale = (preferred_locale === 'ja' ? 'ja' : 'en') as 'en' | 'ja';
+  try {
+    const partnershipBody = loadLegalBody('partnership', CURRENT_PARTNERSHIP_VERSION, bodyLocale);
+    await recordSignature({
+      userId: user.id,
+      documentType: 'partnership',
+      documentVersion: CURRENT_PARTNERSHIP_VERSION,
+      documentBody: partnershipBody,
+      signatureName: signature_name,
+      ipAddress,
+      userAgent,
+      locale: bodyLocale,
+    });
+  } catch (sigErr) {
+    console.error('Partnership recordSignature error (non-fatal):', sigErr);
   }
 
   // Persist preferred locale to user profile (best-effort)
