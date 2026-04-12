@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { step2Schema } from '@/lib/validations/application';
 import type { ApplicationFormData } from '@/lib/validations/application';
 
@@ -15,7 +16,9 @@ const inputClass = 'w-full bg-[#111827] border border-[#374151] text-[#F4F4F2] t
 const labelClass = 'block text-[#F4F4F2] text-xs font-bold uppercase tracking-widest mb-2';
 const errorClass = 'mt-1 text-red-400 text-xs font-mono';
 
-export function Step2Market({ data, onNext, onBack, locale }: Step2Props) {
+export function Step2Market({ data, onNext, onBack }: Step2Props) {
+  const t = useTranslations('apply');
+  const tCommon = useTranslations('common');
   const [formData, setFormData] = useState({
     target_users: data.target_users || '',
     competitors: data.competitors || '',
@@ -38,23 +41,21 @@ export function Step2Market({ data, onNext, onBack, locale }: Step2Props) {
     onNext(result.data);
   };
 
-  const isJa = locale === 'ja';
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <h2 className="text-2xl font-bold font-mono text-[#F4F4F2] mb-6">
-        {isJa ? '市場' : 'Market'}
+        {t('step2.title')}
       </h2>
 
       <div>
         <label className={labelClass}>
-          {isJa ? 'ターゲットユーザーは誰ですか？' : 'Who are your target users?'}
+          {t('step2.targetUsers')}
         </label>
         <textarea
           rows={3}
           value={formData.target_users}
           onChange={(e) => setFormData({ ...formData, target_users: e.target.value })}
-          placeholder={isJa ? 'どんな人がこのプロダクトを使いますか？' : 'Who will use your product?'}
+          placeholder={t('step2.targetUsersPlaceholder')}
           className={inputClass}
         />
         {errors.target_users && <p className={errorClass}>{errors.target_users}</p>}
@@ -62,13 +63,13 @@ export function Step2Market({ data, onNext, onBack, locale }: Step2Props) {
 
       <div>
         <label className={labelClass}>
-          {isJa ? '競合他社は誰ですか？（任意）' : 'Who are your competitors? (optional)'}
+          {t('step2.competitors')}
         </label>
         <textarea
           rows={3}
           value={formData.competitors}
           onChange={(e) => setFormData({ ...formData, competitors: e.target.value })}
-          placeholder={isJa ? '既存のソリューションや競合他社...' : 'Existing solutions or competitors...'}
+          placeholder={t('step2.competitorsPlaceholder')}
           className={inputClass}
         />
         {errors.competitors && <p className={errorClass}>{errors.competitors}</p>}
@@ -76,13 +77,13 @@ export function Step2Market({ data, onNext, onBack, locale }: Step2Props) {
 
       <div>
         <label className={labelClass}>
-          {isJa ? 'どうやって収益を上げますか？' : 'How will you make money?'}
+          {t('step2.monetization')}
         </label>
         <textarea
           rows={3}
           value={formData.monetization_plan}
           onChange={(e) => setFormData({ ...formData, monetization_plan: e.target.value })}
-          placeholder={isJa ? 'サブスクリプション、手数料、広告など...' : 'Subscription, transaction fees, advertising...'}
+          placeholder={t('step2.monetizationPlaceholder')}
           className={inputClass}
         />
         {errors.monetization_plan && <p className={errorClass}>{errors.monetization_plan}</p>}
@@ -94,13 +95,13 @@ export function Step2Market({ data, onNext, onBack, locale }: Step2Props) {
           onClick={onBack}
           className="border border-[#374151] text-[#9CA3AF] font-mono px-8 py-3 rounded hover:border-[#6B7280] transition-colors"
         >
-          {isJa ? '← 戻る' : '← Back'}
+          ← {tCommon('back')}
         </button>
         <button
           type="submit"
           className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono px-8 py-3 rounded hover:bg-[#00d070] transition-colors"
         >
-          {isJa ? '次へ →' : 'Next →'}
+          {tCommon('next')} →
         </button>
       </div>
     </form>

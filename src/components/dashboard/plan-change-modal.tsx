@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Dialog,
   DialogContent,
@@ -26,20 +27,6 @@ const PLAN_PRICES: Record<'basic' | 'premium', string> = {
   premium: '¥10,000/mo',
 };
 
-const PLAN_FEATURES: Record<'basic' | 'premium', { en: string; ja: string }[]> = {
-  basic: [
-    { en: 'Hosting included', ja: 'ホスティング込み' },
-    { en: '1 small change/mo', ja: '月1回の小変更' },
-    { en: 'Prior-month PDF analytics', ja: '前月PDFアナリティクス' },
-  ],
-  premium: [
-    { en: 'Hosting included', ja: 'ホスティング込み' },
-    { en: '2 small or 1 medium change/mo', ja: '月2回の小変更または1回の中変更' },
-    { en: 'Full-year analytics dashboard', ja: '年間アナリティクスダッシュボード' },
-    { en: 'Quarterly security & SEO audits', ja: '四半期ごとのセキュリティ・SEO監査' },
-  ],
-};
-
 export function PlanChangeModal({
   currentPlan,
   commitmentStartsAt,
@@ -47,6 +34,9 @@ export function PlanChangeModal({
   open,
   onClose,
 }: PlanChangeModalProps) {
+  const t = useTranslations('plan');
+  const tBilling = useTranslations('billing');
+  const tCommon = useTranslations('common');
   const [state, setState] = useState<ModalState>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [earliestDowngradeDate, setEarliestDowngradeDate] = useState<string>('');
@@ -58,6 +48,17 @@ export function PlanChangeModal({
   const commitmentEnd = addMonths(commitmentStartsAt, 6);
   const isDowngradeLocked = !isUpgrade && commitmentEnd > new Date();
 
+  const targetFeatures: string[] = isUpgrade ? [
+    tBilling('hostingIncluded'),
+    tBilling('twoChangesPerMonth'),
+    tBilling('fullYearAnalytics'),
+    tBilling('quarterlyAudits'),
+  ] : [
+    tBilling('hostingIncluded'),
+    tBilling('oneChangePerMonth'),
+    tBilling('pdfAnalytics'),
+  ];
+
   const handleClose = () => {
     setState('idle');
     setErrorMessage('');
@@ -68,7 +69,6 @@ export function PlanChangeModal({
   const handleConfirm = async () => {
     setState('loading');
     try {
-      // The API identifies the client from the authenticated session (no clientId needed in body)
       const res = await fetch('/api/stripe/change-plan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -84,19 +84,17 @@ export function PlanChangeModal({
       }
 
       if (!res.ok) {
-        setErrorMessage(data.error ?? 'Unknown error');
+        setErrorMessage(data.error ?? tCommon('error'));
         setState('error');
         return;
       }
 
       setState('success');
     } catch {
-      setErrorMessage(locale === 'ja' ? '予期しないエラーが発生しました' : 'An unexpected error occurred');
+      setErrorMessage(t('unexpectedError'));
       setState('error');
     }
   };
-
-  const targetFeatures = PLAN_FEATURES[targetPlan];
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => { if (!isOpen) handleClose(); }}>
@@ -106,18 +104,10 @@ export function PlanChangeModal({
       >
         <DialogHeader>
           <DialogTitle className="text-[#F4F4F2] font-mono font-bold text-base">
-            {isUpgrade
-              ? locale === 'ja' ? 'Premiumにアップグレード' : 'Upgrade to Premium'
-              : locale === 'ja' ? 'Basicにダウングレード' : 'Downgrade to Basic'}
+            {isUpgrade ? t('upgradeTo') : t('downgradeTo')}
           </DialogTitle>
           <DialogDescription className="text-[#9CA3AF] font-mono text-xs">
-            {isUpgrade
-              ? locale === 'ja'
-                ? 'アップグレードすると6ヶ月のコミット期間がリセットされます'
-                : 'Upgrading will reset your 6-month commitment period'
-              : locale === 'ja'
-                ? 'Basicプランの機能に変更されます'
-                : 'You will be moved to the Basic plan features'}
+            {isUpgrade ? t('upgradeNote') : t('downgradeNote2')}
           </DialogDescription>
         </DialogHeader>
 
@@ -126,12 +116,10 @@ export function PlanChangeModal({
           {state === 'success' && (
             <div className="border border-[#00E87A]/30 bg-[#00E87A]/10 rounded-lg p-4">
               <p className="text-[#00E87A] text-sm font-mono font-bold">
-                {locale === 'ja' ? '変更が完了しました' : 'Plan changed successfully'}
+                {t('planChangedSuccess')}
               </p>
               <p className="text-[#9CA3AF] text-xs font-mono mt-1">
-                {locale === 'ja'
-                  ? '新しいプランがすぐに適用されました'
-                  : 'Your new plan takes effect immediately'}
+                {t('successMessage')}
               </p>
             </div>
           )}
@@ -140,7 +128,7 @@ export function PlanChangeModal({
           {state === 'error' && (
             <div className="border border-red-400/30 bg-red-400/10 rounded-lg p-4">
               <p className="text-red-400 text-sm font-mono font-bold">
-                {locale === 'ja' ? 'エラーが発生しました' : 'An error occurred'}
+                {t('anErrorOccurred')}
               </p>
               <p className="text-[#9CA3AF] text-xs font-mono mt-1">{errorMessage}</p>
             </div>
@@ -150,12 +138,10 @@ export function PlanChangeModal({
           {state === 'downgrade_locked' && earliestDowngradeDate && (
             <div className="border border-orange-400/30 bg-orange-400/10 rounded-lg p-4">
               <p className="text-orange-400 text-sm font-mono font-bold">
-                {locale === 'ja' ? 'ダウングレードはロックされています' : 'Downgrade locked'}
+                {t('downgradeLocked')}
               </p>
               <p className="text-[#9CA3AF] text-xs font-mono mt-1">
-                {locale === 'ja'
-                  ? `${formatDate(earliestDowngradeDate, locale)}以降にダウングレード可能です`
-                  : `You can downgrade after ${formatDate(earliestDowngradeDate, locale)}`}
+                {t('downgradeLockedAfterDate', { date: formatDate(earliestDowngradeDate, locale) })}
               </p>
             </div>
           )}
@@ -164,12 +150,10 @@ export function PlanChangeModal({
           {isDowngradeLocked && state === 'idle' && (
             <div className="border border-orange-400/30 bg-orange-400/10 rounded-lg p-4">
               <p className="text-orange-400 text-sm font-mono font-bold">
-                {locale === 'ja' ? 'ダウングレードはロックされています' : 'Downgrade locked'}
+                {t('downgradeLocked')}
               </p>
               <p className="text-[#9CA3AF] text-xs font-mono mt-1">
-                {locale === 'ja'
-                  ? `${formatDate(commitmentEnd.toISOString(), locale)}以降にダウングレード可能です`
-                  : `You can downgrade after ${formatDate(commitmentEnd.toISOString(), locale)}`}
+                {t('downgradeLockedAfterDate', { date: formatDate(commitmentEnd.toISOString(), locale) })}
               </p>
             </div>
           )}
@@ -186,7 +170,7 @@ export function PlanChangeModal({
                         : 'text-[#9CA3AF] bg-[#374151]/50 border-[#374151]'
                     }`}
                   >
-                    {targetPlan === 'premium' ? 'Premium' : 'Basic'}
+                    {targetPlan === 'premium' ? t('premiumName') : t('basicName')}
                   </span>
                 </div>
                 <span className="text-[#F4F4F2] font-mono font-bold text-sm">
@@ -195,12 +179,12 @@ export function PlanChangeModal({
               </div>
 
               <ul className="space-y-1">
-                {targetFeatures.map((f) => (
-                  <li key={f.en} className="flex items-center gap-2 text-xs font-mono text-[#9CA3AF]">
+                {targetFeatures.map((feature) => (
+                  <li key={feature} className="flex items-center gap-2 text-xs font-mono text-[#9CA3AF]">
                     <span className={targetPlan === 'premium' ? 'text-[#00E87A]' : 'text-[#6B7280]'}>
                       ✓
                     </span>
-                    {locale === 'ja' ? f.ja : f.en}
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -208,9 +192,7 @@ export function PlanChangeModal({
               {!isUpgrade && (
                 <div className="border border-[#374151] rounded-lg p-3 bg-[#0D0D0D]">
                   <p className="text-[#6B7280] text-xs font-mono">
-                    {locale === 'ja'
-                      ? 'ダウングレードするとPremiumの機能（監査、フルアナリティクス）が利用できなくなります'
-                      : 'Downgrading will remove Premium features including audits and full-year analytics'}
+                    {t('downgradeRemovedFeatures')}
                   </p>
                 </div>
               )}
@@ -224,7 +206,7 @@ export function PlanChangeModal({
               onClick={handleClose}
               className="px-4 py-2 text-xs font-mono font-bold text-[#F4F4F2] bg-[#374151] hover:bg-[#4B5563] rounded-lg transition-colors"
             >
-              {locale === 'ja' ? '閉じる' : 'Close'}
+              {tCommon('close')}
             </button>
           ) : state === 'idle' && !isDowngradeLocked ? (
             <>
@@ -232,7 +214,7 @@ export function PlanChangeModal({
                 onClick={handleClose}
                 className="px-4 py-2 text-xs font-mono text-[#9CA3AF] hover:text-[#F4F4F2] transition-colors"
               >
-                {locale === 'ja' ? 'キャンセル' : 'Cancel'}
+                {tCommon('cancel')}
               </button>
               <button
                 onClick={handleConfirm}
@@ -243,9 +225,7 @@ export function PlanChangeModal({
                     : 'bg-[#374151] text-[#F4F4F2] hover:bg-[#4B5563]'
                 }`}
               >
-                {isUpgrade
-                  ? locale === 'ja' ? 'Premiumにアップグレード' : 'Upgrade to Premium'
-                  : locale === 'ja' ? 'Basicにダウングレード' : 'Downgrade to Basic'}
+                {isUpgrade ? t('upgradeTo') : t('downgradeTo')}
               </button>
             </>
           ) : state === 'loading' ? (
@@ -253,14 +233,14 @@ export function PlanChangeModal({
               disabled
               className="px-4 py-2 text-xs font-mono font-bold text-[#6B7280] bg-[#374151] rounded-lg cursor-not-allowed"
             >
-              {locale === 'ja' ? '処理中...' : 'Processing...'}
+              {tCommon('processing')}
             </button>
           ) : (
             <button
               onClick={handleClose}
               className="px-4 py-2 text-xs font-mono font-bold text-[#F4F4F2] bg-[#374151] hover:bg-[#4B5563] rounded-lg transition-colors"
             >
-              {locale === 'ja' ? '閉じる' : 'Close'}
+              {tCommon('close')}
             </button>
           )}
         </DialogFooter>

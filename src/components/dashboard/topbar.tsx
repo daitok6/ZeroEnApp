@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { LogoutButton } from '@/components/auth/logout-button';
+import { LocaleSwitcher } from '@/components/layout/locale-switcher';
 
 export async function DashboardTopbar({ locale, label }: { locale: string; label: string }) {
   const supabase = await createClient();
@@ -21,8 +22,9 @@ export async function DashboardTopbar({ locale, label }: { locale: string; label
         </p>
       </div>
 
-      {/* Right: user info + logout */}
+      {/* Right: locale switcher + user info + logout */}
       <div className="flex items-center gap-3">
+        <LocaleSwitcher />
         <div className="flex items-center gap-2">
           {avatarUrl ? (
             // eslint-disable-next-line @next/next/no-img-element

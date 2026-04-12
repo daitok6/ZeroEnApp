@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { ClientDetailPanel } from '@/components/admin/client-detail-panel';
 import type { ClientRow, ClientHealthStatus } from '@/lib/admin/queries';
 
@@ -34,6 +35,8 @@ function formatDate(dateStr: string | null, locale: string): string {
 }
 
 export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
+  const t = useTranslations('admin');
+  const tStatus = useTranslations('common.status');
   const [clients, setClients] = useState<ClientRow[]>(initialClients);
   const [selectedClient, setSelectedClient] = useState<ClientRow | null>(null);
 
@@ -41,7 +44,7 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
     <>
       {clients.length === 0 ? (
         <div className="border border-[#374151] rounded-lg bg-[#111827] p-8 text-center">
-          <p className="text-[#6B7280] font-mono text-sm">No clients yet.</p>
+          <p className="text-[#6B7280] font-mono text-sm">{t('noClients')}</p>
         </div>
       ) : (
         <>
@@ -77,7 +80,7 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
                     <span
                       className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${STATUS_STYLES[client.projectStatus] ?? 'bg-[#374151] text-[#9CA3AF]'}`}
                     >
-                      {client.projectStatus}
+                      {tStatus(client.projectStatus as Parameters<typeof tStatus>[0])}
                     </span>
                   )}
                   {client.planTier && (
@@ -93,7 +96,7 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
                   )}
                 </div>
                 <p className="text-[#6B7280] text-xs font-mono">
-                  Last updated: {formatDate(client.projectUpdatedAt, locale)}
+                  {t('lastUpdated')}: {formatDate(client.projectUpdatedAt, locale)}
                 </p>
               </div>
             ))}
@@ -102,13 +105,13 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
           {/* Desktop: table layout */}
           <div className="hidden md:block border border-[#374151] rounded-lg overflow-hidden">
             <div className="grid grid-cols-[2fr_2fr_1fr_80px_1fr_48px] gap-4 px-4 py-2 bg-[#111827] border-b border-[#374151]">
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Client</p>
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Project</p>
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Status</p>
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Plan</p>
-              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">Last Updated</p>
+              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">{t('clientName')}</p>
+              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">{t('projectName')}</p>
+              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">{t('status')}</p>
+              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">{t('plan')}</p>
+              <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider">{t('lastUpdated')}</p>
               <p className="text-[#6B7280] text-xs font-mono uppercase tracking-wider text-center">
-                Health
+                {t('health')}
               </p>
             </div>
 
@@ -134,7 +137,7 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded ${STATUS_STYLES[client.projectStatus] ?? 'bg-[#374151] text-[#9CA3AF]'}`}
                     >
-                      {client.projectStatus}
+                      {tStatus(client.projectStatus as Parameters<typeof tStatus>[0])}
                     </span>
                   ) : (
                     <span className="text-[#6B7280] text-xs font-mono">—</span>

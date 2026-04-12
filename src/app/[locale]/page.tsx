@@ -165,7 +165,7 @@ export default async function HomePage({ params }: Props) {
           <ScrollReveal direction="up">
             <div className="mb-16 text-center">
               <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
-                Process
+                {t('processEyebrow')}
               </p>
               <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4">
                 {t('howItWorks.title')}
@@ -290,7 +290,7 @@ export default async function HomePage({ params }: Props) {
               {t('applySection.cta')}
             </Link>
             <p className="text-[#374151] font-mono text-xs">
-              No equity payment until your app launches.
+              {t('valueProp.noEquityPayment')}
             </p>
           </ScrollReveal>
         </div>

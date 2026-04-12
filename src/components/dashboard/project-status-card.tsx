@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Database } from '@/types/database';
 
 type Project = Database['public']['Tables']['projects']['Row'];
@@ -9,50 +10,52 @@ interface ProjectStatusCardProps {
   hideAdminLinks?: boolean;
 }
 
-const STATUS_LABELS: Record<string, { en: string; ja: string; color: string }> = {
-  onboarding: { en: 'Onboarding', ja: 'オンボード中', color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20' },
-  building: { en: 'Building', ja: '開発中', color: 'text-blue-400 bg-blue-400/10 border-blue-400/20' },
-  launched: { en: 'Launched', ja: 'ローンチ済み', color: 'text-[#00E87A] bg-[#00E87A]/10 border-[#00E87A]/20' },
-  operating: { en: 'Operating', ja: '運用中', color: 'text-[#00E87A] bg-[#00E87A]/10 border-[#00E87A]/20' },
-  paused: { en: 'Paused', ja: '一時停止中', color: 'text-orange-400 bg-orange-400/10 border-orange-400/20' },
-  terminated: { en: 'Terminated', ja: '終了', color: 'text-red-400 bg-red-400/10 border-red-400/20' },
-};
-
 export function ProjectStatusCard({ project, locale, hideAdminLinks = false }: ProjectStatusCardProps) {
+  const t = useTranslations('dashboard.projectStatus');
+  const tStatus = useTranslations('common.status');
+
   if (!project) {
     return (
       <div className="border border-[#374151] rounded-lg p-6 bg-[#111827]">
         <p className="text-[#00E87A] text-xs font-mono uppercase tracking-widest mb-3">
-          {locale === 'ja' ? 'プロジェクト' : 'Project'}
+          {t('title')}
         </p>
         <p className="text-[#F4F4F2] font-mono font-bold text-lg mb-2">
-          {locale === 'ja' ? 'プロジェクト準備中' : 'Project Being Set Up'}
+          {t('settingUp')}
         </p>
         <p className="text-[#9CA3AF] text-sm font-mono">
-          {locale === 'ja'
-            ? 'オンボーディング完了。プロジェクトの準備ができたらここに表示されます。'
-            : "You're all set. Your project will appear here once it's been created."}
+          {t('settingUpDesc')}
         </p>
       </div>
     );
   }
 
-  const statusInfo = STATUS_LABELS[project.status] || STATUS_LABELS.onboarding;
+  const STATUS_COLORS: Record<string, string> = {
+    onboarding: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20',
+    building: 'text-blue-400 bg-blue-400/10 border-blue-400/20',
+    launched: 'text-[#00E87A] bg-[#00E87A]/10 border-[#00E87A]/20',
+    operating: 'text-[#00E87A] bg-[#00E87A]/10 border-[#00E87A]/20',
+    paused: 'text-orange-400 bg-orange-400/10 border-orange-400/20',
+    terminated: 'text-red-400 bg-red-400/10 border-red-400/20',
+  };
+
+  const statusColor = STATUS_COLORS[project.status] ?? STATUS_COLORS.onboarding;
+  const statusLabel = tStatus(project.status as Parameters<typeof tStatus>[0]);
 
   return (
     <div className="border border-[#374151] rounded-lg p-6 bg-[#111827]">
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="min-w-0">
           <p className="text-[#00E87A] text-xs font-mono uppercase tracking-widest mb-1">
-            {locale === 'ja' ? 'プロジェクト' : 'Project'}
+            {t('title')}
           </p>
           <h2 className="text-[#F4F4F2] font-mono font-bold text-xl truncate">{project.name}</h2>
           {project.description && (
             <p className="text-[#9CA3AF] text-sm font-mono mt-1">{project.description}</p>
           )}
         </div>
-        <span className={`shrink-0 text-xs font-mono font-bold px-3 py-1 rounded border ${statusInfo.color}`}>
-          {locale === 'ja' ? statusInfo.ja : statusInfo.en}
+        <span className={`shrink-0 text-xs font-mono font-bold px-3 py-1 rounded border ${statusColor}`}>
+          {statusLabel}
         </span>
       </div>
 
@@ -66,7 +69,7 @@ export function ProjectStatusCard({ project, locale, hideAdminLinks = false }: P
             className="flex items-center gap-1.5 text-[#00E87A] font-bold text-xs font-mono hover:text-[#00E87A]/80 transition-colors"
           >
             <ExternalLink size={12} />
-            {locale === 'ja' ? 'サイトを見る' : 'View Live Site'} →
+            {t('viewSite')}
           </a>
         )}
         {!hideAdminLinks && project.github_repo && (
@@ -76,7 +79,7 @@ export function ProjectStatusCard({ project, locale, hideAdminLinks = false }: P
             rel="noopener noreferrer"
             className="text-[#9CA3AF] hover:text-[#00E87A] text-xs font-mono transition-colors"
           >
-            GitHub →
+            {t('github')}
           </a>
         )}
         {!hideAdminLinks && project.vercel_project && (
@@ -86,11 +89,11 @@ export function ProjectStatusCard({ project, locale, hideAdminLinks = false }: P
             rel="noopener noreferrer"
             className="text-[#9CA3AF] hover:text-[#00E87A] text-xs font-mono transition-colors"
           >
-            Vercel →
+            {t('vercel')}
           </a>
         )}
         <span className="text-[#6B7280] text-xs font-mono">
-          {locale === 'ja' ? '開始:' : 'Started:'}{' '}
+          {t('started')}{' '}
           {new Date(project.created_at).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US')}
         </span>
       </div>

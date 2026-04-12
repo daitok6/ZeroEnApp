@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface PayButtonProps {
   type: 'subscription' | 'per_request';
@@ -17,6 +18,7 @@ export function PayButton({
   label,
   compact = false,
 }: PayButtonProps) {
+  const tCommon = useTranslations('common');
   const [loading, setLoading] = useState(false);
 
   const handlePay = async () => {
@@ -34,7 +36,7 @@ export function PayButton({
       }
       if (url) window.location.href = url;
     } catch {
-      alert(locale === 'ja' ? 'エラーが発生しました' : 'Something went wrong');
+      alert(tCommon('somethingWentWrong'));
     } finally {
       setLoading(false);
     }

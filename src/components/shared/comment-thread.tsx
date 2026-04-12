@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useTranslations } from 'next-intl';
 import { Send } from 'lucide-react';
 
 interface Comment {
@@ -18,6 +19,7 @@ interface CommentThreadProps {
 }
 
 export function CommentThread({ requestId, currentUserId, locale }: CommentThreadProps) {
+  const t = useTranslations('comments');
   const [comments, setComments] = useState<Comment[]>([]);
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
@@ -31,10 +33,10 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
       setComments(await res.json());
       setFetchError('');
     } else {
-      setFetchError(locale === 'ja' ? 'コメントの読み込みに失敗しました' : 'Failed to load comments');
+      setFetchError(t('loadError'));
     }
     setLoading(false);
-  }, [requestId, locale]);
+  }, [requestId, t]);
 
   useEffect(() => {
     fetchComments();
@@ -55,25 +57,23 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
       await fetchComments();
     } else {
       const data = await res.json().catch(() => ({}));
-      setPostError(data.error ?? (locale === 'ja' ? '送信に失敗しました' : 'Failed to send comment'));
+      setPostError(data.error ?? t('sendError'));
     }
     setSubmitting(false);
   }
-
-  const isJa = locale === 'ja';
 
   return (
     <div className="space-y-3">
       {loading ? (
         <p className="text-[#6B7280] text-xs font-mono">
-          {isJa ? '読み込み中…' : 'Loading…'}
+          {t('loading')}
         </p>
       ) : (
         <>
           {fetchError && <p className="text-red-400 text-xs font-mono">{fetchError}</p>}
           {comments.length === 0 && (
             <p className="text-[#6B7280] text-xs font-mono">
-              {isJa ? 'コメントはまだありません' : 'No comments yet'}
+              {t('empty')}
             </p>
           )}
           <div className="space-y-2" aria-live="polite" aria-relevant="additions">
@@ -94,12 +94,12 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
                       {isAdmin
                         ? 'ZeroEn'
                         : isOwn
-                          ? (c.author?.full_name ?? (isJa ? 'あなた' : 'You'))
-                          : (c.author?.full_name ?? (isJa ? '匿名' : 'User'))}
+                          ? (c.author?.full_name ?? t('you'))
+                          : (c.author?.full_name ?? t('user'))}
                     </span>
                     {isOwn && !isAdmin && (
                       <span className="text-[#374151] text-[10px] font-mono">
-                        ({isJa ? 'あなた' : 'you'})
+                        ({t('you')})
                       </span>
                     )}
                     <span className="text-[#374151] text-[10px] font-mono ml-auto">
@@ -121,14 +121,14 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
           type="text"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder={isJa ? 'コメントを入力…' : 'Add a comment…'}
+          placeholder={t('placeholder')}
           className="flex-1 bg-[#0D0D0D] border border-[#374151] rounded px-3 py-2 text-xs font-mono text-[#F4F4F2] placeholder-[#6B7280] focus:outline-none focus:border-[#00E87A]/50 min-w-0"
         />
         <button
           type="submit"
           disabled={!content.trim() || submitting}
           className="shrink-0 p-2 rounded bg-[#00E87A]/10 border border-[#00E87A]/30 text-[#00E87A] hover:bg-[#00E87A]/20 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          aria-label={isJa ? '送信' : 'Send'}
+          aria-label={t('sendAria')}
         >
           <Send className="w-3.5 h-3.5" />
         </button>

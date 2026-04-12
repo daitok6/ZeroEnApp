@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 export function NewsletterForm({ locale }: { locale: string }) {
+  const t = useTranslations('footer.newsletter');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
@@ -29,7 +31,7 @@ export function NewsletterForm({ locale }: { locale: string }) {
   if (status === 'success') {
     return (
       <p className="text-[#00E87A] text-sm font-mono">
-        {locale === 'ja' ? '登録しました！' : 'Subscribed!'}
+        {t('subscribed')}
       </p>
     );
   }
@@ -49,7 +51,7 @@ export function NewsletterForm({ locale }: { locale: string }) {
         disabled={status === 'loading'}
         className="bg-[#00E87A] text-[#0D0D0D] text-xs font-bold px-3 py-2 rounded tracking-wider uppercase hover:bg-[#00E87A]/90 transition-colors disabled:opacity-50"
       >
-        {locale === 'ja' ? '登録' : 'Join'}
+        {t('join')}
       </button>
     </form>
   );

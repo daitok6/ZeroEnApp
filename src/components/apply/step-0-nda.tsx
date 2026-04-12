@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { step0Schema } from '@/lib/validations/application';
 import type { ApplicationFormData } from '@/lib/validations/application';
 
@@ -14,46 +15,32 @@ interface Step0Props {
 const errorClass = 'mt-1 text-red-400 text-xs font-mono';
 
 export function Step0Nda({ data, onNext, locale }: Step0Props) {
+  const t = useTranslations('apply');
+  const tCommon = useTranslations('common');
   const [accepted, setAccepted] = useState<boolean>(data.nda_accepted === true);
   const [error, setError] = useState('');
-
-  const isJa = locale === 'ja';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = step0Schema.safeParse({ nda_accepted: accepted || undefined });
     if (!result.success) {
-      setError(result.error.issues[0]?.message ?? 'You must agree to the confidentiality agreement');
+      setError(result.error.issues[0]?.message ?? t('step0.ndaError'));
       return;
     }
     setError('');
     onNext({ nda_accepted: true });
   };
 
-  const points = isJa
-    ? [
-        '書面による合意なしに、あなたのアイデアを共有・複製・使用しません',
-        'これは相互のものです — 私たちも同じ条件に縛られています',
-        'いつでも全データの削除を依頼できます',
-        '不採択の申し込みは30日以内に削除されます',
-      ]
-    : [
-        'We will not share, copy, or use your idea without written agreement',
-        "This is mutual — we're bound by the same terms",
-        'You can request deletion of all your data at any time',
-        'Rejected applications are wiped within 30 days',
-      ];
+  const points = t.raw('step0.points') as string[];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold font-mono text-[#F4F4F2] mb-2">
-          {isJa ? 'アイデアを共有する前に' : 'Before you share your idea'}
+          {t('step0.title')}
         </h2>
         <p className="text-[#9CA3AF] text-sm font-mono">
-          {isJa
-            ? 'あなたの信頼を大切にします。私たちの約束：'
-            : 'We take your trust seriously. Here\'s our commitment:'}
+          {t('step0.subtitle')}
         </p>
       </div>
 
@@ -72,7 +59,7 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
           target="_blank"
           className="text-[#00E87A] text-xs font-mono underline underline-offset-2 hover:text-[#00d070]"
         >
-          {isJa ? '秘密保持条項の全文を読む →' : 'Read full confidentiality terms →'}
+          {t('step0.linkText')} →
         </Link>
       </div>
 
@@ -103,9 +90,7 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
             </div>
           </div>
           <span className="text-[#F4F4F2] text-sm font-mono leading-relaxed">
-            {isJa
-              ? '相互秘密保持契約を読み、同意しました'
-              : "I've read and agree to the mutual confidentiality agreement"}
+            {t('step0.checkboxLabel')}
           </span>
         </label>
         {error && <p className={errorClass}>{error}</p>}
@@ -117,7 +102,7 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
           disabled={!accepted}
           className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono px-8 py-3 rounded hover:bg-[#00d070] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {isJa ? '申し込みを続ける →' : 'Continue to application →'}
+          {t('step0.continueButton')}
         </button>
       </div>
     </form>

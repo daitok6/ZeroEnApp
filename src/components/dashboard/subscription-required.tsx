@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Lock } from 'lucide-react';
 
 interface SubscriptionRequiredProps {
@@ -6,7 +7,7 @@ interface SubscriptionRequiredProps {
 }
 
 export function SubscriptionRequired({ locale }: SubscriptionRequiredProps) {
-  const isJa = locale === 'ja';
+  const t = useTranslations('billing');
 
   return (
     <div className="max-w-2xl">
@@ -18,19 +19,17 @@ export function SubscriptionRequired({ locale }: SubscriptionRequiredProps) {
         </div>
         <div className="space-y-2">
           <p className="text-[#F4F4F2] font-mono font-bold text-sm">
-            {isJa ? 'この機能にアクセスするには登録が必要です' : 'Subscribe to access this feature'}
+            {t('subscribeToAccess')}
           </p>
           <p className="text-[#6B7280] text-xs font-mono leading-relaxed">
-            {isJa
-              ? 'プランを選択してサブスクリプションを開始してください。'
-              : 'Choose a plan and start your subscription to unlock this section.'}
+            {t('subscribeToAccessDesc')}
           </p>
         </div>
         <Link
           href={`/${locale}/dashboard`}
           className="inline-block bg-[#00E87A] text-[#0D0D0D] font-bold font-mono uppercase tracking-widest text-xs px-6 py-2.5 rounded hover:bg-[#00E87A]/90 transition-colors"
         >
-          {isJa ? 'プランを選択する' : 'Choose a Plan'}
+          {t('choosePlan')}
         </Link>
       </div>
     </div>

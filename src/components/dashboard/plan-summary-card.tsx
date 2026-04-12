@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { PlanChangeTrigger } from './plan-change-trigger';
 import { addMonths, formatDate } from '@/lib/date-utils';
 
@@ -12,25 +13,21 @@ const PLAN_PRICES: Record<'basic' | 'premium', string> = {
   premium: '¥10,000/mo',
 };
 
-const PLAN_FEATURES: Record<'basic' | 'premium', { en: string; ja: string }[]> = {
-  basic: [
-    { en: 'Hosting included', ja: 'ホスティング込み' },
-    { en: '1 small change/mo', ja: '月1回の小変更' },
-    { en: 'Prior-month PDF analytics', ja: '前月PDFアナリティクス' },
-  ],
-  premium: [
-    { en: 'Hosting included', ja: 'ホスティング込み' },
-    { en: '2 small or 1 medium change/mo', ja: '月2回の小変更または1回の中変更' },
-    { en: 'Full-year analytics dashboard', ja: '年間アナリティクスダッシュボード' },
-    { en: 'Quarterly security & SEO audits', ja: '四半期ごとのセキュリティ・SEO監査' },
-  ],
-};
-
 export function PlanSummaryCard({ planTier, commitmentStartsAt, locale }: PlanSummaryCardProps) {
+  const tBilling = useTranslations('billing');
   const commitmentEnd = addMonths(commitmentStartsAt, 6);
-
-  const features = PLAN_FEATURES[planTier];
   const isPremium = planTier === 'premium';
+
+  const features: string[] = isPremium ? [
+    tBilling('hostingIncluded'),
+    tBilling('twoChangesPerMonth'),
+    tBilling('fullYearAnalytics'),
+    tBilling('quarterlyAudits'),
+  ] : [
+    tBilling('hostingIncluded'),
+    tBilling('oneChangePerMonth'),
+    tBilling('pdfAnalytics'),
+  ];
 
   return (
     <div className="bg-[#111827] border border-[#374151] rounded-lg p-6 flex flex-col gap-4">
@@ -38,7 +35,7 @@ export function PlanSummaryCard({ planTier, commitmentStartsAt, locale }: PlanSu
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest mb-2">
-            {locale === 'ja' ? '現在のプラン' : 'Current Plan'}
+            {tBilling('currentPlanLabel')}
           </p>
           <div className="flex items-center gap-2">
             <span
@@ -59,10 +56,10 @@ export function PlanSummaryCard({ planTier, commitmentStartsAt, locale }: PlanSu
 
       {/* Features */}
       <ul className="space-y-1.5">
-        {features.map((f) => (
-          <li key={f.en} className="flex items-center gap-2 text-xs font-mono text-[#9CA3AF]">
+        {features.map((feature) => (
+          <li key={feature} className="flex items-center gap-2 text-xs font-mono text-[#9CA3AF]">
             <span className={isPremium ? 'text-[#00E87A]' : 'text-[#6B7280]'}>✓</span>
-            {locale === 'ja' ? f.ja : f.en}
+            {feature}
           </li>
         ))}
       </ul>
@@ -70,18 +67,14 @@ export function PlanSummaryCard({ planTier, commitmentStartsAt, locale }: PlanSu
       {/* Commitment */}
       <div className="border-t border-[#374151] pt-4 space-y-1">
         <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest mb-2">
-          {locale === 'ja' ? 'コミット期間' : 'Commitment'}
+          {tBilling('commitmentPeriod')}
         </p>
         <p className="text-[#9CA3AF] text-xs font-mono">
-          <span className="text-[#6B7280]">
-            {locale === 'ja' ? '開始: ' : 'Started: '}
-          </span>
+          <span className="text-[#6B7280]">{tBilling('started')} </span>
           <span className="text-[#F4F4F2]">{formatDate(commitmentStartsAt, locale)}</span>
         </p>
         <p className="text-[#9CA3AF] text-xs font-mono">
-          <span className="text-[#6B7280]">
-            {locale === 'ja' ? '最短終了日: ' : 'Minimum term ends: '}
-          </span>
+          <span className="text-[#6B7280]">{tBilling('minimumTermEnds')} </span>
           <span className="text-[#F4F4F2]">{formatDate(commitmentEnd.toISOString(), locale)}</span>
         </p>
       </div>

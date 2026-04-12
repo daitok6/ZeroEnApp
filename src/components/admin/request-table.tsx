@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { ChevronDown, ChevronUp, MessageCircle } from 'lucide-react';
 import { SendInvoicePanel } from './send-invoice-panel';
 import { CommentThread } from '@/components/shared/comment-thread';
@@ -9,13 +10,7 @@ import type { RequestRow } from '@/lib/admin/requests';
 
 type Tab = 'all' | 'needs_review' | 'quoted' | 'in_progress' | 'completed';
 
-const TABS: { key: Tab; labelEn: string; labelJa: string }[] = [
-  { key: 'all', labelEn: 'All', labelJa: 'すべて' },
-  { key: 'needs_review', labelEn: 'Needs Review', labelJa: '要確認' },
-  { key: 'quoted', labelEn: 'Quoted', labelJa: '見積済み' },
-  { key: 'in_progress', labelEn: 'In Progress', labelJa: '進行中' },
-  { key: 'completed', labelEn: 'Completed', labelJa: '完了' },
-];
+const TABS: Tab[] = ['all', 'needs_review', 'quoted', 'in_progress', 'completed'];
 
 const STATUS_COLORS: Record<string, string> = {
   submitted: 'text-blue-400 border-blue-400/30',
@@ -25,16 +20,6 @@ const STATUS_COLORS: Record<string, string> = {
   in_progress: 'text-[#00E87A] border-[#00E87A]/30',
   completed: 'text-[#6B7280] border-[#6B7280]/30',
   rejected: 'text-red-400 border-red-400/30',
-};
-
-const STATUS_LABELS: Record<string, { en: string; ja: string }> = {
-  submitted: { en: 'Submitted', ja: '送信済み' },
-  reviewing: { en: 'Reviewing', ja: '確認中' },
-  quoted: { en: 'Quoted', ja: '見積済み' },
-  approved: { en: 'Approved', ja: '承認済み' },
-  in_progress: { en: 'In Progress', ja: '進行中' },
-  completed: { en: 'Completed', ja: '完了' },
-  rejected: { en: 'Rejected', ja: '却下' },
 };
 
 function tabFilter(tab: Tab, status: string): boolean {
@@ -54,13 +39,42 @@ interface RequestTableProps {
 
 export function RequestTable({ requests, locale, adminUserId }: RequestTableProps) {
   const router = useRouter();
-  const isJa = locale === 'ja';
+  const t = useTranslations('admin');
+  const tCommon = useTranslations('common');
+  const tStatus = useTranslations('common.status');
   const [activeTab, setActiveTab] = useState<Tab>('all');
   const [panelRequest, setPanelRequest] = useState<RequestRow | null>(null);
   const [expandedComments, setExpandedComments] = useState<Set<string>>(new Set());
   const [statusLoading, setStatusLoading] = useState<string | null>(null);
 
   const filtered = requests.filter((r) => tabFilter(activeTab, r.status));
+
+  function getTabLabel(tab: Tab): string {
+    switch (tab) {
+      case 'all': return tCommon('all');
+      case 'needs_review': return t('needsReview');
+      case 'quoted': return tStatus('quoted');
+      case 'in_progress': return tStatus('inProgress');
+      case 'completed': return tStatus('completed');
+    }
+  }
+
+  function getStatusLabel(status: string): string {
+    const key = status === 'in_progress' ? 'inProgress' : status;
+    try {
+      return tStatus(key as Parameters<typeof tStatus>[0]);
+    } catch {
+      return status;
+    }
+  }
+
+  function getActionLabel(req: RequestRow): string | null {
+    if (req.status === 'submitted') return t('markReviewing');
+    if (req.status === 'reviewing') return t('sendInvoice');
+    if (req.status === 'approved') return t('markInProgress');
+    if (req.status === 'in_progress') return t('markComplete');
+    return null;
+  }
 
   function toggleComments(id: string) {
     setExpandedComments((prev) => {
@@ -102,17 +116,17 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
       <div className="flex gap-1 flex-wrap mb-4">
         {TABS.map((tab) => (
           <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
+            key={tab}
+            onClick={() => setActiveTab(tab)}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
-              activeTab === tab.key
+              activeTab === tab
                 ? 'bg-[#00E87A]/10 text-[#00E87A] border border-[#00E87A]/30'
                 : 'text-[#6B7280] border border-[#374151] hover:border-[#6B7280]'
             }`}
           >
-            {isJa ? tab.labelJa : tab.labelEn}
-            {tabCounts[tab.key] > 0 && (
-              <span className="ml-1.5 opacity-70">{tabCounts[tab.key]}</span>
+            {getTabLabel(tab)}
+            {tabCounts[tab] > 0 && (
+              <span className="ml-1.5 opacity-70">{tabCounts[tab]}</span>
             )}
           </button>
         ))}
@@ -121,16 +135,16 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
       {filtered.length === 0 ? (
         <div className="border border-[#374151] rounded-lg bg-[#111827] p-8 text-center">
           <p className="text-[#6B7280] font-mono text-sm">
-            {isJa ? 'リクエストはありません' : 'No requests'}
+            {t('noRequests')}
           </p>
         </div>
       ) : (
         <div className="space-y-2">
           {filtered.map((req) => {
-            const statusInfo = STATUS_LABELS[req.status] ?? { en: req.status, ja: req.status };
             const statusColor = STATUS_COLORS[req.status] ?? 'text-[#6B7280] border-[#6B7280]/30';
             const commentsOpen = expandedComments.has(req.id);
             const isLoading = statusLoading === req.id;
+            const actionLabel = getActionLabel(req);
 
             return (
               <div
@@ -144,7 +158,7 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-[#F4F4F2] text-sm font-mono font-bold">{req.title}</p>
                       <span className={`shrink-0 text-[10px] font-mono border px-2 py-0.5 rounded ${statusColor}`}>
-                        {isJa ? statusInfo.ja : statusInfo.en}
+                        {getStatusLabel(req.status)}
                       </span>
                     </div>
                     <p className="text-[#9CA3AF] text-xs font-mono">
@@ -162,10 +176,10 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                       </span>
                     </div>
                     <div className="flex gap-2 flex-wrap pt-1">
-                      <ActionButton req={req} isJa={isJa} isLoading={isLoading} updateStatus={updateStatus} setPanelRequest={setPanelRequest} />
+                      <ActionButton req={req} actionLabel={actionLabel} isLoading={isLoading} updateStatus={updateStatus} setPanelRequest={setPanelRequest} />
                       <button
                         onClick={() => toggleComments(req.id)}
-                        aria-label={isJa ? 'コメントを表示' : 'Toggle comments'}
+                        aria-label={t('discussion')}
                         className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono border border-[#374151] text-[#9CA3AF] rounded hover:border-[#6B7280] transition-colors"
                       >
                         <MessageCircle className="w-3 h-3" />
@@ -187,7 +201,7 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                     <p className="text-[#6B7280] text-xs font-mono line-clamp-2 self-center">{req.description}</p>
                     <div className="self-center">
                       <span className={`text-[10px] font-mono border px-2 py-0.5 rounded ${statusColor}`}>
-                        {isJa ? statusInfo.ja : statusInfo.en}
+                        {getStatusLabel(req.status)}
                       </span>
                     </div>
                     <div className="self-center">
@@ -200,10 +214,10 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                       )}
                     </div>
                     <div className="flex items-center gap-2 self-center">
-                      <ActionButton req={req} isJa={isJa} isLoading={isLoading} updateStatus={updateStatus} setPanelRequest={setPanelRequest} />
+                      <ActionButton req={req} actionLabel={actionLabel} isLoading={isLoading} updateStatus={updateStatus} setPanelRequest={setPanelRequest} />
                       <button
                         onClick={() => toggleComments(req.id)}
-                        aria-label={isJa ? 'コメントを表示' : 'Toggle comments'}
+                        aria-label={t('discussion')}
                         className="flex items-center gap-1 p-1.5 text-[#6B7280] hover:text-[#9CA3AF] border border-transparent hover:border-[#374151] rounded transition-colors"
                       >
                         <MessageCircle className="w-3.5 h-3.5" />
@@ -219,7 +233,7 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                 {commentsOpen && (
                   <div className="border-t border-[#374151] bg-[#0D0D0D]/60 px-4 py-4">
                     <p className="text-[#6B7280] text-[10px] font-mono uppercase tracking-wider mb-3">
-                      {isJa ? 'コメント' : 'Discussion'}
+                      {t('discussion')}
                     </p>
                     <CommentThread
                       requestId={req.id}
@@ -248,13 +262,13 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
 
 function ActionButton({
   req,
-  isJa,
+  actionLabel,
   isLoading,
   updateStatus,
   setPanelRequest,
 }: {
   req: RequestRow;
-  isJa: boolean;
+  actionLabel: string | null;
   isLoading: boolean;
   updateStatus: (id: string, status: string) => Promise<void>;
   setPanelRequest: (r: RequestRow) => void;
@@ -266,7 +280,7 @@ function ActionButton({
         disabled={isLoading}
         className="px-3 py-1.5 text-xs font-mono rounded border border-yellow-400/30 text-yellow-400 hover:bg-yellow-400/10 disabled:opacity-50 transition-colors"
       >
-        {isLoading ? '…' : (isJa ? '確認中にする' : 'Mark Reviewing')}
+        {isLoading ? '…' : actionLabel}
       </button>
     );
   }
@@ -276,7 +290,7 @@ function ActionButton({
         onClick={() => setPanelRequest(req)}
         className="px-3 py-1.5 text-xs font-mono rounded border border-[#00E87A]/30 text-[#00E87A] hover:bg-[#00E87A]/10 transition-colors"
       >
-        {isJa ? '請求書を送信' : 'Send Invoice'}
+        {actionLabel}
       </button>
     );
   }
@@ -287,7 +301,7 @@ function ActionButton({
         disabled={isLoading}
         className="px-3 py-1.5 text-xs font-mono rounded border border-blue-400/30 text-blue-400 hover:bg-blue-400/10 disabled:opacity-50 transition-colors"
       >
-        {isLoading ? '…' : (isJa ? '進行中にする' : 'Mark In Progress')}
+        {isLoading ? '…' : actionLabel}
       </button>
     );
   }
@@ -298,7 +312,7 @@ function ActionButton({
         disabled={isLoading}
         className="px-3 py-1.5 text-xs font-mono rounded border border-[#6B7280]/30 text-[#6B7280] hover:bg-[#6B7280]/10 disabled:opacity-50 transition-colors"
       >
-        {isLoading ? '…' : (isJa ? '完了にする' : 'Mark Complete')}
+        {isLoading ? '…' : actionLabel}
       </button>
     );
   }

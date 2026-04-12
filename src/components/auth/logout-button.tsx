@@ -1,10 +1,12 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 import { LogOut } from 'lucide-react';
 
 export function LogoutButton({ locale }: { locale: string }) {
+  const t = useTranslations('auth');
   const supabase = createClient();
   const router = useRouter();
 
@@ -18,11 +20,11 @@ export function LogoutButton({ locale }: { locale: string }) {
     <button
       onClick={handleLogout}
       className="flex items-center gap-2 text-[#9CA3AF] hover:text-[#F4F4F2] text-xs font-mono transition-colors p-2 rounded hover:bg-[#1F2937]"
-      aria-label="Log out"
+      aria-label={t('logout')}
     >
       <LogOut size={14} />
       <span className="hidden md:inline">
-        {locale === 'ja' ? 'ログアウト' : 'Log out'}
+        {t('logout')}
       </span>
     </button>
   );

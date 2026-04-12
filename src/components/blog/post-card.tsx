@@ -1,12 +1,6 @@
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import type { PostMeta } from '@/lib/mdx/utils';
-
-const CATEGORY_LABELS: Record<string, { en: string; ja: string }> = {
-  'build-update': { en: 'Build Update', ja: 'ビルド更新' },
-  'case-study': { en: 'Case Study', ja: 'ケーススタディ' },
-  'operator-log': { en: 'Operator Log', ja: 'オペレーターログ' },
-  'tutorial': { en: 'Tutorial', ja: 'チュートリアル' },
-};
 
 interface PostCardProps {
   post: PostMeta;
@@ -14,13 +8,16 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, locale }: PostCardProps) {
+  const t = useTranslations('blog');
+  const tCategories = useTranslations('blog.categories');
+
   const formattedDate = new Date(post.date).toLocaleDateString(
     locale === 'ja' ? 'ja-JP' : 'en-US',
     { year: 'numeric', month: 'long', day: 'numeric' },
   );
 
   const categoryLabel = post.category
-    ? (CATEGORY_LABELS[post.category]?.[locale as 'en' | 'ja'] ?? post.category)
+    ? tCategories(post.category as Parameters<typeof tCategories>[0])
     : null;
 
   return (
@@ -47,7 +44,7 @@ export function PostCard({ post, locale }: PostCardProps) {
         {post.excerpt}
       </p>
       <p className="text-[#00E87A] text-xs font-mono mt-4">
-        {locale === 'ja' ? '続きを読む →' : 'Read more →'}
+        {t('readMore')}
       </p>
     </Link>
   );

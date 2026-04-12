@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { ProgressBar } from './progress-bar';
 import { Step0Nda } from './step-0-nda';
 import { Step1Idea } from './step-1-idea';
@@ -14,6 +15,7 @@ import { TypingEffect } from '@/components/marketing/typing-effect';
 const TOTAL_STEPS = 5;
 
 export function ApplyWizard({ locale }: { locale: string }) {
+  const t = useTranslations('apply');
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Partial<ApplicationFormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,10 +42,10 @@ export function ApplyWizard({ locale }: { locale: string }) {
       if (res.ok) {
         setIsSuccess(true);
       } else {
-        setError(json.error || 'Something went wrong. Please try again.');
+        setError(json.error || t('wizard.somethingWentWrong'));
       }
     } catch {
-      setError('Network error. Please try again.');
+      setError(t('wizard.networkError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -57,8 +59,8 @@ export function ApplyWizard({ locale }: { locale: string }) {
             <p className="text-[#00E87A] font-mono text-sm">$ application --submit</p>
             <TypingEffect
               texts={[
-                locale === 'ja' ? '申し込みを受け取りました。' : 'Application received.',
-                locale === 'ja' ? '3〜5営業日以内にご連絡します。' : "We'll be in touch within 3-5 business days.",
+                t('wizard.received'),
+                t('wizard.inTouch'),
               ]}
               typingSpeed={40}
               loop={false}

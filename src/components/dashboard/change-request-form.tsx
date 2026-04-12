@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { createClient } from '@/lib/supabase/client';
 
 interface ChangeRequestFormProps {
@@ -9,6 +10,7 @@ interface ChangeRequestFormProps {
 }
 
 export function ChangeRequestForm({ projectId, locale }: ChangeRequestFormProps) {
+  const t = useTranslations('requests');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [tier, setTier] = useState<'small' | 'medium' | 'large' | ''>('');
@@ -38,7 +40,6 @@ export function ChangeRequestForm({ projectId, locale }: ChangeRequestFormProps)
       setTitle('');
       setDescription('');
       setTier('');
-      // Reset after 3 seconds
       setTimeout(() => setStatus('idle'), 3000);
     }
   };
@@ -49,27 +50,27 @@ export function ChangeRequestForm({ projectId, locale }: ChangeRequestFormProps)
   return (
     <form onSubmit={handleSubmit} className="border border-[#374151] rounded-lg p-5 bg-[#111827] space-y-4">
       <p className="text-[#F4F4F2] text-sm font-mono font-bold">
-        {locale === 'ja' ? '新しいリクエスト' : 'New Request'}
+        {t('newRequest')}
       </p>
 
       <div>
-        <label className={labelClass}>{locale === 'ja' ? 'タイトル' : 'Title'}</label>
+        <label className={labelClass}>{t('formTitle')}</label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder={locale === 'ja' ? '変更内容を簡潔に' : 'Brief description of the change'}
+          placeholder={t('formTitlePlaceholder')}
           required
           className={inputClass}
         />
       </div>
 
       <div>
-        <label className={labelClass}>{locale === 'ja' ? '詳細' : 'Description'}</label>
+        <label className={labelClass}>{t('formDescription')}</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder={locale === 'ja' ? '変更内容の詳細を記入してください' : 'Describe the change in detail'}
+          placeholder={t('formDescriptionPlaceholder')}
           rows={3}
           required
           className={`${inputClass} resize-none`}
@@ -77,29 +78,29 @@ export function ChangeRequestForm({ projectId, locale }: ChangeRequestFormProps)
       </div>
 
       <div>
-        <label className={labelClass}>{locale === 'ja' ? '規模' : 'Estimated Size'}</label>
+        <label className={labelClass}>{t('formSize')}</label>
         <select
           value={tier}
           onChange={(e) => setTier(e.target.value as 'small' | 'medium' | 'large')}
           required
           className={inputClass}
         >
-          <option value="" disabled>{locale === 'ja' ? '規模を選択' : 'Select size'}</option>
-          <option value="small">{locale === 'ja' ? 'スモール ($50-100)' : 'Small ($50-100)'}</option>
-          <option value="medium">{locale === 'ja' ? 'ミディアム ($200-500)' : 'Medium ($200-500)'}</option>
-          <option value="large">{locale === 'ja' ? 'ラージ ($500-2,000)' : 'Large ($500-2,000)'}</option>
+          <option value="" disabled>{t('formSizePlaceholder')}</option>
+          <option value="small">{t('sizeSmall')}</option>
+          <option value="medium">{t('sizeMedium')}</option>
+          <option value="large">{t('sizeLarge')}</option>
         </select>
       </div>
 
       {status === 'error' && (
         <p className="text-red-400 text-xs font-mono">
-          {locale === 'ja' ? '送信に失敗しました。もう一度お試しください。' : 'Failed to submit. Please try again.'}
+          {t('submitError')}
         </p>
       )}
 
       {status === 'success' && (
         <p className="text-[#00E87A] text-xs font-mono">
-          {locale === 'ja' ? 'リクエストを送信しました！' : 'Request submitted!'}
+          {t('submitSuccess')}
         </p>
       )}
 
@@ -108,9 +109,7 @@ export function ChangeRequestForm({ projectId, locale }: ChangeRequestFormProps)
         disabled={status === 'submitting' || !title.trim() || !description.trim() || !tier}
         className="w-full bg-[#00E87A] text-[#0D0D0D] text-xs font-bold py-2.5 rounded tracking-widest uppercase hover:bg-[#00E87A]/90 transition-colors disabled:opacity-50"
       >
-        {status === 'submitting'
-          ? (locale === 'ja' ? '送信中...' : 'Submitting...')
-          : (locale === 'ja' ? 'リクエストを送信' : 'Submit Request')}
+        {status === 'submitting' ? t('submitting') : t('submitButton')}
       </button>
     </form>
   );

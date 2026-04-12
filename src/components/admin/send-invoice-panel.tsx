@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { X } from 'lucide-react';
 import type { RequestRow } from '@/lib/admin/requests';
 
@@ -13,7 +14,8 @@ interface SendInvoicePanelProps {
 
 export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelProps) {
   const router = useRouter();
-  const isJa = locale === 'ja';
+  const t = useTranslations('admin');
+  const tCommon = useTranslations('common');
 
   const defaultAmount = request.estimatedCostCents !== null
     ? String(request.estimatedCostCents / 100)
@@ -38,11 +40,11 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
     setError('');
     const amountCents = Math.round(parseFloat(amountDollars || '0') * 100);
     if (isNaN(amountCents) || amountCents < 0) {
-      setError(isJa ? '有効な金額を入力してください' : 'Enter a valid amount');
+      setError(t('invalidAmount'));
       return;
     }
     if (!description.trim()) {
-      setError(isJa ? '説明を入力してください' : 'Enter a description');
+      setError(t('enterDescription'));
       return;
     }
     setSubmitting(true);
@@ -60,7 +62,7 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
       onClose();
     } else {
       const data = await res.json().catch(() => ({}));
-      setError(data.error ?? (isJa ? 'エラーが発生しました' : 'Something went wrong'));
+      setError(data.error ?? tCommon('somethingWentWrong'));
       setSubmitting(false);
     }
   }
@@ -83,13 +85,13 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
         <div className="flex items-start justify-between gap-3">
           <div>
             <h2 id="invoice-dialog-title" className="text-[#F4F4F2] text-sm font-bold font-heading">
-              {isJa ? '請求書を送信' : 'Send Invoice'}
+              {t('sendInvoice')}
             </h2>
             <p className="text-[#6B7280] text-xs font-mono mt-0.5 line-clamp-1">
               {request.title}
             </p>
           </div>
-          <button onClick={onClose} aria-label={isJa ? '閉じる' : 'Close'} className="text-[#6B7280] hover:text-[#F4F4F2] transition-colors shrink-0">
+          <button onClick={onClose} aria-label={tCommon('close')} className="text-[#6B7280] hover:text-[#F4F4F2] transition-colors shrink-0">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -102,7 +104,7 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-[#6B7280] text-xs font-mono uppercase tracking-wider mb-1.5">
-              {isJa ? '金額 (USD)' : 'Amount (USD)'}
+              {t('amount')}
             </label>
             <div className="flex items-center gap-2">
               <span className="text-[#6B7280] font-mono text-sm">$</span>
@@ -118,13 +120,13 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
               />
             </div>
             <p className="text-[#6B7280] text-[10px] font-mono mt-1">
-              {isJa ? '$0 = 無料（プランに含む）' : '$0 = included in plan, no payment required'}
+              {t('amountHelper')}
             </p>
           </div>
 
           <div>
             <label className="block text-[#6B7280] text-xs font-mono uppercase tracking-wider mb-1.5">
-              {isJa ? '説明' : 'Description'}
+              {t('description')}
             </label>
             <input
               type="text"
@@ -136,7 +138,7 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
 
           <div>
             <label className="block text-[#6B7280] text-xs font-mono uppercase tracking-wider mb-1.5">
-              {isJa ? '期日（任意）' : 'Due Date (optional)'}
+              {t('dueDate')}
             </label>
             <input
               type="date"
@@ -155,9 +157,7 @@ export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelP
             disabled={submitting}
             className="w-full py-2.5 rounded-lg bg-[#00E87A] text-[#0D0D0D] text-sm font-mono font-bold hover:bg-[#00E87A]/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {submitting
-              ? (isJa ? '送信中…' : 'Sending…')
-              : (isJa ? '請求書を送信する' : 'Send Invoice')}
+            {submitting ? t('sending') : t('sendInvoice')}
           </button>
         </form>
       </div>

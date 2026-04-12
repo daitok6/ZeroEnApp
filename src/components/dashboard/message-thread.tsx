@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import { createClient } from '@/lib/supabase/client';
 import { Send } from 'lucide-react';
 
@@ -22,6 +23,7 @@ interface MessageThreadProps {
 }
 
 export function MessageThread({ initialMessages, projectId, userId, locale, adminLastReadAt }: MessageThreadProps) {
+  const t = useTranslations('messages');
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [newMessage, setNewMessage] = useState('');
   const [sending, setSending] = useState(false);
@@ -32,8 +34,6 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
   // Subscribe to new messages via Realtime
   useEffect(() => {
     const supabase = supabaseRef.current;
-    // Suffix generated inside effect so each effect invocation (including
-    // React strict-mode's double-mount) gets a truly unique channel name.
     const suffix = Math.random().toString(36).slice(2, 10);
     const channelName = `messages-${projectId}-${suffix}`;
 
@@ -59,7 +59,6 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
       { user_id: userId, project_id: projectId, last_read_at: new Date().toISOString() },
       { onConflict: 'user_id,project_id' }
     ).then(() => {
-      // Notify UnreadBadge in the nav sidebar to zero out this project's count
       window.dispatchEvent(new CustomEvent('zeroen:message-read', { detail: { projectId } }));
     });
   }, [projectId, userId, messages.length]);
@@ -90,7 +89,6 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
     }
   };
 
-  // Find the last message sent by this user, then check if admin has seen it
   const myMessages = messages.filter((m) => m.sender_id === userId);
   const lastMyMessage = myMessages[myMessages.length - 1] ?? null;
   const adminHasSeen =
@@ -105,13 +103,13 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <p className="text-[#6B7280] font-mono text-sm">
-              {locale === 'ja' ? 'メッセージはまだありません' : 'No messages yet. Say hello!'}
+              {t('empty')}
             </p>
           </div>
         ) : (
           messages.map((msg) => {
             const isOwn = msg.sender_id === userId;
-            const senderName = msg.sender?.full_name || (isOwn ? 'You' : 'ZeroEn');
+            const senderName = msg.sender?.full_name || (isOwn ? t('you') : 'ZeroEn');
             const isAdmin = msg.sender?.role === 'admin';
             const isLastMine = lastMyMessage?.id === msg.id;
 
@@ -163,7 +161,7 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={locale === 'ja' ? 'メッセージを入力... (Enter で送信)' : 'Type a message... (Enter to send)'}
+          placeholder={t('placeholder')}
           rows={1}
           className="flex-1 bg-[#0D0D0D] border border-[#374151] text-[#F4F4F2] text-sm font-mono px-3 py-2 rounded focus:outline-none focus:border-[#00E87A] placeholder:text-[#6B7280] resize-none"
         />
@@ -171,7 +169,7 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
           onClick={handleSend}
           disabled={!newMessage.trim() || sending}
           className="bg-[#00E87A] text-[#0D0D0D] p-2 rounded hover:bg-[#00E87A]/90 transition-colors disabled:opacity-50 shrink-0"
-          aria-label={locale === 'ja' ? '送信' : 'Send'}
+          aria-label={t('sendAria')}
         >
           <Send size={16} />
         </button>
@@ -182,14 +180,15 @@ export function MessageThread({ initialMessages, projectId, userId, locale, admi
 
 // Inline seen indicator — updates every 30s
 function SeenRelativeTime({ lastReadAt, locale }: { lastReadAt: string; locale: string }) {
-  const [label, setLabel] = useState(() => formatRelative(lastReadAt, locale));
+  const t = useTranslations('messages');
+  const [label, setLabel] = useState(() => formatRelative(lastReadAt, locale, t));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLabel(formatRelative(lastReadAt, locale));
+      setLabel(formatRelative(lastReadAt, locale, t));
     }, 30_000);
     return () => clearInterval(interval);
-  }, [lastReadAt, locale]);
+  }, [lastReadAt, locale, t]);
 
   return (
     <div className="flex justify-end mt-1 pr-10">
@@ -198,11 +197,14 @@ function SeenRelativeTime({ lastReadAt, locale }: { lastReadAt: string; locale: 
   );
 }
 
-function formatRelative(dateStr: string, locale: string): string {
-  const isJa = locale === 'ja';
+function formatRelative(
+  dateStr: string,
+  _locale: string,
+  t: ReturnType<typeof useTranslations<'messages'>>
+): string {
   const diff = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
-  if (diff < 60) return isJa ? '既読 今' : 'Seen just now';
-  if (diff < 3600) return isJa ? `既読 ${Math.floor(diff / 60)}分前` : `Seen ${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return isJa ? `既読 ${Math.floor(diff / 3600)}時間前` : `Seen ${Math.floor(diff / 3600)}h ago`;
-  return isJa ? `既読 ${Math.floor(diff / 86400)}日前` : `Seen ${Math.floor(diff / 86400)}d ago`;
+  if (diff < 60) return t('seenJustNow');
+  if (diff < 3600) return t('seenMinutes', { n: Math.floor(diff / 60) });
+  if (diff < 86400) return t('seenHours', { n: Math.floor(diff / 3600) });
+  return t('seenDays', { n: Math.floor(diff / 86400) });
 }

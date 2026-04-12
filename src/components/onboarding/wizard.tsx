@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { FileText } from 'lucide-react';
 import { ProgressBar } from '@/components/apply/progress-bar';
 import { Step1Project } from './step-1-project';
@@ -30,7 +31,7 @@ interface Props {
 
 export function OnboardingWizard({ locale, applicationId, application, userEmail, userName, initialProgress }: Props) {
   const router = useRouter();
-  const isJa = locale === 'ja';
+  const t = useTranslations('onboarding.wizard');
 
   const [currentStep, setCurrentStep] = useState(initialProgress?.current_step ?? 1);
   const [formData, setFormData] = useState<Partial<OnboardingFormData>>(initialProgress?.form_data ?? {});
@@ -74,10 +75,10 @@ export function OnboardingWizard({ locale, applicationId, application, userEmail
       if (res.ok) {
         router.push(`/${locale}/dashboard`);
       } else {
-        setError(json.error || (isJa ? '問題が発生しました。もう一度お試しください。' : 'Something went wrong. Please try again.'));
+        setError(json.error || t('error'));
       }
     } catch {
-      setError(isJa ? 'ネットワークエラーが発生しました。もう一度お試しください。' : 'Network error. Please try again.');
+      setError(t('networkError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -94,7 +95,7 @@ export function OnboardingWizard({ locale, applicationId, application, userEmail
               className="flex items-center gap-2 text-[#6B7280] hover:text-[#00E87A] text-xs font-mono transition-colors"
             >
               <FileText size={13} />
-              {isJa ? '応募内容を確認する' : 'View your application'}
+              {t('viewApplication')}
             </button>
           </div>
         )}

@@ -4,6 +4,7 @@ export const step1Schema = z.object({
   app_name: z.string().min(2, 'App name is required'),
   app_description: z.string().min(20, 'Please describe your app in more detail (min 20 chars)'),
   target_launch_date: z.string().optional(),
+  preferred_locale: z.enum(['en', 'ja']).default('en'),
 });
 
 export const step2Schema = z.object({

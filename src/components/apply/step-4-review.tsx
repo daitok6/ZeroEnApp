@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import type { ApplicationFormData } from '@/lib/validations/application';
 
 interface Step4Props {
@@ -43,58 +44,59 @@ function ReviewSection({
   );
 }
 
-export function Step4Review({ data, onSubmit, onBack, isSubmitting, locale }: Step4Props) {
-  const isJa = locale === 'ja';
+export function Step4Review({ data, onSubmit, onBack, isSubmitting }: Step4Props) {
+  const t = useTranslations('apply');
+  const tCommon = useTranslations('common');
 
-  const commitmentLabels: Record<string, string> = isJa
-    ? { 'full-time': 'フルタイム', 'part-time': 'パートタイム', 'side-project': 'サイドプロジェクト' }
-    : { 'full-time': 'Full-time', 'part-time': 'Part-time', 'side-project': 'Side project' };
+  const commitmentLabels: Record<string, string> = {
+    'full-time': t('step3.commitmentFullTime'),
+    'part-time': t('step3.commitmentPartTime'),
+    'side-project': t('step3.commitmentSideProject'),
+  };
 
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold font-mono text-[#F4F4F2] mb-6">
-        {isJa ? '確認・送信' : 'Review & Submit'}
+        {t('step4.title')}
       </h2>
 
       <ReviewSection
-        title={isJa ? 'アイデア' : 'Idea'}
-        editLabel={isJa ? '編集' : 'Edit'}
+        title={t('step4.sectionIdea')}
+        editLabel={t('step4.edit')}
         onEdit={onBack}
         fields={[
-          { label: isJa ? '名前' : 'Name', value: data.idea_name },
-          { label: isJa ? '説明' : 'Description', value: data.idea_description },
-          { label: isJa ? '解決する問題' : 'Problem solved', value: data.problem_solved },
+          { label: t('step4.fieldName'), value: data.idea_name },
+          { label: t('step4.fieldDescription'), value: data.idea_description },
+          { label: t('step4.fieldProblemSolved'), value: data.problem_solved },
         ]}
       />
 
       <ReviewSection
-        title={isJa ? '市場' : 'Market'}
-        editLabel={isJa ? '編集' : 'Edit'}
+        title={t('step4.sectionMarket')}
+        editLabel={t('step4.edit')}
         onEdit={onBack}
         fields={[
-          { label: isJa ? 'ターゲットユーザー' : 'Target users', value: data.target_users },
-          { label: isJa ? '競合他社' : 'Competitors', value: data.competitors || (isJa ? 'なし' : 'None specified') },
-          { label: isJa ? '収益化計画' : 'Monetization plan', value: data.monetization_plan },
+          { label: t('step4.fieldTargetUsers'), value: data.target_users },
+          { label: t('step4.fieldCompetitors'), value: data.competitors || t('step4.fieldNoneSpecified') },
+          { label: t('step4.fieldMonetization'), value: data.monetization_plan },
         ]}
       />
 
       <ReviewSection
-        title={isJa ? 'ファウンダー' : 'Founder'}
-        editLabel={isJa ? '編集' : 'Edit'}
+        title={t('step4.sectionFounder')}
+        editLabel={t('step4.edit')}
         onEdit={onBack}
         fields={[
-          { label: isJa ? '名前' : 'Name', value: data.founder_name },
-          { label: isJa ? 'バックグラウンド' : 'Background', value: data.founder_background },
-          { label: isJa ? 'コミット' : 'Commitment', value: commitmentLabels[data.founder_commitment] },
-          { label: 'LinkedIn', value: data.linkedin_url || (isJa ? 'なし' : 'Not provided') },
+          { label: t('step4.fieldName'), value: data.founder_name },
+          { label: t('step4.fieldBackground'), value: data.founder_background },
+          { label: t('step4.fieldCommitment'), value: commitmentLabels[data.founder_commitment] },
+          { label: 'LinkedIn', value: data.linkedin_url || t('step4.fieldNotProvided') },
         ]}
       />
 
       <div className="pt-2 border-t border-[#374151]">
         <p className="text-[#6B7280] text-xs font-mono mb-6">
-          {isJa
-            ? '申し込みを送信することで、ZeroEnの利用規約とエクイティ条件に同意します。'
-            : 'By submitting, you agree to ZeroEn\'s terms and equity arrangement.'}
+          {t('step4.disclaimer')}
         </p>
 
         <div className="flex justify-between">
@@ -103,7 +105,7 @@ export function Step4Review({ data, onSubmit, onBack, isSubmitting, locale }: St
             onClick={onBack}
             className="border border-[#374151] text-[#9CA3AF] font-mono px-8 py-3 rounded hover:border-[#6B7280] transition-colors"
           >
-            {isJa ? '← 戻る' : '← Back'}
+            ← {tCommon('back')}
           </button>
           <button
             type="button"
@@ -111,9 +113,7 @@ export function Step4Review({ data, onSubmit, onBack, isSubmitting, locale }: St
             disabled={isSubmitting}
             className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono px-8 py-3 rounded hover:bg-[#00d070] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSubmitting
-              ? (isJa ? '送信中...' : 'Submitting...')
-              : (isJa ? '申し込みを送信' : 'Submit Application')}
+            {isSubmitting ? t('step4.submitting') : t('step4.submit')}
           </button>
         </div>
       </div>

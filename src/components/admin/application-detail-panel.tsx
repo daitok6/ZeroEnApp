@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Sheet,
   SheetContent,
@@ -9,11 +10,18 @@ import {
 } from '@/components/ui/sheet';
 import { CheckCircle, XCircle, Clock, Search, Sparkles, ExternalLink } from 'lucide-react';
 
-const STATUS_CONFIG = {
-  pending: { icon: Clock, color: 'text-yellow-400', bgColor: 'bg-yellow-400/10 border-yellow-400/20', label: 'Pending' },
-  reviewing: { icon: Search, color: 'text-blue-400', bgColor: 'bg-blue-400/10 border-blue-400/20', label: 'Reviewing' },
-  accepted: { icon: CheckCircle, color: 'text-[#00E87A]', bgColor: 'bg-[#00E87A]/10 border-[#00E87A]/20', label: 'Accepted' },
-  rejected: { icon: XCircle, color: 'text-red-400', bgColor: 'bg-red-400/10 border-red-400/20', label: 'Rejected' },
+const STATUS_ICONS = {
+  pending: Clock,
+  reviewing: Search,
+  accepted: CheckCircle,
+  rejected: XCircle,
+};
+
+const STATUS_STYLES = {
+  pending: { color: 'text-yellow-400', bgColor: 'bg-yellow-400/10 border-yellow-400/20' },
+  reviewing: { color: 'text-blue-400', bgColor: 'bg-blue-400/10 border-blue-400/20' },
+  accepted: { color: 'text-[#00E87A]', bgColor: 'bg-[#00E87A]/10 border-[#00E87A]/20' },
+  rejected: { color: 'text-red-400', bgColor: 'bg-red-400/10 border-red-400/20' },
 };
 
 const RECOMMENDATION_CONFIG = {
@@ -22,11 +30,11 @@ const RECOMMENDATION_CONFIG = {
   REJECT: { color: 'text-red-400', bg: 'bg-red-400/10 border-red-400/30' },
 };
 
-const SCORE_DIMENSIONS = [
-  { key: 'viability' as const, label: 'Idea Viability', scoreKey: 'score_viability' as const },
-  { key: 'commitment' as const, label: 'Founder Commitment', scoreKey: 'score_commitment' as const },
-  { key: 'feasibility' as const, label: 'Tech Feasibility', scoreKey: 'score_feasibility' as const },
-  { key: 'market' as const, label: 'Market Potential', scoreKey: 'score_market' as const },
+const SCORE_DIMENSION_KEYS = [
+  { key: 'viability' as const, labelKey: 'ideaViability' as const, scoreKey: 'score_viability' as const },
+  { key: 'commitment' as const, labelKey: 'founderCommitment' as const, scoreKey: 'score_commitment' as const },
+  { key: 'feasibility' as const, labelKey: 'techFeasibility' as const, scoreKey: 'score_feasibility' as const },
+  { key: 'market' as const, labelKey: 'marketPotential' as const, scoreKey: 'score_market' as const },
 ];
 
 export type ScoreRationale = {
@@ -119,6 +127,8 @@ export function ApplicationDetailPanel({
   onReject,
   actionLoading,
 }: Props) {
+  const t = useTranslations('admin');
+  const tStatus = useTranslations('common.status');
   const [scoring, setScoring] = useState(false);
   const [scoreError, setScoreError] = useState<string | null>(null);
 
@@ -130,13 +140,13 @@ export function ApplicationDetailPanel({
       const res = await fetch(`/api/admin/applications/${application.id}/score`, { method: 'POST' });
       if (!res.ok) {
         const json = await res.json();
-        setScoreError(json.error ?? 'Scoring failed');
+        setScoreError(json.error ?? t('scoringFailed'));
         return;
       }
       const data = await res.json();
       onScored(data);
     } catch {
-      setScoreError('Network error. Please try again.');
+      setScoreError(t('networkError'));
     } finally {
       setScoring(false);
     }
@@ -144,8 +154,8 @@ export function ApplicationDetailPanel({
 
   if (!application) return null;
 
-  const config = STATUS_CONFIG[application.status];
-  const StatusIcon = config.icon;
+  const statusStyle = STATUS_STYLES[application.status];
+  const StatusIcon = STATUS_ICONS[application.status];
   const total = totalScore(application);
   const isActioning = actionLoading?.startsWith(application.id);
   const recommendation = application.score_rationale?.recommendation as keyof typeof RECOMMENDATION_CONFIG | undefined;
@@ -163,9 +173,9 @@ export function ApplicationDetailPanel({
             <SheetTitle className="text-[#F4F4F2] font-mono font-bold text-base leading-tight">
               {application.idea_name}
             </SheetTitle>
-            <div className={`flex items-center gap-1.5 px-2 py-1 rounded border text-xs font-mono font-bold shrink-0 ${config.bgColor} ${config.color}`}>
+            <div className={`flex items-center gap-1.5 px-2 py-1 rounded border text-xs font-mono font-bold shrink-0 ${statusStyle.bgColor} ${statusStyle.color}`}>
               <StatusIcon size={11} />
-              {config.label}
+              {tStatus(application.status as Parameters<typeof tStatus>[0])}
             </div>
           </div>
           <p className="text-[#6B7280] font-mono text-xs mt-1">
@@ -180,22 +190,22 @@ export function ApplicationDetailPanel({
 
           {/* Application Details */}
           <section className="space-y-4">
-            <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">Application</p>
+            <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">{t('application')}</p>
             <div className="space-y-4 border border-[#374151] rounded-lg bg-[#111827] p-4">
-              <DetailField label="Idea" value={application.idea_description} />
-              <DetailField label="Problem Solved" value={application.problem_solved} />
-              <DetailField label="Target Users" value={application.target_users} />
-              {application.competitors && <DetailField label="Competitors" value={application.competitors} />}
-              <DetailField label="Monetization Plan" value={application.monetization_plan} />
+              <DetailField label={t('idea')} value={application.idea_description} />
+              <DetailField label={t('problemSolved')} value={application.problem_solved} />
+              <DetailField label={t('targetUsers')} value={application.target_users} />
+              {application.competitors && <DetailField label={t('competitors')} value={application.competitors} />}
+              <DetailField label={t('monetization')} value={application.monetization_plan} />
             </div>
           </section>
 
           {/* Founder Details */}
           <section className="space-y-4">
-            <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">Founder</p>
+            <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">{t('founder')}</p>
             <div className="space-y-4 border border-[#374151] rounded-lg bg-[#111827] p-4">
-              <DetailField label="Background" value={application.founder_background} />
-              <DetailField label="Commitment" value={application.founder_commitment} />
+              <DetailField label={t('background')} value={application.founder_background} />
+              <DetailField label={t('commitment')} value={application.founder_commitment} />
               {application.linkedin_url && (
                 <div className="space-y-1">
                   <p className="text-[#6B7280] font-mono text-xs uppercase tracking-wide">LinkedIn</p>
@@ -205,7 +215,7 @@ export function ApplicationDetailPanel({
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-[#00E87A] font-mono text-sm hover:underline"
                   >
-                    View profile
+                    {t('viewProfile')}
                     <ExternalLink size={12} />
                   </a>
                 </div>
@@ -216,7 +226,7 @@ export function ApplicationDetailPanel({
           {/* Score Section */}
           <section className="space-y-4">
             <div className="flex items-center justify-between">
-              <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">AI Score</p>
+              <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">{t('aiScore')}</p>
               {total !== null && (
                 <span className={`font-mono text-sm font-bold ${scoreColor(total)}`}>
                   {total}/20
@@ -229,20 +239,22 @@ export function ApplicationDetailPanel({
                 {/* Recommendation badge */}
                 {recConfig && recommendation && (
                   <div className={`flex items-center justify-between px-3 py-2 rounded border font-mono text-sm font-bold ${recConfig.bg} ${recConfig.color}`}>
-                    <span>Recommendation</span>
+                    <span>{t('recommendation')}</span>
                     <span>{recommendation}</span>
                   </div>
                 )}
 
                 {/* Dimension scores */}
                 <div className="border border-[#374151] rounded-lg bg-[#111827] divide-y divide-[#374151]">
-                  {SCORE_DIMENSIONS.map((dim) => {
+                  {SCORE_DIMENSION_KEYS.map((dim) => {
                     const score = application[dim.scoreKey];
                     const rationale = application.score_rationale?.[dim.key];
                     return (
                       <div key={dim.key} className="p-3 space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="text-[#F4F4F2] font-mono text-xs font-bold">{dim.label}</span>
+                          <span className="text-[#F4F4F2] font-mono text-xs font-bold">
+                            {t(dim.labelKey as Parameters<typeof t>[0])}
+                          </span>
                           <div className="flex items-center gap-2">
                             <ScoreBar score={score} />
                             <span className="text-[#6B7280] font-mono text-xs w-6 text-right">{score}/5</span>
@@ -265,7 +277,7 @@ export function ApplicationDetailPanel({
               </div>
             ) : (
               <div className="border border-dashed border-[#374151] rounded-lg bg-[#111827] p-4 text-center">
-                <p className="text-[#6B7280] font-mono text-xs">Not scored yet.</p>
+                <p className="text-[#6B7280] font-mono text-xs">{t('notScoredYet')}</p>
               </div>
             )}
 
@@ -279,7 +291,7 @@ export function ApplicationDetailPanel({
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-[#374151] text-[#F4F4F2] rounded font-mono text-xs hover:border-[#00E87A]/50 hover:text-[#00E87A] disabled:opacity-50 transition-colors"
             >
               <Sparkles size={13} />
-              {scoring ? 'Scoring…' : total !== null ? 'Re-score with AI' : 'Score with AI'}
+              {scoring ? t('scoring') : total !== null ? t('rescoreWithAI') : t('scoreWithAI')}
             </button>
           </section>
 
@@ -292,7 +304,7 @@ export function ApplicationDetailPanel({
                 className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#00E87A] text-[#0D0D0D] rounded font-mono text-xs font-bold hover:bg-[#00E87A]/90 disabled:opacity-50 transition-colors"
               >
                 <CheckCircle size={13} />
-                {actionLoading === application.id + '-approve' ? 'Approving…' : 'Approve'}
+                {actionLoading === application.id + '-approve' ? t('approving') : t('approve')}
               </button>
               <button
                 onClick={() => onReject(application.id)}
@@ -300,7 +312,7 @@ export function ApplicationDetailPanel({
                 className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 border border-red-400/30 text-red-400 rounded font-mono text-xs hover:bg-red-400/10 disabled:opacity-50 transition-colors"
               >
                 <XCircle size={13} />
-                {actionLoading === application.id + '-reject' ? 'Rejecting…' : 'Reject'}
+                {actionLoading === application.id + '-reject' ? t('rejecting') : t('reject')}
               </button>
             </section>
           )}

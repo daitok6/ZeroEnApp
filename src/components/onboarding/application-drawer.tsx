@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { X } from 'lucide-react';
 
 export type ApplicationData = {
@@ -47,8 +48,8 @@ function ScorePips({ score }: { score: number | null }) {
   );
 }
 
-export function ApplicationDrawer({ application, locale, open, onClose }: Props) {
-  const isJa = locale === 'ja';
+export function ApplicationDrawer({ application, open, onClose }: Props) {
+  const t = useTranslations('onboarding.applicationDrawer');
 
   const total = [
     application.score_viability,
@@ -60,22 +61,22 @@ export function ApplicationDrawer({ application, locale, open, onClose }: Props)
     : null;
 
   const scoreDimensions = [
-    { label: isJa ? 'アイデア' : 'Idea Viability', score: application.score_viability, rationale: application.score_rationale?.viability },
-    { label: isJa ? 'コミット' : 'Commitment', score: application.score_commitment, rationale: application.score_rationale?.commitment },
-    { label: isJa ? '実現性' : 'Feasibility', score: application.score_feasibility, rationale: application.score_rationale?.feasibility },
-    { label: isJa ? '市場性' : 'Market', score: application.score_market, rationale: application.score_rationale?.market },
+    { label: t('ideaViability'), score: application.score_viability, rationale: application.score_rationale?.viability },
+    { label: t('commitment'), score: application.score_commitment, rationale: application.score_rationale?.commitment },
+    { label: t('feasibility'), score: application.score_feasibility, rationale: application.score_rationale?.feasibility },
+    { label: t('market'), score: application.score_market, rationale: application.score_rationale?.market },
   ];
 
   const fields = [
-    { label: isJa ? 'アイデア名' : 'Idea Name', value: application.idea_name },
-    { label: isJa ? 'アイデアの説明' : 'Description', value: application.idea_description },
-    { label: isJa ? '解決する問題' : 'Problem Solved', value: application.problem_solved },
-    { label: isJa ? 'ターゲットユーザー' : 'Target Users', value: application.target_users },
-    { label: isJa ? '収益化計画' : 'Monetization', value: application.monetization_plan },
-    ...(application.competitors ? [{ label: isJa ? '競合' : 'Competitors', value: application.competitors }] : []),
-    { label: isJa ? '創業者名' : 'Founder', value: application.founder_name },
-    { label: isJa ? 'バックグラウンド' : 'Background', value: application.founder_background },
-    { label: isJa ? 'コミット' : 'Commitment', value: application.founder_commitment },
+    { label: t('ideaName'), value: application.idea_name },
+    { label: t('description'), value: application.idea_description },
+    { label: t('problemSolved'), value: application.problem_solved },
+    { label: t('targetUsers'), value: application.target_users },
+    { label: t('monetization'), value: application.monetization_plan },
+    ...(application.competitors ? [{ label: t('competitors'), value: application.competitors }] : []),
+    { label: t('founder'), value: application.founder_name },
+    { label: t('background'), value: application.founder_background },
+    { label: t('commitment'), value: application.founder_commitment },
     ...(application.linkedin_url ? [{ label: 'LinkedIn', value: application.linkedin_url }] : []),
   ];
 
@@ -99,7 +100,7 @@ export function ApplicationDrawer({ application, locale, open, onClose }: Props)
         <div className="flex items-center justify-between px-6 py-4 border-b border-[#374151] shrink-0">
           <div>
             <p className="text-[#F4F4F2] font-mono font-bold text-sm">
-              {isJa ? 'あなたの応募内容' : 'Your Application'}
+              {t('title')}
             </p>
             <p className="text-[#6B7280] font-mono text-xs mt-0.5">
               {application.idea_name}
@@ -108,7 +109,7 @@ export function ApplicationDrawer({ application, locale, open, onClose }: Props)
           <button
             onClick={onClose}
             className="text-[#6B7280] hover:text-[#F4F4F2] transition-colors p-1 rounded"
-            aria-label="Close"
+            aria-label={t('close')}
           >
             <X size={18} />
           </button>
@@ -135,7 +136,7 @@ export function ApplicationDrawer({ application, locale, open, onClose }: Props)
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest">
-                  {isJa ? 'AI評価' : 'AI Evaluation'}
+                  {t('aiEvaluation')}
                 </p>
                 <span className={`text-sm font-mono font-bold ${
                   total >= 15 ? 'text-[#00E87A]' : total >= 12 ? 'text-yellow-400' : 'text-red-400'

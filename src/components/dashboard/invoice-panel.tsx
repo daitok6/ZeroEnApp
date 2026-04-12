@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { CheckCircle, XCircle, MessageCircle } from 'lucide-react';
 import { CommentThread } from '@/components/shared/comment-thread';
 
@@ -21,7 +22,8 @@ interface InvoicePanelProps {
 
 export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePanelProps) {
   const router = useRouter();
-  const isJa = locale === 'ja';
+  const t = useTranslations('invoices');
+  const tCommon = useTranslations('common');
   const [loading, setLoading] = useState<'accept' | 'decline' | null>(null);
   const [showDeclineModal, setShowDeclineModal] = useState(false);
   const [declineReason, setDeclineReason] = useState('');
@@ -67,7 +69,7 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
     return (
       <div className="mt-3 rounded-lg bg-[#00E87A]/10 border border-[#00E87A]/30 px-4 py-3">
         <p className="text-[#00E87A] text-xs font-mono">
-          {isJa ? '✓ 承認されました。作業を開始します。' : '✓ Approved. Work will begin shortly.'}
+          {t('approvedMessage')}
         </p>
       </div>
     );
@@ -77,18 +79,18 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
     <>
       <div className="mt-3 rounded-lg bg-[#1a2433] border border-[#00E87A]/20 p-4 space-y-3">
         <p className="text-[#6B7280] text-[10px] font-mono uppercase tracking-wider">
-          {isJa ? '請求書' : 'Invoice'}
+          {t('invoice')}
         </p>
 
         <div className="flex items-baseline gap-3">
           <span className="text-[#00E87A] text-xl font-bold font-mono">
             {invoice.amount_cents === 0
-              ? (isJa ? '無料' : 'Free')
+              ? t('free')
               : `$${(invoice.amount_cents / 100).toLocaleString()}`}
           </span>
           {invoice.amount_cents === 0 && (
             <span className="text-[#6B7280] text-xs font-mono">
-              {isJa ? 'プランに含まれています' : 'Included in your plan'}
+              {t('includedInPlan')}
             </span>
           )}
         </div>
@@ -97,8 +99,7 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
 
         {invoice.due_date && (
           <p className="text-[#6B7280] text-xs font-mono">
-            {isJa ? '期日: ' : 'Due: '}
-            {new Date(invoice.due_date).toLocaleDateString()}
+            {t('due')} {new Date(invoice.due_date).toLocaleDateString()}
           </p>
         )}
 
@@ -111,7 +112,7 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
             <CheckCircle className="w-3.5 h-3.5" />
             {loading === 'accept'
               ? '…'
-              : (isJa ? '承認する' : (invoice.amount_cents > 0 ? 'Accept & Pay' : 'Accept'))}
+              : (invoice.amount_cents > 0 ? t('acceptAndPay') : t('accept'))}
           </button>
 
           <button
@@ -119,7 +120,7 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
             className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-[#374151] text-[#9CA3AF] text-xs font-mono hover:border-[#6B7280] transition-colors"
           >
             <MessageCircle className="w-3.5 h-3.5" />
-            {isJa ? '相談する' : 'Discuss'}
+            {t('discuss')}
           </button>
 
           <button
@@ -128,7 +129,7 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
             className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-red-400/30 text-red-400 text-xs font-mono hover:bg-red-400/10 disabled:opacity-50 transition-colors"
           >
             <XCircle className="w-3.5 h-3.5" />
-            {isJa ? '断る' : 'Decline'}
+            {t('decline')}
           </button>
         </div>
 
@@ -153,12 +154,12 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
           />
           <div className="relative w-full max-w-sm bg-[#111827] border border-[#374151] rounded-xl p-5 space-y-4">
             <h3 className="text-[#F4F4F2] text-sm font-bold font-heading">
-              {isJa ? '断りますか？' : 'Decline this invoice?'}
+              {t('declineConfirm')}
             </h3>
             <textarea
               value={declineReason}
               onChange={(e) => setDeclineReason(e.target.value)}
-              placeholder={isJa ? '理由（任意）' : 'Reason (optional)'}
+              placeholder={t('declineReason')}
               rows={3}
               className="w-full bg-[#0D0D0D] border border-[#374151] rounded px-3 py-2 text-xs font-mono text-[#F4F4F2] placeholder-[#6B7280] focus:outline-none focus:border-[#00E87A]/50 resize-none"
             />
@@ -167,14 +168,14 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
                 onClick={() => setShowDeclineModal(false)}
                 className="flex-1 py-2 rounded-lg border border-[#374151] text-[#9CA3AF] text-xs font-mono hover:border-[#6B7280] transition-colors"
               >
-                {isJa ? 'キャンセル' : 'Cancel'}
+                {tCommon('cancel')}
               </button>
               <button
                 onClick={handleDecline}
                 disabled={loading !== null}
                 className="flex-1 py-2 rounded-lg bg-red-400/10 border border-red-400/30 text-red-400 text-xs font-mono hover:bg-red-400/20 disabled:opacity-50 transition-colors"
               >
-                {loading === 'decline' ? '…' : (isJa ? '断る' : 'Decline')}
+                {loading === 'decline' ? '…' : t('decline')}
               </button>
             </div>
           </div>

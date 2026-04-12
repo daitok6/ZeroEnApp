@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { ArrowLeft } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { createClient } from '@/lib/supabase/client';
 import { MessageThread } from '@/components/dashboard/message-thread';
 import type { ProjectConversation } from '@/lib/admin/queries';
@@ -24,14 +25,13 @@ interface Props {
 }
 
 export function AdminMessagesClient({ projects, initialMessages, initialProjectId, userId, locale, initialUnreadCounts }: Props) {
-  const isJa = locale === 'ja';
+  const t = useTranslations('admin');
+  const tCommon = useTranslations('common');
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(initialProjectId);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [loading, setLoading] = useState(false);
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(initialUnreadCounts);
   const supabaseRef = useRef(createClient());
-  // Track selected project in a ref so the realtime callback always sees the
-  // current value without needing to re-subscribe when the selection changes.
   const selectedProjectIdRef = useRef(selectedProjectId);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId) ?? null;
@@ -40,9 +40,6 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
     selectedProjectIdRef.current = selectedProjectId;
   }, [selectedProjectId]);
 
-  // Real-time: one channel per project with an explicit filter.
-  // A no-filter subscription is unreliable when RLS uses is_admin() — Supabase
-  // silently drops events for some subscribers. Filtered channels always work.
   useEffect(() => {
     if (projects.length === 0) return;
     const supabase = supabaseRef.current;
@@ -58,7 +55,6 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
           filter: `project_id=eq.${project.id}`,
         }, (payload) => {
           const msg = payload.new as { sender_id: string };
-          // Only count messages from clients (not admin), skip the open conversation.
           if (msg.sender_id !== userId && project.id !== selectedProjectIdRef.current) {
             setUnreadCounts((prev) => ({
               ...prev,
@@ -73,10 +69,8 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projects.map((p) => p.id).join(','), userId]);
 
-  // When a project is selected, load its messages and mark as read
   const handleSelectProject = async (projectId: string) => {
     setSelectedProjectId(projectId);
-    // Clear unread badge locally and notify the nav sidebar badge
     setUnreadCounts((prev) => ({ ...prev, [projectId]: 0 }));
     window.dispatchEvent(new CustomEvent('zeroen:message-read', { detail: { projectId } }));
 
@@ -110,14 +104,14 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
     <div className="flex flex-col h-full border border-[#374151] rounded-lg overflow-hidden bg-[#111827]">
       <div className="px-4 py-3 border-b border-[#374151] shrink-0">
         <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest">
-          {isJa ? '全会話' : 'All Conversations'}
+          {t('allConversations')}
         </p>
       </div>
       <div className="flex-1 overflow-y-auto">
         {projects.length === 0 ? (
           <div className="flex items-center justify-center h-32">
             <p className="text-[#6B7280] text-sm font-mono">
-              {isJa ? 'まだ会話はありません。' : 'No conversations yet.'}
+              {t('noConversations')}
             </p>
           </div>
         ) : (
@@ -170,7 +164,7 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
     loading ? (
       <div className="flex-1 flex items-center justify-center border border-[#374151] rounded-lg bg-[#111827]">
         <p className="text-[#6B7280] text-sm font-mono">
-          {isJa ? '読み込み中...' : 'Loading...'}
+          {tCommon('loading')}
         </p>
       </div>
     ) : (
@@ -185,7 +179,7 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
   ) : (
     <div className="flex-1 flex items-center justify-center border border-[#374151] rounded-lg bg-[#111827]">
       <p className="text-[#6B7280] text-sm font-mono">
-        {isJa ? '会話を選択してください' : 'Select a conversation'}
+        {t('selectConversation')}
       </p>
     </div>
   );
@@ -212,7 +206,7 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
                 className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-[#F4F4F2] text-sm font-mono transition-colors"
               >
                 <ArrowLeft size={14} />
-                {isJa ? '戻る' : 'Back'}
+                {t('back')}
               </button>
               {selectedProject && (
                 <p className="text-[#F4F4F2] text-sm font-mono font-bold truncate">

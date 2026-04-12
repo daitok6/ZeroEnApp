@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Sheet,
   SheetContent,
@@ -50,6 +51,8 @@ function FormField({
 }
 
 export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDetailPanelProps) {
+  const t = useTranslations('admin');
+  const tCommon = useTranslations('common');
   const [projectName, setProjectName] = useState('');
   const [siteUrl, setSiteUrl] = useState('');
   const [githubRepo, setGithubRepo] = useState('');
@@ -93,7 +96,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
 
       if (!res.ok) {
         const json = await res.json();
-        setError(json.error ?? 'Failed to save changes');
+        setError(json.error ?? t('failedToSave'));
         return;
       }
 
@@ -115,7 +118,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
 
       onClose();
     } catch {
-      setError('Network error. Please try again.');
+      setError(tCommon('networkError'));
     } finally {
       setLoading(false);
     }
@@ -145,17 +148,17 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
 
           {/* Project Fields */}
           <section className="space-y-4">
-            <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">Project</p>
+            <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">{t('projectName')}</p>
             <div className="space-y-4 border border-[#374151] rounded-lg bg-[#111827] p-4">
               <FormField
-                label="Project Name"
+                label={t('projectNameLabel')}
                 id="project-name"
                 value={projectName}
                 onChange={setProjectName}
                 placeholder="My Project"
               />
               <FormField
-                label="Site URL"
+                label={t('siteUrl')}
                 id="site-url"
                 value={siteUrl}
                 onChange={setSiteUrl}
@@ -163,7 +166,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
                 type="url"
               />
               <FormField
-                label="GitHub Repo URL"
+                label={t('githubRepo')}
                 id="github-repo"
                 value={githubRepo}
                 onChange={setGithubRepo}
@@ -171,7 +174,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
                 type="url"
               />
               <FormField
-                label="Vercel Project URL"
+                label={t('vercelProject')}
                 id="vercel-project"
                 value={vercelProject}
                 onChange={setVercelProject}
@@ -183,12 +186,12 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
 
           {/* Visibility toggle */}
           <section className="space-y-3">
-            <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">Visibility</p>
+            <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">{t('visibility')}</p>
             <div className="border border-[#374151] rounded-lg bg-[#111827] p-4 space-y-3">
               <label
                 className="flex items-center justify-between gap-3 cursor-pointer"
               >
-                <span className="text-[#F4F4F2] font-mono text-sm">Enable Project</span>
+                <span className="text-[#F4F4F2] font-mono text-sm">{t('enableProject')}</span>
                 <button
                   id="client-visible"
                   role="switch"
@@ -207,7 +210,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
               </label>
               {willLaunch && (
                 <p className="text-[#F59E0B] font-mono text-xs leading-relaxed border border-[#F59E0B]/20 bg-[#F59E0B]/5 rounded px-3 py-2">
-                  This will set project status to Launched and make it visible to the client.
+                  {t('enableProjectWarning')}
                 </p>
               )}
             </div>
@@ -224,7 +227,7 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
             disabled={loading}
             className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[#00E87A] text-[#0D0D0D] rounded font-mono text-xs font-bold hover:bg-[#00E87A]/90 disabled:opacity-50 transition-colors"
           >
-            {loading ? 'Saving…' : 'Save Changes'}
+            {loading ? t('saving') : t('saveChanges')}
           </button>
         </div>
       </SheetContent>

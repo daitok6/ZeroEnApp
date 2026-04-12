@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { CheckCircle2, ExternalLink } from 'lucide-react';
 
 interface PlanWizardProps {
@@ -12,52 +13,38 @@ interface PlanWizardProps {
 
 type PlanTier = 'basic' | 'premium';
 
-const PLANS = {
-  basic: {
-    nameEn: 'Basic',
-    nameJa: 'ベーシック',
-    priceEn: '~$35/mo',
-    priceJa: '¥5,000/月',
-    featuresEn: [
-      'Hosting included',
-      '1 small change per month',
-      'Prior-month PDF analytics',
-    ],
-    featuresJa: [
-      'ホスティング込み',
-      '月1回の小規模変更',
-      '前月PDFアナリティクス',
-    ],
-    popular: false,
-  },
-  premium: {
-    nameEn: 'Premium',
-    nameJa: 'プレミアム',
-    priceEn: '~$70/mo',
-    priceJa: '¥10,000/月',
-    featuresEn: [
-      'Hosting included',
-      '2 small changes OR 1 medium change per month',
-      'Full-year dashboard analytics',
-      'Quarterly security & SEO audits',
-    ],
-    featuresJa: [
-      'ホスティング込み',
-      '月2回の小規模変更 または 1回の中規模変更',
-      '年間ダッシュボードアナリティクス',
-      '四半期ごとのセキュリティ・SEO監査',
-    ],
-    popular: true,
-  },
-} as const;
-
 export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
+  const t = useTranslations('plan');
+  const tBilling = useTranslations('billing');
+  const tCommon = useTranslations('common');
   const [selectedPlan, setSelectedPlan] = useState<PlanTier | null>(null);
   const [committed, setCommitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const isJa = locale === 'ja';
+  const PLANS: Record<PlanTier, { name: string; price: string; features: string[]; popular: boolean }> = {
+    basic: {
+      name: t('basicName'),
+      price: t('basicPrice'),
+      features: [
+        tBilling('hostingIncluded'),
+        tBilling('oneChangePerMonth'),
+        tBilling('pdfAnalytics'),
+      ],
+      popular: false,
+    },
+    premium: {
+      name: t('premiumName'),
+      price: t('premiumPrice'),
+      features: [
+        tBilling('hostingIncluded'),
+        tBilling('twoChangesPerMonth'),
+        tBilling('fullYearAnalytics'),
+        tBilling('quarterlyAudits'),
+      ],
+      popular: true,
+    },
+  };
 
   const handleSubscribe = async () => {
     if (!selectedPlan || !committed) return;
@@ -81,7 +68,7 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
       }
       if (url) window.location.href = url;
     } catch {
-      setError(isJa ? 'エラーが発生しました' : 'Something went wrong');
+      setError(tCommon('somethingWentWrong'));
     } finally {
       setLoading(false);
     }
@@ -94,12 +81,10 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
       {/* Heading */}
       <div>
         <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
-          {isJa ? 'プランを選択' : 'Choose Your Plan'}
+          {t('wizardTitle')}
         </h1>
         <p className="text-[#6B7280] text-sm font-mono mt-1">
-          {isJa
-            ? 'プロジェクトに合ったプランをお選びください'
-            : 'Select the plan that fits your project'}
+          {t('selectPlanSubtitle')}
         </p>
       </div>
 
@@ -107,7 +92,7 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
       {siteUrl && (
         <div className="border border-[#00E87A]/20 rounded-lg p-4 bg-[#00E87A]/5">
           <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest mb-2">
-            {isJa ? 'あなたのウェブサイト' : 'Your Website'}
+            {t('yourWebsite')}
           </p>
           <a
             href={siteUrl}
@@ -124,9 +109,7 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
       {/* Payment deadline warning */}
       <div className="border border-[#F59E0B]/20 rounded-lg p-4 bg-[#F59E0B]/5">
         <p className="text-[#F59E0B] text-xs font-mono leading-relaxed">
-          {isJa
-            ? '⚠ サブスクリプションの登録が14日以内に完了しない場合、ウェブサイトは一時停止されます。'
-            : '⚠ If a subscription is not set up within 14 days, your website will be taken offline.'}
+          {t('subscriptionWarning')}
         </p>
       </div>
 
@@ -135,9 +118,6 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
         {(['basic', 'premium'] as const).map((tier) => {
           const plan = PLANS[tier];
           const isSelected = selectedPlan === tier;
-          const features = isJa ? plan.featuresJa : plan.featuresEn;
-          const name = isJa ? plan.nameJa : plan.nameEn;
-          const price = isJa ? plan.priceJa : plan.priceEn;
 
           return (
             <button
@@ -152,19 +132,19 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
               {/* Most Popular badge */}
               {plan.popular && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-mono font-bold uppercase tracking-widest bg-[#00E87A] text-[#0D0D0D] px-3 py-0.5 rounded-full whitespace-nowrap">
-                  {isJa ? '人気No.1' : 'Most Popular'}
+                  {t('mostPopular')}
                 </span>
               )}
 
               {/* Plan name + price */}
               <div className="mb-4">
-                <p className="text-[#F4F4F2] font-heading font-bold text-lg">{name}</p>
-                <p className="text-[#00E87A] font-mono font-bold text-xl mt-0.5">{price}</p>
+                <p className="text-[#F4F4F2] font-heading font-bold text-lg">{plan.name}</p>
+                <p className="text-[#00E87A] font-mono font-bold text-xl mt-0.5">{plan.price}</p>
               </div>
 
               {/* Features list */}
               <ul className="space-y-2">
-                {features.map((feature) => (
+                {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
                     <CheckCircle2
                       size={14}
@@ -181,7 +161,7 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
               {isSelected && (
                 <div className="mt-4 pt-4 border-t border-[#00E87A]/20">
                   <span className="text-[#00E87A] text-xs font-mono font-bold uppercase tracking-widest">
-                    {isJa ? '選択中' : 'Selected'}
+                    {t('selected')}
                   </span>
                 </div>
               )}
@@ -199,9 +179,7 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
           className="mt-0.5 h-4 w-4 rounded border-[#374151] bg-[#0D0D0D] accent-[#00E87A] cursor-pointer shrink-0"
         />
         <span className="text-[#9CA3AF] text-xs font-mono leading-relaxed group-hover:text-[#F4F4F2] transition-colors">
-          {isJa
-            ? '6ヶ月間の最低利用期間に同意します。早期解約の場合は残月分または¥80,000（少ない方）をお支払いいただきます。'
-            : 'I agree to the 6-month minimum commitment. Early cancellation = remaining months or ¥80,000 buyout (whichever is less).'}
+          {t('commitmentCheckboxFull')}
         </span>
       </label>
 
@@ -211,11 +189,7 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
         disabled={!canSubscribe || loading}
         className="w-full sm:w-auto bg-[#00E87A] text-[#0D0D0D] font-bold font-mono uppercase tracking-widest text-sm px-8 py-3 rounded hover:bg-[#00E87A]/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
       >
-        {loading
-          ? '...'
-          : isJa
-          ? '登録する'
-          : 'Subscribe'}
+        {loading ? '...' : t('subscribeButton')}
       </button>
 
       {/* Inline error */}
@@ -226,12 +200,12 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
       {/* Have questions? */}
       <div className="border border-[#374151] rounded-lg p-4 bg-[#0D0D0D]">
         <p className="text-[#6B7280] text-xs font-mono">
-          {isJa ? 'ご質問はありますか？' : 'Have questions?'}{' '}
+          {t('haveQuestions')}{' '}
           <Link
             href={`/${locale}/dashboard/messages`}
             className="text-[#00E87A] hover:text-[#00E87A]/80 transition-colors underline underline-offset-2"
           >
-            {isJa ? 'メッセージでお問い合わせ' : 'Send us a message'}
+            {t('messageUs')}
           </Link>
         </p>
       </div>

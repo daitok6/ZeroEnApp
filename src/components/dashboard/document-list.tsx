@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { FileText, ChevronDown, ChevronUp } from 'lucide-react';
 
 export type DocumentItem = {
@@ -28,45 +29,10 @@ function formatDate(iso: string, locale: string): string {
   });
 }
 
-const NDA_POINTS_EN = [
-  'We will not share, copy, or use your idea without written agreement',
-  "This is mutual — we're bound by the same terms",
-  'You can request deletion of all your data at any time',
-  'Rejected applications are wiped within 30 days',
-];
-
-const NDA_POINTS_JA = [
-  '書面による合意なしに、あなたのアイデアを共有・複製・使用しません',
-  'これは相互のものです — 私たちも同じ条件に縛られています',
-  'いつでも全データの削除を依頼できます',
-  '不採択の申し込みは30日以内に削除されます',
-];
-
-const PARTNERSHIP_TERMS_EN = [
-  { label: 'Equity', value: '10% via SAFE note (converts on incorporation)' },
-  { label: 'Revenue Share', value: '~10% of app revenue (flexible per deal)' },
-  { label: 'Platform Fee', value: '$50/mo after launch (hosting + 1 fix/mo)' },
-  { label: 'MVP Scope', value: 'Locked at kickoff. Changes are charged separately.' },
-  { label: 'IP Ownership', value: 'Shared — proportional to equity stake' },
-  { label: 'Kill Switch', value: '90 days unpaid → agreement terminates, code rights to operator' },
-  { label: 'Reversion', value: 'No launch within 6 months → code rights revert to operator' },
-  { label: 'Portfolio Rights', value: 'Operator retains right to showcase this work at all times' },
-];
-
-const PARTNERSHIP_TERMS_JA = [
-  { label: 'エクイティ', value: 'SAFE note経由で10%（法人化時に転換）' },
-  { label: 'レベニューシェア', value: 'アプリ収益の約10%（柔軟に交渉可能）' },
-  { label: 'プラットフォーム料金', value: 'ローンチ後 $50/月（ホスティング＋月1回の小修正）' },
-  { label: 'MVPスコープ', value: 'キックオフ時に確定。変更は別途料金' },
-  { label: 'IP所有権', value: '共有（エクイティ割合に比例）' },
-  { label: 'キルスイッチ', value: '90日未払いで契約終了、コードの権利はオペレーターへ' },
-  { label: '権利復帰', value: '6ヶ月以内にローンチしない場合、コードの権利はオペレーターへ' },
-  { label: 'ポートフォリオ権', value: 'オペレーターは常に本プロジェクトの作品を紹介する権利を保持' },
-];
-
 export function DocumentList({ documents, locale }: Props) {
+  const t = useTranslations('documents');
+  const tCommon = useTranslations('common');
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-  const isJa = locale === 'ja';
 
   const toggle = (id: string) =>
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -75,26 +41,20 @@ export function DocumentList({ documents, locale }: Props) {
     return (
       <div className="border border-[#374151] rounded-lg p-8 bg-[#111827] text-center">
         <p className="text-[#9CA3AF] font-mono text-sm">
-          {isJa
-            ? 'プロジェクト開始後に書類が表示されます'
-            : 'Documents will appear once your project is underway'}
+          {t('empty')}
         </p>
       </div>
     );
   }
 
+  const ndaPoints = t.raw('confidentialityPoints') as string[];
+  const partnershipTerms = t.raw('partnershipTerms') as Array<{ label: string; value: string }>;
+
   return (
     <div className="space-y-3">
       {documents.map((doc) => {
         const isOpen = expanded[doc.id] ?? false;
-        const title =
-          doc.type === 'nda'
-            ? isJa
-              ? '相互秘密保持契約'
-              : 'Mutual Confidentiality Agreement'
-            : isJa
-            ? 'パートナーシップ契約'
-            : 'Partnership Agreement';
+        const title = doc.type === 'nda' ? t('nda') : t('partnership');
 
         return (
           <div
@@ -110,14 +70,13 @@ export function DocumentList({ documents, locale }: Props) {
               <div className="flex-1 min-w-0">
                 <p className="text-[#F4F4F2] text-sm font-mono font-bold truncate">{title}</p>
                 <p className="text-[#6B7280] text-xs font-mono mt-0.5">
-                  {isJa ? '署名日: ' : 'Signed: '}
-                  {formatDate(doc.signedAt, locale)}
+                  {t('signed')} {formatDate(doc.signedAt, locale)}
                 </p>
               </div>
 
               <div className="flex items-center gap-3 shrink-0">
                 <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#00E87A]/10 text-[#00E87A] border border-[#00E87A]/20">
-                  {isJa ? '署名済み' : 'Signed'}
+                  {t('signedBadge')}
                 </span>
                 <button
                   onClick={() => toggle(doc.id)}
@@ -125,12 +84,12 @@ export function DocumentList({ documents, locale }: Props) {
                 >
                   {isOpen ? (
                     <>
-                      {isJa ? '閉じる' : 'Close'}
+                      {tCommon('close')}
                       <ChevronUp size={14} />
                     </>
                   ) : (
                     <>
-                      {isJa ? '詳細' : 'View'}
+                      {t('view')}
                       <ChevronDown size={14} />
                     </>
                   )}
@@ -144,10 +103,10 @@ export function DocumentList({ documents, locale }: Props) {
                 {doc.type === 'nda' ? (
                   <div className="space-y-3">
                     <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest">
-                      {isJa ? '秘密保持の約束' : 'Confidentiality Commitments'}
+                      {t('confidentialityTitle')}
                     </p>
                     <ul className="space-y-2">
-                      {(isJa ? NDA_POINTS_JA : NDA_POINTS_EN).map((point, i) => (
+                      {ndaPoints.map((point, i) => (
                         <li key={i} className="flex items-start gap-3 text-sm font-mono text-[#F4F4F2]">
                           <span className="text-[#00E87A] mt-0.5 shrink-0">✓</span>
                           <span>{point}</span>
@@ -155,18 +114,16 @@ export function DocumentList({ documents, locale }: Props) {
                       ))}
                     </ul>
                     <p className="text-[#6B7280] text-xs font-mono pt-2 border-t border-[#374151]">
-                      {isJa
-                        ? `${formatDate(doc.signedAt, locale)} に電子的に同意しました`
-                        : `Electronically accepted on ${formatDate(doc.signedAt, locale)}`}
+                      {t('electronicAcceptance', { date: formatDate(doc.signedAt, locale) })}
                     </p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest">
-                      {isJa ? 'パートナーシップの主要条件' : 'Key Partnership Terms'}
+                      {t('partnershipTitle')}
                     </p>
                     <div className="space-y-2">
-                      {(isJa ? PARTNERSHIP_TERMS_JA : PARTNERSHIP_TERMS_EN).map((term) => (
+                      {partnershipTerms.map((term) => (
                         <div key={term.label} className="flex gap-3 text-sm font-mono">
                           <span className="text-[#00E87A] shrink-0 w-32 sm:w-36">{term.label}</span>
                           <span className="text-[#F4F4F2]">{term.value}</span>
@@ -178,7 +135,7 @@ export function DocumentList({ documents, locale }: Props) {
                         {doc.details.signature_name && (
                           <div className="flex gap-3 text-xs font-mono">
                             <span className="text-[#6B7280] shrink-0 w-32">
-                              {isJa ? '電子署名' : 'Signature'}
+                              {t('signature')}
                             </span>
                             <span className="text-[#F4F4F2]">{doc.details.signature_name}</span>
                           </div>
@@ -186,7 +143,7 @@ export function DocumentList({ documents, locale }: Props) {
                         {doc.details.entity_name && (
                           <div className="flex gap-3 text-xs font-mono">
                             <span className="text-[#6B7280] shrink-0 w-32">
-                              {isJa ? '会社・プロジェクト名' : 'Entity'}
+                              {t('entity')}
                             </span>
                             <span className="text-[#F4F4F2]">{doc.details.entity_name}</span>
                           </div>
@@ -194,17 +151,17 @@ export function DocumentList({ documents, locale }: Props) {
                         {doc.details.terms_version && (
                           <div className="flex gap-3 text-xs font-mono">
                             <span className="text-[#6B7280] shrink-0 w-32">
-                              {isJa ? '条件バージョン' : 'Terms Version'}
+                              {t('termsVersion')}
                             </span>
                             <span className="text-[#F4F4F2]">{doc.details.terms_version}</span>
                           </div>
                         )}
                         <div className="flex gap-3 text-xs font-mono">
                           <span className="text-[#6B7280] shrink-0 w-32">
-                            {isJa ? '署名日時' : 'Signed At'}
+                            {t('signedAt')}
                           </span>
                           <span className="text-[#F4F4F2]">
-                            {new Date(doc.signedAt).toLocaleString(isJa ? 'ja-JP' : 'en-US')}
+                            {new Date(doc.signedAt).toLocaleString(locale === 'ja' ? 'ja-JP' : 'en-US')}
                           </span>
                         </div>
                       </div>

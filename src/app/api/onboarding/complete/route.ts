@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid onboarding data' }, { status: 422 });
   }
 
-  const { app_name, app_description, target_launch_date } = step1.data;
+  const { app_name, app_description, target_launch_date, preferred_locale } = step1.data;
   const { auth_method, key_features, integrations, design_references } = step2.data;
   const { entity_name, signature_name } = step3.data;
   const { timezone, preferred_channel } = step4.data;
@@ -82,6 +82,12 @@ export async function POST(request: NextRequest) {
     console.error('complete_onboarding RPC error:', error);
     return NextResponse.json({ error: 'Failed to complete onboarding' }, { status: 500 });
   }
+
+  // Persist preferred locale to user profile (best-effort)
+  await supabase
+    .from('profiles')
+    .update({ locale: preferred_locale })
+    .eq('id', user.id);
 
   // Send confirmation emails (best-effort, don't block response)
   const founderName = profile?.full_name ?? signature_name;

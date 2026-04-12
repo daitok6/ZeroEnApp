@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import Cal from '@calcom/embed-react';
 import { step4Schema } from '@/lib/validations/onboarding';
 import type { OnboardingFormData } from '@/lib/validations/onboarding';
@@ -39,15 +40,9 @@ const TIMEZONES = [
   'Pacific/Auckland',
 ];
 
-const CHANNEL_OPTIONS = [
-  { value: 'email', labelEn: 'Email', labelJa: 'メール' },
-  { value: 'slack', labelEn: 'Slack', labelJa: 'Slack' },
-  { value: 'discord', labelEn: 'Discord', labelJa: 'Discord' },
-  { value: 'whatsapp', labelEn: 'WhatsApp', labelJa: 'WhatsApp' },
-];
-
-export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: Props) {
-  const isJa = locale === 'ja';
+export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale: _locale }: Props) {
+  const t = useTranslations('onboarding.step4');
+  const tCommon = useTranslations('common');
   const calLink = process.env.NEXT_PUBLIC_CALCOM_LINK;
 
   const [formData, setFormData] = useState({
@@ -55,6 +50,13 @@ export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: P
     preferred_channel: data.preferred_channel ?? ('' as OnboardingFormData['preferred_channel']),
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const channelOptions = [
+    { value: 'email', label: t('channelEmail') },
+    { value: 'slack', label: t('channelSlack') },
+    { value: 'discord', label: t('channelDiscord') },
+    { value: 'whatsapp', label: t('channelWhatsApp') },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,12 +76,10 @@ export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: P
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <h2 className="text-2xl font-bold font-mono text-[#F4F4F2] mb-2">
-        {isJa ? 'キックオフを設定する' : 'Schedule Your Kickoff'}
+        {t('title')}
       </h2>
       <p className="text-[#9CA3AF] text-sm font-mono mb-6">
-        {isJa
-          ? 'キックオフコールを予約してください。スケジュールはいつでも変更できます。'
-          : 'Book your kickoff call below. You can reschedule anytime.'}
+        {t('desc')}
       </p>
 
       {/* Cal.com embed — only renders when NEXT_PUBLIC_CALCOM_LINK is set */}
@@ -94,9 +94,7 @@ export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: P
       ) : (
         <div className="rounded border border-[#374151] bg-[#111827] p-6 text-center space-y-2">
           <p className="text-[#6B7280] text-sm font-mono">
-            {isJa
-              ? 'カレンダーの予約は後ほどメールでご案内します。'
-              : "We'll send you a calendar link to book your kickoff call."}
+            {t('calFallback')}
           </p>
         </div>
       )}
@@ -104,7 +102,7 @@ export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: P
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-2">
         <div>
           <label className={labelClass}>
-            {isJa ? 'タイムゾーン' : 'Timezone'}
+            {t('timezone')}
           </label>
           <select
             value={formData.timezone}
@@ -120,7 +118,7 @@ export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: P
 
         <div>
           <label className={labelClass}>
-            {isJa ? '希望の連絡手段' : 'Preferred Channel'}
+            {t('preferredChannel')}
           </label>
           <select
             value={formData.preferred_channel}
@@ -128,11 +126,11 @@ export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: P
             className={selectClass}
           >
             <option value="" disabled>
-              {isJa ? '選択してください' : 'Select one'}
+              {t('channelPlaceholder')}
             </option>
-            {CHANNEL_OPTIONS.map((opt) => (
+            {channelOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
-                {isJa ? opt.labelJa : opt.labelEn}
+                {opt.label}
               </option>
             ))}
           </select>
@@ -147,16 +145,14 @@ export function Step4Kickoff({ data, onSubmit, onBack, isSubmitting, locale }: P
           disabled={isSubmitting}
           className="text-[#9CA3AF] font-mono text-sm px-6 py-3 rounded border border-[#374151] hover:border-[#6B7280] transition-colors disabled:opacity-40"
         >
-          ← {isJa ? '戻る' : 'Back'}
+          {tCommon('back')}
         </button>
         <button
           type="submit"
           disabled={isSubmitting}
           className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono px-8 py-3 rounded hover:bg-[#00d070] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {isSubmitting
-            ? (isJa ? '送信中...' : 'Submitting...')
-            : (isJa ? 'セットアップを完了する ✓' : 'Complete Setup ✓')}
+          {isSubmitting ? tCommon('submitting') : t('completeButton')}
         </button>
       </div>
     </form>

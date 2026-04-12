@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { ReactNode } from 'react';
+import { useTranslations } from 'next-intl';
 import { navItems, pendingNavItems, onboardingNavItems, adminNavItems } from './nav-items';
 import { SidebarNavLink } from './sidebar-nav-link';
 
@@ -24,7 +25,16 @@ interface SidebarProps {
 }
 
 export function Sidebar({ locale, navType, basePath, messagesBadge }: SidebarProps) {
+  const tDash = useTranslations('dashboard.nav');
+  const tAdmin = useTranslations('admin');
+
   const items = NAV_MAP[navType];
+
+  const getLabel = (key: string): string => {
+    if (navType === 'admin') return tAdmin(key as Parameters<typeof tAdmin>[0]);
+    return tDash(key as Parameters<typeof tDash>[0]);
+  };
+
   return (
     <aside className="hidden md:flex flex-col w-56 shrink-0 bg-[#0D0D0D] border-r border-[#374151] h-full">
       {/* Logo */}
@@ -42,7 +52,7 @@ export function Sidebar({ locale, navType, basePath, messagesBadge }: SidebarPro
               key={item.key}
               href={`/${locale}${item.path}`}
               icon={item.icon}
-              label={locale === 'ja' ? item.labelJa : item.labelEn}
+              label={getLabel(item.key)}
               exact={item.path === basePath}
               badge={item.key === 'messages' ? messagesBadge : undefined}
             />
@@ -56,7 +66,7 @@ export function Sidebar({ locale, navType, basePath, messagesBadge }: SidebarPro
           href={`/${locale}`}
           className="flex items-center gap-2 text-[#6B7280] hover:text-[#F4F4F2] text-xs font-mono transition-colors px-3 py-2 rounded hover:bg-[#1F2937]"
         >
-          ← {locale === 'ja' ? 'サイトに戻る' : 'Back to site'}
+          ← {tDash('backToSite')}
         </Link>
       </div>
     </aside>

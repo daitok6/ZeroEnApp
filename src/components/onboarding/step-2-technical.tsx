@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { step2Schema } from '@/lib/validations/onboarding';
 import type { OnboardingFormData } from '@/lib/validations/onboarding';
 
@@ -16,8 +17,9 @@ const labelClass = 'block text-[#F4F4F2] text-xs font-bold uppercase tracking-wi
 const errorClass = 'mt-1 text-red-400 text-xs font-mono';
 const selectClass = 'w-full bg-[#111827] border border-[#374151] text-[#F4F4F2] text-sm font-mono px-4 py-3 rounded focus:outline-none focus:border-[#00E87A]';
 
-export function Step2Technical({ data, onNext, onBack, locale }: Props) {
-  const isJa = locale === 'ja';
+export function Step2Technical({ data, onNext, onBack, locale: _locale }: Props) {
+  const t = useTranslations('onboarding.step2');
+  const tCommon = useTranslations('common');
   const [formData, setFormData] = useState({
     auth_method: data.auth_method ?? ('' as OnboardingFormData['auth_method']),
     key_features: data.key_features ?? '',
@@ -41,29 +43,22 @@ export function Step2Technical({ data, onNext, onBack, locale }: Props) {
     onNext(result.data);
   };
 
-  const authOptions = isJa
-    ? [
-        { value: 'email-password', label: 'メール＋パスワード' },
-        { value: 'google', label: 'Googleログイン' },
-        { value: 'both', label: '両方' },
-        { value: 'other', label: 'その他' },
-      ]
-    : [
-        { value: 'email-password', label: 'Email + Password' },
-        { value: 'google', label: 'Google OAuth' },
-        { value: 'both', label: 'Both' },
-        { value: 'other', label: 'Other' },
-      ];
+  const authOptions = [
+    { value: 'email-password', label: t('authEmailPassword') },
+    { value: 'google', label: t('authGoogle') },
+    { value: 'both', label: t('authBoth') },
+    { value: 'other', label: t('authOther') },
+  ];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <h2 className="text-2xl font-bold font-mono text-[#F4F4F2] mb-6">
-        {isJa ? '技術的な環境設定' : 'Technical Preferences'}
+        {t('title')}
       </h2>
 
       <div>
         <label className={labelClass}>
-          {isJa ? '認証方法' : 'Authentication Method'}
+          {t('authMethod')}
         </label>
         <select
           value={formData.auth_method}
@@ -71,7 +66,7 @@ export function Step2Technical({ data, onNext, onBack, locale }: Props) {
           className={selectClass}
         >
           <option value="" disabled>
-            {isJa ? '選択してください' : 'Select one'}
+            {t('authPlaceholder')}
           </option>
           {authOptions.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -82,13 +77,13 @@ export function Step2Technical({ data, onNext, onBack, locale }: Props) {
 
       <div>
         <label className={labelClass}>
-          {isJa ? 'MVPの主要機能' : 'Key MVP Features'}
+          {t('keyFeatures')}
         </label>
         <textarea
           rows={4}
           value={formData.key_features}
           onChange={(e) => setFormData({ ...formData, key_features: e.target.value })}
-          placeholder={isJa ? 'MVPに含めたい主要機能を説明してください...' : 'Describe the core features you want in the MVP...'}
+          placeholder={t('keyFeaturesPlaceholder')}
           className={inputClass}
         />
         {errors.key_features && <p className={errorClass}>{errors.key_features}</p>}
@@ -96,13 +91,13 @@ export function Step2Technical({ data, onNext, onBack, locale }: Props) {
 
       <div>
         <label className={labelClass}>
-          {isJa ? '必要な外部サービス（任意）' : 'Integrations Needed (optional)'}
+          {t('integrations')}
         </label>
         <textarea
           rows={3}
           value={formData.integrations}
           onChange={(e) => setFormData({ ...formData, integrations: e.target.value })}
-          placeholder={isJa ? '例：Stripe、SendGrid、Google Maps...' : 'e.g. Stripe, SendGrid, Google Maps...'}
+          placeholder={t('integrationsPlaceholder')}
           className={inputClass}
         />
         {errors.integrations && <p className={errorClass}>{errors.integrations}</p>}
@@ -110,13 +105,13 @@ export function Step2Technical({ data, onNext, onBack, locale }: Props) {
 
       <div>
         <label className={labelClass}>
-          {isJa ? 'デザインの参考（任意）' : 'Design References (optional)'}
+          {t('designRefs')}
         </label>
         <textarea
           rows={3}
           value={formData.design_references}
           onChange={(e) => setFormData({ ...formData, design_references: e.target.value })}
-          placeholder={isJa ? 'URLや参考にしたいサービスの名前...' : 'URLs or names of apps you like the look of...'}
+          placeholder={t('designRefsPlaceholder')}
           className={inputClass}
         />
         {errors.design_references && <p className={errorClass}>{errors.design_references}</p>}
@@ -128,13 +123,13 @@ export function Step2Technical({ data, onNext, onBack, locale }: Props) {
           onClick={onBack}
           className="text-[#9CA3AF] font-mono text-sm px-6 py-3 rounded border border-[#374151] hover:border-[#6B7280] transition-colors"
         >
-          ← {isJa ? '戻る' : 'Back'}
+          {tCommon('back')}
         </button>
         <button
           type="submit"
           className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono px-8 py-3 rounded hover:bg-[#00d070] transition-colors"
         >
-          {isJa ? '次へ →' : 'Next →'}
+          {tCommon('next')}
         </button>
       </div>
     </form>

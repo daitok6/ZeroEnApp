@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 import { navItems, pendingNavItems, onboardingNavItems, adminNavItems } from './nav-items';
 
@@ -24,7 +25,15 @@ interface BottomNavProps {
 
 export function BottomNav({ locale, navType, basePath, messagesBadge }: BottomNavProps) {
   const pathname = usePathname();
+  const tDash = useTranslations('dashboard.nav');
+  const tAdmin = useTranslations('admin');
+
   const items = NAV_MAP[navType];
+
+  const getLabel = (key: string): string => {
+    if (navType === 'admin') return tAdmin(key as Parameters<typeof tAdmin>[0]);
+    return tDash(key as Parameters<typeof tDash>[0]);
+  };
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#0D0D0D] border-t border-[#374151] md:hidden">
@@ -34,7 +43,6 @@ export function BottomNav({ locale, navType, basePath, messagesBadge }: BottomNa
           const isActive = pathname === href ||
             (item.path !== basePath && pathname.startsWith(`/${locale}${item.path}`));
           const Icon = item.icon;
-          const label = locale === 'ja' ? item.labelJa : item.labelEn;
 
           return (
             <Link
@@ -55,7 +63,7 @@ export function BottomNav({ locale, navType, basePath, messagesBadge }: BottomNa
                 )}
               </div>
               <span className="text-[10px] font-mono leading-none">
-                {label}
+                {getLabel(item.key)}
               </span>
             </Link>
           );

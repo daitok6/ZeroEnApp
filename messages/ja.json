@@ -35,7 +35,8 @@
         "SAFEノートによる株式10%",
         "積極的な参加 — フィードバック、意思決定、ドメイン知識"
       ],
-      "cta": "無料で申し込む"
+      "cta": "無料で申し込む",
+      "noEquityPayment": "アプリがローンチするまで、エクイティの支払いはありません。"
     },
     "applySection": {
       "title": "一緒に作りますか？",
@@ -156,7 +157,8 @@
       "placeholder": "your@email.com",
       "cta": "登録",
       "note": "スパムなし。いつでも解除可能。"
-    }
+    },
+    "processEyebrow": "プロセス"
   },
   "apply": {
     "title": "ZeroEnに申し込む",
@@ -172,31 +174,66 @@
       ],
       "linkText": "秘密保持条項の全文を読む",
       "checkboxLabel": "相互秘密保持契約を読み、同意しました",
-      "continueButton": "申し込みを続ける"
+      "continueButton": "申し込みを続ける →",
+      "ndaError": "秘密保持契約に同意する必要があります"
     },
     "step1": {
       "title": "あなたのアイデア",
       "ideaName": "何を構築しますか？",
+      "ideaNamePlaceholder": "アプリ名やプロジェクト名",
       "ideaDescription": "アイデアを詳しく説明してください",
-      "problemSolved": "どんな問題を解決しますか？"
+      "ideaDescriptionPlaceholder": "あなたのプロダクトが何をするか教えてください...",
+      "problemSolved": "どんな問題を解決しますか？",
+      "problemSolvedPlaceholder": "解決する具体的な問題を説明してください..."
     },
     "step2": {
       "title": "市場",
       "targetUsers": "ターゲットユーザーは誰ですか？",
-      "competitors": "競合他社は誰ですか？",
-      "monetization": "どうやって収益を上げますか？"
+      "targetUsersPlaceholder": "どんな人がこのプロダクトを使いますか？",
+      "competitors": "競合他社は誰ですか？（任意）",
+      "competitorsPlaceholder": "既存のソリューションや競合他社...",
+      "monetization": "どうやって収益を上げますか？",
+      "monetizationPlaceholder": "サブスクリプション、手数料、広告など..."
     },
     "step3": {
       "title": "あなたについて",
       "founderName": "お名前",
+      "founderNamePlaceholder": "山田 太郎",
       "founderEmail": "メールアドレス",
       "founderBackground": "経歴・バックグラウンド",
+      "founderBackgroundPlaceholder": "職歴、スキル、関連する経験など...",
       "commitment": "時間的なコミット",
+      "commitmentPlaceholder": "コミット時間を選択",
+      "commitmentFullTime": "フルタイム",
+      "commitmentPartTime": "パートタイム",
+      "commitmentSideProject": "サイドプロジェクト",
       "linkedin": "LinkedIn URL（任意）"
     },
     "step4": {
       "title": "確認・送信",
+      "edit": "編集",
+      "sectionIdea": "アイデア",
+      "sectionMarket": "市場",
+      "sectionFounder": "ファウンダー",
+      "fieldName": "名前",
+      "fieldDescription": "説明",
+      "fieldProblemSolved": "解決する問題",
+      "fieldTargetUsers": "ターゲットユーザー",
+      "fieldCompetitors": "競合他社",
+      "fieldMonetization": "収益化計画",
+      "fieldBackground": "バックグラウンド",
+      "fieldCommitment": "コミット",
+      "fieldNoneSpecified": "なし",
+      "fieldNotProvided": "なし",
+      "disclaimer": "申し込みを送信することで、ZeroEnの利用規約とエクイティ条件に同意します。",
+      "submitting": "送信中...",
       "submit": "申し込みを送信"
+    },
+    "wizard": {
+      "received": "申し込みを受け取りました。",
+      "inTouch": "3〜5営業日以内にご連絡します。",
+      "somethingWentWrong": "エラーが発生しました。もう一度お試しください。",
+      "networkError": "ネットワークエラーが発生しました。もう一度お試しください。"
     }
   },
   "howItWorks": {
@@ -249,10 +286,29 @@
     }
   },
   "footer": {
+    "tagline": "アイデアを、形にする。",
+    "product": {
+      "heading": "プロダクト",
+      "howItWorks": "仕組み",
+      "applyFree": "申し込む"
+    },
+    "company": {
+      "heading": "会社",
+      "blog": "ブログ"
+    },
     "newsletter": {
+      "heading": "ニュースレター",
+      "description": "最新情報をお届けします。",
       "title": "最新情報をお届けします。",
       "placeholder": "your@email.com",
-      "cta": "登録"
+      "cta": "登録",
+      "join": "登録",
+      "subscribed": "登録しました！"
+    },
+    "bottom": {
+      "terms": "利用規約",
+      "privacy": "プライバシー",
+      "tagline": "東京 · AI駆動のCTO"
     }
   },
   "terms": {
@@ -283,11 +339,12 @@
         { "title": "8. IP所有権", "body": "知的財産はエクイティ持分に比例して共有されます。ZeroEnはエクイティに対応する10%のIP権利を保持します。ZeroEnは常にポートフォリオおよびマーケティング資料での使用権を保持します。" },
         { "title": "9. ファウンダーベスティング", "body": "クライアントのエクイティは時間をかけてベストします。プロジェクト放棄(6ヶ月以上の連絡なし・使用なし)の場合、エクイティ持分は比例して減少します。" },
         { "title": "10. 準拠法", "body": "本規約はカナダ(オンタリオ州)の法律に準拠します。紛争は誠実な交渉により解決され、必要に応じて拘束力のある仲裁によります。" },
-        { "title": "11. 秘密保持・機密保持義務", "body": "ZeroEnおよびクライアントは、互いの機密情報を非公開に保つことに合意します。機密情報とは、申し込みデータ、事業計画、技術仕様、財務予測、ユーザー調査、および申し込み・オンボーディング・構築プロセス中に共有されたその他の情報を含みます。\n\nいずれの当事者も、相手方の書面による同意なしに、相手方の機密情報を共有・複製・使用しないものとします。標準的な除外事項として、公に入手可能な情報、独自に開発された情報、または法律上開示が義務付けられた情報は本条項の対象外とします。\n\nデータ削除：採択・不採択を問わず、すべての申請者はいつでも提出済みデータの削除を請求できます。不採択の申し込みデータは不採択決定から30日以内に自動削除されます。\n\n本秘密保持義務はZeroEnとクライアント間のいかなる契約の終了後も存続します。準拠法については第10条に従います。" }
+        { "title": "11. 秘密保持・機密保持義務", "body": "ZeroEnおよびクライアントは、互いの機密情報を非公開に保つことに合意します。機密情報とは、申し込みデータ、事業計画、技術仕様、財務予測、ユーザー調査、および申し込み・オンボーディング・構築プロセス中に共有されたその他の情報を含みます。\n\nいずれの当事者も、相手方の書面による同意なしに、相手方の機密情報を共有・複製・使用しないものとします。\n\nデータ削除：採択・不採択を問わず、すべての申請者はいつでも提出済みデータの削除を請求できます。不採択の申し込みデータは不採択決定から30日以内に自動削除されます。" }
       ]
     }
   },
   "blog": {
+    "readMore": "続きを読む →",
     "categories": {
       "all": "すべて",
       "build-update": "ビルド更新",
@@ -301,6 +358,9 @@
     "overview": "概要",
     "clients": "クライアント",
     "applications": "応募",
+    "requests": "リクエスト",
+    "messages": "メッセージ",
+    "documents": "書類",
     "totalClients": "クライアント数",
     "activeProjects": "進行中プロジェクト",
     "pendingApplications": "審査中応募",
@@ -308,13 +368,64 @@
     "clientName": "クライアント",
     "projectName": "プロジェクト",
     "status": "ステータス",
+    "plan": "プラン",
     "lastUpdated": "最終更新",
     "health": "ヘルス",
     "noClients": "クライアントはまだいません。",
-    "messages": "メッセージ",
     "allConversations": "全会話",
     "noConversations": "まだ会話はありません。",
-    "selectConversation": "会話を選択してください"
+    "selectConversation": "会話を選択してください",
+    "noRequests": "リクエストはありません",
+    "application": "応募内容",
+    "founder": "ファウンダー",
+    "idea": "アイデア",
+    "problemSolved": "解決する問題",
+    "targetUsers": "ターゲットユーザー",
+    "competitors": "競合",
+    "monetization": "収益モデル",
+    "background": "バックグラウンド",
+    "commitment": "コミット",
+    "viewProfile": "プロフィールを見る",
+    "aiScore": "AIスコア",
+    "recommendation": "推薦",
+    "notScoredYet": "まだスコアリングされていません。",
+    "scoring": "スコアリング中…",
+    "scoreWithAI": "AIでスコアリング",
+    "rescoreWithAI": "AIで再スコアリング",
+    "approving": "採択中…",
+    "approve": "採択",
+    "rejecting": "却下中…",
+    "reject": "却下",
+    "projectNameLabel": "プロジェクト名",
+    "siteUrl": "サイトURL",
+    "githubRepo": "GitHub リポジトリURL",
+    "vercelProject": "Vercel プロジェクトURL",
+    "visibility": "公開設定",
+    "enableProject": "プロジェクトを有効にする",
+    "enableProjectWarning": "プロジェクトのステータスを「ローンチ済み」に変更し、クライアントに表示されるようになります。",
+    "saving": "保存中…",
+    "saveChanges": "変更を保存",
+    "failedToSave": "変更の保存に失敗しました",
+    "sendInvoice": "請求書を送信",
+    "amount": "金額 (USD)",
+    "amountHelper": "$0 = 無料（プランに含む）",
+    "description": "説明",
+    "dueDate": "期日（任意）",
+    "invalidAmount": "有効な金額を入力してください",
+    "enterDescription": "説明を入力してください",
+    "sending": "送信中…",
+    "needsReview": "要確認",
+    "markReviewing": "確認中にする",
+    "markInProgress": "進行中にする",
+    "markComplete": "完了にする",
+    "discussion": "コメント",
+    "back": "戻る",
+    "networkError": "ネットワークエラーが発生しました。もう一度お試しください。",
+    "scoringFailed": "スコアリングに失敗しました",
+    "ideaViability": "アイデアの実現可能性",
+    "founderCommitment": "創業者のコミットメント",
+    "techFeasibility": "技術的実現可能性",
+    "marketPotential": "市場ポテンシャル"
   },
   "plan": {
     "wizardTitle": "プランを選択",
@@ -345,6 +456,430 @@
     "subscriptionTakingLong": "予想より時間がかかっています。ページを更新するか、メッセージ機能でご連絡ください",
     "subscriptionTakingLongLink": "メッセージ",
     "subscribeToAccess": "この機能を利用するにはプランへの登録が必要です",
-    "backToDashboard": "ダッシュボードに戻る"
+    "backToDashboard": "ダッシュボードに戻る",
+    "planChangedSuccess": "変更が完了しました",
+    "downgradeLocked": "ダウングレードはロックされています",
+    "anErrorOccurred": "エラーが発生しました",
+    "unexpectedError": "予期しないエラーが発生しました",
+    "downgradeRemovedFeatures": "ダウングレードするとPremiumの機能（監査、フルアナリティクス）が利用できなくなります",
+    "downgradeNote2": "Basicプランの機能に変更されます",
+    "downgradeLockedAfterDate": "{date}以降にダウングレード可能です",
+    "selectPlanSubtitle": "プロジェクトに合ったプランをお選びください",
+    "yourWebsite": "あなたのウェブサイト",
+    "subscriptionWarning": "⚠ サブスクリプションの登録が14日以内に完了しない場合、ウェブサイトは一時停止されます。",
+    "selected": "選択中",
+    "commitmentCheckboxFull": "6ヶ月間の最低利用期間に同意します。早期解約の場合は残月分または¥80,000（少ない方）をお支払いいただきます。"
+  },
+  "common": {
+    "all": "すべて",
+    "back": "← 戻る",
+    "next": "次へ →",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "close": "閉じる",
+    "view": "詳細",
+    "send": "送信",
+    "loading": "読み込み中...",
+    "submitting": "送信中...",
+    "processing": "処理中...",
+    "error": "エラーが発生しました",
+    "networkError": "ネットワークエラーが発生しました。もう一度お試しください。",
+    "somethingWentWrong": "問題が発生しました",
+    "status": {
+      "pending": "審査中",
+      "onboarding": "オンボード中",
+      "building": "開発中",
+      "launched": "ローンチ済み",
+      "operating": "運用中",
+      "paused": "一時停止中",
+      "terminated": "終了",
+      "accepted": "採択済み",
+      "rejected": "却下",
+      "reviewing": "確認中",
+      "quoted": "見積済み",
+      "approved": "承認済み",
+      "inProgress": "進行中",
+      "completed": "完了",
+      "submitted": "送信済み"
+    },
+    "plan": {
+      "basic": "ベーシック",
+      "premium": "プレミアム"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "アカウントの設定を管理します。",
+    "language": {
+      "title": "言語設定",
+      "subtitle": "ダッシュボードの表示言語を選択してください。",
+      "saved": "保存しました。ページを切り替えます..."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "おかえりなさい",
+      "subtitle": "ZeroEnダッシュボードにサインインします。",
+      "continueWithGoogle": "Googleで続ける",
+      "connecting": "接続中...",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "signIn": "サインイン",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "signUp": "登録する"
+    },
+    "signup": {
+      "title": "アカウントを作成",
+      "subtitle": "ZeroEnに参加して、一緒に構築しましょう。",
+      "continueWithGoogle": "Googleで続ける",
+      "connecting": "接続中...",
+      "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+      "signIn": "サインイン"
+    },
+    "logout": "ログアウト"
+  },
+  "dashboard": {
+    "home": {
+      "welcome": "ようこそ",
+      "getStarted": "ZeroEnへようこそ",
+      "applyPrompt": "アカウントが作成されました。次のステップは、アプリケーションを提出することです。審査後、フルダッシュボードへのアクセスが付与されます。",
+      "submitApplication": "応募する",
+      "shareYourIdea": "アイデアを共有する",
+      "applicationStatus": "応募状況",
+      "checkStatus": "審査状況を確認",
+      "title": "ダッシュボード",
+      "trackProgress": "プロジェクトの状況を確認",
+      "quickLinks": "クイックリンク",
+      "messages": "メッセージ",
+      "chatWithTeam": "チームとチャット",
+      "documents": "書類",
+      "signedAgreements": "署名済み契約書",
+      "invoices": "請求書",
+      "billingPayments": "請求・支払い",
+      "requests": "リクエスト",
+      "requestFeatures": "機能追加リクエスト",
+      "analytics": "アナリティクス"
+    },
+    "nav": {
+      "overview": "概要",
+      "messages": "メッセージ",
+      "documents": "書類",
+      "invoices": "請求書",
+      "billing": "お支払い",
+      "requests": "リクエスト",
+      "settings": "設定",
+      "apply": "応募",
+      "applicationStatus": "応募状況",
+      "onboarding": "はじめましょう",
+      "backToSite": "サイトに戻る"
+    },
+    "projectStatus": {
+      "title": "プロジェクト",
+      "settingUp": "プロジェクト準備中",
+      "settingUpDesc": "オンボーディング完了。プロジェクトの準備ができたらここに表示されます。",
+      "viewSite": "サイトを見る →",
+      "github": "GitHub →",
+      "vercel": "Vercel →",
+      "started": "開始:"
+    },
+    "milestones": {
+      "title": "マイルストーン",
+      "done": "完了",
+      "inProgress": "進行中",
+      "pending": "未着手",
+      "empty": "マイルストーンはまだありません",
+      "due": "期限:"
+    }
+  },
+  "requests": {
+    "title": "リクエスト",
+    "newRequest": "新しいリクエスト",
+    "formTitle": "タイトル",
+    "formTitlePlaceholder": "変更内容を簡潔に",
+    "formDescription": "詳細",
+    "formDescriptionPlaceholder": "変更内容の詳細を記入してください",
+    "formSize": "規模",
+    "formSizePlaceholder": "規模を選択",
+    "sizeSmall": "スモール ($50-100)",
+    "sizeMedium": "ミディアム ($200-500)",
+    "sizeLarge": "ラージ ($500-2,000)",
+    "submitError": "送信に失敗しました。もう一度お試しください。",
+    "submitSuccess": "リクエストを送信しました！",
+    "submitButton": "リクエストを送信",
+    "submitting": "送信中..."
+  },
+  "invoices": {
+    "title": "請求書",
+    "invoice": "請求書",
+    "free": "無料",
+    "includedInPlan": "プランに含まれています",
+    "due": "期日: ",
+    "approvedMessage": "✓ 承認されました。作業を開始します。",
+    "acceptAndPay": "承認して支払う",
+    "accept": "承認する",
+    "discuss": "相談する",
+    "decline": "断る",
+    "declineConfirm": "断りますか？",
+    "declineReason": "理由（任意）",
+    "empty": "請求書はまだありません。",
+    "payError": "エラーが発生しました"
+  },
+  "billing": {
+    "title": "お支払い・プラン管理",
+    "subtitle": "サブスクリプションの管理",
+    "noSubscription": "アクティブなサブスクリプションはありません。ダッシュボードからプランを選択してください。",
+    "hostingIncluded": "ホスティング込み",
+    "oneChangePerMonth": "月1回の小変更",
+    "pdfAnalytics": "前月PDFアナリティクス",
+    "twoChangesPerMonth": "月2回の小変更または1回の中変更",
+    "fullYearAnalytics": "年間アナリティクスダッシュボード",
+    "quarterlyAudits": "四半期ごとのセキュリティ・SEO監査",
+    "commitmentPeriod": "コミット期間",
+    "started": "開始: ",
+    "minimumTermEnds": "最短終了日: ",
+    "monthsRemaining": "残り約{n}ヶ月のコミット期間があります",
+    "changePlan": "プラン変更",
+    "downgradeNote": "Basicプランにダウングレードできます。ただし、6ヶ月のコミット期間が満了している必要があります。ダウングレードすると、監査やフルアナリティクスなどのPremium機能が利用できなくなります。",
+    "upgradeNote": "Premiumプランにアップグレードすると、より多くの変更リクエスト、フルアナリティクス、四半期ごとの監査が利用できます。アップグレードすると6ヶ月のコミット期間がリセットされます。",
+    "upgradeDetail": "アップグレードすると、新たに6ヶ月のコミット期間が開始されます。日割り計算で即座に適用されます。",
+    "downgradeAvailableAfter": "ダウングレードは{date}以降に可能です。",
+    "downgradeButton": "Basicにダウングレード",
+    "upgradeButton": "Premiumにアップグレード",
+    "cancelSubscription": "サブスクリプションの解約",
+    "subscriptionCancelled": "解約が完了しました",
+    "cancelledDesc": "現在の請求期間の終了までサービスをご利用いただけます。その後、ウェブサイトはオフラインになります。",
+    "goBack": "戻る",
+    "confirmCancel": "本当に解約しますか？",
+    "cancelWarning1": "現在の請求期間の終了後、ウェブサイトはオフラインになります",
+    "cancelWarning2": "90日以内であれば未払い分を支払うことで再開可能です",
+    "cancelWarning3": "90日を過ぎるとデータは削除されます",
+    "earlyTerminationFee": "早期解約料が発生します: {cost}（残り{n}ヶ月分または¥80,000の少ない方）",
+    "confirmCancellation": "解約を確定する",
+    "goBackButton": "キャンセル",
+    "cancellationNote": "解約すると、現在の請求期間の終了後にウェブサイトがオフラインになります。コードの買い取り（¥80,000）も可能です。",
+    "commitmentPeriodNote": "コミット期間内のため、早期解約料（{cost}）が発生します。",
+    "currentPlanLabel": "現在のプラン",
+    "cancelLink": "サブスクリプションを解約する",
+    "pendingTitle": "サブスクリプションを設定中...",
+    "pendingDesc": "サブスクリプションを設定しています。このページは自動的に更新されます。",
+    "pendingTakingLong": "設定に時間がかかっています",
+    "pendingTakingLongDesc": "ページを更新するか、メッセージでお問い合わせください。",
+    "subscribeToAccess": "この機能を利用するにはプランへの登録が必要です",
+    "subscribeToAccessDesc": "プランを選択してサブスクリプションを開始してください。",
+    "choosePlan": "プランを選択する"
+  },
+  "messages": {
+    "title": "メッセージ",
+    "empty": "メッセージはまだありません",
+    "placeholder": "メッセージを入力... (Enter で送信)",
+    "sendAria": "送信",
+    "seenJustNow": "既読 今",
+    "seenMinutes": "既読 {n}分前",
+    "seenHours": "既読 {n}時間前",
+    "seenDays": "既読 {n}日前",
+    "you": "あなた",
+    "user": "匿名",
+    "loadError": "メッセージの読み込みに失敗しました",
+    "sendError": "送信に失敗しました"
+  },
+  "documents": {
+    "title": "書類",
+    "empty": "プロジェクト開始後に書類が表示されます",
+    "nda": "相互秘密保持契約",
+    "partnership": "パートナーシップ契約",
+    "signed": "署名日: ",
+    "signedBadge": "署名済み",
+    "view": "詳細",
+    "confidentialityTitle": "秘密保持の約束",
+    "confidentialityPoints": [
+      "書面による合意なしに、あなたのアイデアを共有・複製・使用しません",
+      "これは相互のものです — 私たちも同じ条件に縛られています",
+      "いつでも全データの削除を依頼できます",
+      "不採択の申し込みは30日以内に削除されます"
+    ],
+    "electronicAcceptance": "{date} に電子的に同意しました",
+    "partnershipTitle": "パートナーシップの主要条件",
+    "partnershipTerms": [
+      { "label": "エクイティ", "value": "SAFE note経由で10%（法人化時に転換）" },
+      { "label": "レベニューシェア", "value": "アプリ収益の約10%（柔軟に交渉可能）" },
+      { "label": "プラットフォーム料金", "value": "ローンチ後 $50/月（ホスティング＋月1回の小修正）" },
+      { "label": "MVPスコープ", "value": "キックオフ時に確定。変更は別途料金" },
+      { "label": "IP所有権", "value": "共有（エクイティ割合に比例）" },
+      { "label": "キルスイッチ", "value": "90日未払いで契約終了、コードの権利はオペレーターへ" },
+      { "label": "権利復帰", "value": "6ヶ月以内にローンチしない場合、コードの権利はオペレーターへ" },
+      { "label": "ポートフォリオ権", "value": "オペレーターは常に本プロジェクトの作品を紹介する権利を保持" }
+    ],
+    "signature": "電子署名",
+    "entity": "会社・プロジェクト名",
+    "termsVersion": "条件バージョン",
+    "signedAt": "署名日時"
+  },
+  "onboarding": {
+    "step0": {
+      "title": "採択されました！",
+      "desc": "あなたのアプリケーションが承認されました。ZeroEnへようこそ。一緒にプロダクトを作りましょう。",
+      "highlights": [
+        "MVPを無料で構築します",
+        "Vercelにデプロイして本番環境を用意します",
+        "月次のアナリティクスレポートをお届けします",
+        "成功した時に一緒に成長します"
+      ],
+      "setupButton": "プロジェクトをセットアップする →",
+      "timeEstimate": "所要時間：約3分"
+    },
+    "step1": {
+      "title": "プロジェクトの詳細",
+      "languageLabel": "言語設定 / Preferred Language",
+      "languageHelper": "設定ページで後から変更できます。",
+      "appName": "アプリ名",
+      "appNamePlaceholder": "プロジェクト名",
+      "appDescription": "アプリの説明",
+      "appDescriptionPlaceholder": "あなたのアプリが何をするか詳しく教えてください...",
+      "targetLaunch": "目標ローンチ時期（任意）"
+    },
+    "step2": {
+      "title": "技術的な環境設定",
+      "authMethod": "認証方法",
+      "authPlaceholder": "選択してください",
+      "authEmailPassword": "メール＋パスワード",
+      "authGoogle": "Googleログイン",
+      "authBoth": "両方",
+      "authOther": "その他",
+      "keyFeatures": "MVPの主要機能",
+      "keyFeaturesPlaceholder": "MVPに含めたい主要機能を説明してください...",
+      "integrations": "必要な外部サービス（任意）",
+      "integrationsPlaceholder": "例：Stripe、SendGrid、Google Maps...",
+      "designRefs": "デザインの参考（任意）",
+      "designRefsPlaceholder": "URLや参考にしたいサービスの名前..."
+    },
+    "step3": {
+      "title": "ビジネス・契約条件",
+      "entityName": "会社・プロジェクト名（任意）",
+      "entityNamePlaceholder": "株式会社〇〇 または個人名",
+      "partnershipTitle": "パートナーシップの主要条件",
+      "terms": [
+        { "label": "エクイティ", "value": "SAFE note経由で10%（法人化時に転換）" },
+        { "label": "レベニューシェア", "value": "アプリ収益の約10%（柔軟に交渉可能）" },
+        { "label": "プラットフォーム料金", "value": "ローンチ後 $50/月（ホスティング＋月1回の小修正）" },
+        { "label": "MVPスコープ", "value": "キックオフ時に確定。変更は別途料金" },
+        { "label": "IP所有権", "value": "共有（エクイティ割合に比例）" },
+        { "label": "キルスイッチ", "value": "90日未払いで契約終了、コードの権利はオペレーターへ" },
+        { "label": "権利復帰", "value": "6ヶ月以内にローンチしない場合、コードの権利はオペレーターへ" },
+        { "label": "ポートフォリオ権", "value": "オペレーターは常に本プロジェクトの作品を紹介する権利を保持" }
+      ],
+      "disclaimer": "本条件は、ZeroEnとの標準パートナーシップ契約（Terms v1.0）の主要項目です。電子的に同意することで、法的拘束力を持つ合意が成立します。",
+      "signatureLabel": "フルネームを入力して署名 *",
+      "signaturePlaceholder": "例: 山田 太郎",
+      "signatureHelper": "これが法的署名として機能します。",
+      "checkboxLabel": "上記の条件を読み、理解し、同意します。本同意は電子署名として法的拘束力を持つことを認識しています。",
+      "completeFields": "全ての必須項目を入力してください"
+    },
+    "step4": {
+      "title": "キックオフを設定する",
+      "desc": "キックオフコールを予約してください。スケジュールはいつでも変更できます。",
+      "calFallback": "カレンダーの予約は後ほどメールでご案内します。",
+      "timezone": "タイムゾーン",
+      "preferredChannel": "希望の連絡手段",
+      "channelPlaceholder": "選択してください",
+      "channelEmail": "メール",
+      "channelSlack": "Slack",
+      "channelDiscord": "Discord",
+      "channelWhatsApp": "WhatsApp",
+      "completeButton": "セットアップを完了する ✓"
+    },
+    "wizard": {
+      "viewApplication": "応募内容を確認する",
+      "error": "問題が発生しました。もう一度お試しください。",
+      "networkError": "ネットワークエラーが発生しました。もう一度お試しください。"
+    },
+    "congratsModal": {
+      "loadingButton": "準備中...",
+      "setupButton": "プロジェクトをセットアップする →",
+      "timeEstimate": "所要時間：約3分"
+    },
+    "resumeBanner": {
+      "title": "おかえりなさい",
+      "desc": "もう少しです。プロジェクトのセットアップを完了して、構築を始めましょう。",
+      "progress": "{stepsCompleted} / {totalSteps} ステップ完了",
+      "continueButton": "セットアップを続ける →",
+      "loading": "読み込み中...",
+      "subtext": "中断したところから再開できます"
+    },
+    "applicationDrawer": {
+      "title": "応募内容",
+      "idea": "アイデア",
+      "ideaName": "アイデア名",
+      "description": "説明",
+      "problemSolved": "解決する問題",
+      "targetUsers": "ターゲットユーザー",
+      "competitors": "競合",
+      "monetization": "収益モデル",
+      "founder": "ファウンダー",
+      "background": "バックグラウンド",
+      "commitment": "コミット",
+      "locale": "言語",
+      "aiEvaluation": "AI評価",
+      "ideaViability": "アイデア",
+      "feasibility": "実現性",
+      "market": "市場性",
+      "close": "閉じる"
+    }
+  },
+  "comments": {
+    "loading": "読み込み中…",
+    "loadError": "コメントの読み込みに失敗しました",
+    "empty": "コメントはまだありません",
+    "you": "あなた",
+    "user": "匿名",
+    "sendAria": "送信",
+    "placeholder": "コメントを入力…",
+    "sendError": "送信に失敗しました"
+  },
+  "privacy": {
+    "eyebrow": "プライバシー",
+    "title": "プライバシーポリシー",
+    "lastUpdated": "最終更新：2026年4月11日",
+    "sections": [
+      {
+        "title": "1. 運営者について",
+        "body": "ZeroEn（以下「当社」）は、カナダの個人事業主が運営するウェブ開発・ホスティングサービスです。ウェブサイト：zeroen.dev。プライバシーに関するお問い合わせ：hello@zeroen.dev"
+      },
+      {
+        "title": "2. 収集するデータ",
+        "body": "サービスご利用時に以下の情報を収集します。\n\n**アカウントデータ：** 氏名、メールアドレス、パスワード（Supabase Auth で管理）。GoogleまたはGitHubでログインする場合、当該プロバイダーから公開プロフィール情報を受け取ります。\n\n**プロジェクトデータ：** オンボーディングや変更リクエスト時にご提供いただいたウェブサイトの要望・コンテンツ・フィードバック。\n\n**支払いデータ：** 決済はStripeが処理します。当社はStripeカスタマーIDのみを保存します。カード番号やCVVはStripeが管理し、当社は保存しません。\n\n**利用データ：** Vercel Analytics が収集するサーバーログ・ページビュー・アクセス解析（匿名化済み、クロスサイトトラッキングなし）。\n\n**メッセージ：** ダッシュボード経由のメッセージは、プロジェクト履歴のために保存されます。"
+      },
+      {
+        "title": "3. データの利用目的",
+        "body": "収集したデータは以下の目的で使用します：\n- ZeroEnサービスの提供・維持・改善\n- サブスクリプション決済の処理および請求書の発行\n- プロジェクト状況・変更リクエスト・請求に関する連絡\n- Resend経由のトランザクションメール（プロジェクト更新・支払い確認）の送信\n- 法的義務の遵守"
+      },
+      {
+        "title": "4. 第三者サービス",
+        "body": "以下の処理業者とデータを共有します：\n\n**Supabase**（データベース・認証）— supabase.com/privacy\n**Stripe**（決済処理）— stripe.com/privacy\n**Vercel**（ホスティング・アナリティクス）— vercel.com/legal/privacy-policy\n**Resend**（トランザクションメール）— resend.com/legal/privacy-policy\n**GitHub**（任意のOAuthログイン）— docs.github.com\n\n第三者へのデータ販売は一切行いません。"
+      },
+      {
+        "title": "5. データ保持期間",
+        "body": "アカウントおよびプロジェクトデータは、サブスクリプション期間中および終了後90日間保持します（再有効化のため）。税法上の要件により、支払い記録は7年間保持します。データの削除を希望される場合は hello@zeroen.dev までご連絡ください。"
+      },
+      {
+        "title": "6. お客様の権利",
+        "body": "お客様は以下の権利を有する場合があります：\n- 当社が保持する個人データへのアクセス\n- 不正確なデータの訂正\n- データの削除要求\n- 処理への異議申し立てまたは制限\n- データのポータビリティ形式での受け取り\n\nこれらの権利を行使するには hello@zeroen.dev までご連絡ください。"
+      },
+      {
+        "title": "7. クッキー",
+        "body": "認証用の必須セッションクッキーを使用します。広告・トラッキングクッキーは使用しません。Vercel Analyticsは匿名化されたクッキーフリーの指標を使用します。"
+      },
+      {
+        "title": "8. セキュリティ",
+        "body": "データは転送時（TLS）および保存時に暗号化されます。本番環境へのアクセスは運営者に限定されています。定期的な依存関係の監査を含むセキュリティのベストプラクティスに従っています。"
+      },
+      {
+        "title": "9. ポリシーの変更",
+        "body": "本ポリシーは随時更新される場合があります。重要な変更はダッシュボード経由でお知らせします。最新版は常に zeroen.dev/privacy でご確認いただけます。"
+      },
+      {
+        "title": "10. お問い合わせ",
+        "body": "プライバシーに関するご質問・ご要望：hello@zeroen.dev"
+      }
+    ]
   }
 }

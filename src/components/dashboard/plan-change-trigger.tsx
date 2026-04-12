@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { PlanChangeModal } from './plan-change-modal';
 
 interface PlanChangeTriggerProps {
@@ -10,6 +11,7 @@ interface PlanChangeTriggerProps {
 }
 
 export function PlanChangeTrigger({ currentPlan, commitmentStartsAt, locale }: PlanChangeTriggerProps) {
+  const t = useTranslations('plan');
   const [open, setOpen] = useState(false);
 
   return (
@@ -18,7 +20,7 @@ export function PlanChangeTrigger({ currentPlan, commitmentStartsAt, locale }: P
         onClick={() => setOpen(true)}
         className="text-xs font-mono text-[#9CA3AF] hover:text-[#00E87A] transition-colors underline underline-offset-2"
       >
-        {locale === 'ja' ? 'プランを変更する' : 'Change Plan'}
+        {t('changePlan')}
       </button>
       <PlanChangeModal
         currentPlan={currentPlan}
