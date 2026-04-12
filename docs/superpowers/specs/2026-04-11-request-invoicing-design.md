@@ -1,6 +1,6 @@
 # Request Tracking & Invoicing — Design Spec
 **Date:** 2026-04-11  
-**Status:** Approved
+**Status:** Approved — Revised 2026-04-12 (Stripe Invoices)
 
 ---
 
@@ -109,8 +109,8 @@ Request cards replace the flat list. Submission form stays at top, unchanged.
 
 | Action | Behavior |
 |---|---|
-| **Accept** (amount > $0) | Redirect to Stripe checkout; on `payment_intent.succeeded` webhook → invoice `paid`, request `approved` |
-| **Accept** (amount = $0) | Direct API call → invoice `paid`, request `approved` (no Stripe) |
+| **Accept** (amount > ¥0) | Redirect to Stripe hosted invoice URL (stored at quote time); on `invoice.paid` webhook → invoice `paid`, request `approved` |
+| **Accept** (amount = ¥0) | Direct API call → invoice `paid`, request `approved` (no Stripe) |
 | **Decline** | Modal with optional reason field → invoice `declined`, request back to `reviewing` |
 | **Discuss** | Expands inline comment thread; status stays `quoted` |
 
@@ -134,10 +134,10 @@ Request cards replace the flat list. Submission form stays at top, unchanged.
 | `/api/requests/[id]/comments` | POST | Both | Add a comment to a request |
 
 **Stripe flow on accept:**
-1. Client hits `/api/requests/[id]/respond` with `{ action: 'accept' }`
-2. Server calls existing `/api/stripe/create-checkout` logic, returns `{ url }`
-3. Client redirects to Stripe
-4. Existing webhook (`payment_intent.succeeded`) sets `invoices.status = 'paid'` and `change_requests.status = 'approved'`
+1. Admin POSTs `/api/admin/requests/[id]/invoice` → server creates + finalizes a Stripe Invoice, stores `stripe_hosted_invoice_url` on the invoice row, sets `change_requests.status = 'quoted'`
+2. Client hits `/api/requests/[id]/respond` with `{ action: 'accept' }` → server returns stored `{ url: stripe_hosted_invoice_url }`
+3. Client redirects to Stripe-hosted invoice page (shows PDF, accepts payment)
+4. Stripe fires `invoice.paid` webhook → sets `invoices.status = 'paid'` and `change_requests.status = 'approved'`
 
 **Decline flow:**
 1. Client hits `/api/requests/[id]/respond` with `{ action: 'decline', reason?: string }`
