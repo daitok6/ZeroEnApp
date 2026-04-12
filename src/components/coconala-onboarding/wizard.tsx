@@ -36,14 +36,16 @@ const PLANS = [
   {
     id: 'basic' as const,
     nameEn: 'Basic',      nameJa: 'ベーシック',
-    price: '¥5,000 / mo',
+    priceEn: '¥5,000 / mo',
+    priceJa: '¥5,000 / 月',
     featuresEn: ['1 small change/mo', 'Monthly analytics PDF', 'Hosting included'],
     featuresJa: ['小変更1回/月', '月次PDFレポート', 'ホスティング込み'],
   },
   {
     id: 'premium' as const,
     nameEn: 'Premium',    nameJa: 'プレミアム',
-    price: '¥10,000 / mo',
+    priceEn: '¥10,000 / mo',
+    priceJa: '¥10,000 / 月',
     featuresEn: ['2 small or 1 medium change/mo', 'Full-year dashboard', 'Quarterly audits', 'Hosting included'],
     featuresJa: ['小変更2回 or 中変更1回/月', '年間ダッシュボード', '四半期監査', 'ホスティング込み'],
   },
@@ -157,7 +159,7 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
                         </span>
                       )}
                     </div>
-                    <div className="text-[#00E87A] text-base font-mono font-bold mb-3">{plan.price}</div>
+                    <div className="text-[#00E87A] text-base font-mono font-bold mb-3">{locale === 'ja' ? plan.priceJa : plan.priceEn}</div>
                     <ul className="space-y-1">
                       {(locale === 'ja' ? plan.featuresJa : plan.featuresEn).map((f) => (
                         <li key={f} className="text-[#6B7280] text-xs font-mono flex items-start gap-1.5">

@@ -8,10 +8,10 @@ interface PlanSummaryCardProps {
   locale: string;
 }
 
-const PLAN_PRICES: Record<'basic' | 'premium', string> = {
-  basic: '¥5,000/mo',
-  premium: '¥10,000/mo',
-};
+const planPrice = (tier: 'basic' | 'premium', locale: string) =>
+  locale === 'ja'
+    ? tier === 'premium' ? '¥10,000/月' : '¥5,000/月'
+    : tier === 'premium' ? '¥10,000/mo' : '¥5,000/mo';
 
 export function PlanSummaryCard({ planTier, commitmentStartsAt, locale }: PlanSummaryCardProps) {
   const tBilling = useTranslations('billing');
@@ -50,7 +50,7 @@ export function PlanSummaryCard({ planTier, commitmentStartsAt, locale }: PlanSu
           </div>
         </div>
         <p className="text-[#F4F4F2] font-mono font-bold text-lg shrink-0">
-          {PLAN_PRICES[planTier]}
+          {planPrice(planTier, locale)}
         </p>
       </div>
 

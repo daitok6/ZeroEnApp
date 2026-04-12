@@ -25,7 +25,8 @@ type Feature = {
 const PLANS: Record<PlanTier, {
   nameEn: string;
   nameJa: string;
-  price: string;
+  priceEn: string;
+  priceJa: string;
   buyoutCap: number;
   popular: boolean;
   features: Feature[];
@@ -35,7 +36,8 @@ const PLANS: Record<PlanTier, {
   basic: {
     nameEn: 'Basic',
     nameJa: 'ベーシック',
-    price: '¥5,000 / mo',
+    priceEn: '¥5,000 / mo',
+    priceJa: '¥5,000 / 月',
     buyoutCap: 30000,
     popular: false,
     features: [
@@ -64,7 +66,8 @@ const PLANS: Record<PlanTier, {
   premium: {
     nameEn: 'Premium',
     nameJa: 'プレミアム',
-    price: '¥10,000 / mo',
+    priceEn: '¥10,000 / mo',
+    priceJa: '¥10,000 / 月',
     buyoutCap: 60000,
     popular: true,
     features: [
@@ -216,7 +219,7 @@ export function ManagedPlanGate({ projectId, locale, siteUrl, scopeMd }: Managed
                   <p className="text-[#F4F4F2] font-heading font-bold text-lg">
                     {locale === 'ja' ? plan.nameJa : plan.nameEn}
                   </p>
-                  <p className="text-[#00E87A] font-mono font-bold text-xl mt-0.5">{plan.price}</p>
+                  <p className="text-[#00E87A] font-mono font-bold text-xl mt-0.5">{locale === 'ja' ? plan.priceJa : plan.priceEn}</p>
                 </div>
                 <ul className="space-y-3">
                   {plan.features.map((feature) => {
