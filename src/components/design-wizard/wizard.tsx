@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Progress } from '@/components/ui/progress';
@@ -56,6 +56,11 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const wizardRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    wizardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [currentStep]);
 
   // Step 1 — Brand Kit
   const defaultBrandKit: BrandKit = {
@@ -121,6 +126,7 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
   }
 
   async function handleStep1Next() {
+    setError(null);
     if (brandKit.sample_sites.length < 1) {
       setError(t(locale, 'Add at least one sample website', 'サンプルサイトを1つ以上追加してください'));
       return;
@@ -130,6 +136,7 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
   }
 
   async function handleStep2Next() {
+    setError(null);
     if (!assets.copy.trim()) {
       setError(t(locale, 'Brand description is required', 'ブランドの説明は必須です'));
       return;
@@ -139,6 +146,7 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
   }
 
   async function handleStep3Next() {
+    setError(null);
     if (!domain.value.trim()) {
       setError(t(locale, 'Please provide a value', '値を入力してください'));
       return;
@@ -251,8 +259,15 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
 
   const progressPct = (currentStep / TOTAL_STEPS) * 100;
 
+  const ErrorBanner = () =>
+    error ? (
+      <div className="mb-3 rounded border border-red-500/50 bg-red-500/10 p-3 text-red-400 text-xs font-mono">
+        {error}
+      </div>
+    ) : null;
+
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div ref={wizardRef} className="max-w-2xl mx-auto px-4 py-8">
       <div className="mb-6">
         <p className="text-[#00E87A] text-xs font-mono uppercase tracking-widest mb-1">
           {t(locale, 'Website Design', 'ウェブサイトデザイン')}
@@ -262,12 +277,6 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
         </p>
         <Progress value={progressPct} className="h-1 bg-[#1F2937]" />
       </div>
-
-      {error && (
-        <div className="mb-4 rounded border border-red-500/50 bg-red-500/10 p-3 text-red-400 text-xs font-mono">
-          {error}
-        </div>
-      )}
 
       {/* Step 1 — Brand Kit Discovery */}
       {currentStep === 1 && (
@@ -436,6 +445,7 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
             </div>
           </div>
 
+          <ErrorBanner />
           <Button
             onClick={handleStep1Next}
             disabled={isSaving}
@@ -510,6 +520,7 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
             {uploadingExtra && <p className="text-[#6B7280] text-xs font-mono mt-1">{t(locale, 'Uploading...', 'アップロード中...')}</p>}
           </div>
 
+          <ErrorBanner />
           <div className="flex gap-2">
             <Button
               onClick={() => setCurrentStep(1)}
@@ -587,6 +598,7 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
             </div>
           )}
 
+          <ErrorBanner />
           <div className="flex gap-2">
             <Button
               onClick={() => setCurrentStep(2)}
@@ -635,6 +647,7 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
             {uploadingOrder && <p className="text-[#6B7280] text-xs font-mono mt-1">{t(locale, 'Uploading...', 'アップロード中...')}</p>}
           </div>
 
+          <ErrorBanner />
           <div className="flex gap-2">
             <Button
               onClick={() => setCurrentStep(3)}
