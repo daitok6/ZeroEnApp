@@ -15,33 +15,96 @@ type PlanTier = 'basic' | 'premium';
 
 const t = (locale: string, en: string, ja: string) => (locale === 'ja' ? ja : en);
 
-const PLANS = {
+type Feature = {
+  en: string;
+  ja: string;
+  noteEn?: string;
+  noteJa?: string;
+};
+
+const PLANS: Record<PlanTier, {
+  nameEn: string;
+  nameJa: string;
+  price: string;
+  buyoutCap: number;
+  popular: boolean;
+  features: Feature[];
+  valueEn: string;
+  valueJa: string;
+}> = {
   basic: {
     nameEn: 'Basic',
     nameJa: 'ベーシック',
     price: '¥5,000 / mo',
-    featuresEn: ['1 small change/mo', 'Monthly analytics PDF', 'Hosting included'],
-    featuresJa: ['小変更1回/月', '月次PDFレポート', 'ホスティング込み'],
+    buyoutCap: 30000,
     popular: false,
+    features: [
+      {
+        en: '1 small change/mo',
+        ja: '小変更1回/月',
+        noteEn: '≈¥7,500 at agency rates (WebMori Tier A)',
+        noteJa: '代行費 ¥7,500相当 (WebMori Tier A)',
+      },
+      {
+        en: 'Monthly analytics PDF',
+        ja: '月次PDFレポート',
+        noteEn: '¥10,000+ to produce manually',
+        noteJa: '手動作成 ¥10,000+相当',
+      },
+      {
+        en: 'Hosting included',
+        ja: 'ホスティング込み',
+        noteEn: '¥3,000/mo (Vercel Pro)',
+        noteJa: '¥3,000相当 (Vercel Pro)',
+      },
+    ],
+    valueEn: '≈¥20,500+/mo in equivalent services — yours for ¥5,000',
+    valueJa: '実質¥20,500+/月相当のサービスが ¥5,000 で',
   },
   premium: {
     nameEn: 'Premium',
     nameJa: 'プレミアム',
     price: '¥10,000 / mo',
-    featuresEn: ['2 small or 1 medium change/mo', 'Full-year dashboard', 'Quarterly audits', 'Hosting included'],
-    featuresJa: ['小変更2回 or 中変更1回/月', '年間ダッシュボード', '四半期監査', 'ホスティング込み'],
+    buyoutCap: 60000,
     popular: true,
+    features: [
+      {
+        en: '2 small or 1 medium change/mo',
+        ja: '小変更2回 or 中変更1回/月',
+        noteEn: '¥9,000–18,000 at agency rates (WebMori Tier B)',
+        noteJa: '代行費 ¥9,000〜18,000相当 (WebMori Tier B)',
+      },
+      {
+        en: 'Full-year analytics dashboard',
+        ja: '年間ダッシュボード',
+        noteEn: '¥4,000/mo for comparable SaaS tools',
+        noteJa: '類似SaaS ¥4,000/月相当',
+      },
+      {
+        en: 'Quarterly audits (security + SEO)',
+        ja: '四半期監査（セキュリティ + SEO）',
+        noteEn: '¥39,800/audit at WebMori Growth — included every 3 months',
+        noteJa: '¥39,800/回 (WebMori Growth相当) — 3ヶ月毎に実施',
+      },
+      {
+        en: 'Hosting included',
+        ja: 'ホスティング込み',
+        noteEn: '¥3,000/mo (Vercel Pro)',
+        noteJa: '¥3,000相当 (Vercel Pro)',
+      },
+    ],
+    valueEn: '≈¥29,000+/mo in equivalent services — yours for ¥10,000',
+    valueJa: '実質¥29,000+/月相当のサービスが ¥10,000 で',
   },
-} as const;
+};
 
 export function ManagedPlanGate({ projectId, locale, siteUrl, scopeMd }: ManagedPlanGateProps) {
   const [selectedPlan, setSelectedPlan] = useState<PlanTier | null>(null);
   const [scopeAck, setScopeAck] = useState(false);
-  const [ownershipAck, setOwnershipAck] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const canProceed = selectedPlan !== null && scopeAck && ownershipAck;
+  const canProceed = selectedPlan !== null && scopeAck;
 
   const handleSubscribe = async () => {
     if (!canProceed) return;
@@ -55,7 +118,6 @@ export function ManagedPlanGate({ projectId, locale, siteUrl, scopeMd }: Managed
         body: JSON.stringify({
           scope_ack: true,
           commitment_ack_at: new Date().toISOString(),
-          ownership_ack: true,
           plan_tier: selectedPlan,
         }),
       });
@@ -132,11 +194,13 @@ export function ManagedPlanGate({ projectId, locale, siteUrl, scopeMd }: Managed
           {(['basic', 'premium'] as const).map((tier) => {
             const plan = PLANS[tier];
             const isSelected = selectedPlan === tier;
-            const features = locale === 'ja' ? plan.featuresJa : plan.featuresEn;
             return (
               <button
                 key={tier}
-                onClick={() => setSelectedPlan(tier)}
+                onClick={() => {
+                  setSelectedPlan(tier);
+                  setScopeAck(false);
+                }}
                 className={`relative flex-1 text-left p-6 rounded-lg border transition-all ${
                   isSelected
                     ? 'border-[#00E87A] bg-[#00E87A]/5'
@@ -154,16 +218,43 @@ export function ManagedPlanGate({ projectId, locale, siteUrl, scopeMd }: Managed
                   </p>
                   <p className="text-[#00E87A] font-mono font-bold text-xl mt-0.5">{plan.price}</p>
                 </div>
-                <ul className="space-y-2">
-                  {features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <CheckCircle2 size={14} className={`mt-0.5 shrink-0 ${isSelected ? 'text-[#00E87A]' : 'text-[#374151]'}`} />
-                      <span className="text-[#9CA3AF] text-xs font-mono leading-relaxed">{feature}</span>
-                    </li>
-                  ))}
+                <ul className="space-y-3">
+                  {plan.features.map((feature) => {
+                    const label = locale === 'ja' ? feature.ja : feature.en;
+                    const note = locale === 'ja' ? feature.noteJa : feature.noteEn;
+                    return (
+                      <li key={label} className="flex items-start gap-2">
+                        <CheckCircle2 size={14} className={`mt-0.5 shrink-0 ${isSelected ? 'text-[#00E87A]' : 'text-[#374151]'}`} />
+                        <div>
+                          <span className="text-[#9CA3AF] text-xs font-mono leading-relaxed">{label}</span>
+                          {note && (
+                            <p className="text-[10px] sm:text-[11px] text-[#4B5563] font-mono leading-relaxed mt-0.5">{note}</p>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
+
+                {/* Value summary */}
+                <div className="mt-4 pt-4 border-t border-[#374151]/60">
+                  <p className="text-[10px] sm:text-[11px] text-[#00E87A]/70 font-mono leading-relaxed">
+                    {locale === 'ja' ? plan.valueJa : plan.valueEn}
+                  </p>
+                  <a
+                    href="https://www.webmori.jp/ja/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] text-[#4B5563] font-mono hover:text-[#6B7280] transition-colors mt-1"
+                  >
+                    {t(locale, 'Pricing source: WebMori', '価格参照: WebMori')}
+                    <ExternalLink size={9} />
+                  </a>
+                </div>
+
                 {isSelected && (
-                  <div className="mt-4 pt-4 border-t border-[#00E87A]/20">
+                  <div className="mt-4 pt-3 border-t border-[#00E87A]/20">
                     <span className="text-[#00E87A] text-xs font-mono font-bold uppercase tracking-widest">
                       {t(locale, 'Selected', '選択中')}
                     </span>
@@ -175,39 +266,26 @@ export function ManagedPlanGate({ projectId, locale, siteUrl, scopeMd }: Managed
         </div>
       </div>
 
-      {/* Acknowledgement checkboxes */}
-      <div className="space-y-3">
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={scopeAck}
-            onChange={(e) => setScopeAck(e.target.checked)}
-            className="mt-0.5 accent-[#00E87A] shrink-0"
-          />
-          <span className="text-[#9CA3AF] text-xs font-mono leading-relaxed">
-            {t(
-              locale,
-              'I confirm the scope above and commit to the 6-month minimum subscription. Early cancellation = remaining months or ¥80,000 buyout (whichever is less).',
-              '上記スコープを確認し、6ヶ月の最低契約に同意します。早期解約は残月数分または¥80,000の買取（低い方）。'
-            )}
-          </span>
-        </label>
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={ownershipAck}
-            onChange={(e) => setOwnershipAck(e.target.checked)}
-            className="mt-0.5 accent-[#00E87A] shrink-0"
-          />
-          <span className="text-[#9CA3AF] text-xs font-mono leading-relaxed">
-            {t(
-              locale,
-              'I understand ZeroEn retains code ownership. A ¥80,000 buyout transfers full source code.',
-              '買取（¥80,000）なしではZeroEnがコード所有権を保持することを理解しています。'
-            )}
-          </span>
-        </label>
-      </div>
+      {/* Scope acknowledgement — only shown after plan selection */}
+      {selectedPlan && (
+        <div className="space-y-3">
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={scopeAck}
+              onChange={(e) => setScopeAck(e.target.checked)}
+              className="mt-0.5 accent-[#00E87A] shrink-0"
+            />
+            <span className="text-[#9CA3AF] text-xs font-mono leading-relaxed">
+              {t(
+                locale,
+                `I confirm the scope above and commit to the 6-month minimum subscription. Early cancellation = remaining months or ¥${PLANS[selectedPlan].buyoutCap.toLocaleString()} buyout (whichever is less).`,
+                `上記スコープを確認し、6ヶ月の最低契約に同意します。早期解約は残月数分の料金または¥${PLANS[selectedPlan].buyoutCap.toLocaleString()}の買取（低い方）。`
+              )}
+            </span>
+          </label>
+        </div>
+      )}
 
       {/* Subscribe button */}
       <button
