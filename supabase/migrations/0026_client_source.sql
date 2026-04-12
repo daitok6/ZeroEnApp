@@ -13,15 +13,15 @@
 -- ============================================================
 
 alter table public.profiles
-  add column source text not null default 'webapp'
+  add column if not exists source text not null default 'webapp'
     check (source in ('webapp', 'coconala', 'direct'));
 
 alter table public.profiles
-  add column managed boolean not null default false;
+  add column if not exists managed boolean not null default false;
 
 -- nullable: null = not a managed client
 alter table public.profiles
-  add column onboarding_status text
+  add column if not exists onboarding_status text
     check (onboarding_status in ('pending', 'in_progress', 'complete'));
 
 
@@ -29,7 +29,7 @@ alter table public.profiles
 -- B. managed_client_intake table
 -- ============================================================
 
-create table public.managed_client_intake (
+create table if not exists public.managed_client_intake (
   id                  uuid        primary key default gen_random_uuid(),
   profile_id          uuid        not null unique references public.profiles(id) on delete cascade,
   scope_md            text,
@@ -48,32 +48,26 @@ create table public.managed_client_intake (
 alter table public.managed_client_intake enable row level security;
 
 -- Clients: SELECT + UPDATE their own row
+drop policy if exists "Clients can view own intake" on public.managed_client_intake;
 create policy "Clients can view own intake"
   on public.managed_client_intake for select
   using (profile_id = auth.uid());
 
+drop policy if exists "Clients can update own intake" on public.managed_client_intake;
 create policy "Clients can update own intake"
   on public.managed_client_intake for update
   using (profile_id = auth.uid())
   with check (profile_id = auth.uid());
 
 -- Admins: full access
+drop policy if exists "Admins have full access to intake" on public.managed_client_intake;
 create policy "Admins have full access to intake"
   on public.managed_client_intake for all
-  using (
-    exists (
-      select 1 from public.profiles
-      where id = auth.uid() and role = 'admin'
-    )
-  )
-  with check (
-    exists (
-      select 1 from public.profiles
-      where id = auth.uid() and role = 'admin'
-    )
-  );
+  using (public.is_admin())
+  with check (public.is_admin());
 
 -- updated_at trigger (reuse existing function)
+drop trigger if exists managed_client_intake_updated_at on public.managed_client_intake;
 create trigger managed_client_intake_updated_at
   before update on public.managed_client_intake
   for each row execute procedure public.update_updated_at();
@@ -88,6 +82,7 @@ insert into storage.buckets (id, name, public)
   on conflict (id) do update set public = false;
 
 -- Authenticated users can manage their own folder (first path segment = uid)
+drop policy if exists "Authenticated users manage own assets" on storage.objects;
 create policy "Authenticated users manage own assets"
   on storage.objects for all
   to authenticated
@@ -101,22 +96,17 @@ create policy "Authenticated users manage own assets"
   );
 
 -- Admins can do everything in this bucket
+drop policy if exists "Admins manage all client assets" on storage.objects;
 create policy "Admins manage all client assets"
   on storage.objects for all
   to authenticated
   using (
     bucket_id = 'client-assets'
-    and exists (
-      select 1 from public.profiles
-      where id = auth.uid() and role = 'admin'
-    )
+    and public.is_admin()
   )
   with check (
     bucket_id = 'client-assets'
-    and exists (
-      select 1 from public.profiles
-      where id = auth.uid() and role = 'admin'
-    )
+    and public.is_admin()
   );
 
 
@@ -137,6 +127,14 @@ create or replace function public.provision_managed_client(
   p_plan_tier  text
 ) returns void language plpgsql security definer as $$
 begin
+  -- Input validation
+  if p_source not in ('webapp', 'coconala', 'direct') then
+    raise exception 'Invalid source: %', p_source;
+  end if;
+  if p_plan_tier not in ('basic', 'premium') then
+    raise exception 'Invalid plan_tier: %', p_plan_tier;
+  end if;
+
   -- 1. Upsert profile — profile row may already exist from handle_new_user trigger
   insert into public.profiles (
     id,
