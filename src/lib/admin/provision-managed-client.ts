@@ -28,7 +28,8 @@ export async function provisionManagedClient(
   );
 
   if (inviteError) {
-    return { success: false, error: inviteError.message };
+    console.error('[provisionManagedClient] invite error:', inviteError.message);
+    return { success: false, error: 'Failed to create user account. Please try again.' };
   }
 
   const userId = inviteData.user.id;
@@ -40,12 +41,13 @@ export async function provisionManagedClient(
     p_locale: locale,
     p_source: source,
     p_scope_md: scopeMd,
-    p_order_ref: orderRef ?? '',
+    p_order_ref: orderRef,
     p_plan_tier: planTier,
   });
 
   if (rpcError) {
-    return { success: false, error: rpcError.message };
+    console.error('[provisionManagedClient] rpc error:', rpcError.message);
+    return { success: false, error: 'Failed to provision client record. Please try again.' };
   }
 
   return { success: true };
