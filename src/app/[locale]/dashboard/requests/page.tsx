@@ -1,5 +1,6 @@
 import { requireApproved } from '@/lib/auth/require-approved';
 import { ChangeRequestForm } from '@/components/dashboard/change-request-form';
+import { ChangeCatalogueSheet } from '@/components/dashboard/change-catalogue-sheet';
 import { RequestCard } from '@/components/dashboard/request-card';
 import { SubscriptionRequired } from '@/components/dashboard/subscription-required';
 import type { Metadata } from 'next';
@@ -80,6 +81,8 @@ export default async function RequestsPage({ params }: Props) {
             : 'Request new features beyond your original scope'}
         </p>
       </div>
+
+      <ChangeCatalogueSheet locale={locale} planTier={project?.plan_tier ?? null} />
 
       {project && (
         <ChangeRequestForm projectId={project.id} locale={locale} />
