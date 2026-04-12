@@ -43,7 +43,6 @@ export default async function CoconalaOnboardingPage({ params }: Props) {
       locale={locale}
       profileId={user.id}
       scopeMd={intake?.scope_md ?? ''}
-      planTier={intake?.plan_tier ?? 'basic'}
       initialIntake={
         intake
           ? {
@@ -53,6 +52,7 @@ export default async function CoconalaOnboardingPage({ params }: Props) {
               assets: intake.assets ?? null,
               domain: intake.domain ?? null,
               coconala_order_ref: intake.coconala_order_ref ?? null,
+              plan_tier: intake.plan_tier ?? null,
             }
           : null
       }

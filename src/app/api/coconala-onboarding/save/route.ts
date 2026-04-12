@@ -8,6 +8,7 @@ type IntakePatch = {
   assets?: Record<string, unknown> | null;
   domain?: Record<string, unknown> | null;
   coconala_order_ref?: string | null;
+  plan_tier?: string | null;
 };
 
 const ALLOWED_KEYS: (keyof IntakePatch)[] = [
@@ -17,6 +18,7 @@ const ALLOWED_KEYS: (keyof IntakePatch)[] = [
   'assets',
   'domain',
   'coconala_order_ref',
+  'plan_tier',
 ];
 
 export async function POST(request: Request) {

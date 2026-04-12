@@ -37,13 +37,13 @@ interface InitialIntake {
   assets: AssetsData | null;
   domain: DomainData | null;
   coconala_order_ref: string | null;
+  plan_tier: string | null;
 }
 
 interface Props {
   locale: string;
   profileId: string;
   scopeMd: string;
-  planTier: string;
   initialIntake: InitialIntake | null;
 }
 
@@ -72,7 +72,7 @@ const inputClass =
 const labelClass =
   'block text-[#F4F4F2] text-xs font-bold uppercase tracking-widest mb-2 font-mono';
 
-export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, planTier, initialIntake }: Props) {
+export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIntake }: Props) {
   const router = useRouter();
   const supabase = createClient();
 
@@ -83,6 +83,9 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, planTier,
   // Step 1 state
   const [scopeAck, setScopeAck] = useState(initialIntake?.scope_ack ?? false);
   const [ownershipAck, setOwnershipAck] = useState(false);
+  const [selectedPlanTier, setSelectedPlanTier] = useState<'basic' | 'premium'>(
+    (initialIntake?.plan_tier as 'basic' | 'premium') ?? 'basic'
+  );
 
   // Step 2 state
   const defaultBrandKit: BrandKit = {
@@ -152,6 +155,7 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, planTier,
     const ok = await savePatch({
       scope_ack: true,
       commitment_ack_at: new Date().toISOString(),
+      plan_tier: selectedPlanTier,
     });
     if (ok) setCurrentStep(2);
   }
@@ -297,9 +301,6 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, planTier,
         <Progress value={progressPct} className="h-1 bg-[#1F2937]" />
       </div>
 
-      <div className="mb-4 text-[10px] font-mono uppercase tracking-widest text-[#00E87A]">
-        {t(locale, `Plan: ${planTier}`, `プラン: ${planTier}`)}
-      </div>
 
       {error && (
         <div className="mb-4 rounded border border-red-500/50 bg-red-500/10 p-3 text-red-400 text-xs font-mono">
@@ -317,6 +318,62 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, planTier,
               {scopeMd || t(locale, '(No scope provided)', '(スコープ未記入)')}
             </pre>
           </div>
+          <div className="mb-6">
+            <h3 className={labelClass}>{t(locale, 'Choose Your Plan', 'プランを選択')}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {([
+                {
+                  id: 'basic' as const,
+                  nameEn: 'Basic',
+                  nameJa: 'ベーシック',
+                  price: '¥8,000 / mo',
+                  featuresEn: ['1 small change/mo', 'Monthly analytics PDF', 'Hosting included'],
+                  featuresJa: ['小変更1回/月', '月次PDFレポート', 'ホスティング込み'],
+                },
+                {
+                  id: 'premium' as const,
+                  nameEn: 'Premium',
+                  nameJa: 'プレミアム',
+                  price: '¥15,000 / mo',
+                  featuresEn: ['2 small or 1 medium change/mo', 'Full-year dashboard', 'Quarterly audits', 'Hosting included'],
+                  featuresJa: ['小変更2回 or 中変更1回/月', '年間ダッシュボード', '四半期監査', 'ホスティング込み'],
+                },
+              ]).map((plan) => {
+                const selected = selectedPlanTier === plan.id;
+                return (
+                  <button
+                    key={plan.id}
+                    type="button"
+                    onClick={() => setSelectedPlanTier(plan.id)}
+                    className={`rounded border p-4 text-left transition-colors ${
+                      selected ? 'border-[#00E87A] bg-[#00E87A]/5' : 'border-[#374151] hover:border-[#6B7280]'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[#F4F4F2] text-sm font-mono font-bold">
+                        {t(locale, plan.nameEn, plan.nameJa)}
+                      </span>
+                      {selected && (
+                        <span className="text-[#00E87A] text-[10px] font-mono uppercase tracking-widest">
+                          {t(locale, 'Selected', '選択中')}
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-[#00E87A] text-base font-mono font-bold mb-3">{plan.price}</div>
+                    <ul className="space-y-1">
+                      {(locale === 'ja' ? plan.featuresJa : plan.featuresEn).map((f) => (
+                        <li key={f} className="text-[#6B7280] text-xs font-mono flex items-start gap-1.5">
+                          <span className="text-[#00E87A] mt-0.5">—</span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           <label className="flex items-start gap-3 mb-4 cursor-pointer">
             <input
               type="checkbox"
