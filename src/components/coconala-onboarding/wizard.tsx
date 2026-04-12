@@ -82,7 +82,7 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, planTier,
 
   // Step 1 state
   const [scopeAck, setScopeAck] = useState(initialIntake?.scope_ack ?? false);
-  const [ownershipAck, setOwnershipAck] = useState(initialIntake?.scope_ack ?? false);
+  const [ownershipAck, setOwnershipAck] = useState(false);
 
   // Step 2 state
   const defaultBrandKit: BrandKit = {
