@@ -4,6 +4,7 @@ export const step0Schema = z.object({
   nda_accepted: z.literal(true, {
     error: 'You must agree to the confidentiality agreement',
   }),
+  nda_signature_name: z.string().min(2, 'Please type your full name to sign'),
 });
 
 export const step1Schema = z.object({

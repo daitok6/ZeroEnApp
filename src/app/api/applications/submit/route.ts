@@ -4,10 +4,13 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { sendEmail, OPERATOR_EMAIL_ADDRESS } from '@/lib/email/send';
 import { newApplicationEmail } from '@/lib/email/templates';
+import { recordSignature } from '@/lib/legal/record-signature';
+import { CURRENT_NDA_VERSION, loadLegalBody } from '@/lib/legal/versions';
 
 const applicationSchema = z.object({
   // Step 0
   nda_accepted: z.literal(true),
+  nda_signature_name: z.string().min(2, 'Required'),
   // Step 1
   idea_name: z.string().min(2, 'Required'),
   idea_description: z.string().min(20, 'Please provide more detail'),
@@ -28,6 +31,14 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const data = applicationSchema.parse(body);
+
+    // Capture acceptance evidence
+    const ipAddress =
+      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+      request.headers.get('x-real-ip') ??
+      'unknown';
+    const userAgent = request.headers.get('user-agent') ?? 'unknown';
+    const acceptedAt = new Date().toISOString();
 
     const cookieStore = await cookies();
     const supabase = createServerClient(
@@ -61,6 +72,11 @@ export async function POST(request: NextRequest) {
         founder_email: user.email,
         linkedin_url: data.linkedin_url || null,
         user_id: user.id,
+        nda_signature_name: data.nda_signature_name,
+        nda_accepted_at: acceptedAt,
+        nda_ip: ipAddress,
+        nda_user_agent: userAgent,
+        nda_version: CURRENT_NDA_VERSION,
       }]);
 
     if (error) {
@@ -70,6 +86,23 @@ export async function POST(request: NextRequest) {
         { error: 'Failed to submit application. Please try again.' },
         { status: 500 }
       );
+    }
+
+    // Record signing event in signed_documents (supplemental — don't fail submission on error)
+    try {
+      const documentBody = loadLegalBody('nda', CURRENT_NDA_VERSION, data.locale);
+      await recordSignature({
+        userId: user.id,
+        documentType: 'nda',
+        documentVersion: CURRENT_NDA_VERSION,
+        documentBody,
+        signatureName: data.nda_signature_name,
+        ipAddress,
+        userAgent,
+        locale: data.locale,
+      });
+    } catch (sigErr) {
+      console.error('recordSignature error (non-fatal):', sigErr);
     }
 
     const emailData = newApplicationEmail({

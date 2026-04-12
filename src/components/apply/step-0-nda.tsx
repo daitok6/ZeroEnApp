@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { step0Schema } from '@/lib/validations/application';
@@ -8,30 +8,45 @@ import type { ApplicationFormData } from '@/lib/validations/application';
 
 interface Step0Props {
   data: Partial<ApplicationFormData>;
-  onNext: (data: Pick<ApplicationFormData, 'nda_accepted'>) => void;
+  onNext: (data: Pick<ApplicationFormData, 'nda_accepted' | 'nda_signature_name'>) => void;
   locale: string;
 }
 
 const errorClass = 'mt-1 text-red-400 text-xs font-mono';
 
+
 export function Step0Nda({ data, onNext, locale }: Step0Props) {
   const t = useTranslations('apply');
-  const tCommon = useTranslations('common');
   const [accepted, setAccepted] = useState<boolean>(data.nda_accepted === true);
+  const [signatureName, setSignatureName] = useState<string>(data.nda_signature_name ?? '');
+  const [hasScrolled, setHasScrolled] = useState(false);
   const [error, setError] = useState('');
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    // Consider scrolled when within 16px of the bottom
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 16) {
+      setHasScrolled(true);
+    }
+  };
+
+  const canContinue = accepted && signatureName.trim().length >= 2;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const result = step0Schema.safeParse({ nda_accepted: accepted || undefined });
+    const result = step0Schema.safeParse({
+      nda_accepted: accepted || undefined,
+      nda_signature_name: signatureName,
+    });
     if (!result.success) {
       setError(result.error.issues[0]?.message ?? t('step0.ndaError'));
       return;
     }
     setError('');
-    onNext({ nda_accepted: true });
+    onNext({ nda_accepted: true, nda_signature_name: signatureName.trim() });
   };
-
-  const points = t.raw('step0.points') as string[];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -44,14 +59,29 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
         </p>
       </div>
 
-      <ul className="space-y-3">
-        {points.map((point, i) => (
-          <li key={i} className="flex items-start gap-3 text-sm font-mono text-[#F4F4F2]">
-            <span className="text-[#00E87A] mt-0.5 shrink-0">✓</span>
-            <span>{point}</span>
-          </li>
-        ))}
-      </ul>
+      {/* Scrollable NDA text block — scroll gate */}
+      <div
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="border border-[#374151] rounded p-4 overflow-y-auto max-h-72 bg-[#111827]"
+      >
+        <p className="text-[#9CA3AF] text-xs font-mono uppercase tracking-wider mb-3">
+          Confidentiality Agreement — Key Terms
+        </p>
+        <ul className="space-y-3">
+          {(t.raw('step0.ndaPoints') as string[]).map((point, i) => (
+            <li key={i} className="flex items-start gap-3 text-sm font-mono text-[#F4F4F2]">
+              <span className="text-[#00E87A] mt-0.5 shrink-0">✓</span>
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+        {!hasScrolled && (
+          <p className="mt-4 text-[#9CA3AF] text-xs font-mono text-center animate-pulse">
+            {t('step0.scrollHint')}
+          </p>
+        )}
+      </div>
 
       <div>
         <Link
@@ -69,6 +99,7 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
             <input
               type="checkbox"
               checked={accepted}
+              disabled={!hasScrolled}
               onChange={(e) => {
                 setAccepted(e.target.checked);
                 if (e.target.checked) setError('');
@@ -79,7 +110,9 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
               className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
                 accepted
                   ? 'bg-[#00E87A] border-[#00E87A]'
-                  : 'bg-transparent border-[#374151]'
+                  : hasScrolled
+                  ? 'bg-transparent border-[#374151]'
+                  : 'bg-transparent border-[#374151] opacity-40'
               }`}
             >
               {accepted && (
@@ -89,17 +122,34 @@ export function Step0Nda({ data, onNext, locale }: Step0Props) {
               )}
             </div>
           </div>
-          <span className="text-[#F4F4F2] text-sm font-mono leading-relaxed">
+          <span className={`text-sm font-mono leading-relaxed transition-colors ${hasScrolled ? 'text-[#F4F4F2]' : 'text-[#9CA3AF]'}`}>
             {t('step0.checkboxLabel')}
           </span>
         </label>
         {error && <p className={errorClass}>{error}</p>}
       </div>
 
+      {/* Typed signature field */}
+      <div className="space-y-2">
+        <label className="block text-sm font-mono text-[#F4F4F2]">
+          {t('step0.signatureLabel')}
+        </label>
+        <input
+          type="text"
+          value={signatureName}
+          onChange={(e) => setSignatureName(e.target.value)}
+          placeholder={t('step0.signaturePlaceholder')}
+          className="w-full bg-[#111827] border border-[#374151] rounded px-4 py-2.5 text-[#F4F4F2] font-mono text-sm placeholder-[#4B5563] focus:outline-none focus:border-[#00E87A] transition-colors"
+        />
+        <p className="text-[#9CA3AF] text-xs font-mono">
+          {t('step0.signatureHelper')}
+        </p>
+      </div>
+
       <div className="flex justify-end pt-2">
         <button
           type="submit"
-          disabled={!accepted}
+          disabled={!canContinue}
           className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono px-8 py-3 rounded hover:bg-[#00d070] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {t('step0.continueButton')}
