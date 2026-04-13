@@ -185,6 +185,20 @@ export function ManagedPlanGate({ projectId, locale, siteUrl, scopeMd }: Managed
         </div>
       )}
 
+      {/* Pre-plan message */}
+      <div className="bg-[#111827] border border-[#374151] rounded-lg p-5 space-y-2">
+        <p className="text-[#F4F4F2] font-mono font-bold text-sm">
+          {t(locale, 'Your site is ready.', 'サイトの準備ができました。')}
+        </p>
+        <p className="text-[#9CA3AF] font-mono text-xs leading-relaxed">
+          {t(
+            locale,
+            'To keep it live, we run it on a small monthly plan. It covers hosting, a monthly analytics report, and change requests based on the plan you choose — everything you need to keep the site online and improving.',
+            '公開・運用には月額のホスティングが必要です。料金には ホスティング・月次アナリティクスレポート・プランに応じた更新リクエスト が含まれます。サイトを長く育てていくための仕組みとして、まるごとおまかせいただけます。'
+          )}
+        </p>
+      </div>
+
       {/* Plan cards */}
       <div>
         <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest mb-3">

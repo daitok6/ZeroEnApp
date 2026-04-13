@@ -406,6 +406,7 @@
     "requests": "Requests",
     "messages": "Messages",
     "documents": "Documents",
+    "audits": "Audits",
     "totalClients": "Total Clients",
     "activeProjects": "Active Projects",
     "pendingApplications": "Pending Applications",

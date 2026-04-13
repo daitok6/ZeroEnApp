@@ -373,6 +373,7 @@
     "requests": "リクエスト",
     "messages": "メッセージ",
     "documents": "書類",
+    "audits": "監査",
     "totalClients": "クライアント数",
     "activeProjects": "進行中プロジェクト",
     "pendingApplications": "審査中応募",
