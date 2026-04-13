@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
             .single();
 
           if (planTier && subscriptionId) {
-            await supabase
+            const { data: updatedProjects, error: updateError } = await supabase
               .from('projects')
               .update({
                 plan_tier: planTier,
@@ -112,7 +112,31 @@ export async function POST(request: NextRequest) {
                 status: 'operating',
                 checkout_pending_at: null,
               })
-              .eq('client_id', userId);
+              .eq('client_id', userId)
+              .select('id');
+
+            if (updateError) {
+              console.error(
+                `[webhook] projects update error for user ${userId}:`,
+                updateError
+              );
+              return NextResponse.json({ error: 'db_update_failed' }, { status: 500 });
+            }
+
+            if (!updatedProjects || updatedProjects.length === 0) {
+              console.error(
+                `[webhook] projects update matched 0 rows for client_id=${userId} ` +
+                  `(subscription ${subscriptionId}, tier ${planTier}). ` +
+                  'No projects row exists for this user — manual backfill required.'
+              );
+              // Return 500 so Stripe retries; also surfaces in Vercel logs
+              return NextResponse.json({ error: 'project_not_found' }, { status: 500 });
+            }
+
+            console.log(
+              `[webhook] Subscription setup complete for user ${userId}: ` +
+                `tier=${planTier}, subscription=${subscriptionId}`
+            );
           }
 
           if (project) {
@@ -318,8 +342,8 @@ export async function POST(request: NextRequest) {
         break;
     }
   } catch (err) {
-    console.error('Webhook handler error:', err);
-    return NextResponse.json({ received: true, error: 'Handler error' });
+    console.error('[webhook] Unhandled handler error:', err);
+    return NextResponse.json({ error: 'handler_error' }, { status: 500 });
   }
 
   return NextResponse.json({ received: true });
