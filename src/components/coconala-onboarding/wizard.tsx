@@ -64,13 +64,12 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
 
   // Step 1 state
   const [scopeAck, setScopeAck] = useState(initialIntake?.scope_ack ?? false);
-  const [ownershipAck, setOwnershipAck] = useState(false);
   const [selectedPlanTier, setSelectedPlanTier] = useState<'basic' | 'premium'>(
     (initialIntake?.plan_tier as 'basic' | 'premium') ?? 'basic'
   );
 
   async function handleStep1Next() {
-    if (!scopeAck || !ownershipAck) return;
+    if (!scopeAck) return;
     const ok = await savePatch({
       scope_ack: true,
       commitment_ack_at: new Date().toISOString(),
@@ -184,29 +183,14 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
             <span className="text-[#F4F4F2] text-sm font-mono leading-relaxed">
               {t(
                 locale,
-                'I confirm the scope above and commit to the 6-month minimum subscription (¥5,000/mo Basic or ¥10,000/mo Premium). Early cancellation = remaining months or ¥80,000 buyout.',
-                '上記のスコープを確認し、6ヶ月の最低契約期間(ベーシック¥5,000/月 または プレミアム¥10,000/月)に同意します。早期解約の場合は残月数分または¥80,000の買取。'
-              )}
-            </span>
-          </label>
-          <label className="flex items-start gap-3 mb-6 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={ownershipAck}
-              onChange={(e) => setOwnershipAck(e.target.checked)}
-              className="mt-1 accent-[#00E87A]"
-            />
-            <span className="text-[#F4F4F2] text-sm font-mono leading-relaxed">
-              {t(
-                locale,
-                'I understand ZeroEn retains code ownership unless I purchase a buyout.',
-                '買取を購入しない限り、ZeroEnがコードの所有権を保持することを理解しています。'
+                'I confirm the scope above and commit to the 6-month minimum subscription (¥5,000/mo Basic or ¥10,000/mo Premium). Early cancellation will be billed for the remaining months.',
+                '上記のスコープを確認し、6ヶ月の最低契約期間（ベーシック¥5,000/月 または プレミアム¥10,000/月）に同意します。早期解約は残月数分ご請求させていただきます。'
               )}
             </span>
           </label>
           <Button
             onClick={handleStep1Next}
-            disabled={!scopeAck || !ownershipAck || isSaving}
+            disabled={!scopeAck || isSaving}
             className="bg-[#00E87A] text-[#0D0D0D] hover:bg-[#00E87A]/90 font-mono"
           >
             {t(locale, 'Continue', '次へ')}

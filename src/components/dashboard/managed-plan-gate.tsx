@@ -27,7 +27,6 @@ const PLANS: Record<PlanTier, {
   nameJa: string;
   priceEn: string;
   priceJa: string;
-  buyoutCap: number;
   popular: boolean;
   features: Feature[];
   valueEn: string;
@@ -38,7 +37,6 @@ const PLANS: Record<PlanTier, {
     nameJa: 'ベーシック',
     priceEn: '¥5,000 / mo',
     priceJa: '¥5,000 / 月',
-    buyoutCap: 30000,
     popular: false,
     features: [
       {
@@ -68,7 +66,6 @@ const PLANS: Record<PlanTier, {
     nameJa: 'プレミアム',
     priceEn: '¥10,000 / mo',
     priceJa: '¥10,000 / 月',
-    buyoutCap: 60000,
     popular: true,
     features: [
       {
@@ -282,8 +279,8 @@ export function ManagedPlanGate({ projectId, locale, siteUrl, scopeMd }: Managed
             <span className="text-[#9CA3AF] text-xs font-mono leading-relaxed">
               {t(
                 locale,
-                `I confirm the scope above and commit to the 6-month minimum subscription. Early cancellation = remaining months or ¥${PLANS[selectedPlan].buyoutCap.toLocaleString()} buyout (whichever is less).`,
-                `上記スコープを確認し、6ヶ月の最低契約に同意します。早期解約は残月数分の料金または¥${PLANS[selectedPlan].buyoutCap.toLocaleString()}の買取（低い方）。`
+                'I confirm the scope above and commit to the 6-month minimum subscription. Early cancellation will be billed for the remaining months.',
+                '上記スコープを確認し、６ヶ月の最低契約に同意します。早期解約は残月数分ご請求させていただきます。'
               )}
             </span>
           </label>

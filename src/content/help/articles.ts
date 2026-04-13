@@ -201,15 +201,9 @@ export const helpArticles: HelpArticle[] = [
         headingEn: '6-month minimum commitment',
         headingJa: '6ヶ月最低利用期間',
         bodyEn:
-          'All plans require a 6-month minimum commitment starting from your first subscription date. If you cancel before 6 months:\n\n' +
-          '- Option A — Pay the remaining months of your commitment\n' +
-          '- Option B — Purchase the code outright for ¥80,000 (source code handover)\n\n' +
-          'Whichever option is lower in cost applies. After 6 months, cancel anytime by contacting us via Messages with 30 days notice.',
+          'All plans require a 6-month minimum commitment starting from your first subscription date. If you cancel before 6 months, you will be billed for the remaining months of your commitment. After 6 months, cancel anytime by contacting us via Messages with 30 days notice.',
         bodyJa:
-          '全プランは初回サブスクリプション開始日から6ヶ月の最低利用期間があります。6ヶ月未満での解約の場合：\n\n' +
-          '- オプションA — 残りの月数分の費用をお支払いいただきます\n' +
-          '- オプションB — コードを¥80,000で買い取っていただきます（ソースコード引き渡し）\n\n' +
-          '金額の低い方が適用されます。6ヶ月経過後は、メッセージで30日前に通知することでいつでも解約できます。',
+          '全プランは初回サブスクリプション開始日から6ヶ月の最低利用期間があります。6ヶ月未満での解約の場合は、残月数分をご請求させていただきます。6ヶ月経過後は、メッセージで30日前に通知することでいつでも解約できます。',
       },
       {
         headingEn: 'Upgrade and downgrade',
@@ -331,17 +325,17 @@ export const helpArticles: HelpArticle[] = [
         headingEn: 'Can I cancel at any time?',
         headingJa: 'いつでも解約できますか？',
         bodyEn:
-          'All plans have a 6-month minimum commitment. After 6 months, you can cancel anytime by sending us a message with 30 days notice. Early cancellation before 6 months requires either paying the remaining months or a ¥80,000 code buyout — whichever is lower.',
+          'All plans have a 6-month minimum commitment. After 6 months, you can cancel anytime by sending us a message with 30 days notice. Early cancellation before 6 months will be billed for the remaining months of your commitment.',
         bodyJa:
-          '全プランは6ヶ月の最低利用期間があります。6ヶ月経過後は、30日前にメッセージでお知らせいただければいつでも解約できます。6ヶ月未満の早期解約には、残りの月数分の支払いまたは¥80,000のコード買取（金額の低い方）が必要です。',
+          '全プランは6ヶ月の最低利用期間があります。6ヶ月経過後は、30日前にメッセージでお知らせいただければいつでも解約できます。6ヶ月未満の早期解約は、残月数分をご請求させていただきます。',
       },
       {
         headingEn: 'Who owns the website code?',
         headingJa: 'ウェブサイトのコードは誰のものですか？',
         bodyEn:
-          'ZeroEn retains ownership of the code. You license the live website through your active subscription — as long as you subscribe, your site remains live and you have full use of it. To own the source code outright (take it to another hosting provider), you can purchase it for ¥80,000 flat.',
+          'ZeroEn retains ownership of the code. You license the live website through your active subscription — as long as you subscribe, your site remains live and you have full use of it.',
         bodyJa:
-          'コードの所有権はZeroEnが保持します。アクティブなサブスクリプションを通じて、公開中のウェブサイトをライセンス利用していただきます — サブスクリプションが有効な限り、サイトは公開され続けます。ソースコードを完全に取得したい場合（他のホスティング会社への移行など）は、¥80,000一括払いで購入できます。',
+          'コードの所有権はZeroEnが保持します。アクティブなサブスクリプションを通じて、公開中のウェブサイトをライセンス利用していただきます — サブスクリプションが有効な限り、サイトは公開され続けます。',
       },
       {
         headingEn: 'Who owns my domain?',
