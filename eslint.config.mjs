@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Git worktrees — their build artifacts must not be linted
+    ".worktrees/**",
   ]),
 ]);
 
