@@ -1,6 +1,8 @@
 'use server';
 
 import { createAdminClient } from '@/lib/supabase/admin';
+import { sendEmail } from '@/lib/email/send';
+import { inviteEmail } from '@/lib/email/templates';
 
 export async function provisionManagedClient(
   formData: FormData
@@ -37,20 +39,53 @@ export async function provisionManagedClient(
   const adminClient = createAdminClient();
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? '';
-  const { data: inviteData, error: inviteError } = await adminClient.auth.admin.inviteUserByEmail(
-    email,
-    {
-      data: { full_name: fullName },
-      redirectTo: `${siteUrl}/${locale}/login`,
-    }
-  );
+  const redirectTo = `${siteUrl}/${locale}/login`;
 
-  if (inviteError) {
-    console.error('[provisionManagedClient] invite error:', inviteError.message);
-    return { success: false, error: 'Failed to create user account. Please try again.' };
+  // Generate the invite link without sending Supabase's default (English-only) email,
+  // so we can send a locale-aware branded email via Resend below.
+  const { data: linkData, error: linkError } = await adminClient.auth.admin.generateLink({
+    type: 'invite',
+    email,
+    options: {
+      data: { full_name: fullName, locale },
+      redirectTo,
+    },
+  });
+
+  if (linkError || !linkData.user) {
+    console.error('[provisionManagedClient] generateLink error:', linkError?.message);
+    return { success: false, error: `Invite failed: ${linkError?.message ?? 'unknown'}` };
   }
 
-  const userId = inviteData.user.id;
+  const userId = linkData.user.id;
+  const confirmationUrl = linkData.properties?.action_link ?? '';
+
+  const { subject, html } = inviteEmail({
+    clientName: fullName,
+    locale,
+    confirmationUrl,
+  });
+
+  const emailResult = await sendEmail({ to: email, subject, html });
+
+  if (!emailResult.ok) {
+    if (emailResult.reason === 'not-configured') {
+      // Fallback: let Supabase send its default template so the invite isn't lost.
+      console.warn('[provisionManagedClient] Resend not configured — falling back to Supabase default invite email');
+      const { error: fallbackError } = await adminClient.auth.admin.inviteUserByEmail(email, {
+        data: { full_name: fullName, locale },
+        redirectTo,
+      });
+      if (fallbackError) {
+        console.error('[provisionManagedClient] fallback invite error:', fallbackError.message);
+        // Don't rollback the user — they exist via generateLink. Return error so operator knows.
+        return { success: false, error: `Invite email failed: ${fallbackError.message}` };
+      }
+    } else {
+      console.error('[provisionManagedClient] invite email send failed:', emailResult.error);
+      return { success: false, error: `Invite email failed: ${emailResult.error ?? 'unknown'}` };
+    }
+  }
 
   const { error: rpcError } = await adminClient.rpc('provision_managed_client', {
     p_user_id: userId,

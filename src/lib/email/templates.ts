@@ -478,6 +478,38 @@ export function siteReadyEmail(data: {
   };
 }
 
+// ── Email: Invite (to new managed client) ─────────────────
+export function inviteEmail(data: {
+  clientName: string;
+  locale: 'en' | 'ja';
+  confirmationUrl: string;
+}): { subject: string; html: string } {
+  const isJa = data.locale === 'ja';
+
+  return {
+    subject: isJa
+      ? '[ZeroEn] ワークスペースへのご招待'
+      : 'Your ZeroEn workspace is ready — accept your invite',
+    html: emailWrapper(`
+      ${heading(isJa ? 'ワークスペースの準備ができました。' : 'Your workspace is ready.')}
+      ${subheading(isJa
+        ? `${data.clientName}さん、ZeroEnのクライアントアカウントを作成しました。`
+        : `Hey ${data.clientName} — Daito here. I've provisioned your ZeroEn client account.`
+      )}
+      ${body(isJa
+        ? 'ビルドの進捗確認、月次アナリティクス、サブスクリプション管理をひとつの画面で行えます。下のボタンから招待を承諾し、パスワードを設定してください。'
+        : "You can track your build, review monthly analytics, and manage your subscription in one place. Accept the invite to set your password and jump in."
+      )}
+      ${ctaButton(isJa ? '招待を承諾する' : 'Accept Invite', data.confirmationUrl)}
+      ${muted(isJa
+        ? 'このリンクは24時間で期限切れになります。ボタンが動作しない場合は、以下のURLをブラウザに貼り付けてください：'
+        : "This link expires in 24 hours. If the button doesn't work, paste this URL into your browser:"
+      )}
+      ${muted(`<a href="${data.confirmationUrl}" style="color: #00E87A; text-decoration: underline; word-break: break-all;">${data.confirmationUrl}</a>`)}
+    `),
+  };
+}
+
 // ── Email: Admin Message Digest ────────────────────────────
 export function adminDigestEmail(data: {
   threads: Array<{

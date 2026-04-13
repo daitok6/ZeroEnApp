@@ -1,0 +1,16 @@
+Your ZeroEn workspace is ready.
+
+Hey — Daito here. I've provisioned your ZeroEn client account so you
+can track your build, review monthly analytics, and manage your
+subscription in one place.
+
+Accept your invite (expires in 24 hours):
+{{ .ConfirmationURL }}
+
+ご招待をお受け取りください。リンクは24時間で期限切れになります。
+
+— Daito
+Founder, ZeroEn
+https://zeroen.dev
+
+If this wasn't you, ignore this email and the invite will expire.

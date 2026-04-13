@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your ZeroEn workspace</title>
+  </head>
+  <body style="margin:0;padding:0;background:#0D0D0D;font-family:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;color:#F4F4F2;-webkit-font-smoothing:antialiased;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0D0D0D;">
+      <tr>
+        <td align="center" style="padding:32px 16px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px;background:#141414;border:1px solid #1f1f1f;border-radius:12px;">
+            <tr>
+              <td style="padding:28px 28px 8px 28px;">
+                <div style="font-family:'Syne', Arial, sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.01em;color:#F4F4F2;">
+                  Zero<span style="color:#00E87A;">En</span>
+                </div>
+                <div style="font-size:11px;color:#8a8a8a;margin-top:4px;">zeroen.dev</div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 28px 0 28px;">
+                <p style="font-size:12px;color:#8a8a8a;margin:0 0 16px 0;line-height:1.6;">
+                  ZeroEn ワークスペースへの招待が届いています。下のボタンからアカウントを有効化してください。
+                </p>
+                <h1 style="font-family:'Syne', Arial, sans-serif;font-size:24px;line-height:1.25;margin:0 0 12px 0;color:#F4F4F2;font-weight:700;letter-spacing:-0.01em;">
+                  Your workspace is ready.
+                </h1>
+                <p style="font-size:14px;line-height:1.65;color:#d4d4d2;margin:0 0 20px 0;">
+                  Hey — Daito here. I've provisioned your ZeroEn client account so you can track your build, review monthly analytics, and manage your subscription in one place. Accept the invite to set your password and jump in.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" style="padding:4px 28px 8px 28px;">
+                <a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#00E87A;color:#0D0D0D;font-family:'IBM Plex Mono', monospace;font-weight:600;font-size:14px;text-decoration:none;padding:14px 22px;border-radius:8px;letter-spacing:0.02em;">
+                  Accept invite &rarr;
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 28px 0 28px;">
+                <p style="font-size:12px;line-height:1.6;color:#8a8a8a;margin:0 0 8px 0;">
+                  This link expires in 24 hours. If the button doesn't work, paste this URL into your browser:
+                </p>
+                <p style="font-size:11px;line-height:1.5;color:#00E87A;word-break:break-all;margin:0 0 24px 0;">
+                  <a href="{{ .ConfirmationURL }}" style="color:#00E87A;text-decoration:underline;">{{ .ConfirmationURL }}</a>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 28px 28px 28px;border-top:1px solid #1f1f1f;">
+                <p style="font-size:13px;line-height:1.6;color:#d4d4d2;margin:20px 0 4px 0;">
+                  — Daito
+                </p>
+                <p style="font-size:11px;line-height:1.5;color:#8a8a8a;margin:0;">
+                  Founder, ZeroEn &middot; <a href="https://zeroen.dev" style="color:#8a8a8a;text-decoration:underline;">zeroen.dev</a>
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="max-width:520px;font-size:10px;color:#5a5a5a;margin:16px auto 0;line-height:1.5;">
+            You're receiving this because you onboarded with ZeroEn. If this wasn't you, ignore this email and the invite will expire.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
