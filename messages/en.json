@@ -635,7 +635,7 @@
       "github": "GitHub →",
       "vercel": "Vercel →",
       "started": "Started:"
-    },
+    }
   },
   "requests": {
     "title": "Requests",
@@ -652,7 +652,8 @@
     "submitError": "Failed to submit. Please try again.",
     "submitSuccess": "Request submitted!",
     "submitButton": "Submit Request",
-    "submitting": "Submitting..."
+    "submitting": "Submitting...",
+    "discussion": "Discussion"
   },
   "invoices": {
     "title": "Invoices",

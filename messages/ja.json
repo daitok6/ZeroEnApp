@@ -602,7 +602,7 @@
       "github": "GitHub →",
       "vercel": "Vercel →",
       "started": "開始:"
-    },
+    }
   },
   "requests": {
     "title": "リクエスト",
@@ -619,7 +619,8 @@
     "submitError": "送信に失敗しました。もう一度お試しください。",
     "submitSuccess": "リクエストを送信しました！",
     "submitButton": "リクエストを送信",
-    "submitting": "送信中..."
+    "submitting": "送信中...",
+    "discussion": "コメント"
   },
   "invoices": {
     "title": "請求書",
