@@ -225,9 +225,11 @@ Coconalaの「ホームページ作成」カテゴリは最低出品価格が¥2
 | 4 | スコープ図: 1ページ / 3セクション / 1-3日 + tech stack | `assets/listing-image-4-scope.png` | スコープ明確化 |
 | 5 | ポートフォリオ: zeroen.dev モックブラウザ | `assets/listing-image-5-portfolio.png` | 実物証拠 |
 | 6 | LP構成例: ヒーロー / 特徴 / CTA ワイヤーフレーム | `assets/listing-image-6-wireframe.png` | 完成イメージ + リスク反転 |
+| 7 | ポートフォリオ: webmori.jp 実スクリーンショット | `assets/listing-image-7-webmori.png` | 実績証拠 |
+| 8 | ポートフォリオ: zeroen.dev 実スクリーンショット | `assets/listing-image-8-zeroen.png` | 自社サイト証拠 |
 
 すべて 1200×900px。ブランドカラー `#0D0D0D` / `#00E87A` / `#F4F4F2` 統一。
-順番: 1（フック）→ 2（信頼）→ 3（価格）→ 4（スコープ）→ 6（完成イメージ）→ 5（実物）。
+順番: 1（フック）→ 2（信頼）→ 3（価格）→ 4（スコープ）→ 6（完成イメージ）→ 5（モックアップ）→ 7（実績）→ 8（自社）。
 
 ---
 
