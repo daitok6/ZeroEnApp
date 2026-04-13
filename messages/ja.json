@@ -158,7 +158,53 @@
       "cta": "登録",
       "note": "迷惑メールは送りません。いつでも配信停止できます。"
     },
-    "processEyebrow": "プロセス"
+    "processEyebrow": "プロセス",
+    "dashboardShowcase": {
+      "eyebrow": "クライアントダッシュボード",
+      "heading": "もう「どうなってる？」は不要。",
+      "subheading": "いつでもログインして、アクセス数・変更依頼・請求書を確認。メールで問い合わせる必要はありません。",
+      "bullets": [
+        {
+          "title": "毎月のアクセスをひと目で",
+          "body": "訪問者・人気ページ・パフォーマンスを毎月1日にPDFとグラフでお届けします。"
+        },
+        {
+          "title": "サプライズ請求なし",
+          "body": "変更依頼は承認前に料金を明示。何をいくらで依頼するか、常に把握できます。"
+        },
+        {
+          "title": "請求はセルフサービス",
+          "body": "請求書・領収書・プラン変更 — すべてここで。問い合わせなしで完結します。"
+        }
+      ],
+      "ctaLabel": "ダッシュボードを見る",
+      "ctaHref": "/ja/dashboard-preview"
+    }
+  },
+  "dashboardPreview": {
+    "eyebrow": "クライアントダッシュボード",
+    "heading": "契約後に使えるもの、すべて。",
+    "subheading": "アナリティクス・変更依頼・請求・メッセージ — ブランド統一されたポータルに集約。",
+    "views": [
+      {
+        "label": "アナリティクス",
+        "caption": "月次訪問者トレンド・人気ページ・Core Web Vitals — PDFレポートとリアルタイム表示の両方で確認。"
+      },
+      {
+        "label": "変更依頼",
+        "caption": "変更申請・料金確認・進捗追跡がすべてダッシュボード上で完結。サプライズ請求なし。"
+      },
+      {
+        "label": "請求書",
+        "caption": "請求書・領収書・サブスクリプション状況 — セルフサービスで管理。"
+      },
+      {
+        "label": "メッセージ",
+        "caption": "ZeroEnオペレーターとの直接スレッド。迅速で記録に残る非同期コミュニケーション。"
+      }
+    ],
+    "ctaLabel": "無料で申し込む",
+    "ctaHref": "/ja/login?intent=apply"
   },
   "apply": {
     "title": "ZeroEnに申し込む",
@@ -626,7 +672,8 @@
     "cancelRequest": "リクエストを取り下げ",
     "cancelConfirm": "このリクエストを取り下げますか？",
     "cancelDescription": "リクエストは取り下げられます。後で新しく送信することもできます。",
-    "cancelReasonPlaceholder": "任意：理由があればお知らせください"
+    "cancelReasonPlaceholder": "任意：理由があればお知らせください",
+    "badgeUnread": "変更依頼の未読アクティビティ"
   },
   "invoices": {
     "title": "請求書",

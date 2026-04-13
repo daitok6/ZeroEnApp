@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Hero } from '@/components/marketing/hero';
 import { WhyZeroEn } from '@/components/marketing/why-zeroen';
 import { TrustSection } from '@/components/marketing/trust-section';
+import { DashboardShowcase } from '@/components/marketing/dashboard-showcase';
 import { TechStackTerminal } from '@/components/marketing/tech-stack-terminal';
 import { CaseStudiesPreview } from '@/components/marketing/case-studies-preview';
 import { NewsletterSection } from '@/components/marketing/newsletter-section';
@@ -97,6 +98,11 @@ export default async function HomePage({ params }: Props) {
     desc: t(`trustSection.points.${i}.desc`),
   }));
 
+  const dashboardBullets = [0, 1, 2].map((i) => ({
+    title: t(`dashboardShowcase.bullets.${i}.title`),
+    body: t(`dashboardShowcase.bullets.${i}.body`),
+  }));
+
   const caseStudyPlaceholders = [0, 1, 2].map((i) => {
     const url = t(`caseStudies.placeholders.${i}.url`);
     const screenshot = t(`caseStudies.placeholders.${i}.screenshot`);
@@ -149,7 +155,17 @@ export default async function HomePage({ params }: Props) {
         points={trustPoints}
       />
 
-      {/* ── Section 4: Tech Stack Terminal ───────────────────── */}
+      {/* ── Section 4: Dashboard Showcase ───────────────────── */}
+      <DashboardShowcase
+        eyebrow={t('dashboardShowcase.eyebrow')}
+        heading={t('dashboardShowcase.heading')}
+        subheading={t('dashboardShowcase.subheading')}
+        bullets={dashboardBullets}
+        ctaLabel={t('dashboardShowcase.ctaLabel')}
+        ctaHref={t('dashboardShowcase.ctaHref')}
+      />
+
+      {/* ── Section 5: Tech Stack Terminal ───────────────────── */}
       <TechStackTerminal
         eyebrow={t('techStack.eyebrow')}
         title={t('techStack.title')}
@@ -159,7 +175,7 @@ export default async function HomePage({ params }: Props) {
         tools={techTools}
       />
 
-      {/* ── Section 5: How It Works ──────────────────────────── */}
+      {/* ── Section 6: How It Works ──────────────────────────── */}
       <section className="py-24 px-4 bg-[#080808]">
         <div className="max-w-3xl mx-auto">
           <ScrollReveal direction="up">
@@ -205,7 +221,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Section 6: Case Studies Preview ──────────────────── */}
+      {/* ── Section 7: Case Studies Preview ──────────────────── */}
       <CaseStudiesPreview
         eyebrow={t('caseStudies.eyebrow')}
         title={t('caseStudies.title')}
@@ -215,7 +231,7 @@ export default async function HomePage({ params }: Props) {
         placeholders={caseStudyPlaceholders}
       />
 
-      {/* ── Section 7: Value Proposition ─────────────────────── */}
+      {/* ── Section 8: Value Proposition ─────────────────────── */}
       <section className="py-24 px-4 bg-[#080808]">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal direction="up">
@@ -272,7 +288,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Section 8: Apply CTA ─────────────────────────────── */}
+      {/* ── Section 9: Apply CTA ─────────────────────────────── */}
       <section className="py-24 px-4">
         <GreenGlowLine className="mb-24" />
         <div className="max-w-2xl mx-auto text-center">
@@ -296,7 +312,7 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Section 9: Newsletter ─────────────────────────────── */}
+      {/* ── Section 10: Newsletter ─────────────────────────────── */}
       <NewsletterSection
         eyebrow={t('newsletterSection.eyebrow')}
         title={t('newsletterSection.title')}

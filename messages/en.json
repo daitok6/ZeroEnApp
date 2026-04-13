@@ -158,7 +158,53 @@
       "cta": "Subscribe",
       "note": "No spam. Unsubscribe anytime."
     },
-    "processEyebrow": "Process"
+    "processEyebrow": "Process",
+    "dashboardShowcase": {
+      "eyebrow": "Client Dashboard",
+      "heading": "You're never in the dark.",
+      "subheading": "Log in any time to see your traffic, approve changes, and check invoices. No emails, no guessing.",
+      "bullets": [
+        {
+          "title": "See your traffic, every month",
+          "body": "Visitor trends, top pages, and performance scores — live chart and PDF delivered on the 1st."
+        },
+        {
+          "title": "No surprise invoices",
+          "body": "Every change request shows the price before you approve. You stay in control."
+        },
+        {
+          "title": "Billing, self-serve",
+          "body": "Invoices, receipts, plan status — all here. Upgrade or download receipts any time."
+        }
+      ],
+      "ctaLabel": "Explore the dashboard",
+      "ctaHref": "/en/dashboard-preview"
+    }
+  },
+  "dashboardPreview": {
+    "eyebrow": "Client Dashboard",
+    "heading": "What you get when you sign up.",
+    "subheading": "A branded client portal — analytics, requests, billing, and messaging — all in one place.",
+    "views": [
+      {
+        "label": "Analytics",
+        "caption": "Monthly visitor trends, top pages, and Core Web Vitals — delivered as a PDF and available live."
+      },
+      {
+        "label": "Change Requests",
+        "caption": "Submit changes, see upfront pricing, and track status in real time. No surprises."
+      },
+      {
+        "label": "Invoices",
+        "caption": "Every invoice, receipt, and subscription status — self-serve, no back-and-forth."
+      },
+      {
+        "label": "Messages",
+        "caption": "Direct thread with your ZeroEn operator. Fast, async, documented."
+      }
+    ],
+    "ctaLabel": "Apply Free",
+    "ctaHref": "/en/login?intent=apply"
   },
   "apply": {
     "title": "Apply to ZeroEn",
@@ -659,7 +705,8 @@
     "cancelRequest": "Cancel Request",
     "cancelConfirm": "Cancel this request?",
     "cancelDescription": "This will withdraw the request. You can always submit a new one later.",
-    "cancelReasonPlaceholder": "Optional: tell us why (helps us improve)"
+    "cancelReasonPlaceholder": "Optional: tell us why (helps us improve)",
+    "badgeUnread": "Unread change request activity"
   },
   "invoices": {
     "title": "Invoices",
