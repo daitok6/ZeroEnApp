@@ -44,22 +44,18 @@ args: "<clientId>"
 - [ ] After deploy: visit the site, then confirm a hit appears in Umami Realtime within ~30s
 - [ ] Full setup manual: `HQ/crm/umami-setup.md`
 
-## 4. SEO, OG, and Metadata (template gaps — fill per client)
+## 4. SEO, OG, and Metadata (template ships placeholders — customize per client)
 
-The Next.js template does NOT ship these. Add them before launch:
+The template ships working defaults for all of these, but every one needs per-client customization. Do NOT ship the generic template output to production.
 
-- [ ] `src/app/layout.tsx` metadata extended with:
-  - [ ] `metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!)`
-  - [ ] `description` — client-specific, not the default "Built by ZeroEn"
-  - [ ] `openGraph` block — `title`, `description`, `url`, `siteName`, `locale`, `images`
-  - [ ] `twitter` block — `card: 'summary_large_image'`, same title/description/images
-- [ ] `src/app/opengraph-image.tsx` (or `.png` in `/public`) — 1200×630 OG image with brand/hero text
-- [ ] `src/app/icon.tsx` or `/public/favicon.ico` — replace the default Next.js favicon
-- [ ] `src/app/apple-icon.tsx` (optional but recommended for iOS home-screen)
-- [ ] `src/app/robots.ts` — allow indexing production, disallow preview domains
-- [ ] `src/app/sitemap.ts` — at minimum include `/` and any key landing sections
-- [ ] `src/app/not-found.tsx` — branded 404 page
-- [ ] `src/app/error.tsx` — graceful error boundary
+- [ ] `src/app/layout.tsx` — customize `description` (currently "Built by ZeroEn"), confirm `openGraph.locale` matches target market (default `en_US`; JP clients need `ja_JP`)
+- [ ] `src/app/opengraph-image.tsx` — replace generic gradient with client brand colors / logo / hero copy (1200×630)
+- [ ] `src/app/icon.tsx` — currently renders the first letter of `NEXT_PUBLIC_APP_NAME` on black. Replace with client's real favicon (or drop a `.ico` in `/public/favicon.ico` and delete `icon.tsx`)
+- [ ] `src/app/apple-icon.tsx` — add if client wants an iOS home-screen icon distinct from the favicon (optional)
+- [ ] `src/app/robots.ts` — confirm `disallow` paths match the client's private routes (default blocks `/api`; add `/dashboard`, `/admin`, etc. as needed)
+- [ ] `src/app/sitemap.ts` — add every public route (default includes only `/`)
+- [ ] `src/app/not-found.tsx` — rewrite copy if client brand voice differs from default
+- [ ] `src/app/error.tsx` — wire to error tracking (Sentry, Axiom) if client wants monitoring
 
 ## 5. Forms & Integrations (per-client decisions)
 

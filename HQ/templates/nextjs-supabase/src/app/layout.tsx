@@ -2,9 +2,33 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 
+const appName = process.env.NEXT_PUBLIC_APP_NAME ?? "App";
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+// TODO per-client: rewrite description, tune OG title/description copy.
+const description = "Built by ZeroEn";
+
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_APP_NAME ?? "App",
-  description: "Built by ZeroEn",
+  metadataBase: new URL(appUrl),
+  title: {
+    default: appName,
+    template: `%s — ${appName}`,
+  },
+  description,
+  openGraph: {
+    title: appName,
+    description,
+    url: appUrl,
+    siteName: appName,
+    images: ["/opengraph-image"],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: appName,
+    description,
+    images: ["/opengraph-image"],
+  },
 };
 
 export default function RootLayout({
