@@ -9,8 +9,18 @@ import { PlanWizard } from '@/components/dashboard/plan-wizard';
 import { ManagedPlanGate } from '@/components/dashboard/managed-plan-gate';
 import { SubscriptionPending } from '@/components/dashboard/subscription-pending';
 import Link from 'next/link';
-import { MessageSquare, FileText, Receipt, PlusCircle, Send, ClipboardList } from 'lucide-react';
+import {
+  MessageSquare,
+  FileText,
+  Receipt,
+  PlusCircle,
+  Send,
+  ClipboardList,
+  ShieldCheck,
+  Lock,
+} from 'lucide-react';
 import type { Metadata } from 'next';
+import type { LucideIcon } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Dashboard — ZeroEn',
@@ -22,9 +32,22 @@ type Props = {
   searchParams: Promise<{ subscribed?: string }>;
 };
 
+type QuickLink = {
+  key: string;
+  icon: LucideIcon;
+  labelEn: string;
+  labelJa: string;
+  path: string;
+  descEn: string;
+  descJa: string;
+  premiumOnly?: boolean;
+  locked?: boolean;
+};
+
 export default async function DashboardPage({ params, searchParams }: Props) {
   const { locale } = await params;
   const { subscribed } = await searchParams;
+  const isJa = locale === 'ja';
   const supabase = await createClient();
 
   const {
@@ -52,45 +75,49 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     return (
       <div className="space-y-6 max-w-2xl">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
-            {locale === 'ja' ? 'ようこそ' : 'Welcome'}
+          <h1 className="text-xl md:text-2xl font-bold font-heading text-zen-off-white">
+            {isJa ? 'ようこそ' : 'Welcome'}
           </h1>
-          <p className="text-[#6B7280] text-sm font-mono mt-1">
-            {locale === 'ja' ? 'ZeroEnへようこそ' : 'Get started with ZeroEn'}
+          <p className="text-zen-subtle text-sm font-mono mt-1">
+            {isJa ? 'ZeroEnへようこそ' : 'Get started with ZeroEn'}
           </p>
         </div>
-        <div className="border border-[#374151] rounded-lg bg-[#111827] p-6 space-y-4">
-          <p className="text-[#F4F4F2] font-mono text-sm leading-relaxed">
-            {locale === 'ja'
+        <div className="border border-zen-border rounded-lg bg-zen-surface p-6 space-y-4">
+          <p className="text-zen-off-white font-mono text-sm leading-relaxed">
+            {isJa
               ? 'アカウントが作成されました。次は応募フォームの提出です。審査後、フルダッシュボードへのアクセスが付与されます。'
               : "Your account is set up. The next step is to submit your application. Once reviewed and accepted, you'll get access to the full dashboard."}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
             <Link
               href={`/${locale}/dashboard/apply`}
-              className="flex items-center gap-3 p-4 border border-[#00E87A]/30 rounded-lg bg-[#00E87A]/5 hover:bg-[#00E87A]/10 hover:border-[#00E87A]/60 transition-all group"
+              className="flex items-center gap-3 p-4 border border-zen-green/30 rounded-lg bg-zen-green/5 hover:bg-zen-green/10 hover:border-zen-green/60 transition-all group"
             >
-              <Send size={16} className="text-[#00E87A] shrink-0" />
+              <Send size={16} className="text-zen-green shrink-0" aria-hidden="true" />
               <div>
-                <p className="text-[#F4F4F2] text-sm font-mono font-bold">
-                  {locale === 'ja' ? '応募する' : 'Submit Application'}
+                <p className="text-zen-off-white text-sm font-mono font-bold">
+                  {isJa ? '応募する' : 'Submit Application'}
                 </p>
-                <p className="text-[#6B7280] text-xs font-mono mt-0.5">
-                  {locale === 'ja' ? 'アイデアを共有する' : 'Share your idea'}
+                <p className="text-zen-subtle text-xs font-mono mt-0.5">
+                  {isJa ? 'アイデアを共有する' : 'Share your idea'}
                 </p>
               </div>
             </Link>
             <Link
               href={`/${locale}/dashboard/application-status`}
-              className="flex items-center gap-3 p-4 border border-[#374151] rounded-lg bg-[#0D0D0D] hover:border-[#00E87A]/30 transition-all group"
+              className="flex items-center gap-3 p-4 border border-zen-border rounded-lg bg-zen-dark hover:border-zen-green/30 transition-all group"
             >
-              <ClipboardList size={16} className="text-[#6B7280] group-hover:text-[#00E87A] shrink-0 transition-colors" />
+              <ClipboardList
+                size={16}
+                className="text-zen-subtle group-hover:text-zen-green shrink-0 transition-colors"
+                aria-hidden="true"
+              />
               <div>
-                <p className="text-[#F4F4F2] text-sm font-mono font-bold">
-                  {locale === 'ja' ? '応募状況' : 'Application Status'}
+                <p className="text-zen-off-white text-sm font-mono font-bold">
+                  {isJa ? '応募状況' : 'Application Status'}
                 </p>
-                <p className="text-[#6B7280] text-xs font-mono mt-0.5">
-                  {locale === 'ja' ? '審査状況を確認' : 'Check your status'}
+                <p className="text-zen-subtle text-xs font-mono mt-0.5">
+                  {isJa ? '審査状況を確認' : 'Check your status'}
                 </p>
               </div>
             </Link>
@@ -112,24 +139,27 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     return (
       <div className="space-y-6 max-w-2xl">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
-            {locale === 'ja' ? 'ダッシュボード' : 'Dashboard'}
+          <h1 className="text-xl md:text-2xl font-bold font-heading text-zen-off-white">
+            {isJa ? 'ダッシュボード' : 'Dashboard'}
           </h1>
         </div>
-        <div className="border border-[#374151] rounded-lg bg-[#111827] p-8 text-center space-y-4">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-[#00E87A]/30 bg-[#00E87A]/5 mx-auto">
-            <span className="text-[#00E87A] text-xl">◎</span>
+        <div className="border border-zen-border rounded-lg bg-zen-surface p-6 md:p-8 text-center space-y-4">
+          <div
+            className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-zen-green/30 bg-zen-green/5 mx-auto"
+            aria-hidden="true"
+          >
+            <span className="text-zen-green text-xl">◎</span>
           </div>
-          <h2 className="text-[#F4F4F2] font-mono font-bold text-lg">
-            {locale === 'ja' ? 'ウェブサイトを制作中です' : 'Your website is being prepared'}
+          <h2 className="text-zen-off-white font-mono font-bold text-lg">
+            {isJa ? 'ウェブサイトを制作中です' : 'Your website is being prepared'}
           </h2>
-          <p className="text-[#6B7280] font-mono text-sm leading-relaxed max-w-md mx-auto">
-            {locale === 'ja'
+          <p className="text-zen-subtle font-mono text-sm leading-relaxed max-w-md mx-auto">
+            {isJa
               ? 'デザインブリーフを受け取りました。サイトの準備ができ次第、メールでお知らせします。'
               : "We've received your design brief. You'll get an email when your site is ready to preview."}
           </p>
-          <p className="text-[#4B5563] font-mono text-xs">
-            {locale === 'ja' ? '質問はメッセージから' : 'Questions? Use Messages to reach us.'}
+          <p className="text-zen-subtle/70 font-mono text-xs">
+            {isJa ? '質問はメッセージから' : 'Questions? Use Messages to reach us.'}
           </p>
         </div>
       </div>
@@ -146,6 +176,7 @@ export default async function DashboardPage({ params, searchParams }: Props) {
       : null;
     const isPendingRecently =
       checkoutPendingAt !== null &&
+      // eslint-disable-next-line react-hooks/purity -- server component, computed once per request
       Date.now() - checkoutPendingAt.getTime() < 15 * 60 * 1000;
 
     if (isPendingRecently || subscribed === 'true') {
@@ -191,7 +222,9 @@ export default async function DashboardPage({ params, searchParams }: Props) {
       ).data ?? [])
     : [];
 
-  const quickLinks = [
+  const isPremium = project?.plan_tier === 'premium';
+
+  const quickLinks: QuickLink[] = [
     {
       key: 'messages',
       icon: MessageSquare,
@@ -228,6 +261,17 @@ export default async function DashboardPage({ params, searchParams }: Props) {
       descEn: 'Request new features',
       descJa: '機能追加リクエスト',
     },
+    {
+      key: 'audits',
+      icon: ShieldCheck,
+      labelEn: 'Audits',
+      labelJa: '監査',
+      path: `/${locale}/dashboard/audits`,
+      descEn: isPremium ? 'Security & SEO reports' : 'Premium only',
+      descJa: isPremium ? 'セキュリティ・SEOレポート' : 'Premium限定',
+      premiumOnly: true,
+      locked: !isPremium,
+    },
   ];
 
   return (
@@ -235,23 +279,23 @@ export default async function DashboardPage({ params, searchParams }: Props) {
       {/* Page title */}
       <div>
         <div className="flex items-center gap-3">
-          <h1 className="text-xl md:text-2xl font-bold font-heading text-[#F4F4F2]">
-            {locale === 'ja' ? 'ダッシュボード' : 'Dashboard'}
+          <h1 className="text-xl md:text-2xl font-bold font-heading text-zen-off-white">
+            {isJa ? 'ダッシュボード' : 'Dashboard'}
           </h1>
           {project?.plan_tier && (
             <span
               className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${
                 project.plan_tier === 'premium'
-                  ? 'text-[#00E87A] bg-[#00E87A]/10 border-[#00E87A]/30'
-                  : 'text-[#9CA3AF] bg-[#374151]/50 border-[#374151]'
+                  ? 'text-zen-green bg-zen-green/10 border-zen-green/30'
+                  : 'text-zen-muted bg-zen-border/50 border-zen-border'
               }`}
             >
               {project.plan_tier === 'premium' ? 'Premium' : 'Basic'}
             </span>
           )}
         </div>
-        <p className="text-[#6B7280] text-sm font-mono mt-1">
-          {locale === 'ja' ? 'プロジェクトの状況を確認' : 'Track your project progress'}
+        <p className="text-zen-subtle text-sm font-mono mt-1">
+          {isJa ? 'プロジェクトの状況を確認' : 'Track your project progress'}
         </p>
       </div>
 
@@ -263,8 +307,6 @@ export default async function DashboardPage({ params, searchParams }: Props) {
             <ProjectStatusCard project={project} locale={locale} hideAdminLinks={true} />
             <PlanSummaryCard
               planTier={project.plan_tier}
-              // commitment_starts_at should always be set when plan_tier is set;
-              // fallback to now() is purely defensive and should not occur in practice
               commitmentStartsAt={project.commitment_starts_at ?? new Date().toISOString()}
               locale={locale}
             />
@@ -279,31 +321,50 @@ export default async function DashboardPage({ params, searchParams }: Props) {
         </div>
       )}
 
-      {/* Quick links — 2-col on mobile (2×2 grid), 4-col on md+ */}
+      {/* Quick links — 2-col on mobile, up to 5-col on md+ */}
       <div>
-        <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest mb-3">
-          {locale === 'ja' ? 'クイックリンク' : 'Quick Links'}
+        <p className="text-zen-subtle text-xs font-mono uppercase tracking-widest mb-3">
+          {isJa ? 'クイックリンク' : 'Quick Links'}
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {quickLinks.map((link) => {
             const Icon = link.icon;
+            const label = isJa ? link.labelJa : link.labelEn;
+            const desc = isJa ? link.descJa : link.descEn;
+            const ariaLabel = link.locked
+              ? `${label} — ${isJa ? 'Premium限定' : 'Premium only'}`
+              : label;
+
+            const baseClasses =
+              'flex flex-col gap-3 p-4 border rounded-lg transition-all group';
+            const stateClasses = link.locked
+              ? 'border-zen-border/60 bg-zen-surface/60 hover:border-zen-green/40'
+              : 'border-zen-border bg-zen-surface hover:border-zen-green/50 hover:bg-zen-surface/80';
+
             return (
               <Link
                 key={link.key}
-                href={link.path}
-                className="flex flex-col gap-3 p-4 border border-[#374151] rounded-lg bg-[#111827] hover:border-[#00E87A]/50 hover:bg-[#111827]/80 transition-all group"
+                href={link.locked ? `/${locale}/dashboard/billing` : link.path}
+                aria-label={ariaLabel}
+                className={`${baseClasses} ${stateClasses}`}
               >
-                <Icon
-                  size={18}
-                  className="text-[#6B7280] group-hover:text-[#00E87A] transition-colors"
-                />
+                <div className="flex items-center gap-2">
+                  <Icon
+                    size={18}
+                    className={
+                      link.locked
+                        ? 'text-zen-subtle/70'
+                        : 'text-zen-subtle group-hover:text-zen-green transition-colors'
+                    }
+                    aria-hidden="true"
+                  />
+                  {link.locked && (
+                    <Lock size={12} className="text-zen-subtle/60" aria-hidden="true" />
+                  )}
+                </div>
                 <div>
-                  <p className="text-[#F4F4F2] text-sm font-mono font-bold">
-                    {locale === 'ja' ? link.labelJa : link.labelEn}
-                  </p>
-                  <p className="text-[#6B7280] text-xs font-mono mt-0.5">
-                    {locale === 'ja' ? link.descJa : link.descEn}
-                  </p>
+                  <p className="text-zen-off-white text-sm font-mono font-bold">{label}</p>
+                  <p className="text-zen-subtle text-xs font-mono mt-0.5">{desc}</p>
                 </div>
               </Link>
             );

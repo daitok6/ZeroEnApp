@@ -573,7 +573,9 @@
       "billingPayments": "請求・支払い",
       "requests": "リクエスト",
       "requestFeatures": "機能追加リクエスト",
-      "analytics": "アナリティクス"
+      "analytics": "アナリティクス",
+      "audits": "監査",
+      "auditsDesc": "セキュリティ・SEOレポート"
     },
     "nav": {
       "overview": "概要",
@@ -584,6 +586,7 @@
       "requests": "リクエスト",
       "settings": "設定",
       "analytics": "アナリティクス",
+      "audits": "監査",
       "apply": "応募",
       "applicationStatus": "応募状況",
       "onboarding": "はじめましょう",
@@ -711,7 +714,7 @@
   },
   "documents": {
     "title": "書類",
-    "empty": "プロジェクト開始後に書類が表示されます",
+    "empty": "署名済みの書類はまだありません。契約書の控えが必要な場合はご連絡ください。",
     "nda": "相互秘密保持契約",
     "partnership": "パートナーシップ契約",
     "signed": "署名日: ",

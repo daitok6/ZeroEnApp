@@ -606,7 +606,9 @@
       "billingPayments": "Billing & payments",
       "requests": "Requests",
       "requestFeatures": "Request new features",
-      "analytics": "Analytics"
+      "analytics": "Analytics",
+      "audits": "Audits",
+      "auditsDesc": "Security & SEO reports"
     },
     "nav": {
       "overview": "Overview",
@@ -617,6 +619,7 @@
       "requests": "Requests",
       "settings": "Settings",
       "analytics": "Analytics",
+      "audits": "Audits",
       "apply": "Apply",
       "applicationStatus": "Application Status",
       "onboarding": "Get Started",
@@ -744,7 +747,7 @@
   },
   "documents": {
     "title": "Documents",
-    "empty": "Documents will appear once your project is underway",
+    "empty": "No signed documents on file yet. Reach out if you need a copy of your agreements.",
     "nda": "Mutual Confidentiality Agreement",
     "partnership": "Partnership Agreement",
     "signed": "Signed:",

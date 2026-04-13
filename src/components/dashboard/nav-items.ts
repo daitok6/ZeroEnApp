@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox, CreditCard, Settings, UserPlus, BarChart3 } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox, CreditCard, Settings, UserPlus, BarChart3, ShieldCheck } from 'lucide-react';
 
 export const navItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/dashboard' },
@@ -9,6 +9,7 @@ export const navItems = [
   { key: 'billing', icon: CreditCard, labelEn: 'Billing', labelJa: 'お支払い', path: '/dashboard/billing' },
   { key: 'requests', icon: PlusCircle, labelEn: 'Requests', labelJa: 'リクエスト', path: '/dashboard/requests' },
   { key: 'analytics', icon: BarChart3, labelEn: 'Analytics', labelJa: 'アナリティクス', path: '/dashboard/analytics' },
+  { key: 'audits', icon: ShieldCheck, labelEn: 'Audits', labelJa: '監査', path: '/dashboard/audits' },
   { key: 'settings', icon: Settings, labelEn: 'Settings', labelJa: '設定', path: '/dashboard/settings' },
 ] as const;
 
@@ -21,7 +22,7 @@ export type NavItem = {
 };
 
 /** Keys that are locked until the project is visible AND a plan is chosen. */
-export const PROJECT_LOCKED_KEYS = new Set(['documents', 'invoices', 'billing', 'requests', 'analytics']);
+export const PROJECT_LOCKED_KEYS = new Set(['documents', 'invoices', 'billing', 'requests', 'analytics', 'audits']);
 
 /** Compute which nav keys should be locked for a given project state. */
 export function getLockedKeys(project: { client_visible: boolean; plan_tier: string | null } | null): Set<string> {
@@ -48,4 +49,5 @@ export const adminNavItems = [
   { key: 'requests', icon: Inbox, labelEn: 'Requests', labelJa: 'リクエスト', path: '/admin/requests' },
   { key: 'messages', icon: MessageSquare, labelEn: 'Messages', labelJa: 'メッセージ', path: '/admin/messages' },
   { key: 'documents', icon: FileText, labelEn: 'Documents', labelJa: '書類', path: '/admin/documents' },
+  { key: 'audits', icon: ShieldCheck, labelEn: 'Audits', labelJa: '監査', path: '/admin/audits' },
 ] as const;
