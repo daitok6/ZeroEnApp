@@ -56,7 +56,7 @@ export default async function RequestsPage({ params }: Props) {
       : Promise.resolve({ data: [] }),
     requestIds.length > 0
       ? getUnreadRequestCounts(supabase, user.id, requestIds)
-      : Promise.resolve({ total: 0, byRequest: {} }),
+      : Promise.resolve({ total: 0, byRequest: {} as Record<string, number> }),
   ]);
 
   const unreadByRequest = unreadResult.byRequest;
