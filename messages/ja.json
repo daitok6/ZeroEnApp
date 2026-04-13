@@ -432,6 +432,7 @@
     "markInProgress": "進行中にする",
     "markComplete": "完了にする",
     "discussion": "コメント",
+    "invoiceDeclined": "請求書辞退",
     "back": "戻る",
     "networkError": "ネットワークエラーが発生しました。もう一度お試しください。",
     "scoringFailed": "スコアリングに失敗しました",

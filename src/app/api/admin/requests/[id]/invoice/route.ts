@@ -74,16 +74,25 @@ export async function POST(request: NextRequest, { params }: Params) {
   }
 
   // Guard against duplicate active invoices (allow re-quote after decline/cancellation)
-  const { data: existingInvoice } = await adminSupabase
+  const { data: activeInvoice } = await adminSupabase
     .from('invoices')
     .select('id')
     .eq('change_request_id', id)
     .not('status', 'in', '("declined","cancelled")')
     .maybeSingle();
 
-  if (existingInvoice) {
+  if (activeInvoice) {
     return NextResponse.json({ error: 'Invoice already exists for this request' }, { status: 409 });
   }
+
+  // Check for an existing declined/cancelled invoice to UPDATE rather than INSERT
+  // (the invoices table has a UNIQUE constraint on change_request_id)
+  const { data: priorInvoice } = await adminSupabase
+    .from('invoices')
+    .select('id')
+    .eq('change_request_id', id)
+    .in('status', ['declined', 'cancelled'])
+    .maybeSingle();
 
   // For ¥0 requests, skip Stripe entirely — create invoice and approve immediately
   if (body.amount_cents === 0) {
@@ -97,29 +106,53 @@ export async function POST(request: NextRequest, { params }: Params) {
       return NextResponse.json({ error: 'Failed to update request status' }, { status: 500 });
     }
 
-    const { data: invoice, error: invoiceError } = await adminSupabase
-      .from('invoices')
-      .insert({
-        project_id: changeRequest.project_id,
-        client_id: changeRequest.client_id,
-        change_request_id: id,
-        amount_cents: 0,
-        currency: 'jpy',
-        description: body.description,
-        type: 'per_request',
-        status: 'paid',
-        paid_at: new Date().toISOString(),
-        due_date: body.due_date ?? null,
-      })
-      .select('id')
-      .single();
+    const invoicePayload = {
+      amount_cents: 0,
+      currency: 'jpy',
+      description: body.description,
+      type: 'per_request',
+      status: 'paid',
+      paid_at: new Date().toISOString(),
+      due_date: body.due_date ?? null,
+      // Clear any stale Stripe fields from a prior declined invoice
+      stripe_invoice_id: null,
+      stripe_hosted_invoice_url: null,
+      stripe_invoice_pdf_url: null,
+      stripe_invoice_number: null,
+    };
 
-    if (invoiceError) {
-      console.error('invoice insert error:', invoiceError);
-      return NextResponse.json({ error: 'Failed to create invoice' }, { status: 500 });
+    let invoiceId: string;
+    if (priorInvoice) {
+      const { data: updated, error: invoiceError } = await adminSupabase
+        .from('invoices')
+        .update(invoicePayload)
+        .eq('id', priorInvoice.id)
+        .select('id')
+        .single();
+      if (invoiceError) {
+        console.error('invoice update error:', invoiceError);
+        return NextResponse.json({ error: 'Failed to update invoice' }, { status: 500 });
+      }
+      invoiceId = updated.id;
+    } else {
+      const { data: inserted, error: invoiceError } = await adminSupabase
+        .from('invoices')
+        .insert({
+          project_id: changeRequest.project_id,
+          client_id: changeRequest.client_id,
+          change_request_id: id,
+          ...invoicePayload,
+        })
+        .select('id')
+        .single();
+      if (invoiceError) {
+        console.error('invoice insert error:', invoiceError);
+        return NextResponse.json({ error: 'Failed to create invoice' }, { status: 500 });
+      }
+      invoiceId = inserted.id;
     }
 
-    return NextResponse.json({ success: true, invoiceId: invoice.id, autoApproved: true });
+    return NextResponse.json({ success: true, invoiceId, autoApproved: true });
   }
 
   // Amount > 0 — create a real Stripe Invoice
@@ -173,29 +206,50 @@ export async function POST(request: NextRequest, { params }: Params) {
     // Don't fail — invoice exists in Stripe, store it anyway
   }
 
-  // Persist invoice row
-  const { data: invoice, error: invoiceError } = await adminSupabase
-    .from('invoices')
-    .insert({
-      project_id: changeRequest.project_id,
-      client_id: changeRequest.client_id,
-      change_request_id: id,
-      stripe_invoice_id: stripeData.stripeInvoiceId,
-      stripe_hosted_invoice_url: stripeData.stripeHostedInvoiceUrl,
-      stripe_invoice_pdf_url: stripeData.stripeInvoicePdfUrl,
-      stripe_invoice_number: stripeData.stripeInvoiceNumber,
-      amount_cents: body.amount_cents,
-      currency: 'jpy',
-      description: body.description,
-      type: 'per_request',
-      status: 'pending',
-      due_date: body.due_date ?? null,
-    })
-    .select('id')
-    .single();
+  // Persist invoice row — UPDATE if a prior declined/cancelled invoice exists (unique constraint on change_request_id)
+  const stripeInvoicePayload = {
+    stripe_invoice_id: stripeData.stripeInvoiceId,
+    stripe_hosted_invoice_url: stripeData.stripeHostedInvoiceUrl,
+    stripe_invoice_pdf_url: stripeData.stripeInvoicePdfUrl,
+    stripe_invoice_number: stripeData.stripeInvoiceNumber,
+    amount_cents: body.amount_cents,
+    currency: 'jpy',
+    description: body.description,
+    type: 'per_request',
+    status: 'pending',
+    paid_at: null,
+    due_date: body.due_date ?? null,
+  };
 
-  if (invoiceError) {
-    console.error('invoice insert error:', invoiceError);
+  let invoice: { id: string } | null = null;
+  let invoiceError: unknown = null;
+
+  if (priorInvoice) {
+    const { data, error } = await adminSupabase
+      .from('invoices')
+      .update(stripeInvoicePayload)
+      .eq('id', priorInvoice.id)
+      .select('id')
+      .single();
+    invoice = data;
+    invoiceError = error;
+  } else {
+    const { data, error } = await adminSupabase
+      .from('invoices')
+      .insert({
+        project_id: changeRequest.project_id,
+        client_id: changeRequest.client_id,
+        change_request_id: id,
+        ...stripeInvoicePayload,
+      })
+      .select('id')
+      .single();
+    invoice = data;
+    invoiceError = error;
+  }
+
+  if (invoiceError || !invoice) {
+    console.error('invoice save error:', invoiceError);
     return NextResponse.json({ error: 'Failed to save invoice' }, { status: 500 });
   }
 

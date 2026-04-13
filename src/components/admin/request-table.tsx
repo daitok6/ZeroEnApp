@@ -157,9 +157,16 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                   <div className="space-y-2 md:hidden">
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-[#F4F4F2] text-sm font-mono font-bold">{req.title}</p>
-                      <span className={`shrink-0 text-[10px] font-mono border px-2 py-0.5 rounded ${statusColor}`}>
-                        {getStatusLabel(req.status)}
-                      </span>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {req.invoiceStatus === 'declined' && (
+                          <span className="text-[10px] font-mono border px-2 py-0.5 rounded text-red-400 border-red-400/30">
+                            {t('invoiceDeclined')}
+                          </span>
+                        )}
+                        <span className={`text-[10px] font-mono border px-2 py-0.5 rounded ${statusColor}`}>
+                          {getStatusLabel(req.status)}
+                        </span>
+                      </div>
                     </div>
                     <p className="text-[#9CA3AF] text-xs font-mono">
                       {req.clientName ?? req.clientEmail} · {req.projectName}
@@ -199,7 +206,12 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                     </div>
                     <p className="text-[#9CA3AF] text-xs font-mono truncate self-center">{req.projectName}</p>
                     <p className="text-[#6B7280] text-xs font-mono line-clamp-2 self-center">{req.description}</p>
-                    <div className="self-center">
+                    <div className="self-center flex items-center gap-1.5 flex-wrap">
+                      {req.invoiceStatus === 'declined' && (
+                        <span className="text-[10px] font-mono border px-2 py-0.5 rounded text-red-400 border-red-400/30">
+                          {t('invoiceDeclined')}
+                        </span>
+                      )}
                       <span className={`text-[10px] font-mono border px-2 py-0.5 rounded ${statusColor}`}>
                         {getStatusLabel(req.status)}
                       </span>

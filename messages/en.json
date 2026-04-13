@@ -465,6 +465,7 @@
     "markInProgress": "Mark In Progress",
     "markComplete": "Mark Complete",
     "discussion": "Discussion",
+    "invoiceDeclined": "Invoice Declined",
     "back": "Back",
     "networkError": "Network error. Please try again.",
     "scoringFailed": "Scoring failed",

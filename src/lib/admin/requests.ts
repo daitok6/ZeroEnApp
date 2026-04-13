@@ -16,6 +16,7 @@ export interface RequestRow {
   projectName: string;
   invoiceId: string | null;
   invoicedAmountCents: number | null;
+  invoiceStatus: string | null;
   commentCount: number;
 }
 
@@ -42,7 +43,7 @@ export async function getAdminRequests(supabase: SupabaseClient): Promise<Reques
       .in('id', projectIds),
     supabase
       .from('invoices')
-      .select('id, change_request_id, amount_cents')
+      .select('id, change_request_id, amount_cents, status')
       .in('change_request_id', requestIds),
     supabase
       .from('request_comments')
@@ -60,10 +61,10 @@ export async function getAdminRequests(supabase: SupabaseClient): Promise<Reques
     projectMap.set(p.id, { name: p.name });
   }
 
-  const invoiceMap = new Map<string, { id: string; amount_cents: number | null }>();
+  const invoiceMap = new Map<string, { id: string; amount_cents: number | null; status: string }>();
   for (const inv of invoicesResult.data ?? []) {
     if (inv.change_request_id) {
-      invoiceMap.set(inv.change_request_id, { id: inv.id, amount_cents: inv.amount_cents });
+      invoiceMap.set(inv.change_request_id, { id: inv.id, amount_cents: inv.amount_cents, status: inv.status });
     }
   }
 
@@ -96,6 +97,7 @@ export async function getAdminRequests(supabase: SupabaseClient): Promise<Reques
       projectName: project?.name ?? '—',
       invoiceId: invoice?.id ?? null,
       invoicedAmountCents: invoice?.amount_cents ?? null,
+      invoiceStatus: invoice?.status ?? null,
       commentCount: commentCountMap.get(r.id) ?? 0,
     };
   });
