@@ -41,7 +41,7 @@ export function BottomNav({ locale, navType, basePath, messagesBadge, requestsBa
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#0D0D0D] border-t border-[#374151] md:hidden">
-      <div className="flex items-center justify-around h-16 px-2">
+      <div className="flex items-center justify-around h-16 px-1">
         {items.map((item) => {
           const href = `/${locale}${item.path}`;
           const isLocked = lockedKeys?.has(item.key) ?? false;
@@ -53,13 +53,11 @@ export function BottomNav({ locale, navType, basePath, messagesBadge, requestsBa
             return (
               <div
                 key={item.key}
-                title="Available once your project is ready"
-                className="relative flex flex-col items-center gap-1 px-3 py-2 rounded-lg min-w-[48px] opacity-30 cursor-not-allowed select-none text-[#6B7280]"
+                title={getLabel(item.key)}
+                aria-label={getLabel(item.key)}
+                className="relative flex flex-1 min-w-0 items-center justify-center py-2 rounded-lg opacity-30 cursor-not-allowed select-none text-[#6B7280]"
               >
                 <Icon size={20} strokeWidth={1.5} />
-                <span className="text-[10px] font-mono leading-none">
-                  {getLabel(item.key)}
-                </span>
               </div>
             );
           }
@@ -68,7 +66,9 @@ export function BottomNav({ locale, navType, basePath, messagesBadge, requestsBa
             <Link
               key={item.key}
               href={href}
-              className={`relative flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-colors min-w-[48px] ${
+              title={getLabel(item.key)}
+              aria-label={getLabel(item.key)}
+              className={`relative flex flex-1 min-w-0 items-center justify-center py-2 rounded-lg transition-colors ${
                 isActive
                   ? 'text-[#00E87A]'
                   : 'text-[#6B7280] hover:text-[#9CA3AF]'
@@ -87,9 +87,6 @@ export function BottomNav({ locale, navType, basePath, messagesBadge, requestsBa
                   </div>
                 )}
               </div>
-              <span className="text-[10px] font-mono leading-none">
-                {getLabel(item.key)}
-              </span>
             </Link>
           );
         })}
