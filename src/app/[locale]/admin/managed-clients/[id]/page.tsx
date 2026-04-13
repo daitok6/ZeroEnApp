@@ -289,10 +289,10 @@ export default async function ManagedClientDetailPage({ params }: Props) {
               <p className="text-[#F4F4F2] font-mono text-sm">{brandKit.font_pairing || '—'}</p>
             </div>
 
-            {/* Sample sites */}
+            {/* Reference sites */}
             {brandKit.sample_sites.length > 0 && (
               <div className="space-y-2">
-                <p className="text-[#6B7280] text-xs font-mono">{locale === 'ja' ? 'サンプルサイト' : 'Sample sites'}</p>
+                <p className="text-[#6B7280] text-xs font-mono">{locale === 'ja' ? '参考サイト' : 'Reference sites'}</p>
                 <ul className="space-y-1">
                   {brandKit.sample_sites.map((url) => (
                     <li key={url}>

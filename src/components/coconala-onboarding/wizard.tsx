@@ -79,10 +79,6 @@ export function CoconalaOnboardingWizard({ locale, profileId, scopeMd, initialIn
   }
 
   async function handleStep2Next() {
-    if (brandKitHook.brandKit.sample_sites.length < 1) {
-      setError(t(locale, 'Add at least one sample website', 'サンプルサイトを1つ以上追加してください'));
-      return;
-    }
     const ok = await savePatch({ brand_kit: brandKitHook.brandKit });
     if (ok) setCurrentStep(3);
   }

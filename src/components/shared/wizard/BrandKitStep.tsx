@@ -41,7 +41,7 @@ export function BrandKitStep({
         {([
           { key: 'playful',   left: t(locale, 'Playful',   '遊び心'), right: t(locale, 'Serious',  '真面目') },
           { key: 'minimal',   left: t(locale, 'Minimal',   'ミニマル'), right: t(locale, 'Bold',    '大胆') },
-          { key: 'corporate', left: t(locale, 'Corporate', '企業的'), right: t(locale, 'Indie',    'インディー') },
+          { key: 'corporate', left: t(locale, 'Corporate', '企業的'), right: t(locale, 'Personal', '個人的') },
         ] as const).map((axis) => (
           <div key={axis.key} className="mb-4">
             <div className="flex justify-between text-[#6B7280] text-xs font-mono mb-2">
@@ -159,7 +159,7 @@ export function BrandKitStep({
       </div>
 
       <div className="mb-8">
-        <h3 className={labelClass}>{t(locale, 'Sample Websites', 'サンプルサイト')}</h3>
+        <h3 className={labelClass}>{t(locale, 'Reference Sites', '参考サイト')}<span className="text-[#6B7280] text-xs font-mono ml-2">{t(locale, 'Optional', '任意')}</span></h3>
         <div className="flex gap-2 mb-2">
           <Input
             value={sampleSiteInput}
@@ -170,7 +170,7 @@ export function BrandKitStep({
                 addSampleSite();
               }
             }}
-            placeholder="https://example.com"
+            placeholder={t(locale, 'https://example.com', 'https://example.com')}
             className={inputClass}
           />
           <Button type="button" onClick={addSampleSite} className="bg-[#374151] text-[#F4F4F2] font-mono">
