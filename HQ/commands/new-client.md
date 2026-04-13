@@ -77,13 +77,30 @@ Add entry to `HQ/crm/clients.json`:
 mkdir -p HQ/crm/clients/<clientId>
 ```
 Create `HQ/crm/clients/<clientId>/profile.md` with the template from `client-manager` agent.
+Include a `Project UUID` field (fill in after step 7 creates the Supabase `projects` row).
 Create `HQ/crm/clients/<clientId>/revenue.md` with empty revenue log.
 
-### 7. Report
+### 7. Set Up Umami Analytics
+
+1. Log in to `https://umami.zeroen.dev` (admin account)
+2. Go to **Settings → Websites → Add website**
+   - Name: `<clientId>`
+   - Domain: the client's production domain (e.g., `example.com`)
+3. Copy the generated **Website ID** (UUID)
+4. Set env var on the client's Vercel project:
+   ```
+   NEXT_PUBLIC_UMAMI_WEBSITE_ID=<website-id-uuid>
+   NEXT_PUBLIC_UMAMI_URL=https://umami.zeroen.dev
+   ```
+5. Update the `projects` row in Supabase: set `umami_website_id` to the Website ID UUID
+6. Store the `projects.id` UUID in `HQ/crm/clients/<clientId>/profile.md` under `Project UUID`
+
+### 8. Report
 Output summary:
 ```
 ✓ Client <clientId> initialized
   Directory: Clients/<clientId>/
   CRM: HQ/crm/clients/<clientId>/
+  Umami: website created — ID stored in profile.md and projects row
   Next: Complete onboarding questionnaire and kickoff call
 ```
