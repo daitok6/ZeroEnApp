@@ -1,3 +1,8 @@
+---
+name: content
+description: Review today's build log and draft social media posts via the content-capture agent. No arguments needed — run at end of a work session.
+---
+
 # /content
 
 Review today's build log and draft social media posts.
