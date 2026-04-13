@@ -49,13 +49,14 @@ function extractStoragePath(url: string | null): string | null {
 
 async function resolveSignedUrl(
   supabase: Awaited<ReturnType<typeof createClient>>,
-  storedUrl: string | null
+  storedUrl: string | null,
+  download = false
 ): Promise<string | null> {
   const path = extractStoragePath(storedUrl);
   if (!path) return storedUrl; // unchanged if not a client-assets URL
   const { data } = await supabase.storage
     .from('client-assets')
-    .createSignedUrl(path, 3600);
+    .createSignedUrl(path, 3600, download ? { download: true } : undefined);
   return data?.signedUrl ?? null;
 }
 
@@ -81,20 +82,37 @@ export default async function ManagedClientDetailPage({ params }: Props) {
   const assets = intake?.assets as AssetsData | null;
   const domain = intake?.domain as DomainData | null;
 
-  // Resolve signed URLs for private bucket assets
-  const [logoSignedUrl, ...extraSignedUrls] = await Promise.all([
+  // Resolve signed URLs for private bucket assets (view + download)
+  const extraUrls = assets?.extra_image_urls ?? [];
+  const [logoSignedUrl, logoDownloadUrl, ...extraResults] = await Promise.all([
     resolveSignedUrl(supabase, assets?.logo_url ?? null),
-    ...(assets?.extra_image_urls ?? []).map((u) => resolveSignedUrl(supabase, u)),
+    resolveSignedUrl(supabase, assets?.logo_url ?? null, true),
+    ...extraUrls.flatMap((u) => [
+      resolveSignedUrl(supabase, u),
+      resolveSignedUrl(supabase, u, true),
+    ]),
   ]);
+
+  // Split interleaved view/download pairs for extra images
+  const extraSignedUrls: (string | null)[] = [];
+  const extraDownloadUrls: (string | null)[] = [];
+  for (let i = 0; i < extraResults.length; i += 2) {
+    extraSignedUrls.push(extraResults[i] ?? null);
+    extraDownloadUrls.push(extraResults[i + 1] ?? null);
+  }
 
   // Try to sign order screenshot (stored at {profileId}/order-screenshot.*)
   const { data: screenshotFiles } = await supabase.storage
     .from('client-assets')
     .list(id, { search: 'order-screenshot' });
   const screenshotFile = screenshotFiles?.[0];
-  const screenshotSignedUrl = screenshotFile
-    ? (await supabase.storage.from('client-assets').createSignedUrl(`${id}/${screenshotFile.name}`, 3600)).data?.signedUrl ?? null
-    : null;
+  const screenshotPath = screenshotFile ? `${id}/${screenshotFile.name}` : null;
+  const [screenshotSignedUrl, screenshotDownloadUrl] = screenshotPath
+    ? await Promise.all([
+        supabase.storage.from('client-assets').createSignedUrl(screenshotPath, 3600).then((r) => r.data?.signedUrl ?? null),
+        supabase.storage.from('client-assets').createSignedUrl(screenshotPath, 3600, { download: true }).then((r) => r.data?.signedUrl ?? null),
+      ])
+    : [null, null];
 
   const status = client.onboarding_status ?? 'pending';
 
@@ -174,7 +192,17 @@ export default async function ManagedClientDetailPage({ params }: Props) {
         </div>
         {screenshotSignedUrl && (
           <div className="space-y-2">
-            <p className="text-[#6B7280] text-xs font-mono">{locale === 'ja' ? '注文スクリーンショット' : 'Order screenshot'}</p>
+            <div className="flex items-center gap-3">
+              <p className="text-[#6B7280] text-xs font-mono">{locale === 'ja' ? '注文スクリーンショット' : 'Order screenshot'}</p>
+              {screenshotDownloadUrl && (
+                <a
+                  href={screenshotDownloadUrl}
+                  className="text-[#00E87A] hover:text-[#00E87A]/80 font-mono text-xs transition-colors"
+                >
+                  {locale === 'ja' ? '↓ ダウンロード' : '↓ download'}
+                </a>
+              )}
+            </div>
             <a href={screenshotSignedUrl} target="_blank" rel="noopener noreferrer">
               <Image
                 src={screenshotSignedUrl}
@@ -296,7 +324,17 @@ export default async function ManagedClientDetailPage({ params }: Props) {
           <>
             {/* Logo */}
             <div className="space-y-2">
-              <p className="text-[#6B7280] text-xs font-mono">{locale === 'ja' ? 'ロゴ' : 'Logo'}</p>
+              <div className="flex items-center gap-3">
+                <p className="text-[#6B7280] text-xs font-mono">{locale === 'ja' ? 'ロゴ' : 'Logo'}</p>
+                {logoDownloadUrl && (
+                  <a
+                    href={logoDownloadUrl}
+                    className="text-[#00E87A] hover:text-[#00E87A]/80 font-mono text-xs transition-colors"
+                  >
+                    {locale === 'ja' ? '↓ ダウンロード' : '↓ download'}
+                  </a>
+                )}
+              </div>
               {logoSignedUrl ? (
                 <a href={logoSignedUrl} target="_blank" rel="noopener noreferrer">
                   <Image
@@ -331,15 +369,25 @@ export default async function ManagedClientDetailPage({ params }: Props) {
                 <div className="flex flex-wrap gap-3">
                   {extraSignedUrls.map((url, i) =>
                     url ? (
-                      <a key={i} href={url} target="_blank" rel="noopener noreferrer">
-                        <Image
-                          src={url}
-                          alt={`Extra image ${i + 1}`}
-                          width={160}
-                          height={120}
-                          className="rounded border border-[#374151] bg-[#1F2937] object-cover w-40 h-28"
-                        />
-                      </a>
+                      <div key={i} className="flex flex-col items-center gap-1">
+                        <a href={url} target="_blank" rel="noopener noreferrer">
+                          <Image
+                            src={url}
+                            alt={`Extra image ${i + 1}`}
+                            width={160}
+                            height={120}
+                            className="rounded border border-[#374151] bg-[#1F2937] object-cover w-40 h-28"
+                          />
+                        </a>
+                        {extraDownloadUrls[i] && (
+                          <a
+                            href={extraDownloadUrls[i]!}
+                            className="text-[#00E87A] hover:text-[#00E87A]/80 font-mono text-xs transition-colors"
+                          >
+                            {locale === 'ja' ? '↓ ダウンロード' : '↓ download'}
+                          </a>
+                        )}
+                      </div>
                     ) : null
                   )}
                 </div>
