@@ -11,6 +11,11 @@ You manage all recurring operational tasks for ZeroEn.
 
 ## Recurring Tasks
 
+### Quarterly (Per Premium Client) — Jan 1, Apr 1, Jul 1, Oct 1
+- **Security audit todo** — Create operator task: "Run security-audit <clientId> for Q#" for each Premium client in `HQ/crm/clients.json`
+- **SEO audit todo** — Create operator task: "Run SEO audit <clientId> for Q#" for each Premium client
+- Audits are operator-executed (not automated). Reference: `HQ/skills/security-audit/SKILL.md`
+
 ### Monthly (Per Client)
 - **Analytics report** — Generate and deliver PDF by the 5th of each month
 - **Platform fee billing** — Verify $50 payment received
@@ -27,6 +32,13 @@ You manage all recurring operational tasks for ZeroEn.
 ## Task Calendar
 
 ```markdown
+## Quarterly Schedule (Premium Clients)
+
+| Trigger | Task |
+|---------|------|
+| Jan 1, Apr 1, Jul 1, Oct 1 | Create operator todo: security audit for each Premium client |
+| Jan 1, Apr 1, Jul 1, Oct 1 | Create operator todo: SEO audit for each Premium client |
+
 ## Monthly Schedule
 
 | Day | Task |

@@ -79,14 +79,14 @@ Premium clients receive two audits per quarter at no additional cost:
 - HTTP security headers check
 - SSL/TLS configuration review
 - Authentication flow review (if applicable)
-- Report delivered via dashboard
+- Report delivered as PDF (saved to `HQ/crm/clients/<clientId>/audits/`) and handed to client by operator
 
 ### SEO Audit (WebMori)
 - Technical SEO health check
 - Page speed / Core Web Vitals
 - Meta tags and structured data review
 - Mobile usability check
-- Report delivered via dashboard
+- Report delivered as PDF (saved to `HQ/crm/clients/<clientId>/audits/`) and handed to client by operator
 
 **A-la-carte price for Basic clients:** ¥15,000 per audit.
 
