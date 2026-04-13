@@ -4,6 +4,7 @@ import { ChangeCatalogueSheet } from '@/components/dashboard/change-catalogue-sh
 import { RequestCard } from '@/components/dashboard/request-card';
 import { SubscriptionRequired } from '@/components/dashboard/subscription-required';
 import { EmptyState } from '@/components/dashboard/empty-state';
+import { getUnreadRequestCounts } from '@/lib/requests/unread';
 import { PlusCircle } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -38,8 +39,8 @@ export default async function RequestsPage({ params }: Props) {
 
   const requestIds = requests.map((r) => r.id);
 
-  // Fetch invoices and comment counts in parallel
-  const [invoicesResult, commentsResult] = await Promise.all([
+  // Fetch invoices, comment counts, and unread counts in parallel
+  const [invoicesResult, commentsResult, unreadResult] = await Promise.all([
     requestIds.length > 0
       ? supabase
           .from('invoices')
@@ -53,7 +54,12 @@ export default async function RequestsPage({ params }: Props) {
           .select('change_request_id')
           .in('change_request_id', requestIds)
       : Promise.resolve({ data: [] }),
+    requestIds.length > 0
+      ? getUnreadRequestCounts(supabase, user.id, requestIds)
+      : Promise.resolve({ total: 0, byRequest: {} }),
   ]);
+
+  const unreadByRequest = unreadResult.byRequest;
 
   const invoicesByRequestId = new Map<string, {
     id: string;
@@ -115,6 +121,7 @@ export default async function RequestsPage({ params }: Props) {
                 request={req}
                 invoice={invoicesByRequestId.get(req.id) ?? null}
                 commentCount={commentCountMap.get(req.id) ?? 0}
+                initialUnreadCount={unreadByRequest[req.id] ?? 0}
                 locale={locale}
                 userId={user.id}
               />

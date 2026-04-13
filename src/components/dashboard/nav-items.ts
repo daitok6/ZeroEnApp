@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox, CreditCard, Settings, UserPlus, BarChart3, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox, CreditCard, Settings, UserPlus, BarChart3, ShieldCheck, Bell } from 'lucide-react';
 
 export const navItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/dashboard' },
@@ -10,6 +10,7 @@ export const navItems = [
   { key: 'requests', icon: PlusCircle, labelEn: 'Change Requests', labelJa: '変更依頼', path: '/dashboard/requests' },
   { key: 'analytics', icon: BarChart3, labelEn: 'Analytics', labelJa: 'アナリティクス', path: '/dashboard/analytics' },
   { key: 'audits', icon: ShieldCheck, labelEn: 'Audits', labelJa: '監査', path: '/dashboard/audits' },
+  { key: 'notifications', icon: Bell, labelEn: 'Notifications', labelJa: '通知', path: '/dashboard/notifications' },
   { key: 'settings', icon: Settings, labelEn: 'Settings', labelJa: '設定', path: '/dashboard/settings' },
 ] as const;
 

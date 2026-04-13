@@ -5,8 +5,10 @@ import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
 import { UnreadBadge } from '@/components/dashboard/unread-badge';
 import { RequestsUnreadBadge } from '@/components/dashboard/requests-unread-badge';
+import { NotificationsBadge } from '@/components/dashboard/notifications-badge';
 import { getUnreadCounts } from '@/lib/messages/unread';
 import { getUnreadRequestCounts } from '@/lib/requests/unread';
+import { getUnreadNotificationCount } from '@/lib/notifications/unread';
 import { getLockedKeys } from '@/components/dashboard/nav-items';
 
 type Props = {
@@ -49,7 +51,8 @@ export default async function DashboardLayout({ children, params }: Props) {
   let projectIds: string[] = [];
   let lockedKeys: Set<string> = new Set();
   let requestIds: string[] = [];
-  let initialRequestCount = 0;
+  let initialByRequest: Record<string, number> = {};
+  let initialNotificationCount = 0;
 
   if (navType === 'client') {
     if (project) {
@@ -62,8 +65,12 @@ export default async function DashboardLayout({ children, params }: Props) {
 
       initialCounts = msgCounts;
       requestIds = (clientRequests ?? []).map((r: { id: string }) => r.id);
-      const { total } = await getUnreadRequestCounts(supabase, user.id, requestIds);
-      initialRequestCount = total;
+      const [{ byRequest }, notifCount] = await Promise.all([
+        getUnreadRequestCounts(supabase, user.id, requestIds),
+        getUnreadNotificationCount(supabase, user.id),
+      ]);
+      initialByRequest = byRequest;
+      initialNotificationCount = notifCount;
 
       lockedKeys = getLockedKeys({
         client_visible: project.client_visible ?? false,
@@ -85,15 +92,22 @@ export default async function DashboardLayout({ children, params }: Props) {
 
   const requestsBadge = navType === 'client' ? (
     <RequestsUnreadBadge
-      initialCount={initialRequestCount}
+      initialByRequest={initialByRequest}
       requestIds={requestIds}
+      userId={user.id}
+    />
+  ) : undefined;
+
+  const notificationsBadge = navType === 'client' ? (
+    <NotificationsBadge
+      initialCount={initialNotificationCount}
       userId={user.id}
     />
   ) : undefined;
 
   return (
     <div className="h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
-      <Sidebar locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} requestsBadge={requestsBadge} lockedKeys={lockedKeys} />
+      <Sidebar locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} requestsBadge={requestsBadge} notificationsBadge={notificationsBadge} lockedKeys={lockedKeys} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <DashboardTopbar locale={locale} label={topbarLabel} />
@@ -103,7 +117,7 @@ export default async function DashboardLayout({ children, params }: Props) {
         </main>
       </div>
 
-      <BottomNav locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} requestsBadge={requestsBadge} lockedKeys={lockedKeys} />
+      <BottomNav locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} requestsBadge={requestsBadge} notificationsBadge={notificationsBadge} lockedKeys={lockedKeys} />
     </div>
   );
 }

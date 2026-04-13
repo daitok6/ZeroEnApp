@@ -8,6 +8,7 @@ import { MessageSquare, ChevronDown, ChevronUp, XCircle } from 'lucide-react';
 import { formatJpy } from '@/lib/format-jpy';
 import { InvoicePanel } from './invoice-panel';
 import { CommentThread } from '@/components/shared/comment-thread';
+import { UnreadPill } from './unread-pill';
 
 interface Invoice {
   id: string;
@@ -30,6 +31,8 @@ interface RequestCardProps {
   };
   invoice: Invoice | null;
   commentCount: number;
+  /** Unread activity count for this request — clears when user expands the card */
+  initialUnreadCount?: number;
   locale: string;
   userId: string;
 }
@@ -46,21 +49,23 @@ const STATUS_COLORS: Record<string, string> = {
 
 const CANCELLABLE_STATUSES = new Set(['submitted', 'reviewing', 'quoted']);
 
-export function RequestCard({ request, invoice, commentCount, locale, userId }: RequestCardProps) {
+export function RequestCard({ request, invoice, commentCount, initialUnreadCount = 0, locale, userId }: RequestCardProps) {
   const router = useRouter();
   const t = useTranslations('common.status');
   const tReq = useTranslations('requests');
   const tCommon = useTranslations('common');
   const [expanded, setExpanded] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(initialUnreadCount);
 
   function handleToggleExpand() {
     setExpanded((v) => {
       const next = !v;
       if (next) {
-        // Mark this request as read
+        // Mark this request as read and clear per-row pill
         void fetch(`/api/requests/${request.id}/read`, { method: 'POST' });
         window.dispatchEvent(new CustomEvent('zeroen:request-read', { detail: { requestId: request.id } }));
+        setUnreadCount(0);
       }
       return next;
     });
@@ -112,7 +117,10 @@ export function RequestCard({ request, invoice, commentCount, locale, userId }: 
   return (
     <div className="border border-[#374151] rounded-lg p-4 bg-[#111827]">
       <div className="flex items-start justify-between gap-3 mb-2">
-        <p className="text-[#F4F4F2] text-sm font-mono font-bold">{request.title}</p>
+        <div className="flex items-center gap-2 min-w-0">
+          <p className="text-[#F4F4F2] text-sm font-mono font-bold truncate">{request.title}</p>
+          <UnreadPill count={unreadCount} />
+        </div>
         <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
           {invoiceWasDeclined && (
             <span className="text-xs font-mono border px-2 py-0.5 rounded text-red-400 border-red-400/30">

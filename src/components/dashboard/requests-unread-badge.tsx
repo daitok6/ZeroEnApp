@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
 interface RequestsUnreadBadgeProps {
-  /** Initial total unread count from SSR */
-  initialCount: number;
+  /** Per-request initial unread counts from SSR */
+  initialByRequest: Record<string, number>;
   /** All request IDs this user can see */
   requestIds: string[];
   userId: string;
@@ -18,10 +18,11 @@ interface RequestsUnreadBadgeProps {
  *
  * - Re-fetches on mount to bypass stale router-cached layout counts.
  * - Subscribes to INSERT on request_comments and UPDATE on invoices + change_requests.
- * - Zeros out when 'zeroen:request-read' CustomEvent fires with { requestId }.
+ * - Zeros out the specific request's contribution when 'zeroen:request-read' CustomEvent
+ *   fires with { requestId }, fixing the one-at-a-time decrement bug.
  */
-export function RequestsUnreadBadge({ initialCount, requestIds, userId }: RequestsUnreadBadgeProps) {
-  const [count, setCount] = useState(initialCount);
+export function RequestsUnreadBadge({ initialByRequest, requestIds, userId }: RequestsUnreadBadgeProps) {
+  const [byRequest, setByRequest] = useState<Record<string, number>>(initialByRequest);
   const supabaseRef = useRef(createClient());
   const requestKey = requestIds.join(',');
 
@@ -30,7 +31,7 @@ export function RequestsUnreadBadge({ initialCount, requestIds, userId }: Reques
     if (requestIds.length === 0) return;
     const supabase = supabaseRef.current;
 
-    async function fetchCount() {
+    async function fetchCounts() {
       const { data: readRows } = await supabase
         .from('request_read_status')
         .select('change_request_id, last_read_at')
@@ -42,7 +43,7 @@ export function RequestsUnreadBadge({ initialCount, requestIds, userId }: Reques
         readMap.set(row.change_request_id, row.last_read_at);
       }
 
-      let total = 0;
+      const fresh: Record<string, number> = {};
 
       const { data: comments } = await supabase
         .from('request_comments')
@@ -51,8 +52,11 @@ export function RequestsUnreadBadge({ initialCount, requestIds, userId }: Reques
         .neq('author_id', userId);
 
       for (const c of comments ?? []) {
+        if (!c.change_request_id) continue;
         const lastRead = readMap.get(c.change_request_id);
-        if (!lastRead || c.created_at > lastRead) total++;
+        if (!lastRead || c.created_at > lastRead) {
+          fresh[c.change_request_id] = (fresh[c.change_request_id] ?? 0) + 1;
+        }
       }
 
       const { data: invoices } = await supabase
@@ -63,13 +67,15 @@ export function RequestsUnreadBadge({ initialCount, requestIds, userId }: Reques
       for (const inv of invoices ?? []) {
         if (!inv.change_request_id || !inv.updated_at) continue;
         const lastRead = readMap.get(inv.change_request_id);
-        if (!lastRead || inv.updated_at > lastRead) total++;
+        if (!lastRead || inv.updated_at > lastRead) {
+          fresh[inv.change_request_id] = (fresh[inv.change_request_id] ?? 0) + 1;
+        }
       }
 
-      setCount(total);
+      setByRequest(fresh);
     }
 
-    fetchCount();
+    fetchCounts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestKey, userId]);
 
@@ -84,7 +90,10 @@ export function RequestsUnreadBadge({ initialCount, requestIds, userId }: Reques
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'request_comments' }, (payload) => {
         const row = payload.new as { author_id: string; change_request_id: string };
         if (row.author_id !== userId && requestIds.includes(row.change_request_id)) {
-          setCount((n) => n + 1);
+          setByRequest((prev) => ({
+            ...prev,
+            [row.change_request_id]: (prev[row.change_request_id] ?? 0) + 1,
+          }));
         }
       })
       .subscribe();
@@ -94,7 +103,10 @@ export function RequestsUnreadBadge({ initialCount, requestIds, userId }: Reques
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'invoices' }, (payload) => {
         const row = payload.new as { change_request_id: string | null };
         if (row.change_request_id && requestIds.includes(row.change_request_id)) {
-          setCount((n) => n + 1);
+          setByRequest((prev) => ({
+            ...prev,
+            [row.change_request_id!]: (prev[row.change_request_id!] ?? 0) + 1,
+          }));
         }
       })
       .subscribe();
@@ -104,7 +116,10 @@ export function RequestsUnreadBadge({ initialCount, requestIds, userId }: Reques
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'change_requests' }, (payload) => {
         const row = payload.new as { id: string };
         if (requestIds.includes(row.id)) {
-          setCount((n) => n + 1);
+          setByRequest((prev) => ({
+            ...prev,
+            [row.id]: (prev[row.id] ?? 0) + 1,
+          }));
         }
       })
       .subscribe();
@@ -117,21 +132,22 @@ export function RequestsUnreadBadge({ initialCount, requestIds, userId }: Reques
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestKey, userId]);
 
-  // Zero out when user opens a specific request
+  // Zero out the specific request's contribution when user opens it
   useEffect(() => {
-    const handler = () => {
-      // Decrement by 1 per read event; full refetch on next mount will reconcile
-      setCount((n) => Math.max(0, n - 1));
+    const handler = (e: Event) => {
+      const { requestId } = (e as CustomEvent<{ requestId: string }>).detail;
+      setByRequest((prev) => ({ ...prev, [requestId]: 0 }));
     };
     window.addEventListener('zeroen:request-read', handler);
     return () => window.removeEventListener('zeroen:request-read', handler);
   }, []);
 
-  if (count === 0) return null;
+  const total = Object.values(byRequest).reduce((a, b) => a + b, 0);
+  if (total === 0) return null;
 
   return (
     <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-[#00E87A] text-[#0D0D0D] text-[10px] font-bold font-mono leading-none">
-      {count > 99 ? '99+' : count}
+      {total > 99 ? '99+' : total}
     </span>
   );
 }
