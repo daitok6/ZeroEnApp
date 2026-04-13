@@ -1,8 +1,11 @@
 // src/components/dashboard/request-card.tsx
 'use client';
 
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { MessageSquare, ChevronDown, ChevronUp } from 'lucide-react';
 import { InvoicePanel } from './invoice-panel';
+import { CommentThread } from '@/components/shared/comment-thread';
 
 interface Invoice {
   id: string;
@@ -24,6 +27,7 @@ interface RequestCardProps {
     created_at: string;
   };
   invoice: Invoice | null;
+  commentCount: number;
   locale: string;
   userId: string;
 }
@@ -38,9 +42,10 @@ const STATUS_COLORS: Record<string, string> = {
   rejected: 'text-red-400 border-red-400/30',
 };
 
-export function RequestCard({ request, invoice, locale, userId }: RequestCardProps) {
+export function RequestCard({ request, invoice, commentCount, locale, userId }: RequestCardProps) {
   const t = useTranslations('common.status');
   const tReq = useTranslations('requests');
+  const [expanded, setExpanded] = useState(false);
 
   const statusColor = STATUS_COLORS[request.status] ?? STATUS_COLORS.submitted;
   const statusKey = request.status === 'in_progress' ? 'inProgress' : request.status;
@@ -88,6 +93,31 @@ export function RequestCard({ request, invoice, locale, userId }: RequestCardPro
           locale={locale}
           userId={userId}
         />
+      )}
+
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        className="mt-3 flex items-center gap-1.5 text-xs font-mono text-[#6B7280] hover:text-[#F4F4F2] transition-colors"
+      >
+        <MessageSquare className="w-3.5 h-3.5" />
+        <span>{tReq('discussion')}</span>
+        {commentCount > 0 && (
+          <span className="bg-[#374151] text-[#F4F4F2] text-[10px] px-1.5 py-0.5 rounded-full leading-none">
+            {commentCount}
+          </span>
+        )}
+        {expanded ? (
+          <ChevronUp className="w-3 h-3 ml-0.5" />
+        ) : (
+          <ChevronDown className="w-3 h-3 ml-0.5" />
+        )}
+      </button>
+
+      {expanded && (
+        <div className="mt-3 pt-3 border-t border-[#374151]">
+          <CommentThread requestId={request.id} currentUserId={userId} locale={locale} />
+        </div>
       )}
     </div>
   );

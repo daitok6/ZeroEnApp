@@ -36,8 +36,24 @@ export default async function RequestsPage({ params }: Props) {
         .order('created_at', { ascending: false })).data ?? []
     : [];
 
-  // Fetch invoices linked to these requests
   const requestIds = requests.map((r) => r.id);
+
+  // Fetch invoices and comment counts in parallel
+  const [invoicesResult, commentsResult] = await Promise.all([
+    requestIds.length > 0
+      ? supabase
+          .from('invoices')
+          .select('id, change_request_id, amount_cents, description, due_date, currency, status')
+          .in('change_request_id', requestIds)
+          .eq('client_id', user.id)
+      : Promise.resolve({ data: [] }),
+    requestIds.length > 0
+      ? supabase
+          .from('request_comments')
+          .select('change_request_id')
+          .in('change_request_id', requestIds)
+      : Promise.resolve({ data: [] }),
+  ]);
 
   const invoicesByRequestId = new Map<string, {
     id: string;
@@ -48,25 +64,22 @@ export default async function RequestsPage({ params }: Props) {
     status: string;
   }>();
 
-  if (requestIds.length > 0) {
-    const { data: invoices } = await supabase
-      .from('invoices')
-      .select('id, change_request_id, amount_cents, description, due_date, currency, status')
-      .in('change_request_id', requestIds)
-      .eq('client_id', user.id);
-
-    for (const inv of invoices ?? []) {
-      if (inv.change_request_id) {
-        invoicesByRequestId.set(inv.change_request_id, {
-          id: inv.id,
-          amount_cents: inv.amount_cents,
-          description: inv.description,
-          due_date: inv.due_date,
-          currency: inv.currency,
-          status: inv.status,
-        });
-      }
+  for (const inv of invoicesResult.data ?? []) {
+    if (inv.change_request_id) {
+      invoicesByRequestId.set(inv.change_request_id, {
+        id: inv.id,
+        amount_cents: inv.amount_cents,
+        description: inv.description,
+        due_date: inv.due_date,
+        currency: inv.currency,
+        status: inv.status,
+      });
     }
+  }
+
+  const commentCountMap = new Map<string, number>();
+  for (const c of commentsResult.data ?? []) {
+    commentCountMap.set(c.change_request_id, (commentCountMap.get(c.change_request_id) ?? 0) + 1);
   }
 
   const isJa = locale === 'ja';
@@ -101,6 +114,7 @@ export default async function RequestsPage({ params }: Props) {
                 key={req.id}
                 request={req}
                 invoice={invoicesByRequestId.get(req.id) ?? null}
+                commentCount={commentCountMap.get(req.id) ?? 0}
                 locale={locale}
                 userId={user.id}
               />
