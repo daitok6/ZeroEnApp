@@ -3,6 +3,7 @@ import { createClient as createAdminClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
 import { voidStripeInvoice } from '@/lib/stripe/invoices';
 import { z } from 'zod';
+import { notifyRequestEvent } from '@/lib/email/request-notifications';
 
 const bodySchema = z.object({
   action: z.enum(['accept', 'decline']),
@@ -78,6 +79,13 @@ export async function POST(request: NextRequest, { params }: Params) {
 
     if (crErr) return NextResponse.json({ error: 'Failed to approve request' }, { status: 500 });
 
+    void notifyRequestEvent({
+      event: 'invoice_accepted',
+      requestId: id,
+      actorId: user.id,
+      payload: { amountCents: 0 },
+    });
+
     return NextResponse.json({ approved: true });
   }
 
@@ -86,6 +94,12 @@ export async function POST(request: NextRequest, { params }: Params) {
     if (!invoice.stripe_hosted_invoice_url) {
       return NextResponse.json({ error: 'Payment link not available' }, { status: 500 });
     }
+    void notifyRequestEvent({
+      event: 'invoice_accepted',
+      requestId: id,
+      actorId: user.id,
+      payload: { amountCents: invoice.amount_cents },
+    });
     return NextResponse.json({ url: invoice.stripe_hosted_invoice_url });
   }
 
@@ -122,6 +136,12 @@ export async function POST(request: NextRequest, { params }: Params) {
       content: body.reason.trim(),
     });
   }
+
+  void notifyRequestEvent({
+    event: 'invoice_declined',
+    requestId: id,
+    actorId: user.id,
+  });
 
   return NextResponse.json({ declined: true });
 }

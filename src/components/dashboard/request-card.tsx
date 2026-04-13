@@ -52,6 +52,18 @@ export function RequestCard({ request, invoice, commentCount, locale, userId }: 
   const tCommon = useTranslations('common');
   const [expanded, setExpanded] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
+
+  function handleToggleExpand() {
+    setExpanded((v) => {
+      const next = !v;
+      if (next) {
+        // Mark this request as read
+        void fetch(`/api/requests/${request.id}/read`, { method: 'POST' });
+        window.dispatchEvent(new CustomEvent('zeroen:request-read', { detail: { requestId: request.id } }));
+      }
+      return next;
+    });
+  }
   const [cancelReason, setCancelReason] = useState('');
   const [cancelling, setCancelling] = useState(false);
   const [cancelError, setCancelError] = useState('');
@@ -140,7 +152,7 @@ export function RequestCard({ request, invoice, commentCount, locale, userId }: 
       <div className="mt-3 flex items-center gap-3 flex-wrap">
         <button
           type="button"
-          onClick={() => setExpanded((v) => !v)}
+          onClick={handleToggleExpand}
           className="flex items-center gap-1.5 text-xs font-mono text-[#6B7280] hover:text-[#F4F4F2] transition-colors"
         >
           <MessageSquare className="w-3.5 h-3.5" />

@@ -4,6 +4,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { computeOverage } from '@/lib/billing/overage';
+import { notifyRequestEvent } from '@/lib/email/request-notifications';
 
 const bodySchema = z.object({
   status: z.enum(['reviewing', 'in_progress', 'completed']),
@@ -62,6 +63,13 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   if (body.status === 'completed') {
     await handleOverageCheck(id, adminSupabase);
   }
+
+  void notifyRequestEvent({
+    event: 'status_changed',
+    requestId: id,
+    actorId: user.id,
+    payload: { status: body.status },
+  });
 
   return NextResponse.json({ success: true });
 }

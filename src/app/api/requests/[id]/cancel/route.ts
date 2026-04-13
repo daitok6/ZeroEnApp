@@ -3,6 +3,7 @@ import { createClient as createAdminClient } from '@supabase/supabase-js';
 import { NextResponse, type NextRequest } from 'next/server';
 import { voidStripeInvoice } from '@/lib/stripe/invoices';
 import { z } from 'zod';
+import { notifyRequestEvent } from '@/lib/email/request-notifications';
 
 const bodySchema = z.object({
   reason: z.string().max(2000).optional(),
@@ -100,6 +101,12 @@ export async function POST(request: NextRequest, { params }: Params) {
     change_request_id: id,
     author_id: user.id,
     content: commentContent,
+  });
+
+  void notifyRequestEvent({
+    event: 'cancelled',
+    requestId: id,
+    actorId: user.id,
   });
 
   return NextResponse.json({ cancelled: true });

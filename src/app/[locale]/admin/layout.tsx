@@ -4,7 +4,9 @@ import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
 import { UnreadBadge } from '@/components/dashboard/unread-badge';
+import { RequestsUnreadBadge } from '@/components/dashboard/requests-unread-badge';
 import { getUnreadCounts } from '@/lib/messages/unread';
+import { getUnreadRequestCounts } from '@/lib/requests/unread';
 
 type Props = {
   children: React.ReactNode;
@@ -32,7 +34,15 @@ export default async function AdminLayout({ children, params }: Props) {
   }
 
   const projectIds = (projects ?? []).map((p: { id: string }) => p.id);
-  const initialCounts = await getUnreadCounts(supabase, user.id, projectIds);
+
+  // Fetch all change request IDs for unread badge (admin sees all)
+  const { data: allRequests } = await supabase.from('change_requests').select('id');
+  const allRequestIds = (allRequests ?? []).map((r: { id: string }) => r.id);
+
+  const [initialCounts, { total: initialRequestCount }] = await Promise.all([
+    getUnreadCounts(supabase, user.id, projectIds),
+    getUnreadRequestCounts(supabase, user.id, allRequestIds),
+  ]);
 
   const messagesBadge = (
     <UnreadBadge
@@ -42,9 +52,17 @@ export default async function AdminLayout({ children, params }: Props) {
     />
   );
 
+  const requestsBadge = (
+    <RequestsUnreadBadge
+      initialCount={initialRequestCount}
+      requestIds={allRequestIds}
+      userId={user.id}
+    />
+  );
+
   return (
     <div data-admin className="h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
-      <Sidebar locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} />
+      <Sidebar locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} requestsBadge={requestsBadge} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <DashboardTopbar
@@ -57,7 +75,7 @@ export default async function AdminLayout({ children, params }: Props) {
         </main>
       </div>
 
-      <BottomNav locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} />
+      <BottomNav locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} requestsBadge={requestsBadge} />
     </div>
   );
 }

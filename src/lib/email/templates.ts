@@ -447,6 +447,132 @@ export function agreementConfirmationEmail(data: {
   };
 }
 
+// ── Change Request Notification Emails ────────────────────
+
+interface RequestEmailContext {
+  requestId: string;
+  requestTitle: string;
+  clientName: string;
+  dashUrl: string;
+  invoiceDescription?: string;
+  amountCents?: number;
+  commentExcerpt?: string;
+  status?: string;
+}
+
+export function requestCommentEmail(ctx: RequestEmailContext): { subject: string; html: string } {
+  const preview = ctx.commentExcerpt
+    ? (ctx.commentExcerpt.length > 140 ? ctx.commentExcerpt.slice(0, 140) + '…' : ctx.commentExcerpt)
+    : null;
+
+  return {
+    subject: `[ZeroEn] New comment on change request: ${ctx.requestTitle}`,
+    html: emailWrapper(`
+      ${heading('New comment.')}
+      ${subheading(`Someone replied on your change request.`)}
+      ${dataCard(`<tr><td>${dataRow('Request', ctx.requestTitle)}</td></tr>`)}
+      ${preview ? `
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: #0D0D0D; border: 1px solid #252525; border-left: 3px solid #00E87A; border-radius: 0 8px 8px 0; margin: 0 0 28px 0;">
+          <tr><td style="padding: 18px 20px;">
+            <p style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #9CA3AF; font-size: 13px; margin: 0; line-height: 1.8; font-style: italic;">"${preview}"</p>
+          </td></tr>
+        </table>
+      ` : ''}
+      ${ctaButton('View Discussion', ctx.dashUrl)}
+    `),
+  };
+}
+
+export function requestInvoiceSentEmail(ctx: RequestEmailContext): { subject: string; html: string } {
+  const amount = ctx.amountCents != null ? `¥${ctx.amountCents.toLocaleString()}` : '';
+
+  return {
+    subject: `[ZeroEn] Invoice ready for: ${ctx.requestTitle}`,
+    html: emailWrapper(`
+      ${heading('Invoice ready.')}
+      ${subheading(`A quote has been prepared for your change request.`)}
+      ${dataCard(`<tr><td>
+        ${dataRow('Request', ctx.requestTitle)}
+        ${ctx.invoiceDescription ? dataRow('Description', ctx.invoiceDescription) : ''}
+        ${amount ? dataRow('Amount', `<strong style="color: #F4F4F2; font-size: 14px;">${amount}</strong>`) : ''}
+      </td></tr>`)}
+      ${body('Review the invoice in your dashboard and accept or decline.')}
+      ${ctaButton('Review Invoice', ctx.dashUrl)}
+    `),
+  };
+}
+
+export function requestInvoiceDeclinedEmail(ctx: RequestEmailContext): { subject: string; html: string } {
+  return {
+    subject: `[ZeroEn] Invoice declined — ${ctx.requestTitle}`,
+    html: emailWrapper(`
+      ${heading('Invoice declined.')}
+      ${subheading(`${ctx.clientName} declined the quote for this change request.`)}
+      ${dataCard(`<tr><td>${dataRow('Request', ctx.requestTitle)}</td></tr>`)}
+      ${body('The request has returned to reviewing status. You can issue a revised quote from the admin dashboard.')}
+      ${ctaButton('Open in Admin', ctx.dashUrl)}
+    `),
+  };
+}
+
+export function requestInvoiceAcceptedEmail(ctx: RequestEmailContext): { subject: string; html: string } {
+  const amount = ctx.amountCents != null ? `¥${ctx.amountCents.toLocaleString()}` : '';
+
+  return {
+    subject: `[ZeroEn] Invoice accepted — ${ctx.requestTitle}`,
+    html: emailWrapper(`
+      ${heading('Invoice accepted.')}
+      ${subheading(ctx.amountCents === 0
+        ? `${ctx.clientName} approved the ¥0 change request.`
+        : `${ctx.clientName} accepted the quote${amount ? ` (${amount})` : ''} and will complete payment.`
+      )}
+      ${dataCard(`<tr><td>
+        ${dataRow('Request', ctx.requestTitle)}
+        ${amount ? dataRow('Amount', amount) : ''}
+      </td></tr>`)}
+      ${ctaButton('View in Admin', ctx.dashUrl)}
+    `),
+  };
+}
+
+export function requestCancelledEmail(ctx: RequestEmailContext): { subject: string; html: string } {
+  return {
+    subject: `[ZeroEn] Change request cancelled — ${ctx.requestTitle}`,
+    html: emailWrapper(`
+      ${heading('Request cancelled.')}
+      ${subheading(`${ctx.clientName} cancelled a change request.`)}
+      ${dataCard(`<tr><td>${dataRow('Request', ctx.requestTitle)}</td></tr>`)}
+      ${body('Any pending invoice has been voided. No further action is needed.')}
+      ${ctaButton('View in Admin', ctx.dashUrl)}
+    `),
+  };
+}
+
+export function requestStatusChangedEmail(ctx: RequestEmailContext & { status: string }): { subject: string; html: string } {
+  const STATUS_LABELS: Record<string, string> = {
+    reviewing: 'Under Review',
+    in_progress: 'In Progress',
+    completed: 'Completed',
+    quoted: 'Quoted',
+    approved: 'Approved',
+    rejected: 'Cancelled',
+  };
+  const statusLabel = STATUS_LABELS[ctx.status] ?? ctx.status;
+
+  return {
+    subject: `[ZeroEn] Change request updated — ${ctx.requestTitle}`,
+    html: emailWrapper(`
+      ${heading('Request updated.')}
+      ${subheading(`Your change request status has changed.`)}
+      ${dataCard(`<tr><td>
+        ${dataRow('Request', ctx.requestTitle)}
+        ${dataRow('Status', `<strong style="color: #00E87A;">${statusLabel}</strong>`)}
+      </td></tr>`)}
+      ${ctaButton('View Request', ctx.dashUrl)}
+    `),
+  };
+}
+
 // ── Email: Site Ready Notification (to client) ────────────
 export function siteReadyEmail(data: {
   clientName: string;

@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
+import { notifyRequestEvent } from '@/lib/email/request-notifications';
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -56,6 +57,13 @@ export async function POST(request: NextRequest, { params }: Params) {
     console.error('comment insert error:', error);
     return NextResponse.json({ error: 'Failed to post comment' }, { status: 500 });
   }
+
+  void notifyRequestEvent({
+    event: 'comment',
+    requestId: id,
+    actorId: user.id,
+    payload: { commentExcerpt: body.content },
+  });
 
   return NextResponse.json(comment);
 }

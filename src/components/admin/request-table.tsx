@@ -79,8 +79,14 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
   function toggleComments(id: string) {
     setExpandedComments((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      const opening = !prev.has(id);
+      if (opening) {
+        next.add(id);
+        void fetch(`/api/requests/${id}/read`, { method: 'POST' });
+        window.dispatchEvent(new CustomEvent('zeroen:request-read', { detail: { requestId: id } }));
+      } else {
+        next.delete(id);
+      }
       return next;
     });
   }

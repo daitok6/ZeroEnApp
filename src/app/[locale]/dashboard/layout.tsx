@@ -4,7 +4,9 @@ import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
 import { UnreadBadge } from '@/components/dashboard/unread-badge';
+import { RequestsUnreadBadge } from '@/components/dashboard/requests-unread-badge';
 import { getUnreadCounts } from '@/lib/messages/unread';
+import { getUnreadRequestCounts } from '@/lib/requests/unread';
 import { getLockedKeys } from '@/components/dashboard/nav-items';
 
 type Props = {
@@ -46,11 +48,23 @@ export default async function DashboardLayout({ children, params }: Props) {
   let initialCounts: Record<string, number> = {};
   let projectIds: string[] = [];
   let lockedKeys: Set<string> = new Set();
+  let requestIds: string[] = [];
+  let initialRequestCount = 0;
 
   if (navType === 'client') {
     if (project) {
       projectIds = [project.id];
-      initialCounts = await getUnreadCounts(supabase, user.id, projectIds);
+
+      const [msgCounts, { data: clientRequests }] = await Promise.all([
+        getUnreadCounts(supabase, user.id, projectIds),
+        supabase.from('change_requests').select('id').eq('client_id', user.id),
+      ]);
+
+      initialCounts = msgCounts;
+      requestIds = (clientRequests ?? []).map((r: { id: string }) => r.id);
+      const { total } = await getUnreadRequestCounts(supabase, user.id, requestIds);
+      initialRequestCount = total;
+
       lockedKeys = getLockedKeys({
         client_visible: project.client_visible ?? false,
         plan_tier: project.plan_tier ?? null,
@@ -69,9 +83,17 @@ export default async function DashboardLayout({ children, params }: Props) {
     />
   ) : undefined;
 
+  const requestsBadge = navType === 'client' ? (
+    <RequestsUnreadBadge
+      initialCount={initialRequestCount}
+      requestIds={requestIds}
+      userId={user.id}
+    />
+  ) : undefined;
+
   return (
     <div className="h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
-      <Sidebar locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} lockedKeys={lockedKeys} />
+      <Sidebar locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} requestsBadge={requestsBadge} lockedKeys={lockedKeys} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <DashboardTopbar locale={locale} label={topbarLabel} />
@@ -81,7 +103,7 @@ export default async function DashboardLayout({ children, params }: Props) {
         </main>
       </div>
 
-      <BottomNav locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} lockedKeys={lockedKeys} />
+      <BottomNav locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} requestsBadge={requestsBadge} lockedKeys={lockedKeys} />
     </div>
   );
 }

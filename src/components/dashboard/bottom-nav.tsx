@@ -21,11 +21,13 @@ interface BottomNavProps {
   basePath: string;
   /** Badge to show on the Messages nav item */
   messagesBadge?: ReactNode;
+  /** Badge to show on the Change Requests nav item */
+  requestsBadge?: ReactNode;
   /** Keys that should render as locked/disabled */
   lockedKeys?: Set<string>;
 }
 
-export function BottomNav({ locale, navType, basePath, messagesBadge, lockedKeys }: BottomNavProps) {
+export function BottomNav({ locale, navType, basePath, messagesBadge, requestsBadge, lockedKeys }: BottomNavProps) {
   const pathname = usePathname();
   const tDash = useTranslations('dashboard.nav');
   const tAdmin = useTranslations('admin');
@@ -77,6 +79,11 @@ export function BottomNav({ locale, navType, basePath, messagesBadge, lockedKeys
                 {item.key === 'messages' && messagesBadge && (
                   <div className="absolute -top-1.5 -right-2">
                     {messagesBadge}
+                  </div>
+                )}
+                {item.key === 'requests' && requestsBadge && (
+                  <div className="absolute -top-1.5 -right-2">
+                    {requestsBadge}
                   </div>
                 )}
               </div>

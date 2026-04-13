@@ -6,6 +6,7 @@ import { getOrCreateStripeCustomer } from '@/lib/stripe/customer';
 import { createAndFinalizeInvoice } from '@/lib/stripe/invoices';
 import { z } from 'zod';
 import { emitStateTask, invoiceVerifyTask } from '@/lib/tasks/state-change';
+import { notifyRequestEvent } from '@/lib/email/request-notifications';
 
 const PRODUCT_ENV_MAP: Record<string, string> = {
   small: 'STRIPE_PRODUCT_CHANGE_SMALL',
@@ -153,6 +154,13 @@ export async function POST(request: NextRequest, { params }: Params) {
       invoiceId = inserted.id;
     }
 
+    void notifyRequestEvent({
+      event: 'invoice_sent',
+      requestId: id,
+      actorId: user.id,
+      payload: { amountCents: 0, invoiceDescription: body.description },
+    });
+
     return NextResponse.json({ success: true, invoiceId });
   }
 
@@ -255,6 +263,13 @@ export async function POST(request: NextRequest, { params }: Params) {
   }
 
   await emitStateTask(invoiceVerifyTask(invoice.id, changeRequest.client_id, body.due_date ?? null, body.description));
+
+  void notifyRequestEvent({
+    event: 'invoice_sent',
+    requestId: id,
+    actorId: user.id,
+    payload: { amountCents: body.amount_cents, invoiceDescription: body.description },
+  });
 
   return NextResponse.json({
     success: true,
