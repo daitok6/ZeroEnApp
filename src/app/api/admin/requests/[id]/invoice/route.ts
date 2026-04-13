@@ -94,11 +94,12 @@ export async function POST(request: NextRequest, { params }: Params) {
     .in('status', ['declined', 'cancelled'])
     .maybeSingle();
 
-  // For ¥0 requests, skip Stripe entirely — create invoice and approve immediately
+  // For ¥0 requests, skip Stripe entirely — but still require client acceptance
+  // (status moves to 'quoted' and invoice is 'pending' so the client can accept or decline)
   if (body.amount_cents === 0) {
     const { error: statusErr } = await adminSupabase
       .from('change_requests')
-      .update({ status: 'approved' })
+      .update({ status: 'quoted' })
       .eq('id', id);
 
     if (statusErr) {
@@ -111,8 +112,8 @@ export async function POST(request: NextRequest, { params }: Params) {
       currency: 'jpy',
       description: body.description,
       type: 'per_request',
-      status: 'paid',
-      paid_at: new Date().toISOString(),
+      status: 'pending',
+      paid_at: null,
       due_date: body.due_date ?? null,
       // Clear any stale Stripe fields from a prior declined invoice
       stripe_invoice_id: null,
@@ -152,7 +153,7 @@ export async function POST(request: NextRequest, { params }: Params) {
       invoiceId = inserted.id;
     }
 
-    return NextResponse.json({ success: true, invoiceId, autoApproved: true });
+    return NextResponse.json({ success: true, invoiceId });
   }
 
   // Amount > 0 — create a real Stripe Invoice

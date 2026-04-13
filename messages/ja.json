@@ -621,7 +621,12 @@
     "submitSuccess": "リクエストを送信しました！",
     "submitButton": "リクエストを送信",
     "submitting": "送信中...",
-    "discussion": "コメント"
+    "discussion": "コメント",
+    "needsRequote": "再見積が必要",
+    "cancelRequest": "リクエストを取り下げ",
+    "cancelConfirm": "このリクエストを取り下げますか？",
+    "cancelDescription": "リクエストは取り下げられます。後で新しく送信することもできます。",
+    "cancelReasonPlaceholder": "任意：理由があればお知らせください"
   },
   "invoices": {
     "title": "請求書",

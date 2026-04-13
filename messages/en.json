@@ -654,7 +654,12 @@
     "submitSuccess": "Request submitted!",
     "submitButton": "Submit Request",
     "submitting": "Submitting...",
-    "discussion": "Discussion"
+    "discussion": "Discussion",
+    "needsRequote": "Needs Re-quote",
+    "cancelRequest": "Cancel Request",
+    "cancelConfirm": "Cancel this request?",
+    "cancelDescription": "This will withdraw the request. You can always submit a new one later.",
+    "cancelReasonPlaceholder": "Optional: tell us why (helps us improve)"
   },
   "invoices": {
     "title": "Invoices",
