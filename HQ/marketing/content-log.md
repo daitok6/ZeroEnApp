@@ -1484,3 +1484,5 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-13 14:39] edited: `HQ/platform/messages/ja.json`
 - [2026-04-13 14:45] created: `HQ/marketing/templates/site-ready-handoff.md`
 - [2026-04-13 14:49] edited: `HQ/platform/src/components/dashboard/managed-plan-gate.tsx`
+- [2026-04-13 14:50] edited: `HQ/platform/src/components/dashboard/nav-items.ts`
+- [2026-04-13 14:50] edited: `HQ/platform/src/components/dashboard/nav-items.ts`
