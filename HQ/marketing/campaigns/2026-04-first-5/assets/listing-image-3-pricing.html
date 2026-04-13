@@ -8,18 +8,22 @@
   body{display:flex;flex-direction:column;justify-content:space-between;padding:80px}
   .eyebrow{font-size:26px;color:#00E87A;font-weight:700;letter-spacing:0.08em;margin-bottom:16px}
   .h1{font-size:72px;font-weight:800;line-height:1.1}
-  .compare{display:flex;flex-direction:column;gap:18px}
-  .row{display:flex;align-items:center;justify-content:space-between;padding:24px 32px;
-    border:1px solid rgba(244,244,242,0.15);border-radius:14px;gap:24px}
-  .row.highlight{border-color:#00E87A;background:rgba(0,232,122,0.06)}
-  .label{font-size:24px;font-weight:500;opacity:0.85}
-  .label .sub{display:block;font-size:18px;opacity:0.55;margin-top:4px;font-weight:400}
-  .value{font-size:48px;font-weight:800;white-space:nowrap;text-align:right}
-  .value .strike{text-decoration:line-through;opacity:0.45;font-size:36px}
-  .value .accent{color:#00E87A;font-size:64px}
-  .value .month{font-size:22px;font-weight:500;opacity:0.6}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .col{border:1px solid rgba(244,244,242,0.15);border-radius:16px;padding:32px 36px;display:flex;flex-direction:column;gap:24px}
+  .col.zeroen{border-color:#00E87A;background:rgba(0,232,122,0.05)}
+  .col-label{font-size:18px;font-weight:700;letter-spacing:0.08em;opacity:0.5;margin-bottom:-8px}
+  .col.zeroen .col-label{color:#00E87A;opacity:1}
+  .item{}
+  .item-name{font-size:20px;opacity:0.6;margin-bottom:6px}
+  .item-value{font-size:44px;font-weight:800;line-height:1}
+  .item-value.strike{text-decoration:line-through;opacity:0.4;font-size:36px}
+  .item-value.accent{color:#00E87A}
+  .item-value .month{font-size:22px;font-weight:500;opacity:0.7}
+  .included{margin-top:4px;display:flex;flex-direction:column;gap:6px}
+  .inc-row{display:flex;align-items:center;gap:10px;font-size:18px;opacity:0.75}
+  .inc-row .dot{width:6px;height:6px;border-radius:50%;background:#00E87A;flex-shrink:0}
   .footer{display:flex;justify-content:space-between;align-items:flex-end}
-  .footnote{font-size:22px;opacity:0.65;line-height:1.5;max-width:700px}
+  .footnote{font-size:20px;opacity:0.6;line-height:1.6;max-width:760px}
   .wordmark{font-family:'DM Sans',sans-serif;font-weight:700;color:#00E87A;font-size:38px;letter-spacing:0.04em}
 </style></head>
 <body>
@@ -27,22 +31,42 @@
     <div class="eyebrow">PRICING — TRANSPARENT</div>
     <div class="h1">隠しコスト、ゼロ。</div>
   </div>
-  <div class="compare">
-    <div class="row">
-      <div class="label">業界相場（初期費用）<span class="sub">Web制作会社</span></div>
-      <div class="value"><span class="strike">¥200,000〜500,000</span></div>
+  <div class="cols">
+    <div class="col">
+      <div class="col-label">業界相場（Web制作会社）</div>
+      <div class="item">
+        <div class="item-name">初期制作費</div>
+        <div class="item-value strike">¥200,000〜500,000</div>
+      </div>
+      <div class="item">
+        <div class="item-name">月額保守費</div>
+        <div class="item-value strike">¥10,000〜30,000<span class="month">/月</span></div>
+      </div>
+      <div class="included">
+        <div class="inc-row"><div class="dot"></div>ホスティング</div>
+        <div class="inc-row"><div class="dot"></div>ドメイン管理</div>
+        <div class="inc-row"><div class="dot"></div>保守・更新対応</div>
+      </div>
     </div>
-    <div class="row highlight">
-      <div class="label">ZeroEn（初期費用）<span class="sub">先着5名様 限定</span></div>
-      <div class="value"><span class="accent">¥1,000</span></div>
-    </div>
-    <div class="row">
-      <div class="label">月額ホスティング契約<span class="sub">最低6ヶ月〜・必須</span></div>
-      <div class="value">¥5,000<span class="month">/月</span></div>
+    <div class="col zeroen">
+      <div class="col-label">ZEROEN — 先着5名様</div>
+      <div class="item">
+        <div class="item-name">初期費用（相談料のみ）</div>
+        <div class="item-value accent">¥1,000</div>
+      </div>
+      <div class="item">
+        <div class="item-name">月額（6ヶ月〜）</div>
+        <div class="item-value">¥5,000<span class="month">/月</span></div>
+      </div>
+      <div class="included">
+        <div class="inc-row"><div class="dot"></div>高速ホスティング（Vercel）</div>
+        <div class="inc-row"><div class="dot"></div>ドメインDNS管理</div>
+        <div class="inc-row"><div class="dot"></div>月1回の軽微な更新</div>
+      </div>
     </div>
   </div>
   <div class="footer">
-    <div class="footnote">¥1,000はビール1杯分のお礼。制作費は無料です。<br>※月額¥5,000・最低6ヶ月のホスティング契約が条件となります。</div>
+    <div class="footnote">初期制作費はZeroEnが負担。月額¥5,000のみでサイトを維持できます。<br>※6ヶ月未満の解約は残月数分のご請求となります。</div>
     <div class="wordmark">ZeroEn</div>
   </div>
 </body></html>
