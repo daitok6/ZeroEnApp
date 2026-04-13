@@ -27,6 +27,7 @@ export function TermsAccordion({ heading, sections }: TermsAccordionProps) {
     if (hash) {
       const matchIndex = sections.findIndex((s) => s.id === hash);
       if (matchIndex !== -1) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setDefaultValue([String(matchIndex)]);
         setTimeout(() => {
           document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });

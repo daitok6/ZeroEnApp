@@ -2,7 +2,6 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { X } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { updateTask, rescheduleTask } from '@/lib/tasks/actions';
 import type { TaskWithMeta, TaskCategory, TaskUrgency } from '@/lib/tasks/types';

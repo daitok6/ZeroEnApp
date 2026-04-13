@@ -2,7 +2,6 @@ import Stripe from 'stripe';
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const stripe =
   stripeSecretKey && stripeSecretKey !== 'sk_test_placeholder'
     ? new Stripe(stripeSecretKey, {

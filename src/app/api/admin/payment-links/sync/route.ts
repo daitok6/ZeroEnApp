@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
  * GET /api/admin/payment-links/sync
  * Returns current active Payment Link URLs for both plan tiers.
  */
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();

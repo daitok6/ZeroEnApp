@@ -6,8 +6,8 @@ import type { SupabaseClient } from '@supabase/supabase-js';
  * Pass an admin-role Supabase client so the UPDATE bypasses RLS.
  */
 export async function getOrCreateStripeCustomer(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   userId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   adminSupabase: SupabaseClient<any>
 ): Promise<string> {
   if (!stripe) throw new Error('Stripe is not configured');

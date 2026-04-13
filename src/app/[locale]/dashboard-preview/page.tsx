@@ -38,7 +38,7 @@ const VIEW_SCREENSHOTS: Record<number, string> = {
 };
 
 export default async function DashboardPreviewPage({ params }: Props) {
-  const { locale } = await params;
+  await params;
   const t = await getTranslations('dashboardPreview');
   const views = [0, 1, 2, 3].map((i) => ({
     label: t(`views.${i}.label`),
@@ -91,6 +91,7 @@ export default async function DashboardPreviewPage({ params }: Props) {
                             {view.label} — screenshot coming soon
                           </p>
                         </div>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={view.screenshot}
                           alt={view.label}

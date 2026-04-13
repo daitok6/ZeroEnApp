@@ -96,6 +96,7 @@ function ctaButton(text: string, href: string): string {
   `;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function divider(): string {
   return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 24px 0;"><tr><td height="1" style="background: #1A1A1A; font-size: 0; line-height: 0;">&nbsp;</td></tr></table>`;
 }

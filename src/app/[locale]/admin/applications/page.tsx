@@ -52,6 +52,7 @@ export default function AdminApplicationsPage() {
     setLoading(false);
   }
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect, react-hooks/exhaustive-deps
   useEffect(() => { load(); }, []);
 
   function openPanel(app: Application) {

@@ -42,6 +42,7 @@ export function TypingEffect({
 
     if (isDeleting) {
       if (displayText.length === 0) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsDeleting(false);
         setTextIndex((prev) => (prev + 1) % texts.length);
         return;

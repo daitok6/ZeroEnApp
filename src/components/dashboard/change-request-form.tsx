@@ -9,7 +9,7 @@ interface ChangeRequestFormProps {
   locale: string;
 }
 
-export function ChangeRequestForm({ projectId, locale }: ChangeRequestFormProps) {
+export function ChangeRequestForm({ projectId, locale: _locale }: ChangeRequestFormProps) {
   const t = useTranslations('requests');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ChevronRight, BookOpen, MessageSquare, PlusCircle, Receipt, FileText, BarChart2, HelpCircle } from 'lucide-react';
+import { ChevronRight, BookOpen, MessageSquare, PlusCircle, Receipt, BarChart2, HelpCircle } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

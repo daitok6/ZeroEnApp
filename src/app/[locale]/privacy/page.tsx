@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PrivacyPage({ params }: Props) {
-  const { locale } = await params;
+  await params;
   const t = await getTranslations('privacy');
   const sections = t.raw('sections') as Array<{ title: string; body: string }>;
 

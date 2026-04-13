@@ -12,7 +12,7 @@ interface SendInvoicePanelProps {
   onClose: () => void;
 }
 
-export function SendInvoicePanel({ request, locale, onClose }: SendInvoicePanelProps) {
+export function SendInvoicePanel({ request, locale: _locale, onClose }: SendInvoicePanelProps) {
   const router = useRouter();
   const t = useTranslations('admin');
   const tCommon = useTranslations('common');

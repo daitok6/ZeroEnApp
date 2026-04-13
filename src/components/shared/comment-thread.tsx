@@ -39,6 +39,7 @@ export function CommentThread({ requestId, currentUserId, locale }: CommentThrea
   }, [requestId, t]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchComments();
   }, [fetchComments]);
 

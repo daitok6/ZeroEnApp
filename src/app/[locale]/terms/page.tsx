@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function TermsPage({ params }: Props) {
-  const { locale } = await params;
+  await params;
   const t = await getTranslations('terms');
 
   const summaryItems = [0, 1, 2, 3, 4, 5].map((i) => ({
