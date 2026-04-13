@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { ClientDetailPanel } from '@/components/admin/client-detail-panel';
 import { AdminSearchFilterBar } from '@/components/admin/admin-search-filter-bar';
 import type { ClientRow, ClientHealthStatus } from '@/lib/admin/queries';
 
@@ -38,8 +38,7 @@ function formatDate(dateStr: string | null, locale: string): string {
 export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
   const t = useTranslations('admin');
   const tStatus = useTranslations('common.status');
-  const [clients, setClients] = useState<ClientRow[]>(initialClients);
-  const [selectedClient, setSelectedClient] = useState<ClientRow | null>(null);
+  const [clients] = useState<ClientRow[]>(initialClients);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilters, setActiveFilters] = useState<Record<string, string>>({});
 
@@ -111,10 +110,10 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
           {/* Mobile: stacked cards */}
           <div className="flex flex-col gap-3 md:hidden">
             {filteredClients.map((client) => (
-              <div
+              <Link
                 key={client.id}
-                onClick={() => setSelectedClient(client)}
-                className="p-4 border border-[#374151] rounded-lg bg-[#111827] space-y-2 cursor-pointer hover:border-[#4B5563] transition-colors"
+                href={`/${locale}/admin/clients/${client.id}`}
+                className="block p-4 border border-[#374151] rounded-lg bg-[#111827] space-y-2 hover:border-[#4B5563] transition-colors"
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0">
@@ -158,7 +157,7 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
                 <p className="text-[#6B7280] text-xs font-mono">
                   {t('lastUpdated')}: {formatDate(client.projectUpdatedAt, locale)}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
 
@@ -176,10 +175,10 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
             </div>
 
             {filteredClients.map((client, idx) => (
-              <div
+              <Link
                 key={client.id}
-                onClick={() => setSelectedClient(client)}
-                className={`grid grid-cols-[2fr_2fr_1fr_80px_1fr_48px] gap-4 px-4 py-3 items-center cursor-pointer ${
+                href={`/${locale}/admin/clients/${client.id}`}
+                className={`grid grid-cols-[2fr_2fr_1fr_80px_1fr_48px] gap-4 px-4 py-3 items-center ${
                   idx < filteredClients.length - 1 ? 'border-b border-[#374151]' : ''
                 } hover:bg-[#111827]/60 transition-colors`}
               >
@@ -227,27 +226,11 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
                     style={{ backgroundColor: HEALTH_COLORS[client.health] }}
                   />
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </>
       )}
-
-      <ClientDetailPanel
-        open={!!selectedClient}
-        client={selectedClient}
-        locale={locale}
-        onClose={() => setSelectedClient(null)}
-        onSaved={(updated) => {
-          const savedId = selectedClient?.id;
-          setClients((prev) =>
-            prev.map((c) =>
-              c.id === savedId ? { ...c, ...updated } : c
-            )
-          );
-          setSelectedClient(null);
-        }}
-      />
     </>
   );
 }

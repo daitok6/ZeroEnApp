@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { AdminSearchFilterBar } from '@/components/admin/admin-search-filter-bar';
 
 export interface AuditRow {
@@ -12,6 +13,8 @@ export interface AuditRow {
   file_size: number | null;
   delivered_at: string | null;
   created_at: string;
+  clientId?: string | null;
+  clientName?: string | null;
 }
 
 interface Props {
@@ -102,6 +105,14 @@ export function AuditsList({ audits, locale }: Props) {
                 </span>
                 <span className="text-zen-off-white font-mono text-sm">{a.period}</span>
                 <span className="text-zen-subtle font-mono text-xs truncate">{a.file_name}</span>
+                {a.clientId && (
+                  <Link
+                    href={`/${locale}/admin/clients/${a.clientId}`}
+                    className="text-[#9CA3AF] font-mono text-xs hover:text-[#00E87A] transition-colors hover:underline underline-offset-2 truncate"
+                  >
+                    {a.clientName ?? a.clientId}
+                  </Link>
+                )}
                 <span className="ml-auto text-zen-subtle font-mono text-xs">
                   {formatDate(a.created_at, locale)}
                   {a.delivered_at && (

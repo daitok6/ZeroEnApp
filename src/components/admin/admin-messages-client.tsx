@@ -177,7 +177,13 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
                   </div>
                 </div>
                 <p className="text-[#9CA3AF] text-xs font-mono truncate">
-                  {project.clientName ?? project.clientEmail}
+                  <a
+                    href={`/${locale}/admin/clients/${project.clientId}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="hover:text-[#00E87A] transition-colors hover:underline underline-offset-2"
+                  >
+                    {project.clientName ?? project.clientEmail}
+                  </a>
                 </p>
                 {project.lastMessageContent && (
                   <p className="text-[#6B7280] text-xs font-mono truncate mt-1">

@@ -97,6 +97,7 @@ export interface ProjectConversation {
   id: string;
   name: string;
   status: string;
+  clientId: string;
   clientName: string | null;
   clientEmail: string;
   lastMessageContent: string | null;
@@ -140,6 +141,7 @@ export async function getProjectsWithLatestMessage(supabase: SupabaseClient): Pr
       id: p.id,
       name: p.name,
       status: p.status,
+      clientId: p.client_id,
       clientName: clientRecord?.full_name ?? null,
       clientEmail: clientRecord?.email ?? '',
       lastMessageContent: latest?.content ?? null,
@@ -245,4 +247,240 @@ export async function getClientList(supabase: SupabaseClient): Promise<ClientRow
       };
     }
   );
+}
+
+// ─── Client Detail ────────────────────────────────────────────────────────────
+
+export interface ClientProject {
+  id: string;
+  name: string;
+  status: string;
+  siteUrl: string | null;
+  githubRepo: string | null;
+  vercelProject: string | null;
+  planTier: 'basic' | 'premium' | null;
+  clientVisible: boolean;
+  commitmentStartsAt: string | null;
+  stripeSubscriptionId: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ClientInvoice {
+  id: string;
+  projectId: string;
+  amountCents: number;
+  status: string;
+  paidAt: string | null;
+  dueDate: string | null;
+  createdAt: string;
+}
+
+export interface ClientChangeRequest {
+  id: string;
+  title: string;
+  description: string;
+  tier: string | null;
+  status: string;
+  createdAt: string;
+  projectId: string;
+  projectName: string;
+}
+
+export interface ClientMessage {
+  id: string;
+  projectId: string;
+  projectName: string;
+  content: string;
+  createdAt: string;
+  senderRole: string | null;
+}
+
+export interface ClientAudit {
+  id: string;
+  projectId: string;
+  kind: string;
+  period: string;
+  fileName: string;
+  fileSize: number | null;
+  deliveredAt: string | null;
+  createdAt: string;
+}
+
+export interface ClientDetail {
+  id: string;
+  fullName: string | null;
+  email: string;
+  createdAt: string;
+  source: string | null;
+  health: ClientHealthStatus;
+  projects: ClientProject[];
+  invoices: ClientInvoice[];
+  changeRequests: ClientChangeRequest[];
+  recentMessages: ClientMessage[];
+  audits: ClientAudit[];
+}
+
+export async function getClientById(
+  supabase: SupabaseClient,
+  id: string
+): Promise<ClientDetail | null> {
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('id, email, full_name, created_at, source')
+    .eq('id', id)
+    .eq('role', 'client')
+    .single();
+
+  if (!profile) return null;
+
+  const { data: projects } = await supabase
+    .from('projects')
+    .select('id, name, status, site_url, github_repo, vercel_project, plan_tier, client_visible, commitment_starts_at, stripe_subscription_id, created_at, updated_at')
+    .eq('client_id', id)
+    .order('created_at', { ascending: false });
+
+  const projectList = projects ?? [];
+  const projectIds = projectList.map((p: { id: string }) => p.id);
+
+  const [invoicesResult, requestsResult, messagesResult, auditsResult, projectsForNames] =
+    await Promise.all([
+      projectIds.length > 0
+        ? supabase
+            .from('invoices')
+            .select('id, project_id, amount_cents, status, paid_at, due_date, created_at')
+            .in('project_id', projectIds)
+            .order('created_at', { ascending: false })
+        : Promise.resolve({ data: [] }),
+      supabase
+        .from('change_requests')
+        .select('id, title, description, tier, status, created_at, project_id')
+        .eq('client_id', id)
+        .order('created_at', { ascending: false })
+        .limit(20),
+      projectIds.length > 0
+        ? supabase
+            .from('messages')
+            .select('id, project_id, content, created_at, sender_id, sender:profiles!messages_sender_id_fkey(role)')
+            .in('project_id', projectIds)
+            .order('created_at', { ascending: false })
+            .limit(30)
+        : Promise.resolve({ data: [] }),
+      projectIds.length > 0
+        ? supabase
+            .from('audits')
+            .select('id, project_id, kind, period, file_name, file_size, delivered_at, created_at')
+            .in('project_id', projectIds)
+            .order('created_at', { ascending: false })
+        : Promise.resolve({ data: [] }),
+      // Fetch project names for change requests (projects may differ from projectIds if requests reference archived ones)
+      supabase
+        .from('projects')
+        .select('id, name')
+        .eq('client_id', id),
+    ]);
+
+  const projectNameMap = new Map(
+    (projectsForNames.data ?? []).map((p: { id: string; name: string }) => [p.id, p.name])
+  );
+
+  const mappedProjects: ClientProject[] = projectList.map((p: {
+    id: string; name: string; status: string; site_url: string | null;
+    github_repo: string | null; vercel_project: string | null;
+    plan_tier: 'basic' | 'premium' | null; client_visible: boolean;
+    commitment_starts_at: string | null; stripe_subscription_id: string | null;
+    created_at: string; updated_at: string;
+  }) => ({
+    id: p.id,
+    name: p.name,
+    status: p.status,
+    siteUrl: p.site_url,
+    githubRepo: p.github_repo,
+    vercelProject: p.vercel_project,
+    planTier: p.plan_tier,
+    clientVisible: p.client_visible,
+    commitmentStartsAt: p.commitment_starts_at,
+    stripeSubscriptionId: p.stripe_subscription_id,
+    createdAt: p.created_at,
+    updatedAt: p.updated_at,
+  }));
+
+  const invoices: ClientInvoice[] = (invoicesResult.data ?? []).map((inv: {
+    id: string; project_id: string; amount_cents: number; status: string;
+    paid_at: string | null; due_date: string | null; created_at: string;
+  }) => ({
+    id: inv.id,
+    projectId: inv.project_id,
+    amountCents: inv.amount_cents,
+    status: inv.status,
+    paidAt: inv.paid_at,
+    dueDate: inv.due_date,
+    createdAt: inv.created_at,
+  }));
+
+  const changeRequests: ClientChangeRequest[] = (requestsResult.data ?? []).map((r: {
+    id: string; title: string; description: string; tier: string | null;
+    status: string; created_at: string; project_id: string;
+  }) => ({
+    id: r.id,
+    title: r.title,
+    description: r.description,
+    tier: r.tier,
+    status: r.status,
+    createdAt: r.created_at,
+    projectId: r.project_id,
+    projectName: projectNameMap.get(r.project_id) ?? r.project_id,
+  }));
+
+  const recentMessages: ClientMessage[] = (messagesResult.data ?? []).map((m: {
+    id: string; project_id: string; content: string; created_at: string; sender_id: string;
+    sender: { role: string } | { role: string }[] | null;
+  }) => {
+    const sender = Array.isArray(m.sender) ? m.sender[0] : m.sender;
+    return {
+      id: m.id,
+      projectId: m.project_id,
+      projectName: projectNameMap.get(m.project_id) ?? m.project_id,
+      content: m.content,
+      createdAt: m.created_at,
+      senderRole: sender?.role ?? null,
+    };
+  });
+
+  const audits: ClientAudit[] = (auditsResult.data ?? []).map((a: {
+    id: string; project_id: string; kind: string; period: string;
+    file_name: string; file_size: number | null; delivered_at: string | null; created_at: string;
+  }) => ({
+    id: a.id,
+    projectId: a.project_id,
+    kind: a.kind,
+    period: a.period,
+    fileName: a.file_name,
+    fileSize: a.file_size,
+    deliveredAt: a.delivered_at,
+    createdAt: a.created_at,
+  }));
+
+  // Use overdue invoices to determine health
+  const overdueInvoices = invoices.filter((inv) => inv.status === 'overdue');
+  const primaryProject = mappedProjects[0] ?? null;
+  const health = determineHealth(
+    primaryProject ? { status: primaryProject.status, created_at: primaryProject.createdAt } : null,
+    profile.created_at,
+    overdueInvoices.map(() => ({ status: 'overdue' }))
+  );
+
+  return {
+    id: profile.id,
+    fullName: profile.full_name,
+    email: profile.email,
+    createdAt: profile.created_at,
+    source: profile.source ?? null,
+    health,
+    projects: mappedProjects,
+    invoices,
+    changeRequests,
+    recentMessages,
+    audits,
+  };
 }
