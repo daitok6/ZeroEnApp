@@ -478,6 +478,15 @@
     "markReviewing": "確認中にする",
     "markInProgress": "進行中にする",
     "markComplete": "完了にする",
+    "approveRequest": "承認",
+    "approvingRequest": "承認中…",
+    "rejectRequest": "却下",
+    "rejectingRequest": "却下中…",
+    "rejectReason": "却下理由（必須）",
+    "rejectReasonPlaceholder": "クライアントが修正・再送信すべき内容を説明してください...",
+    "confirmReject": "却下を確定",
+    "cancelAction": "キャンセル",
+    "tierBadge": "規模",
     "discussion": "コメント",
     "invoiceDeclined": "請求書辞退",
     "back": "戻る",
@@ -674,7 +683,11 @@
     "cancelConfirm": "このリクエストを取り下げますか？",
     "cancelDescription": "リクエストは取り下げられます。後で新しく送信することもできます。",
     "cancelReasonPlaceholder": "任意：理由があればお知らせください",
-    "badgeUnread": "変更依頼の未読アクティビティ"
+    "badgeUnread": "変更依頼の未読アクティビティ",
+    "quotaIncluded": "プランに含まれています",
+    "quotaOverage": "超過 — ¥{price} 請求されます",
+    "quotaLarge": "常に別途請求: ¥25,000〜",
+    "quotaRemaining": "今月の残り {remaining}/{capacity} ユニット"
   },
   "invoices": {
     "title": "請求書",

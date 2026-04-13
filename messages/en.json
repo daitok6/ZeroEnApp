@@ -511,6 +511,15 @@
     "markReviewing": "Mark Reviewing",
     "markInProgress": "Mark In Progress",
     "markComplete": "Mark Complete",
+    "approveRequest": "Approve",
+    "approvingRequest": "Approving…",
+    "rejectRequest": "Reject",
+    "rejectingRequest": "Rejecting…",
+    "rejectReason": "Reason for rejection (required)",
+    "rejectReasonPlaceholder": "Explain what the client needs to change and resubmit...",
+    "confirmReject": "Confirm Reject",
+    "cancelAction": "Cancel",
+    "tierBadge": "Size",
     "discussion": "Discussion",
     "invoiceDeclined": "Invoice Declined",
     "back": "Back",
@@ -707,7 +716,11 @@
     "cancelConfirm": "Cancel this request?",
     "cancelDescription": "This will withdraw the request. You can always submit a new one later.",
     "cancelReasonPlaceholder": "Optional: tell us why (helps us improve)",
-    "badgeUnread": "Unread change request activity"
+    "badgeUnread": "Unread change request activity",
+    "quotaIncluded": "Included in your plan",
+    "quotaOverage": "Overage — billed at ¥{price}",
+    "quotaLarge": "Always billed separately: ¥25,000+",
+    "quotaRemaining": "{remaining}/{capacity} monthly units remaining"
   },
   "invoices": {
     "title": "Invoices",

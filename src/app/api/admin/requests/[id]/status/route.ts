@@ -7,7 +7,7 @@ import { computeOverage } from '@/lib/billing/overage';
 import { notifyRequestEvent } from '@/lib/email/request-notifications';
 
 const bodySchema = z.object({
-  status: z.enum(['reviewing', 'in_progress', 'completed']),
+  status: z.enum(['reviewing', 'approved', 'in_progress', 'completed']),
 });
 
 function getAdminSupabase() {

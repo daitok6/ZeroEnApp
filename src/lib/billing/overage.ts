@@ -9,21 +9,72 @@ import type { SupabaseClient } from '@supabase/supabase-js';
  * Basic plan:   1 small-equivalent/month
  * Premium plan: 2 small-equivalents/month (i.e. 2 smalls OR 1 medium)
  */
-const PLAN_CAPACITY: Record<string, number> = {
+export const PLAN_CAPACITY: Record<string, number> = {
   basic: 1,
   premium: 2,
 };
 
-const TIER_UNIT_COST: Record<string, number> = {
+export const TIER_UNIT_COST: Record<string, number> = {
   small: 1,
   medium: 2,
 };
 
-const TIER_PRICE_CENTS: Record<string, number> = {
+export const TIER_PRICE_CENTS: Record<string, number> = {
   small: 4000,   // ¥4,000
   medium: 10000, // ¥10,000
   large: 25000,  // ¥25,000 minimum (quoted individually in practice)
 };
+
+export interface QuotaUsage {
+  planTier: string;
+  usedUnits: number;
+  capacityUnits: number;
+  remainingUnits: number;
+}
+
+/**
+ * Returns the current month's quota usage for a project.
+ * Counts requests in status approved|in_progress|completed — i.e. admin-committed work.
+ */
+export async function getMonthlyQuotaUsage(
+  projectId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  adminSupabase: SupabaseClient<any>
+): Promise<QuotaUsage> {
+  const { data: project } = await adminSupabase
+    .from('projects')
+    .select('plan_tier')
+    .eq('id', projectId)
+    .single();
+
+  const planTier = project?.plan_tier ?? 'basic';
+  const capacityUnits = PLAN_CAPACITY[planTier] ?? 1;
+
+  const now = new Date();
+  const cycleStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+  const cycleEnd = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1));
+
+  const { data: committed } = await adminSupabase
+    .from('change_requests')
+    .select('tier')
+    .eq('project_id', projectId)
+    .in('status', ['approved', 'in_progress', 'completed'])
+    .gte('updated_at', cycleStart.toISOString())
+    .lt('updated_at', cycleEnd.toISOString());
+
+  const usedUnits = (committed ?? []).reduce((sum, r) => {
+    const tier = r.tier ?? 'small';
+    if (tier === 'large') return sum;
+    return sum + (TIER_UNIT_COST[tier] ?? 1);
+  }, 0);
+
+  return {
+    planTier,
+    usedUnits,
+    capacityUnits,
+    remainingUnits: Math.max(0, capacityUnits - usedUnits),
+  };
+}
 
 export interface OverageResult {
   isOverage: boolean;
@@ -50,41 +101,24 @@ export async function computeOverage(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   adminSupabase: SupabaseClient<any>
 ): Promise<OverageResult | null> {
-  // 1. Load project to get plan_tier
-  const { data: project } = await adminSupabase
-    .from('projects')
-    .select('plan_tier')
-    .eq('id', projectId)
+  // 1. Load the specific request to get its tier
+  const { data: changeRequest } = await adminSupabase
+    .from('change_requests')
+    .select('tier')
+    .eq('id', requestId)
     .single();
 
-  const planTier = project?.plan_tier ?? 'basic';
-  const capacity = PLAN_CAPACITY[planTier] ?? 1;
+  if (!changeRequest) return null;
+  const currentTier = changeRequest.tier ?? 'small';
 
-  // 2. Compute current UTC month boundaries (displayed as JST to operator)
+  // 2. Compute cycle boundaries for the response metadata
   const now = new Date();
   const cycleStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
-  const cycleEnd = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0));
+  const cycleEndDay = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0));
   const cycleStartIso = cycleStart.toISOString().split('T')[0];
-  const cycleEndIso = cycleEnd.toISOString().split('T')[0];
+  const cycleEndIso = cycleEndDay.toISOString().split('T')[0];
 
-  // 3. Fetch all completed change_requests for this project in the current cycle
-  const { data: completed } = await adminSupabase
-    .from('change_requests')
-    .select('id, tier')
-    .eq('project_id', projectId)
-    .eq('status', 'completed')
-    .gte('updated_at', cycleStart.toISOString())
-    .lte('updated_at', new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1)).toISOString());
-
-  if (!completed || completed.length === 0) return null;
-
-  // 4. Find the current request in the list
-  const currentRequest = completed.find((r) => r.id === requestId);
-  if (!currentRequest) return null;
-
-  const currentTier = currentRequest.tier ?? 'small';
-
-  // Large changes are always overage, never included
+  // 3. Large changes are always overage, never included
   if (currentTier === 'large') {
     return {
       isOverage: true,
@@ -95,15 +129,11 @@ export async function computeOverage(
     };
   }
 
-  // 5. Compute total capacity used by all non-large completed requests this cycle
-  const totalUsed = completed.reduce((sum, r) => {
-    const tier = r.tier ?? 'small';
-    if (tier === 'large') return sum; // large handled above
-    return sum + (TIER_UNIT_COST[tier] ?? 1);
-  }, 0);
+  // 4. Check quota — request is now completed so getMonthlyQuotaUsage includes it
+  const quota = await getMonthlyQuotaUsage(projectId, adminSupabase);
 
-  // 6. If total capacity exceeds plan, this request contributes to overage
-  if (totalUsed <= capacity) return null;
+  // If total committed units are within plan capacity → no overage
+  if (quota.usedUnits <= quota.capacityUnits) return null;
 
   return {
     isOverage: true,

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { createClient } from '@/lib/supabase/client';
+import { getProjectQuota, type ProjectQuota } from '@/lib/actions/quota';
 
 interface ChangeRequestFormProps {
   projectId: string;
@@ -15,7 +16,12 @@ export function ChangeRequestForm({ projectId, locale: _locale }: ChangeRequestF
   const [description, setDescription] = useState('');
   const [tier, setTier] = useState<'small' | 'medium' | 'large' | ''>('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [quota, setQuota] = useState<ProjectQuota | null>(null);
   const supabase = createClient();
+
+  useEffect(() => {
+    getProjectQuota(projectId).then(setQuota).catch(() => { /* quota display is non-critical */ });
+  }, [projectId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,6 +96,34 @@ export function ChangeRequestForm({ projectId, locale: _locale }: ChangeRequestF
           <option value="medium">{t('sizeMedium')}</option>
           <option value="large">{t('sizeLarge')}</option>
         </select>
+
+        {/* Quota counter + overage warning */}
+        {quota && (
+          <div className="mt-2 space-y-1">
+            <p className="text-[#6B7280] text-[11px] font-mono">
+              {t('quotaRemaining', { remaining: quota.remainingUnits, capacity: quota.capacityUnits })}
+            </p>
+            {tier === 'large' && (
+              <p className="text-yellow-400 text-[11px] font-mono">
+                {t('quotaLarge')}
+              </p>
+            )}
+            {(tier === 'small' || tier === 'medium') && (() => {
+              const cost = quota.tierUnitCost[tier] ?? 1;
+              const isOverage = cost > quota.remainingUnits;
+              const price = (quota.tierPriceCents[tier] ?? 0) / 100;
+              return isOverage ? (
+                <p className="text-yellow-400 text-[11px] font-mono">
+                  {t('quotaOverage', { price: price.toLocaleString('ja-JP') })}
+                </p>
+              ) : (
+                <p className="text-[#00E87A] text-[11px] font-mono">
+                  {t('quotaIncluded')}
+                </p>
+              );
+            })()}
+          </div>
+        )}
       </div>
 
       {status === 'error' && (

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { ChevronDown, ChevronUp, MessageCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, MessageCircle, X } from 'lucide-react';
 import { SendInvoicePanel } from './send-invoice-panel';
 import { CommentThread } from '@/components/shared/comment-thread';
 import type { RequestRow } from '@/lib/admin/requests';
@@ -12,6 +12,12 @@ import { formatJpy } from '@/lib/format-jpy';
 type Tab = 'all' | 'needs_review' | 'quoted' | 'in_progress' | 'completed';
 
 const TABS: Tab[] = ['all', 'needs_review', 'quoted', 'in_progress', 'completed'];
+
+const TIER_COLORS: Record<string, string> = {
+  small: 'text-blue-300 border-blue-300/30',
+  medium: 'text-purple-400 border-purple-400/30',
+  large: 'text-orange-400 border-orange-400/30',
+};
 
 const STATUS_COLORS: Record<string, string> = {
   submitted: 'text-blue-400 border-blue-400/30',
@@ -47,6 +53,9 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
   const [panelRequest, setPanelRequest] = useState<RequestRow | null>(null);
   const [expandedComments, setExpandedComments] = useState<Set<string>>(new Set());
   const [statusLoading, setStatusLoading] = useState<string | null>(null);
+  const [approveLoading, setApproveLoading] = useState<string | null>(null);
+  const [rejectState, setRejectState] = useState<{ id: string; comment: string } | null>(null);
+  const [rejectLoading, setRejectLoading] = useState(false);
 
   const filtered = requests.filter((r) => tabFilter(activeTab, r.status));
 
@@ -101,12 +110,47 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
         body: JSON.stringify({ status }),
       });
       if (!res.ok) return;
-      // Await the refresh so the button stays disabled until the UI reflects the new status
       await router.refresh();
     } catch {
       // network error — loading spinner cleared in finally
     } finally {
       setStatusLoading(null);
+    }
+  }
+
+  async function approveRequest(requestId: string) {
+    setApproveLoading(requestId);
+    try {
+      const res = await fetch(`/api/admin/requests/${requestId}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'approved' }),
+      });
+      if (!res.ok) return;
+      await router.refresh();
+    } catch {
+      // network error
+    } finally {
+      setApproveLoading(null);
+    }
+  }
+
+  async function rejectRequest(requestId: string, comment: string) {
+    if (!comment.trim()) return;
+    setRejectLoading(true);
+    try {
+      const res = await fetch(`/api/admin/requests/${requestId}/reject`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ comment }),
+      });
+      if (!res.ok) return;
+      setRejectState(null);
+      await router.refresh();
+    } catch {
+      // network error
+    } finally {
+      setRejectLoading(false);
     }
   }
 
@@ -150,8 +194,12 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
         <div className="space-y-2">
           {filtered.map((req) => {
             const statusColor = STATUS_COLORS[req.status] ?? 'text-[#6B7280] border-[#6B7280]/30';
+            const tierColor = TIER_COLORS[req.tier ?? ''] ?? 'text-[#6B7280] border-[#6B7280]/30';
             const commentsOpen = expandedComments.has(req.id);
             const isLoading = statusLoading === req.id;
+            const isApproving = approveLoading === req.id;
+            const isRejecting = rejectState?.id === req.id;
+            const canApproveReject = req.status === 'submitted' || req.status === 'reviewing';
             const actionLabel = getActionLabel(req);
 
             return (
@@ -165,7 +213,12 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                   <div className="space-y-2 md:hidden">
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-[#F4F4F2] text-sm font-mono font-bold">{req.title}</p>
-                      <div className="flex items-center gap-1.5 shrink-0">
+                      <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
+                        {req.tier && (
+                          <span className={`text-[10px] font-mono border px-2 py-0.5 rounded ${tierColor}`}>
+                            {req.tier}
+                          </span>
+                        )}
                         {req.invoiceStatus === 'declined' && (
                           <span className="text-[10px] font-mono border px-2 py-0.5 rounded text-red-400 border-red-400/30">
                             {t('invoiceDeclined')}
@@ -192,6 +245,23 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                     </div>
                     <div className="flex gap-2 flex-wrap pt-1">
                       <ActionButton req={req} actionLabel={actionLabel} isLoading={isLoading} updateStatus={updateStatus} setPanelRequest={setPanelRequest} />
+                      {canApproveReject && (
+                        <button
+                          onClick={() => approveRequest(req.id)}
+                          disabled={isApproving}
+                          className="px-3 py-1.5 text-xs font-mono rounded border border-[#00E87A]/30 text-[#00E87A] hover:bg-[#00E87A]/10 disabled:opacity-50 transition-colors"
+                        >
+                          {isApproving ? t('approvingRequest') : t('approveRequest')}
+                        </button>
+                      )}
+                      {canApproveReject && !isRejecting && (
+                        <button
+                          onClick={() => setRejectState({ id: req.id, comment: '' })}
+                          className="px-3 py-1.5 text-xs font-mono rounded border border-red-400/30 text-red-400 hover:bg-red-400/10 transition-colors"
+                        >
+                          {t('rejectRequest')}
+                        </button>
+                      )}
                       <button
                         onClick={() => toggleComments(req.id)}
                         aria-label={t('discussion')}
@@ -204,6 +274,34 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                         {commentsOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                       </button>
                     </div>
+                    {/* Inline reject form */}
+                    {isRejecting && (
+                      <div className="space-y-2 pt-1">
+                        <textarea
+                          value={rejectState?.comment ?? ''}
+                          onChange={(e) => setRejectState((s) => s ? { ...s, comment: e.target.value } : null)}
+                          placeholder={t('rejectReasonPlaceholder')}
+                          rows={2}
+                          className="w-full bg-[#0D0D0D] border border-red-400/30 text-[#F4F4F2] text-xs font-mono px-3 py-2 rounded focus:outline-none focus:border-red-400 placeholder:text-[#6B7280] resize-none"
+                        />
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => rejectRequest(req.id, rejectState?.comment ?? '')}
+                            disabled={rejectLoading || !rejectState?.comment.trim()}
+                            className="px-3 py-1.5 text-xs font-mono rounded border border-red-400/30 text-red-400 hover:bg-red-400/10 disabled:opacity-50 transition-colors"
+                          >
+                            {rejectLoading ? t('rejectingRequest') : t('confirmReject')}
+                          </button>
+                          <button
+                            onClick={() => setRejectState(null)}
+                            className="flex items-center gap-1 px-3 py-1.5 text-xs font-mono border border-[#374151] text-[#9CA3AF] rounded hover:border-[#6B7280] transition-colors"
+                          >
+                            <X className="w-3 h-3" />
+                            {t('cancelAction')}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Desktop layout */}
@@ -215,6 +313,11 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                     <p className="text-[#9CA3AF] text-xs font-mono truncate self-center">{req.projectName}</p>
                     <p className="text-[#6B7280] text-xs font-mono line-clamp-2 self-center">{req.description}</p>
                     <div className="self-center flex items-center gap-1.5 flex-wrap">
+                      {req.tier && (
+                        <span className={`text-[10px] font-mono border px-2 py-0.5 rounded ${tierColor}`}>
+                          {req.tier}
+                        </span>
+                      )}
                       {req.invoiceStatus === 'declined' && (
                         <span className="text-[10px] font-mono border px-2 py-0.5 rounded text-red-400 border-red-400/30">
                           {t('invoiceDeclined')}
@@ -233,8 +336,25 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                         <span className="text-[#374151] text-xs font-mono">—</span>
                       )}
                     </div>
-                    <div className="flex items-center gap-2 self-center">
+                    <div className="flex items-center gap-2 self-center flex-wrap">
                       <ActionButton req={req} actionLabel={actionLabel} isLoading={isLoading} updateStatus={updateStatus} setPanelRequest={setPanelRequest} />
+                      {canApproveReject && (
+                        <button
+                          onClick={() => approveRequest(req.id)}
+                          disabled={isApproving}
+                          className="px-3 py-1.5 text-xs font-mono rounded border border-[#00E87A]/30 text-[#00E87A] hover:bg-[#00E87A]/10 disabled:opacity-50 transition-colors"
+                        >
+                          {isApproving ? t('approvingRequest') : t('approveRequest')}
+                        </button>
+                      )}
+                      {canApproveReject && !isRejecting && (
+                        <button
+                          onClick={() => setRejectState({ id: req.id, comment: '' })}
+                          className="px-3 py-1.5 text-xs font-mono rounded border border-red-400/30 text-red-400 hover:bg-red-400/10 transition-colors"
+                        >
+                          {t('rejectRequest')}
+                        </button>
+                      )}
                       <button
                         onClick={() => toggleComments(req.id)}
                         aria-label={t('discussion')}
@@ -246,6 +366,35 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                         )}
                       </button>
                     </div>
+                    {/* Inline reject form for desktop */}
+                    {isRejecting && (
+                      <div className="col-span-6 space-y-2 pt-1 border-t border-[#374151] mt-2">
+                        <p className="text-[#9CA3AF] text-[11px] font-mono uppercase tracking-wider">{t('rejectReason')}</p>
+                        <textarea
+                          value={rejectState?.comment ?? ''}
+                          onChange={(e) => setRejectState((s) => s ? { ...s, comment: e.target.value } : null)}
+                          placeholder={t('rejectReasonPlaceholder')}
+                          rows={2}
+                          className="w-full bg-[#0D0D0D] border border-red-400/30 text-[#F4F4F2] text-xs font-mono px-3 py-2 rounded focus:outline-none focus:border-red-400 placeholder:text-[#6B7280] resize-none"
+                        />
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => rejectRequest(req.id, rejectState?.comment ?? '')}
+                            disabled={rejectLoading || !rejectState?.comment.trim()}
+                            className="px-3 py-1.5 text-xs font-mono rounded border border-red-400/30 text-red-400 hover:bg-red-400/10 disabled:opacity-50 transition-colors"
+                          >
+                            {rejectLoading ? t('rejectingRequest') : t('confirmReject')}
+                          </button>
+                          <button
+                            onClick={() => setRejectState(null)}
+                            className="flex items-center gap-1 px-3 py-1.5 text-xs font-mono border border-[#374151] text-[#9CA3AF] rounded hover:border-[#6B7280] transition-colors"
+                          >
+                            <X className="w-3 h-3" />
+                            {t('cancelAction')}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
