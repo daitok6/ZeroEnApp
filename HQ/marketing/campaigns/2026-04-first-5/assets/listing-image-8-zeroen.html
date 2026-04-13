@@ -8,13 +8,16 @@
   body{display:flex;flex-direction:column;justify-content:space-between;padding:80px}
   .eyebrow{font-size:26px;color:#00E87A;font-weight:700;letter-spacing:0.08em;margin-bottom:16px}
   .h1{font-size:64px;font-weight:800;line-height:1.1}
-  .browser{border-radius:14px;overflow:hidden;border:1px solid rgba(244,244,242,0.12);flex:1;margin:32px 0;min-height:0}
+  .browser{border-radius:14px;overflow:hidden;border:1px solid rgba(244,244,242,0.12);flex:1;margin:32px 0;min-height:0;position:relative}
   .browser-bar{display:flex;align-items:center;padding:12px 20px;background:#222;gap:8px;flex-shrink:0}
   .dot{width:11px;height:11px;border-radius:50%}
   .r{background:#ff5f56}.y{background:#ffbd2e}.g{background:#27c93f}
   .url{font-family:'IBM Plex Mono',monospace;font-size:15px;opacity:0.6;margin-left:16px}
   .browser-body{overflow:hidden;height:540px}
   .browser-body img{width:100%;display:block}
+  .sample-tag{position:absolute;top:56px;right:20px;background:#00E87A;color:#0D0D0D;
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:18px;letter-spacing:0.12em;
+    padding:6px 16px;border-radius:6px}
   .footer{display:flex;justify-content:space-between;align-items:flex-end;flex-shrink:0}
   .url-block .label{font-size:18px;opacity:0.55;letter-spacing:0.06em;margin-bottom:6px}
   .url-block .url-big{font-family:'DM Sans',sans-serif;font-weight:700;font-size:40px;color:#00E87A}
@@ -33,6 +36,7 @@
     <div class="browser-body">
       <img src="./site-zeroen.png">
     </div>
+    <div class="sample-tag">SAMPLE</div>
   </div>
   <div class="footer">
     <div class="url-block">
