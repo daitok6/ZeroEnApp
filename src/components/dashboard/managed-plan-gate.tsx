@@ -41,7 +41,7 @@ const PLANS: Record<PlanTier, {
     features: [
       {
         en: '1 small change/mo',
-        ja: '小変更1回/月',
+        ja: '変更（小）1回/月',
         noteEn: '≈¥7,500 at agency rates (WebMori Tier A)',
         noteJa: '代行費 ¥7,500相当 (WebMori Tier A)',
       },
@@ -59,7 +59,7 @@ const PLANS: Record<PlanTier, {
       },
     ],
     valueEn: '≈¥20,500+/mo in equivalent services — yours for ¥5,000',
-    valueJa: '実質¥20,500+/月相当のサービスが ¥5,000 で',
+    valueJa: '実質¥20,500+/月相当のサービスが ¥5,000',
   },
   premium: {
     nameEn: 'Premium',
@@ -70,7 +70,7 @@ const PLANS: Record<PlanTier, {
     features: [
       {
         en: '2 small or 1 medium change/mo',
-        ja: '小変更2回 or 中変更1回/月',
+        ja: '変更（小）2回 or 変更（中）1回/月',
         noteEn: '¥9,000–18,000 at agency rates (WebMori Tier B)',
         noteJa: '代行費 ¥9,000〜18,000相当 (WebMori Tier B)',
       },
@@ -94,7 +94,7 @@ const PLANS: Record<PlanTier, {
       },
     ],
     valueEn: '≈¥29,000+/mo in equivalent services — yours for ¥10,000',
-    valueJa: '実質¥29,000+/月相当のサービスが ¥10,000 で',
+    valueJa: '実質¥29,000+/月相当のサービスが ¥10,000',
   },
 };
 
