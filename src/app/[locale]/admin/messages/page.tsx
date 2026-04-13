@@ -9,7 +9,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ projectId?: string }>;
+};
 
 interface Message {
   id: string;
@@ -19,8 +22,9 @@ interface Message {
   sender?: { full_name: string | null; avatar_url: string | null; role: string };
 }
 
-export default async function AdminMessagesPage({ params }: Props) {
+export default async function AdminMessagesPage({ params, searchParams }: Props) {
   const { locale } = await params;
+  const { projectId: requestedProjectId } = await searchParams;
   const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
@@ -33,13 +37,16 @@ export default async function AdminMessagesPage({ params }: Props) {
     ? await getUnreadCounts(supabase, user.id, projectIds)
     : {};
 
-  // Load initial messages for the first project
-  const firstProject = projects[0] ?? null;
-  const initialMessages: Message[] = firstProject
+  // Prefer the requested projectId (from ?projectId= param), else fall back to first project
+  const targetProject = requestedProjectId
+    ? (projects.find((p) => p.id === requestedProjectId) ?? projects[0] ?? null)
+    : (projects[0] ?? null);
+
+  const initialMessages: Message[] = targetProject
     ? ((await supabase
         .from('messages')
         .select('*, sender:profiles(full_name, avatar_url, role)')
-        .eq('project_id', firstProject.id)
+        .eq('project_id', targetProject.id)
         .order('created_at', { ascending: true })
         .limit(50)).data ?? []) as Message[]
     : [];
@@ -58,7 +65,7 @@ export default async function AdminMessagesPage({ params }: Props) {
       <AdminMessagesClient
         projects={projects}
         initialMessages={initialMessages}
-        initialProjectId={firstProject?.id ?? null}
+        initialProjectId={targetProject?.id ?? null}
         userId={user?.id ?? ''}
         locale={locale}
         initialUnreadCounts={unreadCounts}

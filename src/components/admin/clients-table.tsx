@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { ClientDetailPanel } from '@/components/admin/client-detail-panel';
+import { AdminSearchFilterBar } from '@/components/admin/admin-search-filter-bar';
 import type { ClientRow, ClientHealthStatus } from '@/lib/admin/queries';
 
 interface ClientsTableProps {
@@ -39,10 +40,69 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
   const tStatus = useTranslations('common.status');
   const [clients, setClients] = useState<ClientRow[]>(initialClients);
   const [selectedClient, setSelectedClient] = useState<ClientRow | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilters, setActiveFilters] = useState<Record<string, string>>({});
+
+  const filteredClients = useMemo(() => {
+    let rows = clients;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      rows = rows.filter(
+        (c) =>
+          (c.full_name?.toLowerCase().includes(q) ?? false) ||
+          c.email.toLowerCase().includes(q) ||
+          (c.projectName?.toLowerCase().includes(q) ?? false),
+      );
+    }
+    if (activeFilters.status) rows = rows.filter((c) => c.projectStatus === activeFilters.status);
+    if (activeFilters.plan) rows = rows.filter((c) => c.planTier === activeFilters.plan);
+    if (activeFilters.health) rows = rows.filter((c) => c.health === activeFilters.health);
+    return rows;
+  }, [clients, searchQuery, activeFilters]);
+
+  const filterGroups = [
+    {
+      key: 'status',
+      label: t('status'),
+      options: [
+        { value: 'onboarding', label: locale === 'ja' ? 'オンボーディング' : 'Onboarding' },
+        { value: 'building', label: locale === 'ja' ? 'ビルド中' : 'Building' },
+        { value: 'launched', label: locale === 'ja' ? '公開済み' : 'Launched' },
+        { value: 'operating', label: locale === 'ja' ? '運用中' : 'Operating' },
+        { value: 'paused', label: locale === 'ja' ? '停止中' : 'Paused' },
+      ],
+    },
+    {
+      key: 'plan',
+      label: t('plan'),
+      options: [
+        { value: 'basic', label: 'Basic' },
+        { value: 'premium', label: 'Premium' },
+      ],
+    },
+    {
+      key: 'health',
+      label: t('health'),
+      options: [
+        { value: 'green', label: locale === 'ja' ? '良好' : 'Green' },
+        { value: 'yellow', label: locale === 'ja' ? '注意' : 'Yellow' },
+        { value: 'red', label: locale === 'ja' ? '警告' : 'Red' },
+      ],
+    },
+  ];
 
   return (
     <>
-      {clients.length === 0 ? (
+      <AdminSearchFilterBar
+        placeholder={locale === 'ja' ? 'クライアントを検索…' : 'Search clients…'}
+        filters={filterGroups}
+        activeFilters={activeFilters}
+        onSearchChange={setSearchQuery}
+        onFilterChange={(key, value) => setActiveFilters((prev) => ({ ...prev, [key]: value }))}
+        onClear={() => { setSearchQuery(''); setActiveFilters({}); }}
+      />
+
+      {filteredClients.length === 0 ? (
         <div className="border border-[#374151] rounded-lg bg-[#111827] p-8 text-center">
           <p className="text-[#6B7280] font-mono text-sm">{t('noClients')}</p>
         </div>
@@ -50,7 +110,7 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
         <>
           {/* Mobile: stacked cards */}
           <div className="flex flex-col gap-3 md:hidden">
-            {clients.map((client) => (
+            {filteredClients.map((client) => (
               <div
                 key={client.id}
                 onClick={() => setSelectedClient(client)}
@@ -115,12 +175,12 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
               </p>
             </div>
 
-            {clients.map((client, idx) => (
+            {filteredClients.map((client, idx) => (
               <div
                 key={client.id}
                 onClick={() => setSelectedClient(client)}
                 className={`grid grid-cols-[2fr_2fr_1fr_80px_1fr_48px] gap-4 px-4 py-3 items-center cursor-pointer ${
-                  idx < clients.length - 1 ? 'border-b border-[#374151]' : ''
+                  idx < filteredClients.length - 1 ? 'border-b border-[#374151]' : ''
                 } hover:bg-[#111827]/60 transition-colors`}
               >
                 <div className="min-w-0">
@@ -176,6 +236,7 @@ export function ClientsTable({ initialClients, locale }: ClientsTableProps) {
       <ClientDetailPanel
         open={!!selectedClient}
         client={selectedClient}
+        locale={locale}
         onClose={() => setSelectedClient(null)}
         onSaved={(updated) => {
           const savedId = selectedClient?.id;

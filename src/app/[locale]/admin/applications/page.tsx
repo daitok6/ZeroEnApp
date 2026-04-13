@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Clock, Search, CheckCircle, XCircle, Sparkles } from 'lucide-react';
 import {
   ApplicationDetailPanel,
   type Application,
 } from '@/components/admin/application-detail-panel';
+import { AdminSearchFilterBar } from '@/components/admin/admin-search-filter-bar';
 
 const STATUS_CONFIG = {
   pending: { icon: Clock, color: 'text-yellow-400', bgColor: 'bg-yellow-400/10 border-yellow-400/20', label: 'Pending' },
@@ -40,6 +41,25 @@ export default function AdminApplicationsPage() {
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [selectedApp, setSelectedApp] = useState<Application | null>(null);
   const [panelOpen, setPanelOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilters, setActiveFilters] = useState<Record<string, string>>({});
+
+  const filteredApplications = useMemo(() => {
+    let rows = applications;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      rows = rows.filter(
+        (a) =>
+          (a.idea_name?.toLowerCase().includes(q) ?? false) ||
+          (a.founder_name?.toLowerCase().includes(q) ?? false) ||
+          (a.founder_email?.toLowerCase().includes(q) ?? false),
+      );
+    }
+    if (activeFilters.status) rows = rows.filter((a) => a.status === activeFilters.status);
+    if (activeFilters.scored === 'yes') rows = rows.filter((a) => totalScore(a) !== null);
+    if (activeFilters.scored === 'no') rows = rows.filter((a) => totalScore(a) === null);
+    return rows;
+  }, [applications, searchQuery, activeFilters]);
 
   const supabase = createClient();
 
@@ -107,13 +127,41 @@ export default function AdminApplicationsPage() {
           <p className="text-[#6B7280] text-sm font-mono mt-1">{applications.length} total</p>
         </div>
 
-        {applications.length === 0 ? (
+        <AdminSearchFilterBar
+          placeholder="Search by name or email…"
+          filters={[
+            {
+              key: 'status',
+              label: 'Status',
+              options: [
+                { value: 'pending', label: 'Pending' },
+                { value: 'reviewing', label: 'Reviewing' },
+                { value: 'accepted', label: 'Accepted' },
+                { value: 'rejected', label: 'Rejected' },
+              ],
+            },
+            {
+              key: 'scored',
+              label: 'Score',
+              options: [
+                { value: 'yes', label: 'Scored' },
+                { value: 'no', label: 'Unscored' },
+              ],
+            },
+          ]}
+          activeFilters={activeFilters}
+          onSearchChange={setSearchQuery}
+          onFilterChange={(key, value) => setActiveFilters((prev) => ({ ...prev, [key]: value }))}
+          onClear={() => { setSearchQuery(''); setActiveFilters({}); }}
+        />
+
+        {filteredApplications.length === 0 ? (
           <div className="border border-[#374151] rounded-lg bg-[#111827] p-8 text-center">
             <p className="text-[#6B7280] font-mono text-sm">No applications yet.</p>
           </div>
         ) : (
           <div className="space-y-3">
-            {applications.map((app) => {
+            {filteredApplications.map((app) => {
               const config = STATUS_CONFIG[app.status];
               const Icon = config.icon;
               const total = totalScore(app);

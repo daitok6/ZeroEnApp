@@ -1,6 +1,7 @@
 import { createAdminClient } from '@/lib/supabase/admin';
 import type { Metadata } from 'next';
 import { AuditUploadForm } from '@/components/admin/audit-upload-form';
+import { AuditsList } from '@/components/admin/audits-list';
 
 export const metadata: Metadata = {
   title: 'Audits — Admin — ZeroEn',
@@ -8,14 +9,6 @@ export const metadata: Metadata = {
 };
 
 type Props = { params: Promise<{ locale: string }> };
-
-function formatDate(iso: string, locale: string): string {
-  return new Date(iso).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-}
 
 export default async function AdminAuditsPage({ params }: Props) {
   const { locale } = await params;
@@ -68,51 +61,7 @@ export default async function AdminAuditsPage({ params }: Props) {
 
       <AuditUploadForm locale={locale} projects={projectOptions} />
 
-      <section className="space-y-3">
-        <h2 className="text-zen-off-white text-sm font-mono font-bold uppercase tracking-widest">
-          {isJa ? '最近のアップロード' : 'Recent uploads'}
-        </h2>
-        {auditList.length === 0 ? (
-          <div className="border border-zen-border rounded-lg bg-zen-surface p-6 text-center">
-            <p className="text-zen-subtle font-mono text-sm">
-              {isJa ? 'アップロードされた監査はまだありません' : 'No audits uploaded yet'}
-            </p>
-          </div>
-        ) : (
-          <ul className="space-y-2">
-            {auditList.map((a) => {
-              const kindLabel =
-                a.kind === 'security'
-                  ? isJa
-                    ? 'セキュリティ'
-                    : 'Security'
-                  : isJa
-                    ? 'SEO'
-                    : 'SEO';
-              return (
-                <li
-                  key={a.id}
-                  className="flex flex-wrap items-center gap-x-3 gap-y-1 border border-zen-border rounded-lg bg-zen-surface p-3"
-                >
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-zen-green/10 text-zen-green border border-zen-green/30">
-                    {kindLabel}
-                  </span>
-                  <span className="text-zen-off-white font-mono text-sm">{a.period}</span>
-                  <span className="text-zen-subtle font-mono text-xs truncate">{a.file_name}</span>
-                  <span className="ml-auto text-zen-subtle font-mono text-xs">
-                    {formatDate(a.created_at, locale)}
-                    {a.delivered_at && (
-                      <span className="ml-2 text-zen-green">
-                        {isJa ? '· 配信済み' : '· delivered'}
-                      </span>
-                    )}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </section>
+      <AuditsList audits={auditList} locale={locale} />
     </div>
   );
 }

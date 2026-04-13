@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { AdminSearchFilterBar } from '@/components/admin/admin-search-filter-bar';
 import { createClient } from '@/lib/supabase/client';
 import { MessageThread } from '@/components/dashboard/message-thread';
 import type { ProjectConversation } from '@/lib/admin/queries';
@@ -31,10 +32,29 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [loading, setLoading] = useState(false);
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>(initialUnreadCounts);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilters, setActiveFilters] = useState<Record<string, string>>({});
   const supabaseRef = useRef(createClient());
   const selectedProjectIdRef = useRef(selectedProjectId);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId) ?? null;
+
+  const filteredProjects = useMemo(() => {
+    let rows = projects;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      rows = rows.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          (p.clientName?.toLowerCase().includes(q) ?? false) ||
+          p.clientEmail.toLowerCase().includes(q),
+      );
+    }
+    if (activeFilters.unread === 'yes') {
+      rows = rows.filter((p) => (unreadCounts[p.id] ?? 0) > 0);
+    }
+    return rows;
+  }, [projects, searchQuery, activeFilters, unreadCounts]);
 
   useEffect(() => {
     selectedProjectIdRef.current = selectedProjectId;
@@ -102,20 +122,32 @@ export function AdminMessagesClient({ projects, initialMessages, initialProjectI
 
   const projectList = (
     <div className="flex flex-col h-full border border-[#374151] rounded-lg overflow-hidden bg-[#111827]">
-      <div className="px-4 py-3 border-b border-[#374151] shrink-0">
-        <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest">
+      <div className="px-3 py-3 border-b border-[#374151] shrink-0 space-y-2">
+        <p className="text-[#6B7280] text-xs font-mono uppercase tracking-widest px-1">
           {t('allConversations')}
         </p>
+        <AdminSearchFilterBar
+          placeholder={locale === 'ja' ? '検索…' : 'Search…'}
+          filters={[{
+            key: 'unread',
+            label: locale === 'ja' ? '未読' : 'Unread',
+            options: [{ value: 'yes', label: locale === 'ja' ? '未読のみ' : 'Unread only' }],
+          }]}
+          activeFilters={activeFilters}
+          onSearchChange={setSearchQuery}
+          onFilterChange={(key, value) => setActiveFilters((prev) => ({ ...prev, [key]: value }))}
+          onClear={() => { setSearchQuery(''); setActiveFilters({}); }}
+        />
       </div>
       <div className="flex-1 overflow-y-auto">
-        {projects.length === 0 ? (
+        {filteredProjects.length === 0 ? (
           <div className="flex items-center justify-center h-32">
             <p className="text-[#6B7280] text-sm font-mono">
               {t('noConversations')}
             </p>
           </div>
         ) : (
-          projects.map((project) => {
+          filteredProjects.map((project) => {
             const isSelected = project.id === selectedProjectId;
             const unread = unreadCounts[project.id] ?? 0;
 
