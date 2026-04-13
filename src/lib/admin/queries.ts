@@ -72,8 +72,7 @@ export async function getAdminStats(supabase: SupabaseClient): Promise<AdminStat
 function determineHealth(
   project: { status: string; created_at: string } | null,
   profileCreatedAt: string,
-  invoices: { status: string }[],
-  milestones: { status: string; due_date: string | null }[]
+  invoices: { status: string }[]
 ): ClientHealthStatus {
   if (!project) {
     // No project yet — yellow if profile is more than 30 days old (may be stuck pre-project)
@@ -85,13 +84,7 @@ function determineHealth(
   if (project.status === 'paused' || project.status === 'terminated') return 'red';
   if (invoices.some((inv) => inv.status === 'overdue')) return 'red';
 
-  // Yellow: overdue pending milestone OR stuck in onboarding > 30 days
-  const today = new Date().toISOString().split('T')[0];
-  const hasOverdueMilestone = milestones.some(
-    (m) => m.status === 'pending' && m.due_date !== null && m.due_date < today
-  );
-  if (hasOverdueMilestone) return 'yellow';
-
+  // Yellow: stuck in onboarding > 30 days
   if (project.status === 'onboarding') {
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     if (project.created_at < thirtyDaysAgo) return 'yellow';
@@ -184,25 +177,16 @@ export async function getClientList(supabase: SupabaseClient): Promise<ClientRow
   const projectList = projects ?? [];
   const projectIds = projectList.map((p: { id: string }) => p.id);
 
-  // Batch queries 3 & 4: overdue invoices and pending/overdue milestones
-  const [invoicesResult, milestonesResult] = projectIds.length > 0
-    ? await Promise.all([
-        supabase
-          .from('invoices')
-          .select('project_id, status')
-          .in('project_id', projectIds)
-          .eq('status', 'overdue'),
-        supabase
-          .from('milestones')
-          .select('project_id, status, due_date')
-          .in('project_id', projectIds)
-          .in('status', ['pending', 'overdue'])
-          .lt('due_date', new Date().toISOString().split('T')[0]),
-      ])
-    : [{ data: [] }, { data: [] }];
+  // Batch query 3: overdue invoices
+  const invoicesResult = projectIds.length > 0
+    ? await supabase
+        .from('invoices')
+        .select('project_id, status')
+        .in('project_id', projectIds)
+        .eq('status', 'overdue')
+    : { data: [] };
 
   const invoiceList = invoicesResult.data ?? [];
-  const milestoneList = milestonesResult.data ?? [];
 
   // Build lookup maps for O(1) join in memory
   const projectByClientId = new Map<
@@ -234,24 +218,13 @@ export async function getClientList(supabase: SupabaseClient): Promise<ClientRow
     invoicesByProjectId.set(inv.project_id, existing);
   }
 
-  const milestonesByProjectId = new Map<
-    string,
-    { project_id: string; status: string; due_date: string | null }[]
-  >();
-  for (const ms of milestoneList) {
-    const existing = milestonesByProjectId.get(ms.project_id) ?? [];
-    existing.push(ms);
-    milestonesByProjectId.set(ms.project_id, existing);
-  }
-
   // Join in memory to build ClientRow array
   return profiles.map(
     (profile: { id: string; email: string; full_name: string | null; created_at: string }) => {
       const project = projectByClientId.get(profile.id) ?? null;
       const invoices = project ? (invoicesByProjectId.get(project.id) ?? []) : [];
-      const milestones = project ? (milestonesByProjectId.get(project.id) ?? []) : [];
 
-      const health = determineHealth(project, profile.created_at, invoices, milestones);
+      const health = determineHealth(project, profile.created_at, invoices);
 
       return {
         id: profile.id,

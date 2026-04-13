@@ -7,7 +7,7 @@ export default function Loading() {
         <div className="h-4 w-56 bg-[#1F2937] rounded" />
       </div>
 
-      {/* Project status + milestones grid */}
+      {/* Project status grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="h-40 bg-[#1F2937] rounded-lg" />
         <div className="h-40 bg-[#1F2937] rounded-lg" />

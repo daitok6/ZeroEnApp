@@ -56,21 +56,6 @@ export type Database = {
         Insert: Omit<Database['public']['Tables']['projects']['Row'], 'id' | 'created_at' | 'updated_at' | 'client_visible'> & { id?: string; created_at?: string; updated_at?: string; client_visible?: boolean };
         Update: Partial<Database['public']['Tables']['projects']['Insert']>;
       };
-      milestones: {
-        Row: {
-          id: string;
-          project_id: string;
-          title: string;
-          description: string | null;
-          status: 'pending' | 'in_progress' | 'completed';
-          due_date: string | null;
-          completed_at: string | null;
-          sort_order: number;
-          created_at: string;
-        };
-        Insert: Omit<Database['public']['Tables']['milestones']['Row'], 'id' | 'created_at'> & { id?: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['milestones']['Insert']>;
-      };
       messages: {
         Row: {
           id: string;

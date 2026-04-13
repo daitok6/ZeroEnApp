@@ -403,7 +403,7 @@
     "clients": "Clients",
     "managedClients": "Add Client",
     "applications": "Applications",
-    "requests": "Requests",
+    "requests": "Change Requests",
     "messages": "Messages",
     "documents": "Documents",
     "audits": "Audits",
@@ -605,7 +605,7 @@
       "signedAgreements": "Signed agreements",
       "invoices": "Invoices",
       "billingPayments": "Billing & payments",
-      "requests": "Requests",
+      "requests": "Change Requests",
       "requestFeatures": "Request new features",
       "analytics": "Analytics",
       "audits": "Audits",
@@ -617,7 +617,7 @@
       "documents": "Documents",
       "invoices": "Invoices",
       "billing": "Billing",
-      "requests": "Requests",
+      "requests": "Change Requests",
       "settings": "Settings",
       "analytics": "Analytics",
       "audits": "Audits",
@@ -636,14 +636,6 @@
       "vercel": "Vercel →",
       "started": "Started:"
     },
-    "milestones": {
-      "title": "Milestones",
-      "done": "Done",
-      "inProgress": "In Progress",
-      "pending": "Pending",
-      "empty": "No milestones yet",
-      "due": "Due:"
-    }
   },
   "requests": {
     "title": "Requests",

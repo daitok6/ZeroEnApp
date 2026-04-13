@@ -32,14 +32,14 @@ export const helpArticles: HelpArticle[] = [
           '- Step 2 — We build your site. This typically takes 3–5 business days from kickoff.\n' +
           '- Step 3 — You receive a preview link via Messages. Review the site and send feedback.\n' +
           '- Step 4 — We make any adjustments included in your plan, then ask for final approval.\n' +
-          '- Step 5 — Your site goes live on your domain. The Milestones section on Overview will update.',
+          '- Step 5 — Your site goes live on your domain.',
         bodyJa:
           'サブスクリプションが確認されると、メッセージページにウェルカムメッセージが届きます。その後の流れは以下の通りです：\n\n' +
           '- ステップ1 — プロジェクトのセットアップを行います。概要ページにプロジェクトが表示されます。\n' +
           '- ステップ2 — サイトを制作します。キックオフから通常3〜5営業日かかります。\n' +
           '- ステップ3 — メッセージ経由でプレビューリンクをお送りします。確認してフィードバックをお送りください。\n' +
           '- ステップ4 — プランに含まれる調整を行い、最終承認をお願いします。\n' +
-          '- ステップ5 — サイトがお客様のドメインで公開されます。概要ページのマイルストーンが更新されます。',
+          '- ステップ5 — サイトがお客様のドメインで公開されます。',
       },
       {
         headingEn: 'Ongoing monthly operations',
@@ -69,9 +69,9 @@ export const helpArticles: HelpArticle[] = [
         headingEn: 'Overview',
         headingJa: '概要',
         bodyEn:
-          'The Overview page shows your project status, milestones, and quick links to other sections. It is the best place to check progress at a glance. Some sections are locked until your subscription is active and your project is set up.',
+          'The Overview page shows your project status, plan details, and quick links to other sections. It is the best place to check progress at a glance. Some sections are locked until your subscription is active and your project is set up.',
         bodyJa:
-          '概要ページでは、プロジェクトの状況・マイルストーン・他セクションへのクイックリンクを確認できます。進捗を一目で確認できます。サブスクリプションが有効でプロジェクトが設定されるまで、一部のセクションはロックされています。',
+          '概要ページでは、プロジェクトの状況・プランの詳細・他セクションへのクイックリンクを確認できます。進捗を一目で確認できます。サブスクリプションが有効でプロジェクトが設定されるまで、一部のセクションはロックされています。',
       },
       {
         headingEn: 'Messages',

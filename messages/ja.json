@@ -370,7 +370,7 @@
     "clients": "クライアント",
     "managedClients": "クライアント追加",
     "applications": "応募",
-    "requests": "リクエスト",
+    "requests": "変更依頼",
     "messages": "メッセージ",
     "documents": "書類",
     "audits": "監査",
@@ -572,7 +572,7 @@
       "signedAgreements": "署名済み契約書",
       "invoices": "請求書",
       "billingPayments": "請求・支払い",
-      "requests": "リクエスト",
+      "requests": "変更依頼",
       "requestFeatures": "機能追加リクエスト",
       "analytics": "アナリティクス",
       "audits": "監査",
@@ -584,7 +584,7 @@
       "documents": "書類",
       "invoices": "請求書",
       "billing": "お支払い",
-      "requests": "リクエスト",
+      "requests": "変更依頼",
       "settings": "設定",
       "analytics": "アナリティクス",
       "audits": "監査",
@@ -603,14 +603,6 @@
       "vercel": "Vercel →",
       "started": "開始:"
     },
-    "milestones": {
-      "title": "マイルストーン",
-      "done": "完了",
-      "inProgress": "進行中",
-      "pending": "未着手",
-      "empty": "マイルストーンはまだありません",
-      "due": "期限:"
-    }
   },
   "requests": {
     "title": "リクエスト",
