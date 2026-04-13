@@ -5,6 +5,7 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
+import { ScreenshotImage } from '@/components/marketing/screenshot-image';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -91,12 +92,7 @@ export default async function DashboardPreviewPage({ params }: Props) {
                             {view.label} — screenshot coming soon
                           </p>
                         </div>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={view.screenshot}
-                          alt={view.label}
-                          className="relative w-full h-full object-cover"
-                        />
+                        <ScreenshotImage src={view.screenshot} alt={view.label} />
                       </div>
                       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00E87A]/30 to-transparent" />
                     </div>
