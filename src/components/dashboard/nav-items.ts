@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox, CreditCard, Settings, UserPlus } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox, CreditCard, Settings, UserPlus, BarChart3 } from 'lucide-react';
 
 export const navItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/dashboard' },
@@ -8,6 +8,7 @@ export const navItems = [
   { key: 'invoices', icon: Receipt, labelEn: 'Invoices', labelJa: '請求書', path: '/dashboard/invoices' },
   { key: 'billing', icon: CreditCard, labelEn: 'Billing', labelJa: 'お支払い', path: '/dashboard/billing' },
   { key: 'requests', icon: PlusCircle, labelEn: 'Requests', labelJa: 'リクエスト', path: '/dashboard/requests' },
+  { key: 'analytics', icon: BarChart3, labelEn: 'Analytics', labelJa: 'アナリティクス', path: '/dashboard/analytics' },
   { key: 'settings', icon: Settings, labelEn: 'Settings', labelJa: '設定', path: '/dashboard/settings' },
 ] as const;
 
@@ -20,7 +21,7 @@ export type NavItem = {
 };
 
 /** Keys that are locked until the project is visible AND a plan is chosen. */
-export const PROJECT_LOCKED_KEYS = new Set(['documents', 'invoices', 'billing', 'requests']);
+export const PROJECT_LOCKED_KEYS = new Set(['documents', 'invoices', 'billing', 'requests', 'analytics']);
 
 /** Compute which nav keys should be locked for a given project state. */
 export function getLockedKeys(project: { client_visible: boolean; plan_tier: string | null } | null): Set<string> {
