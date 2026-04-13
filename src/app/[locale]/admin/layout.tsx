@@ -39,7 +39,7 @@ export default async function AdminLayout({ children, params }: Props) {
   const { data: allRequests } = await supabase.from('change_requests').select('id');
   const allRequestIds = (allRequests ?? []).map((r: { id: string }) => r.id);
 
-  const [initialCounts, { total: initialRequestCount }] = await Promise.all([
+  const [initialCounts, { byRequest: initialByRequest }] = await Promise.all([
     getUnreadCounts(supabase, user.id, projectIds),
     getUnreadRequestCounts(supabase, user.id, allRequestIds),
   ]);
@@ -54,7 +54,7 @@ export default async function AdminLayout({ children, params }: Props) {
 
   const requestsBadge = (
     <RequestsUnreadBadge
-      initialCount={initialRequestCount}
+      initialByRequest={initialByRequest}
       requestIds={allRequestIds}
       userId={user.id}
     />
