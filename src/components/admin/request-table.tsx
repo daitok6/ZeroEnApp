@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { AdminSearchFilterBar } from '@/components/admin/admin-search-filter-bar';
 import { ChevronDown, ChevronUp, MessageCircle, X } from 'lucide-react';
 import { SendInvoicePanel } from './send-invoice-panel';
 import { CommentThread } from '@/components/shared/comment-thread';
@@ -56,8 +57,24 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
   const [approveLoading, setApproveLoading] = useState<string | null>(null);
   const [rejectState, setRejectState] = useState<{ id: string; comment: string } | null>(null);
   const [rejectLoading, setRejectLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilters, setActiveFilters] = useState<Record<string, string>>({});
 
-  const filtered = requests.filter((r) => tabFilter(activeTab, r.status));
+  const filtered = useMemo(() => {
+    let rows = requests.filter((r) => tabFilter(activeTab, r.status));
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      rows = rows.filter(
+        (r) =>
+          r.title.toLowerCase().includes(q) ||
+          (r.clientName?.toLowerCase().includes(q) ?? false) ||
+          (r.clientEmail?.toLowerCase().includes(q) ?? false) ||
+          (r.projectName?.toLowerCase().includes(q) ?? false),
+      );
+    }
+    if (activeFilters.tier) rows = rows.filter((r) => r.tier === activeFilters.tier);
+    return rows;
+  }, [requests, activeTab, searchQuery, activeFilters]);
 
   function getTabLabel(tab: Tab): string {
     switch (tab) {
@@ -165,7 +182,7 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
   return (
     <>
       {/* Filter tabs */}
-      <div className="flex gap-1 flex-wrap mb-4">
+      <div className="flex gap-1 flex-wrap mb-3">
         {TABS.map((tab) => (
           <button
             key={tab}
@@ -182,6 +199,26 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
             )}
           </button>
         ))}
+      </div>
+
+      {/* Search + size filter */}
+      <div className="mb-4">
+        <AdminSearchFilterBar
+          placeholder={locale === 'ja' ? 'タイトル・クライアントで検索…' : 'Search by title or client…'}
+          filters={[{
+            key: 'tier',
+            label: locale === 'ja' ? '規模' : 'Size',
+            options: [
+              { value: 'small', label: locale === 'ja' ? '小' : 'Small' },
+              { value: 'medium', label: locale === 'ja' ? '中' : 'Medium' },
+              { value: 'large', label: locale === 'ja' ? '大' : 'Large' },
+            ],
+          }]}
+          activeFilters={activeFilters}
+          onSearchChange={setSearchQuery}
+          onFilterChange={(key, value) => setActiveFilters((prev) => ({ ...prev, [key]: value }))}
+          onClear={() => { setSearchQuery(''); setActiveFilters({}); }}
+        />
       </div>
 
       {filtered.length === 0 ? (

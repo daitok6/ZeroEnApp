@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { MessageCircle } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -14,6 +16,7 @@ import type { ClientRow } from '@/lib/admin/queries';
 interface ClientDetailPanelProps {
   client: ClientRow | null;
   open: boolean;
+  locale: string;
   onClose: () => void;
   onSaved: (updatedClient: Partial<ClientRow>) => void;
 }
@@ -50,10 +53,12 @@ function FormField({
   );
 }
 
-export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDetailPanelProps) {
+export function ClientDetailPanel({ client, open, locale, onClose, onSaved }: ClientDetailPanelProps) {
   const t = useTranslations('admin');
   const tCommon = useTranslations('common');
+  const router = useRouter();
   const [projectName, setProjectName] = useState('');
+  const [chatLoading, setChatLoading] = useState(false);
   const [siteUrl, setSiteUrl] = useState('');
   const [githubRepo, setGithubRepo] = useState('');
   const [vercelProject, setVercelProject] = useState('');
@@ -134,6 +139,34 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
       setError(tCommon('networkError'));
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleStartChat() {
+    if (!client) return;
+    setChatLoading(true);
+    try {
+      let projectId = client.projectId;
+      if (!projectId) {
+        // Create project for this client so messages can be scoped to it
+        const res = await fetch(`/api/admin/clients/${client.id}/project`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        });
+        if (!res.ok) {
+          setError(t('failedToSave'));
+          return;
+        }
+        const data = await res.json();
+        projectId = data.project.id as string;
+      }
+      onClose();
+      router.push(`/${locale}/admin/messages?projectId=${projectId}`);
+    } catch {
+      setError(tCommon('networkError'));
+    } finally {
+      setChatLoading(false);
     }
   }
 
@@ -247,14 +280,27 @@ export function ClientDetailPanel({ client, open, onClose, onSaved }: ClientDeta
             </div>
           )}
 
-          {/* Save button */}
-          <button
-            onClick={handleSave}
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[#00E87A] text-[#0D0D0D] rounded font-mono text-xs font-bold hover:bg-[#00E87A]/90 disabled:opacity-50 transition-colors"
-          >
-            {loading ? t('saving') : t('saveChanges')}
-          </button>
+          {/* Action buttons */}
+          <div className="flex gap-2">
+            <button
+              onClick={handleSave}
+              disabled={loading || chatLoading}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#00E87A] text-[#0D0D0D] rounded font-mono text-xs font-bold hover:bg-[#00E87A]/90 disabled:opacity-50 transition-colors"
+            >
+              {loading ? t('saving') : t('saveChanges')}
+            </button>
+            <button
+              onClick={handleStartChat}
+              disabled={loading || chatLoading}
+              className="flex items-center justify-center gap-1.5 px-3 py-2.5 bg-[#111827] text-[#9CA3AF] rounded border border-[#374151] font-mono text-xs hover:text-[#F4F4F2] hover:border-[#4B5563] disabled:opacity-50 transition-colors"
+              title={client.projectId ? t('openChat') : t('startChat')}
+            >
+              <MessageCircle size={13} />
+              <span className="hidden sm:inline">
+                {chatLoading ? t('startingChat') : client.projectId ? t('openChat') : t('startChat')}
+              </span>
+            </button>
+          </div>
         </div>
       </SheetContent>
     </Sheet>

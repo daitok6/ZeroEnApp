@@ -128,7 +128,11 @@
         {
           "name": "WebMori",
           "desc": "Problems found before they happen.",
-          "meta": ["Monthly audits", "12 clients · Tokyo", "¥19,800/mo"],
+          "meta": [
+            "Monthly audits",
+            "12 clients · Tokyo",
+            "¥19,800/mo"
+          ],
           "url": "https://webmori.jp",
           "screenshot": "/webmori-screenshot.png",
           "label": ""
@@ -136,7 +140,11 @@
         {
           "name": "Client #2",
           "desc": "MVP in progress — equity deal locked.",
-          "meta": ["Free build", "10% equity", "$50/mo hosting"],
+          "meta": [
+            "Free build",
+            "10% equity",
+            "$50/mo hosting"
+          ],
           "url": "",
           "screenshot": "",
           "label": "Working on it →"
@@ -144,7 +152,11 @@
         {
           "name": "Client #3",
           "desc": "Got an idea? We build it free for equity.",
-          "meta": ["Free build", "10% equity", "$50/mo hosting"],
+          "meta": [
+            "Free build",
+            "10% equity",
+            "$50/mo hosting"
+          ],
           "url": "",
           "screenshot": "",
           "label": "This could be you."
@@ -376,12 +388,30 @@
     "summary": {
       "heading": "TL;DR",
       "items": [
-        { "label": "Platform fee", "value": "$50/mo after your MVP launches. Covers hosting + 1 fix/mo." },
-        { "label": "Scope freeze", "value": "MVP scope locked at kickoff. New features = per-request charge." },
-        { "label": "Kill switch", "value": "90 days unpaid → agreement terminates. We keep the code." },
-        { "label": "IP", "value": "ZeroEn retains code ownership. You license the live site via active subscription." },
-        { "label": "Liability", "value": "ZeroEn's liability is capped at fees paid in the prior 12 months." },
-        { "label": "Portfolio rights", "value": "We always retain the right to showcase this work." }
+        {
+          "label": "Platform fee",
+          "value": "$50/mo after your MVP launches. Covers hosting + 1 fix/mo."
+        },
+        {
+          "label": "Scope freeze",
+          "value": "MVP scope locked at kickoff. New features = per-request charge."
+        },
+        {
+          "label": "Kill switch",
+          "value": "90 days unpaid → agreement terminates. We keep the code."
+        },
+        {
+          "label": "IP",
+          "value": "ZeroEn retains code ownership. You license the live site via active subscription."
+        },
+        {
+          "label": "Liability",
+          "value": "ZeroEn's liability is capped at fees paid in the prior 12 months."
+        },
+        {
+          "label": "Portfolio rights",
+          "value": "We always retain the right to showcase this work."
+        }
       ]
     },
     "full": {
@@ -528,7 +558,10 @@
     "ideaViability": "Idea Viability",
     "founderCommitment": "Founder Commitment",
     "techFeasibility": "Tech Feasibility",
-    "marketPotential": "Market Potential"
+    "marketPotential": "Market Potential",
+    "startChat": "Start chat",
+    "openChat": "Open chat",
+    "startingChat": "Starting…"
   },
   "plan": {
     "wizardTitle": "Choose Your Plan",
@@ -825,14 +858,38 @@
     "electronicAcceptance": "Electronically accepted on {date}",
     "partnershipTitle": "Key Partnership Terms",
     "partnershipTerms": [
-      { "label": "Platform Fee", "value": "$50/mo after launch (hosting + 1 fix/mo)" },
-      { "label": "MVP Scope", "value": "Locked at kickoff. Changes are charged separately." },
-      { "label": "IP Ownership", "value": "ZeroEn retains code. You license the live site via subscription." },
-      { "label": "Liability Cap", "value": "ZeroEn's liability capped at fees paid in prior 12 months." },
-      { "label": "Kill Switch", "value": "90 days unpaid → agreement terminates, code rights to operator" },
-      { "label": "Reversion", "value": "No launch within 6 months → code rights revert to operator" },
-      { "label": "Portfolio Rights", "value": "Operator retains right to showcase this work at all times" },
-      { "label": "Governing Law", "value": "Japan (Tokyo District Court)" }
+      {
+        "label": "Platform Fee",
+        "value": "$50/mo after launch (hosting + 1 fix/mo)"
+      },
+      {
+        "label": "MVP Scope",
+        "value": "Locked at kickoff. Changes are charged separately."
+      },
+      {
+        "label": "IP Ownership",
+        "value": "ZeroEn retains code. You license the live site via subscription."
+      },
+      {
+        "label": "Liability Cap",
+        "value": "ZeroEn's liability capped at fees paid in prior 12 months."
+      },
+      {
+        "label": "Kill Switch",
+        "value": "90 days unpaid → agreement terminates, code rights to operator"
+      },
+      {
+        "label": "Reversion",
+        "value": "No launch within 6 months → code rights revert to operator"
+      },
+      {
+        "label": "Portfolio Rights",
+        "value": "Operator retains right to showcase this work at all times"
+      },
+      {
+        "label": "Governing Law",
+        "value": "Japan (Tokyo District Court)"
+      }
     ],
     "signature": "Signature",
     "entity": "Entity",
@@ -884,14 +941,38 @@
       "entityNamePlaceholder": "Your company name, or personal name",
       "partnershipTitle": "Key Partnership Terms",
       "terms": [
-        { "label": "Platform Fee", "value": "$50/mo after launch (hosting + 1 fix/mo)" },
-        { "label": "MVP Scope", "value": "Locked at kickoff. Changes are charged separately." },
-        { "label": "IP Ownership", "value": "ZeroEn retains code. You license the live site via subscription." },
-        { "label": "Liability Cap", "value": "ZeroEn's liability capped at fees paid in prior 12 months." },
-        { "label": "Kill Switch", "value": "90 days unpaid → agreement terminates, code rights to operator" },
-        { "label": "Reversion", "value": "No launch within 6 months → code rights revert to operator" },
-        { "label": "Portfolio Rights", "value": "Operator retains right to showcase this work at all times" },
-        { "label": "Governing Law", "value": "Japan (Tokyo District Court)" }
+        {
+          "label": "Platform Fee",
+          "value": "$50/mo after launch (hosting + 1 fix/mo)"
+        },
+        {
+          "label": "MVP Scope",
+          "value": "Locked at kickoff. Changes are charged separately."
+        },
+        {
+          "label": "IP Ownership",
+          "value": "ZeroEn retains code. You license the live site via subscription."
+        },
+        {
+          "label": "Liability Cap",
+          "value": "ZeroEn's liability capped at fees paid in prior 12 months."
+        },
+        {
+          "label": "Kill Switch",
+          "value": "90 days unpaid → agreement terminates, code rights to operator"
+        },
+        {
+          "label": "Reversion",
+          "value": "No launch within 6 months → code rights revert to operator"
+        },
+        {
+          "label": "Portfolio Rights",
+          "value": "Operator retains right to showcase this work at all times"
+        },
+        {
+          "label": "Governing Law",
+          "value": "Japan (Tokyo District Court)"
+        }
       ],
       "disclaimer": "These are the key terms of the standard ZeroEn partnership agreement (Terms v1.1). Your electronic acceptance constitutes a legally binding agreement.",
       "signatureLabel": "Type Your Full Name to Sign *",
