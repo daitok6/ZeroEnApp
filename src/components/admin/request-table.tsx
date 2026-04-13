@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { AdminSearchFilterBar } from '@/components/admin/admin-search-filter-bar';
 import { ChevronDown, ChevronUp, MessageCircle, X } from 'lucide-react';
 import { SendInvoicePanel } from './send-invoice-panel';
@@ -267,7 +268,14 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                       </div>
                     </div>
                     <p className="text-[#9CA3AF] text-xs font-mono">
-                      {req.clientName ?? req.clientEmail} · {req.projectName}
+                      <Link
+                        href={`/${locale}/admin/clients/${req.clientId}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="hover:text-[#00E87A] transition-colors hover:underline underline-offset-2"
+                      >
+                        {req.clientName ?? req.clientEmail}
+                      </Link>
+                      {' · '}{req.projectName}
                     </p>
                     <p className="text-[#6B7280] text-xs font-mono line-clamp-2">{req.description}</p>
                     <div className="flex items-center gap-2 flex-wrap">
@@ -345,7 +353,15 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                   <div className="hidden md:grid md:grid-cols-[2fr_1.5fr_2fr_1fr_1fr_auto] gap-4 items-start">
                     <div className="min-w-0">
                       <p className="text-[#F4F4F2] text-sm font-mono font-bold truncate">{req.title}</p>
-                      <p className="text-[#9CA3AF] text-xs font-mono truncate mt-0.5">{req.clientName ?? req.clientEmail}</p>
+                      <p className="text-[#9CA3AF] text-xs font-mono truncate mt-0.5">
+                        <Link
+                          href={`/${locale}/admin/clients/${req.clientId}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="hover:text-[#00E87A] transition-colors hover:underline underline-offset-2"
+                        >
+                          {req.clientName ?? req.clientEmail}
+                        </Link>
+                      </p>
                     </div>
                     <p className="text-[#9CA3AF] text-xs font-mono truncate self-center">{req.projectName}</p>
                     <p className="text-[#6B7280] text-xs font-mono line-clamp-2 self-center">{req.description}</p>

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Clock, Search, CheckCircle, XCircle, Sparkles } from 'lucide-react';
 import {
@@ -36,6 +38,8 @@ function scoreColor(total: number | null) {
 }
 
 export default function AdminApplicationsPage() {
+  const params = useParams();
+  const locale = typeof params.locale === 'string' ? params.locale : 'en';
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -179,7 +183,18 @@ export default function AdminApplicationsPage() {
                     <div className="min-w-0">
                       <p className="text-[#F4F4F2] font-mono font-bold text-sm truncate">{app.idea_name}</p>
                       <p className="text-[#6B7280] font-mono text-xs mt-0.5 truncate">
-                        {app.founder_name} · {app.founder_email}
+                        {app.status === 'accepted' && app.user_id ? (
+                          <Link
+                            href={`/${locale}/admin/clients/${app.user_id}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="hover:text-[#00E87A] transition-colors hover:underline underline-offset-2"
+                          >
+                            {app.founder_name}
+                          </Link>
+                        ) : (
+                          app.founder_name
+                        )}
+                        {' · '}{app.founder_email}
                       </p>
                     </div>
                     <div className={`flex items-center gap-1.5 px-2 py-1 rounded border text-xs font-mono font-bold shrink-0 ${config.bgColor} ${config.color}`}>

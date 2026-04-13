@@ -44,7 +44,15 @@ export default async function AdminAuditsPage({ params }: Props) {
     };
   });
 
-  const auditList = audits ?? [];
+  // Build project_id → client_id lookup for linking audits to clients
+  const projectClientMap = new Map(
+    (premiumProjects ?? []).map((p) => [p.id, { clientId: p.client_id, clientName: profileMap.get(p.client_id)?.full_name ?? profileMap.get(p.client_id)?.email ?? null }])
+  );
+
+  const auditList = (audits ?? []).map((a) => {
+    const clientInfo = projectClientMap.get(a.project_id);
+    return { ...a, clientId: clientInfo?.clientId ?? null, clientName: clientInfo?.clientName ?? null };
+  });
 
   return (
     <div className="space-y-6 max-w-3xl">
