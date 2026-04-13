@@ -7,6 +7,7 @@ import { ChevronDown, ChevronUp, MessageCircle } from 'lucide-react';
 import { SendInvoicePanel } from './send-invoice-panel';
 import { CommentThread } from '@/components/shared/comment-thread';
 import type { RequestRow } from '@/lib/admin/requests';
+import { formatJpy } from '@/lib/format-jpy';
 
 type Tab = 'all' | 'needs_review' | 'quoted' | 'in_progress' | 'completed';
 
@@ -100,7 +101,8 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
         body: JSON.stringify({ status }),
       });
       if (!res.ok) return;
-      router.refresh();
+      // Await the refresh so the button stays disabled until the UI reflects the new status
+      await router.refresh();
     } catch {
       // network error — loading spinner cleared in finally
     } finally {
@@ -181,7 +183,7 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                     <div className="flex items-center gap-2 flex-wrap">
                       {req.invoicedAmountCents !== null && (
                         <span className="text-[#00E87A] text-xs font-mono">
-                          ${(req.invoicedAmountCents / 100).toLocaleString()}
+                          {formatJpy(req.invoicedAmountCents)}
                         </span>
                       )}
                       <span className="text-[#374151] text-xs font-mono">
@@ -225,7 +227,7 @@ export function RequestTable({ requests, locale, adminUserId }: RequestTableProp
                     <div className="self-center">
                       {req.invoicedAmountCents !== null ? (
                         <span className="text-[#00E87A] text-xs font-mono">
-                          ${(req.invoicedAmountCents / 100).toLocaleString()}
+                          {formatJpy(req.invoicedAmountCents)}
                         </span>
                       ) : (
                         <span className="text-[#374151] text-xs font-mono">—</span>

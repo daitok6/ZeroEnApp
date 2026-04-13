@@ -4,6 +4,7 @@ import { getAdminStats, getClientList } from '@/lib/admin/queries';
 import { getTodayTasks } from '@/lib/tasks/queries';
 import { TodayPanel } from '@/components/admin/tasks/TodayPanel';
 import { Users, Briefcase, ClipboardList, DollarSign } from 'lucide-react';
+import { formatJpy } from '@/lib/format-jpy';
 import type { Metadata } from 'next';
 import type { ClientHealthStatus } from '@/lib/admin/queries';
 
@@ -30,7 +31,7 @@ const HEALTH_COLORS: Record<ClientHealthStatus, string> = {
 };
 
 function formatRevenue(cents: number): string {
-  return `$${(cents / 100).toFixed(2)}`;
+  return formatJpy(cents);
 }
 
 function formatDate(dateStr: string | null, locale: string): string {

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { CheckCircle, XCircle, MessageCircle, ExternalLink } from 'lucide-react';
+import { formatJpy } from '@/lib/format-jpy';
 import { CommentThread } from '@/components/shared/comment-thread';
 
 interface InvoicePanelProps {
@@ -88,7 +89,7 @@ export function InvoicePanel({ requestId, invoice, locale, userId }: InvoicePane
           <span className="text-[#00E87A] text-xl font-bold font-mono">
             {invoice.amount_cents === 0
               ? t('free')
-              : `$${(invoice.amount_cents / 100).toLocaleString()}`}
+              : formatJpy(invoice.amount_cents)}
           </span>
           {invoice.amount_cents === 0 && (
             <span className="text-[#6B7280] text-xs font-mono">

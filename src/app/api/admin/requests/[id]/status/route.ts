@@ -45,6 +45,22 @@ export async function PATCH(request: NextRequest, { params }: Params) {
 
   const adminSupabase = getAdminSupabase();
 
+  // Read current status first so we can skip the email when status hasn't changed
+  const { data: current, error: fetchError } = await adminSupabase
+    .from('change_requests')
+    .select('status')
+    .eq('id', id)
+    .single();
+
+  if (fetchError || !current) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
+  // No-op: status already matches — return success without emailing
+  if (current.status === body.status) {
+    return NextResponse.json({ success: true, unchanged: true });
+  }
+
   const { error, count } = await adminSupabase
     .from('change_requests')
     .update({ status: body.status }, { count: 'exact' })

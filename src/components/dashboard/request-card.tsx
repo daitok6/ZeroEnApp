@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { MessageSquare, ChevronDown, ChevronUp, XCircle } from 'lucide-react';
+import { formatJpy } from '@/lib/format-jpy';
 import { InvoicePanel } from './invoice-panel';
 import { CommentThread } from '@/components/shared/comment-thread';
 
@@ -132,7 +133,7 @@ export function RequestCard({ request, invoice, commentCount, locale, userId }: 
         )}
         {request.estimated_cost_cents != null && (
           <span className="text-[#00E87A] text-xs font-mono">
-            ${(request.estimated_cost_cents / 100).toLocaleString()}
+            {formatJpy(request.estimated_cost_cents)}
           </span>
         )}
         <span className="text-[#374151] text-xs font-mono ml-auto">
