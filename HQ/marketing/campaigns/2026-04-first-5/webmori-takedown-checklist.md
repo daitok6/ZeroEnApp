@@ -1,7 +1,7 @@
 # WebMori → ZeroEn Coconala Account Migration Checklist
 
 **Execution:** Manual, operator-driven. This is ops, not automation.
-**Goal:** Rebrand the existing `webmori` Coconala account to `ZeroEn / 大都`, pause the ¥10,000 site audit listing, and publish the new ¥500 LP intake listing — while preserving WebMori as a separate sister brand off-Coconala.
+**Goal:** Rebrand the existing `webmori` Coconala account to `ZeroEn / 大都`, pause the ¥10,000 site audit listing, and publish the new ¥500 LP制作相談 listing (IT・プログラミング相談カテゴリ) — while preserving WebMori as a separate sister brand off-Coconala.
 
 ---
 
@@ -38,8 +38,8 @@ Spec is in `coconala-profile.ja.md`. Apply:
 ## Step 4 — Publish the new listing
 
 - [ ] Create new listing using copy from `coconala-listing.ja.md`
-- [ ] Title: 先着5名｜元日立・元楽天エンジニアがLPを無料制作
-- [ ] Category: IT・プログラミング > ホームページ作成
+- [ ] Title: 先着5名｜LP無料制作のご相談・要件定義
+- [ ] Category: IT・プログラミング > IT・プログラミング相談（ホームページ作成は最低¥20,000のため相談カテゴリで出品）
 - [ ] Price: ¥500
 - [ ] Delivery: 3 days
 - [ ] Revisions: 1
