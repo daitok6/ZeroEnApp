@@ -45,7 +45,6 @@ zeroen.dev/
 ├── /signup (→ redirect to /apply)
 ├── /dashboard/
 │   ├── (overview)
-│   ├── /milestones
 │   ├── /scope
 │   ├── /contract
 │   ├── /messages
@@ -60,7 +59,6 @@ zeroen.dev/
     ├── /clients
     │   └── /clients/[id]
     │       ├── /project
-    │       ├── /milestones
     │       ├── /messages
     │       ├── /requests
     │       ├── /invoices
@@ -211,17 +209,15 @@ Clients access their dashboard after approval. Each client is associated with on
 
 ### 7.1 Overview
 
-- **Project status card**: current lifecycle stage (DISCOVER → UPSELL), last updated
-- **Milestone tracker**: visual progress of current stage + sub-milestones
+- **Project status card**: current lifecycle stage, last updated
+- **Plan summary card**: plan tier, commitment end date
 
-### 7.2 Milestones
+### 7.2 Lifecycle Stage
 
-**Fixed stages** (operator moves client through these):
-`DISCOVER` → `APPLY` → `SCORE` → `ONBOARD` → `BUILD` → `LAUNCH` → `OPERATE` → `GROW` → `UPSELL`
+**Fixed stages** (operator moves client through these via `projects.status`):
+`onboarding` → `building` → `launched` → `operating` → `paused` → `terminated`
 
-**Custom sub-milestones** (operator adds within each stage):
-- Title, description, status (`pending` / `in_progress` / `completed`), optional due date
-- Client sees sub-milestones as a checklist within the current stage
+Displayed as a status pill on the Overview page. No sub-milestones.
 
 ### 7.3 Scope Document
 
@@ -317,9 +313,6 @@ Role-gated. Accessible only to accounts with `role = 'admin'` in Supabase.
 - Edit: start date, estimated launch date
 - Lifecycle stage selector (moves client through fixed stages)
 
-`/admin/clients/[id]/milestones`
-- Create / edit / complete / delete sub-milestones within current stage
-
 `/admin/clients/[id]/messages`
 - Full message thread — same Supabase Realtime view as client, operator side
 
@@ -341,8 +334,7 @@ Role-gated. Accessible only to accounts with `role = 'admin'` in Supabase.
 ### 8.4 Build Queue
 
 - List of all clients currently in `BUILD` or `LAUNCH` stage
-- Shows: client name, scope features, sub-milestones, estimated launch date
-- Quick-link to update milestones
+- Shows: client name, scope features, estimated launch date
 
 ### 8.5 Reports
 
@@ -410,7 +402,7 @@ All emails sent via **Resend**. Bilingual (EN/JP based on client's locale prefer
 **Report content (operator manually inputs monthly):**
 - Month + client name
 - Key stats: visitors, top pages, performance score (operator fills these in)
-- Milestone summary: what shipped this month
+- Changes shipped this month (from change_requests)
 - Next month: what's planned
 - ZeroEn branding throughout
 
@@ -460,7 +452,6 @@ projects          -- id, profile_id, client_name, company, contact_email,
                   --   stage, scope_features (jsonb), start_date, estimated_launch,
                   --   repo_url, vercel_project_id, equity_pct, revenue_share_pct,
                   --   contract_signed_at, contract_url, equity_est_value, created_at
-milestones        -- id, project_id, stage, title, description, status, due_date, order
 messages          -- id, project_id, sender_id, content, created_at
 change_requests   -- id, project_id, title, description, priority, initiator,
                   --   status, quote_amount, stripe_payment_intent, created_at
@@ -504,13 +495,12 @@ newsletter_subs   -- id, email, locale, created_at
 | **AI auto-scoring on application submit** | High |
 | **Admin panel: /admin/* routes (all)** | Critical |
 | **Admin: Application review + score adjustment + accept/reject** | Critical |
-| **Admin: Client management (project, milestones, messages, invoices, contract)** | Critical |
+| **Admin: Client management (project, messages, invoices, contract)** | Critical |
 | **Admin: Revenue dashboard** | High |
 | **Admin: Build queue** | Medium |
 | **Admin: Manual PDF report trigger** | Medium |
 | **Client dashboard: Scope document page** | High |
 | **Client dashboard: Contract page (DocuSign/HelloSign view)** | High |
-| **Client dashboard: Milestones page (hybrid stages + sub-milestones)** | High |
 | **Change request: full flow (quote → approve → pay → track)** | High |
 | **Change request: operator-initiated flow** | High |
 | **Stripe subscription: operator-triggered start, auto-monthly billing** | High |
