@@ -96,13 +96,13 @@ export async function GET(req: NextRequest) {
       const statsPath = `/api/websites/${project.umami_website_id}/stats?startAt=${startAt}&endAt=${endAt}`;
       const metricsPath = `/api/websites/${project.umami_website_id}/metrics?startAt=${startAt}&endAt=${endAt}&type=url&limit=10`;
 
-      const [stats, metrics] = await Promise.all([
+      const [stats, metricsResult] = await Promise.all([
         umamiGet<UmamiStats>(statsPath, umamiToken),
-        umamiGet<UmamiMetric[]>(metricsPath, umamiToken),
+        umamiGet<UmamiMetric[]>(metricsPath, umamiToken).catch(() => [] as UmamiMetric[]),
       ]);
 
-      const totalViews = metrics.reduce((sum, m) => sum + m.y, 0);
-      const topPages = metrics.map((m) => ({
+      const totalViews = metricsResult.reduce((sum, m) => sum + m.y, 0);
+      const topPages = metricsResult.map((m) => ({
         path: m.x,
         views: m.y,
         pct: totalViews > 0 ? Math.round((m.y / totalViews) * 100) : 0,
