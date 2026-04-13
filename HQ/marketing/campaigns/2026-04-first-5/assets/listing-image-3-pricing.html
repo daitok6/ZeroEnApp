@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@500;700;800&family=DM+Sans:wght@700&display=block" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#0D0D0D;width:1200px;height:900px;overflow:hidden;
+    font-family:'Murecho','Hiragino Sans',sans-serif;color:#F4F4F2}
+  body{display:flex;flex-direction:column;justify-content:space-between;padding:80px}
+  .eyebrow{font-size:26px;color:#00E87A;font-weight:700;letter-spacing:0.08em;margin-bottom:16px}
+  .h1{font-size:72px;font-weight:800;line-height:1.1}
+  .compare{display:flex;flex-direction:column;gap:18px}
+  .row{display:flex;align-items:center;justify-content:space-between;padding:24px 32px;
+    border:1px solid rgba(244,244,242,0.15);border-radius:14px;gap:24px}
+  .row.highlight{border-color:#00E87A;background:rgba(0,232,122,0.06)}
+  .label{font-size:24px;font-weight:500;opacity:0.85}
+  .label .sub{display:block;font-size:18px;opacity:0.55;margin-top:4px;font-weight:400}
+  .value{font-size:48px;font-weight:800;white-space:nowrap;text-align:right}
+  .value .strike{text-decoration:line-through;opacity:0.45;font-size:36px}
+  .value .accent{color:#00E87A;font-size:64px}
+  .value .month{font-size:22px;font-weight:500;opacity:0.6}
+  .footer{display:flex;justify-content:space-between;align-items:flex-end}
+  .footnote{font-size:22px;opacity:0.65;line-height:1.5;max-width:700px}
+  .wordmark{font-family:'DM Sans',sans-serif;font-weight:700;color:#00E87A;font-size:38px;letter-spacing:0.04em}
+</style></head>
+<body>
+  <div>
+    <div class="eyebrow">PRICING — TRANSPARENT</div>
+    <div class="h1">隠しコスト、ゼロ。</div>
+  </div>
+  <div class="compare">
+    <div class="row">
+      <div class="label">業界相場（初期費用）<span class="sub">Web制作会社</span></div>
+      <div class="value"><span class="strike">¥200,000〜500,000</span></div>
+    </div>
+    <div class="row highlight">
+      <div class="label">ZeroEn（初期費用）<span class="sub">先着5名様 限定</span></div>
+      <div class="value"><span class="accent">¥500</span></div>
+    </div>
+    <div class="row">
+      <div class="label">月額ホスティング契約<span class="sub">最低6ヶ月〜・必須</span></div>
+      <div class="value">¥5,000<span class="month">/月</span></div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footnote">¥500はビール1杯分のお礼。制作費は無料です。<br>※月額¥5,000・最低6ヶ月のホスティング契約が条件となります。</div>
+    <div class="wordmark">ZeroEn</div>
+  </div>
+</body></html>

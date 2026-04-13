@@ -32,7 +32,7 @@ That covers my time. Initial build is on me.
 ```
 Why the ¥500?
 
-Japan's freelance platform (Coconala) has a ¥500 floor. I'm using it as the intake fee — "buy me a beer" — while I collect the first 5 reviews.
+Japan's freelance platform (Coconala) has a ¥500 floor. I'm using it as a consultation fee — "buy me a beer" — while I collect the first 5 reviews.
 
 After that the intake goes away and new clients apply directly at zeroen.dev.
 ```
