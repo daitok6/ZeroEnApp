@@ -2,8 +2,8 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 
 /**
- * Guards a dashboard page to approved clients only.
- * Pending users are redirected to the dashboard overview.
+ * Guards a dashboard page to active clients only.
+ * Non-client users are redirected to the dashboard overview.
  * Unauthenticated users are redirected to login.
  */
 export async function requireApproved(locale: string) {
@@ -18,7 +18,7 @@ export async function requireApproved(locale: string) {
     .eq('id', user.id)
     .single();
 
-  if (profile?.status !== 'approved') {
+  if (profile?.status !== 'client') {
     redirect(`/${locale}/dashboard`);
   }
 
