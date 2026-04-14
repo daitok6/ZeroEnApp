@@ -50,6 +50,17 @@ export async function POST(request: NextRequest) {
     terms_accepted,
   } = parsed.data;
 
+  // Ensure profile row exists (trigger may not have fired for this account)
+  await supabase.from('profiles').upsert(
+    {
+      id: user.id,
+      email: user.email ?? '',
+      full_name: user.user_metadata?.full_name ?? user.user_metadata?.name ?? null,
+      avatar_url: user.user_metadata?.avatar_url ?? null,
+    },
+    { onConflict: 'id', ignoreDuplicates: true },
+  );
+
   // Upsert into client_brand
   const { error: brandError } = await supabase.from('client_brand').upsert(
     {
