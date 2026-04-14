@@ -20,7 +20,7 @@ export function Footer({ locale }: { locale: string }) {
             </p>
             <div className="mt-6 flex gap-4">
               <a
-                href="https://x.com/zeroendev"
+                href="https://x.com/ZeroEnBuilds"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#6B7280] hover:text-[#00E87A] transition-colors text-sm font-mono"
@@ -28,7 +28,7 @@ export function Footer({ locale }: { locale: string }) {
                 X / Twitter
               </a>
               <a
-                href="https://instagram.com/zeroendev"
+                href="https://www.instagram.com/zeroenbuilds/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#6B7280] hover:text-[#00E87A] transition-colors text-sm font-mono"

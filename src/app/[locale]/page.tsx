@@ -55,7 +55,7 @@ const organizationJsonLd = {
   name: 'ZeroEn',
   url: 'https://zeroen.dev',
   logo: 'https://zeroen.dev/logo-dark.svg',
-  sameAs: ['https://twitter.com/zeroen_dev', 'https://instagram.com/zeroen_dev'],
+  sameAs: ['https://x.com/ZeroEnBuilds', 'https://www.instagram.com/zeroenbuilds/'],
 };
 
 const serviceJsonLd = {
