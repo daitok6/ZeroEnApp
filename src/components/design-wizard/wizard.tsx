@@ -70,7 +70,7 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
       });
       const payload = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(payload.error || 'Something went wrong. Please try again.');
+        setError(`${payload.error || 'Something went wrong.'} ${payload.detail || ''} ${payload.code || ''}`.trim());
         setIsSubmitting(false);
         return;
       }
