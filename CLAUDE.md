@@ -19,7 +19,7 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 2. Deploy client sites on the operator's Vercel account
 3. Generate monthly analytics report PDFs per client
 4. Run marketing automation — build-in-public content, SEO, outreach
-5. Manage client lifecycle — onboarding, scoring, tracking, billing (¥500 intake via Coconala + recurring via Stripe)
+5. Manage client lifecycle — onboarding, scoring, tracking, billing (¥1,000 intake via Coconala + recurring via Stripe)
 6. Maintain quality gates — automated testing, validation, client UAT
 
 ---
@@ -37,7 +37,7 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 9. **All social posts go through the marketing team.** Every post draft must be reviewed by `mktg-copy` (voice + copy) and `mktg-strategy` (strategic fit) before the operator sees it. No exceptions.
 10. **Quality gates must pass before production deploy.** Linting, type checking, and tests must pass.
 11. **ZeroEn retains code ownership.** Client licenses the live site via active subscription. Code is never transferred to the client — on cancellation the site is archived and ZeroEn keeps the code.
-12. **Coconala is lead-gen only.** Coconala listing charges a one-time ¥500 intake fee (casual "buy me a beer" framing). All recurring subscription fees (¥5,000/¥10,000/mo) are billed directly through Stripe via zeroen.dev — for all clients regardless of acquisition channel.
+12. **Coconala is lead-gen only.** Coconala listing charges a one-time ¥1,000 intake fee (casual "buy me a beer" framing). All recurring subscription fees (¥5,000/¥10,000/mo) are billed directly through Stripe via zeroen.dev — for all clients regardless of acquisition channel.
 13. **All clients require a 6-month minimum subscription commitment.** Early cancellation = client pays the remaining months on the commitment. Site is archived, code is retained by ZeroEn.
 
 ---
@@ -48,7 +48,7 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 
 | Fee | Amount | Notes |
 |---|---|---|
-| Intake fee (one-time) | ¥500 | Charged through Coconala ("buy me a beer" framing). Coconala ~22% cut = you net ¥390. Lead-gen only. |
+| Intake fee (one-time) | ¥1,000 | Charged through Coconala ("buy me a beer" framing). Coconala ~22% cut = you net ¥780. Lead-gen only. |
 
 ### Subscription Tiers (All Clients — Stripe via zeroen.dev)
 
@@ -57,9 +57,12 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 | Monthly fee | ¥5,000 | ¥10,000 |
 | Hosting (Vercel) | Included | Included |
 | Monthly changes | 1 small | 2 small OR 1 medium |
-| Analytics | Prior-month PDF | Full-year dashboard |
+| Medium changes (a-la-carte) | — (upgrade required) | Available |
+| Analytics | Prior-month PDF (1 page) | Full-year dashboard |
 | Security audit (WebMori) | — | Quarterly |
 | SEO audit (WebMori) | — | Quarterly |
+| Copy refresh credit | — | 1 headline/CTA rewrite/quarter |
+| Change request SLA | ≤14 business days | ≤5 business days (priority) |
 
 All recurring billing goes through Stripe regardless of whether the client came via Coconala or zeroen.dev.
 
@@ -68,15 +71,15 @@ All recurring billing goes through Stripe regardless of whether the client came 
 | Stream | Amount | Details |
 |--------|--------|---------|
 | Free Build | $0 to client | All builds are free. ZeroEn retains code and monetizes via subscription. |
-| Per-Request | ¥4,000-25,000+ | Small (¥4,000), Medium (¥10,000), Large (¥25,000+). See `HQ/crm/change-catalogue.md` |
+| Per-Request | ¥4,000-25,000+ | Small (¥4,000), Medium (¥10,000 — Premium only), Large (¥25,000+). See `HQ/crm/change-catalogue.md` |
 | A-la-carte audits | ¥15,000 each | Security or SEO audit for Basic-tier clients |
 | Equity | 10% | SAFE note (converts on incorporation) + profit-sharing fallback |
 | Revenue Share | ~10% | Percentage of app revenue, flexible per deal |
 
 ### Upgrade / Downgrade
 
-- **Upgrade (Basic → Premium):** Allowed anytime
-- **Downgrade (Premium → Basic):** After 3-month minimum on Premium
+- **Upgrade (Basic → Premium):** Allowed anytime. Triggers a fresh 6-month Premium commitment (replaces remaining Basic term).
+- **Downgrade (Premium → Basic):** Only after the 6-month Premium commitment completes. No exceptions mid-term.
 
 Full pricing details: `HQ/crm/coconala-playbook.md` and `HQ/crm/change-catalogue.md`
 

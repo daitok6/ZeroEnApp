@@ -11,14 +11,19 @@ The authoritative reference for ZeroEn's Coconala channel strategy. All Coconala
 | **Monthly fee** | ¥5,000 | ¥10,000 |
 | **Hosting (Vercel)** | Included | Included |
 | **Monthly changes** | 1 small | 2 small OR 1 medium |
-| **Analytics** | Prior-month PDF | Full-year dashboard |
+| **Medium changes (a-la-carte)** | — (upgrade required) | Available |
+| **Analytics** | Prior-month PDF (1 page) | Full-year dashboard |
 | **Security audit (WebMori)** | — | Quarterly (included) |
 | **SEO audit (WebMori)** | — | Quarterly (included) |
+| **Copy refresh credit** | — | 1 headline/CTA rewrite/quarter |
+| **Change request SLA** | ≤14 business days | ≤5 business days (priority) |
 | **DNS configuration** | Included | Included |
 
 Unused monthly changes **do not roll over**.
 
 **Why ¥5k/¥10k:** Pricing is set deliberately below the Coconala market anchor to maximize conversion volume. The free build is the primary differentiator — the monthly fee just needs to be low enough not to be a barrier. At ¥5,000 net ~¥3,900 after Coconala commission, you need ~38 active subs to clear ¥150k/mo net (Malaysia move threshold). The free build + quality of work retains clients; the low fee acquires them.
+
+**Premium is the recommended tier.** Basic is a genuine starter option, but Premium is where the real partnership happens — faster turnaround, deeper analytics, quarterly audits, and copy support. The math is clear: two audits alone (¥15,000 × 2 = ¥30,000/半年) cover the entire 6-month Premium premium (¥30,000 over Basic). Everything else is effectively free.
 
 ---
 
@@ -57,10 +62,21 @@ Unused monthly changes **do not roll over**.
 
 ## Upgrade / Downgrade Policy
 
-- **Upgrade (Basic → Premium):** Allowed anytime. Prorated from upgrade date.
-- **Downgrade (Premium → Basic):** Allowed after a 3-month minimum on Premium. Prevents gaming quarterly audits.
+- **Upgrade (Basic → Premium):** Allowed anytime. Triggers a **fresh 6-month Premium commitment** that replaces the remaining Basic term. Charged at the Premium rate from the upgrade month.
+- **Downgrade (Premium → Basic):** Only allowed after the 6-month Premium commitment completes. No exceptions mid-term.
+- **Early cancel from Premium:** Client pays the remaining months on the Premium commitment (standard cancellation policy applies).
+- **Existing Basic clients:** Grandfathered on current Basic features; retroactive feature removals do not apply.
 
-**Why allow upgrades:** Cautious Coconala buyers pick Basic to trial the service. Blocking upgrades permanently caps revenue. An a-la-carte audit at ¥15,000 is 3× the ¥5,000 monthly difference — the math sells the upgrade.
+**Why a 6-month Premium commitment on upgrade:** Premium value (quarterly audits, annual analytics, priority SLA, copy refresh) compounds over time. A 1–2 month window isn't enough to see the return. The 6-month commitment protects the client's investment as much as ZeroEn's revenue.
+
+**Why allow upgrades at all:** Cautious Coconala buyers pick Basic to trial the service. The upgrade path converts them without requiring a new onboarding. The math alone closes it — two à-la-carte audits (¥30,000) cover the entire 6-month Premium premium over Basic.
+
+**Upgrade trigger moments** (surface the offer at these points):
+1. Month-2 analytics delivery — traffic context makes the case naturally.
+2. Any Basic client requests a medium change — hard gate; offer upgrade as the only path.
+3. Month-5 renewal conversation — default offer is Premium renewal.
+4. After a Basic client purchases an à-la-carte audit — "this is free every quarter on Premium."
+5. Traffic milestone (e.g., 1,000 monthly visitors) — "you've outgrown starter."
 
 ---
 
@@ -84,17 +100,19 @@ Unused monthly changes **do not roll over**.
 
 ## A-La-Carte Pricing
 
-Basic-tier clients can purchase premium services individually. See `HQ/crm/change-catalogue.md` for full pricing.
+Basic-tier clients can purchase some services individually. See `HQ/crm/change-catalogue.md` for full pricing.
 
-| Service | A-La-Carte Price | Included in Premium? |
-|---------|-------------------|----------------------|
-| Security audit (WebMori) | ¥15,000 | Yes (quarterly) |
-| SEO audit (WebMori) | ¥15,000 | Yes (quarterly) |
-| Small change | ¥4,000 | 1/mo (Basic), 2/mo (Premium) |
-| Medium change | ¥10,000 | 1/mo (Premium only) |
-| Large change | ¥25,000+ | Not included in any plan |
+| Service | A-La-Carte Price | Included in Premium? | Available to Basic? |
+|---------|-------------------|----------------------|---------------------|
+| Security audit (WebMori) | ¥15,000 | Yes (quarterly) | Yes |
+| SEO audit (WebMori) | ¥15,000 | Yes (quarterly) | Yes |
+| Small change | ¥4,000 | 1/mo (Basic), 2/mo (Premium) | Yes |
+| Medium change | ¥10,000 | 1/mo (Premium only) | **No — upgrade required** |
+| Large change | ¥25,000+ | Not included in any plan | Yes |
 
-**Value prop for Premium:** Quarterly audits at ¥15,000 each × 4/yr = ¥60,000/yr of included value. Premium plan = ¥120,000/yr (+¥60,000 over Basic). Breakeven at just one extra audit per year — after that it's pure gain.
+**Medium changes are Premium-only.** Basic clients who need a medium change must upgrade to Premium (triggering a fresh 6-month commitment) or split the work into multiple small changes if feasible. This is not negotiable — no à-la-carte medium changes for Basic clients.
+
+**Value prop for Premium:** Quarterly audits at ¥15,000 each × 4/yr = ¥60,000/yr of included value. Premium plan = ¥120,000/yr (+¥60,000 over Basic). Breakeven at just one extra audit per year — after that it's pure gain. Add priority SLA (≤5 vs ≤14 days) and copy refresh credit and the gap widens further.
 
 ---
 

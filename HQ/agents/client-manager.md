@@ -47,7 +47,7 @@ When onboarding a new client (after application is accepted and scored 15+/20), 
 - **Subscription start:** [YYYY-MM-DD]
 - **6-month minimum through:** [YYYY-MM-DD]
 - **Upgrade eligible:** [Yes — anytime]
-- **Downgrade eligible:** [Yes — after 3-month minimum on Premium | Not yet]
+- **Downgrade eligible:** [Yes — after 6-month Premium commitment completes | Not yet]
 - **Non-payment grace started:** [YYYY-MM-DD or N/A]
 
 ## Project
@@ -101,7 +101,7 @@ Flag these risk signals:
 - Client hasn't launched 4+ months after build completion
 - Multiple change requests without payment
 - App traffic declining month-over-month (from analytics reports)
-- Premium client approaching 3-month minimum (flag downgrade eligibility)
+- Premium client approaching 6-month commitment end (flag downgrade eligibility)
 
 ### Non-Payment Timeline
 | Day | Action |
