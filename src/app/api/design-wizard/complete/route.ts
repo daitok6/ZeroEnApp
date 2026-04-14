@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
   );
 
   if (brandError) {
-    return NextResponse.json({ error: 'Failed to save brand data' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to save brand data', detail: brandError.message, code: brandError.code }, { status: 500 });
   }
 
   // Update profile: mark complete, clear draft progress
