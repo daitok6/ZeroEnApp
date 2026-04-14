@@ -38,13 +38,16 @@ export function Footer({ locale }: { locale: string }) {
             </div>
           </div>
 
-          {/* Product links */}
+          {/* Company links */}
           <div>
             <h4 className="text-[#F4F4F2] text-xs font-bold uppercase tracking-widest mb-4">
-              {t('product.heading')}
+              {t('company.heading')}
             </h4>
             <ul className="space-y-3">
               {[
+                { href: `/${locale}/about`, label: t('company.about') },
+                { href: `/${locale}/cases`, label: t('company.cases') },
+                { href: `/${locale}/pricing`, label: t('company.pricing') },
                 { href: `/${locale}/how-it-works`, label: t('product.howItWorks') },
                 { href: `/${locale}/login?intent=apply`, label: t('product.applyFree') },
               ].map((item) => (
@@ -60,20 +63,27 @@ export function Footer({ locale }: { locale: string }) {
             </ul>
           </div>
 
-          {/* Company links */}
+          {/* Resources links */}
           <div>
             <h4 className="text-[#F4F4F2] text-xs font-bold uppercase tracking-widest mb-4">
-              {t('company.heading')}
+              {t('resources.heading')}
             </h4>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href={`/${locale}/blog`}
-                  className="text-[#6B7280] hover:text-[#F4F4F2] text-sm font-mono transition-colors"
-                >
-                  {t('company.blog')}
-                </Link>
-              </li>
+              {[
+                { href: `/${locale}/blog`, label: t('resources.blog') },
+                { href: `/${locale}/pricing#faq`, label: t('resources.faq') },
+                { href: `/${locale}/blog/peraichi-studio-zeroen-comparison`, label: t('resources.comparison') },
+                { href: `/${locale}/blog/whats-included-5000`, label: t('resources.whatsIncluded') },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-[#6B7280] hover:text-[#F4F4F2] text-sm font-mono transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

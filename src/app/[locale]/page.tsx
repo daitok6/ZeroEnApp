@@ -11,6 +11,7 @@ import { NewsletterSection } from '@/components/marketing/newsletter-section';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
+import { InlineCallout } from '@/components/marketing/inline-callout';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 export const revalidate = 3600;
@@ -160,6 +161,17 @@ export default async function HomePage({ params }: Props) {
         ctaText={t('hero.cta')}
       />
 
+      {/* ── WhyZeroEn blog link ─────────────────────────────── */}
+      <div className="px-4 pb-10 bg-[#080808]">
+        <div className="max-w-5xl mx-auto">
+          <InlineCallout
+            eyebrow={locale === 'ja' ? 'よく聞かれること' : 'Common concerns'}
+            title={locale === 'ja' ? 'コーチ・セラピストのLP5つのお悩みとZeroEnの向き合い方を読む' : 'Read: 5 LP struggles coaches and therapists commonly face'}
+            href={locale === 'ja' ? '/blog/lp-pain-points-coaches-therapists' : '/en/blog/lp-pain-points-coaches-therapists'}
+          />
+        </div>
+      </div>
+
       {/* ── Section 3: Trust ─────────────────────────────────── */}
       <TrustSection
         eyebrow={t('trustSection.eyebrow')}
@@ -243,74 +255,26 @@ export default async function HomePage({ params }: Props) {
         placeholders={caseStudyPlaceholders}
       />
 
-      {/* ── Section 8: Pricing Preview ───────────────────────── */}
+      {/* ── Section 8: Pricing Teaser ────────────────────────── */}
       <section className="py-24 px-4 bg-[#080808]">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-2xl mx-auto text-center">
           <ScrollReveal direction="up">
-            <div className="mb-16 text-center">
-              <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
-                {t('valueProp.eyebrow')}
-              </p>
-              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4 whitespace-pre-line">
-                {t('valueProp.title')}
-              </h2>
-              <p className="text-[#6B7280] font-mono text-sm max-w-2xl mx-auto">
-                {t('valueProp.subtitle')}
-              </p>
-            </div>
+            <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
+              {t('valueProp.eyebrow')}
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4 whitespace-pre-line">
+              {t('valueProp.title')}
+            </h2>
+            <p className="text-[#6B7280] font-mono text-sm max-w-xl mx-auto mb-10">
+              {t('valueProp.subtitle')}
+            </p>
+            <Link
+              href={`/${locale}/pricing`}
+              className="inline-block border border-[#00E87A] text-[#00E87A] font-heading font-bold text-sm uppercase tracking-widest py-3 px-8 rounded hover:bg-[#00E87A]/10 transition-all duration-200"
+            >
+              {t('valueProp.seePricingCta')}
+            </Link>
           </ScrollReveal>
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.12}>
-            {/* Basic */}
-            <StaggerItem>
-              <div className="relative flex flex-col bg-[#111827] rounded-lg border border-[#374151] p-6 md:p-8 hover:shadow-[0_0_24px_rgba(0,232,122,0.08)] transition-all duration-300 h-full">
-                <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest mb-2">
-                  {t('valueProp.basicTitle')}
-                </p>
-                <p className="text-[#F4F4F2] font-heading font-bold text-3xl mb-1">
-                  {t('valueProp.basicPrice')}
-                </p>
-                <p className="text-[#6B7280] font-mono text-xs mb-6">{t('valueProp.minNote')}</p>
-                <ul className="space-y-3 flex-1">
-                  {(t.raw('valueProp.basicItems') as string[]).map((f) => (
-                    <li key={f} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
-                      <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>{f}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={`/${locale}/apply`}
-                  className="mt-8 block text-center border border-[#00E87A] text-[#00E87A] font-heading font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00E87A]/10 transition-all duration-200"
-                >
-                  {t('valueProp.cta')}
-                </Link>
-              </div>
-            </StaggerItem>
-            {/* Premium */}
-            <StaggerItem>
-              <div className="relative flex flex-col bg-[#111827] rounded-lg border-2 border-[#00E87A] p-6 md:p-8 shadow-[0_0_32px_rgba(0,232,122,0.15)] hover:shadow-[0_0_48px_rgba(0,232,122,0.25)] transition-all duration-300 h-full">
-                <p className="text-[#00E87A] font-mono text-xs uppercase tracking-widest mb-2">
-                  {t('valueProp.premiumTitle')}
-                </p>
-                <p className="text-[#F4F4F2] font-heading font-bold text-3xl mb-1">
-                  {t('valueProp.premiumPrice')}
-                </p>
-                <p className="text-[#6B7280] font-mono text-xs mb-6">{t('valueProp.minNote')}</p>
-                <ul className="space-y-3 flex-1">
-                  {(t.raw('valueProp.premiumItems') as string[]).map((f) => (
-                    <li key={f} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
-                      <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>{f}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={`/${locale}/apply`}
-                  className="mt-8 block text-center bg-[#00E87A] text-[#0D0D0D] font-heading font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00ff88] transition-all duration-200 shadow-[0_0_16px_rgba(0,232,122,0.4)]"
-                >
-                  {t('valueProp.cta')}
-                </Link>
-              </div>
-            </StaggerItem>
-          </StaggerChildren>
         </div>
       </section>
 

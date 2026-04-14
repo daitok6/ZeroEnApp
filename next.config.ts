@@ -18,9 +18,6 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      { source: '/pricing', destination: '/en', permanent: true },
-      { source: '/en/pricing', destination: '/en', permanent: true },
-      { source: '/ja/pricing', destination: '/ja', permanent: true },
       { source: '/en/dashboard-preview', destination: '/en/live-from-day-one', permanent: true },
       { source: '/ja/dashboard-preview', destination: '/ja/live-from-day-one', permanent: true },
       { source: '/dashboard-preview', destination: '/en/live-from-day-one', permanent: true },

@@ -4,7 +4,9 @@ import type { Metadata } from 'next';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
+import { InlineCallout } from '@/components/marketing/inline-callout';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { ComparisonTable } from '@/components/marketing/comparison-table';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -30,8 +32,59 @@ export default async function PricingPage({ params }: Props) {
   const changeItems = t.raw('changeItems') as { size: string; price: string; desc: string }[];
   const faqs = t.raw('faqs') as { q: string; a: string }[];
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  };
+
+  const offerJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: locale === 'ja' ? 'ZeroEn LP制作・運用サービス' : 'ZeroEn LP Build & Run Service',
+    url: 'https://zeroen.dev',
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Basic',
+        price: '5000',
+        priceCurrency: 'JPY',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '5000',
+          priceCurrency: 'JPY',
+          unitCode: 'MON',
+        },
+      },
+      {
+        '@type': 'Offer',
+        name: 'Premium',
+        price: '10000',
+        priceCurrency: 'JPY',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '10000',
+          priceCurrency: 'JPY',
+          unitCode: 'MON',
+        },
+      },
+    ],
+  };
+
   return (
     <div className="bg-[#0D0D0D] text-[#F4F4F2] pt-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(offerJsonLd) }}
+      />
 
       {/* Header */}
       <section className="py-24 px-4">
@@ -47,6 +100,47 @@ export default async function PricingPage({ params }: Props) {
               {t('subtitle')}
             </p>
           </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── ¥300k Question Callout ─────────────────────────── */}
+      <section className="pb-16 px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="border-l-2 border-[#00E87A] pl-6 py-2">
+            <p className="text-[#00E87A] font-mono text-xs uppercase tracking-widest mb-2">
+              {locale === 'ja' ? '「なぜ30万かかるのか」という疑問' : 'The ¥300,000 question'}
+            </p>
+            <p className="text-[#9CA3AF] font-mono text-sm leading-relaxed mb-4">
+              {locale === 'ja'
+                ? '1枚のLPに、制作会社は¥200,000〜を請求します。理由はあります——複数のスタッフ、仕様書作成、プロジェクト管理。大きな案件なら妥当な金額です。でも、個人事業主が「まず1枚、ちゃんとしたLPが欲しい」と思ったとき、その数字は現実的ではないかもしれません。'
+                : "Agencies quote ¥200,000+ for a single landing page. There's a reason — multiple teams, spec docs, project management. For a large project that makes sense. For a solo operator who needs one good LP to exist, it often doesn't."}
+            </p>
+            <a
+              href="https://note.com/zeroen_dev/n/n2d8f1bb2247a"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#00E87A] font-mono text-xs hover:underline"
+            >
+              {locale === 'ja' ? 'その違和感について書きました →' : 'Why I built ZeroEn instead →'}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Comparison ───────────────────────────────────────── */}
+      <section className="pb-24 px-4 bg-[#080808]">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal direction="up">
+            <div className="mb-10 text-center">
+              <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
+                {locale === 'ja' ? '比較' : 'Compare'}
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-[#F4F4F2]">
+                {locale === 'ja' ? '他の選択肢と比べてみる' : 'Your options, compared'}
+              </h2>
+            </div>
+          </ScrollReveal>
+          <ComparisonTable locale={locale} />
         </div>
       </section>
 
@@ -148,11 +242,16 @@ export default async function PricingPage({ params }: Props) {
       <section className="py-24 px-4">
         <div className="max-w-2xl mx-auto">
           <ScrollReveal direction="up">
-            <h2 className="text-2xl font-heading font-bold text-[#F4F4F2] mb-12 text-center">
+            <h2 className="text-2xl font-heading font-bold text-[#F4F4F2] mb-4 text-center">
               {t('faqTitle')}
             </h2>
           </ScrollReveal>
-          <StaggerChildren className="space-y-6" staggerDelay={0.06}>
+          <InlineCallout
+            eyebrow={locale === 'ja' ? 'プラン選びに迷ったら' : 'Unsure which plan?'}
+            title={locale === 'ja' ? '月¥5,000に含まれること・含まれないことを全部読む' : 'Read exactly what ¥5,000/mo includes'}
+            href={locale === 'ja' ? '/blog/whats-included-5000' : '/en/blog/whats-included-5000'}
+          />
+          <StaggerChildren className="space-y-6 mt-8" staggerDelay={0.06}>
             {faqs.map((faq) => (
               <StaggerItem key={faq.q}>
                 <div className="border-b border-[#374151] pb-6">
@@ -162,6 +261,18 @@ export default async function PricingPage({ params }: Props) {
               </StaggerItem>
             ))}
           </StaggerChildren>
+          <div className="mt-10 space-y-0">
+            <InlineCallout
+              eyebrow={locale === 'ja' ? 'ペライチと比べるなら' : 'Comparing with Peraichi?'}
+              title={locale === 'ja' ? 'ペライチでよく経験する3つのことを読む' : 'Read the 3 common Peraichi struggles'}
+              href={locale === 'ja' ? '/blog/peraichi-traps' : '/en/blog/peraichi-traps'}
+            />
+            <InlineCallout
+              eyebrow={locale === 'ja' ? '全ツールを比較するなら' : 'Full comparison'}
+              title={locale === 'ja' ? 'ペライチ・STUDIO・ZeroEnを並べて比較する' : 'Compare Peraichi, STUDIO, and ZeroEn side-by-side'}
+              href={locale === 'ja' ? '/blog/peraichi-studio-zeroen-comparison' : '/en/blog/peraichi-studio-zeroen-comparison'}
+            />
+          </div>
         </div>
       </section>
 

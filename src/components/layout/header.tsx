@@ -69,6 +69,12 @@ export function Header() {
             >
               {t('blog')}
             </Link>
+            <Link
+              href={`/${locale}/about`}
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+            >
+              {t('about')}
+            </Link>
           </nav>
         )}
 
@@ -142,6 +148,13 @@ export function Header() {
             onClick={() => setMobileOpen(false)}
           >
             {t('blog')}
+          </Link>
+          <Link
+            href={`/${locale}/about`}
+            className="flex items-center min-h-[44px] text-[#F4F4F2] text-sm font-mono"
+            onClick={() => setMobileOpen(false)}
+          >
+            {t('about')}
           </Link>
           <LocaleSwitcher />
           <Link

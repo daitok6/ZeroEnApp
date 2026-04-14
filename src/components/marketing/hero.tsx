@@ -101,6 +101,16 @@ export function Hero({ texts, subtitle, ctaText, terminalCommand, locale }: Hero
           >
             {ctaText}
           </Link>
+          <a
+            href="https://note.com/zeroen_dev/n/n2d8f1bb2247a"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#374151] font-mono text-xs hover:text-[#6B7280] transition-colors duration-150"
+          >
+            {locale === 'ja'
+              ? '元日立・元楽天が月¥5,000でLP制作を始める理由 →'
+              : 'Why an ex-Hitachi, ex-Rakuten engineer charges ¥5,000/mo →'}
+          </a>
         </motion.div>
       </div>
 

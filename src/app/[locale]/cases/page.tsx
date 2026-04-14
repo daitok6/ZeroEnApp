@@ -1,8 +1,7 @@
-import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
-import { CaseStudiesPreview } from '@/components/marketing/case-studies-preview';
+import { CaseGrid } from '@/components/marketing/case-grid';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 
@@ -32,27 +31,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CasesPage({ params }: Props) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'home.caseStudies' });
-
-  const placeholders = t.raw('placeholders') as {
-    name: string;
-    desc: string;
-    meta: string[];
-    url: string;
-    screenshot: string;
-    label: string;
-  }[];
 
   return (
     <div className="bg-[#0D0D0D] text-[#F4F4F2] min-h-screen pt-24">
-      <CaseStudiesPreview
-        eyebrow={t('eyebrow')}
-        title={t('title')}
-        subtitle={t('subtitle')}
-        comingSoon={t('comingSoon')}
-        live={t('live')}
-        placeholders={placeholders}
-      />
+      <CaseGrid locale={locale} />
 
       <GreenGlowLine />
 

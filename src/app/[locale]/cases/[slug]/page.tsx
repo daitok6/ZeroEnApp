@@ -25,6 +25,86 @@ interface CaseStudy {
 
 const CASE_STUDIES: CaseStudy[] = [
   {
+    slug: 'sato-career-coaching',
+    title: {
+      ja: '佐藤キャリアコーチング — キャリア転換コーチングサービスのLP制作事例',
+      en: 'Sato Career Coaching — LP for a Career Transition Coaching Service',
+    },
+    excerpt: {
+      ja: '次のキャリアを、自分の言葉で描く。ZeroEnが3日で制作したコーチングサービスのデモLP。',
+      en: "Define your next career in your own words. ZeroEn's demo LP for a career coaching service, built in 3 days.",
+    },
+    client: '佐藤キャリアコーチング',
+    plan: 'Basic',
+    launchTime: { ja: '3日', en: '3 days' },
+    url: '',
+    tags: ['コーチング', '個人事業主', 'Basic', '東京'],
+    published: true,
+    sections: [
+      {
+        heading: { ja: 'このサイトについて', en: 'About this site' },
+        body: {
+          ja: 'このサイトは、ZeroEnがコーチング業を営む個人事業主向けに制作したデモLPです。実在するビジネスではありませんが、実際の制作プロセス・品質・スピードをそのまま反映しています。',
+          en: 'This is a demo LP built by ZeroEn to showcase what we can build for a solo coaching business. The business is fictional, but the quality and process are exactly what real clients receive.',
+        },
+      },
+      {
+        heading: { ja: '想定クライアント像', en: 'Target ICP' },
+        body: {
+          ja: 'コーチング・コンサルティングを提供する個人事業主。InstagramやNoteで集客しているが、問い合わせを受け取るための「場所」がない。エンジニアに依頼すると高くつく。自分で作ろうとしたが時間が取れない。そんな方に向けたLPです。',
+          en: 'A solo coach or consultant who drives leads from Instagram or Note but lacks a landing page to capture inquiries. Quotes from developers are too expensive. DIY took too long. This LP is built for that exact profile.',
+        },
+      },
+      {
+        heading: { ja: '制作のポイント', en: 'What we focused on' },
+        body: {
+          ja: 'コーチングサービスのLPで最も重要なのは「この人に任せたい」という信頼感の醸成です。ファーストビューに顔写真・実績・キャッチコピーを配置し、サービス内容・料金・申し込みフローを明確に示す構成にしました。モバイルファースト設計、Next.js + Tailwind CSSで構築。3営業日以内に初稿を提出。',
+          en: 'The most important element for a coaching LP is building the "I want to work with this person" feeling. We placed the photo, credentials, and headline above the fold, with a clear service description, pricing, and inquiry flow below. Mobile-first, built with Next.js + Tailwind CSS. First draft delivered within 3 business days.',
+        },
+      },
+    ],
+  },
+  {
+    slug: 'kokoro-counseling',
+    title: {
+      ja: 'こころの杜カウンセリング — 心理カウンセリングサービスのLP制作事例',
+      en: 'Kokoro no Mori Counseling — LP for a Psychological Counseling Service',
+    },
+    excerpt: {
+      ja: 'あなたのペースで、話せる場所。ZeroEnが3日で制作したカウンセリングサービスのデモLP。',
+      en: 'A place to talk, at your pace. ZeroEn demo LP for a psychological counseling service, built in 3 days.',
+    },
+    client: 'こころの杜カウンセリング',
+    plan: 'Basic',
+    launchTime: { ja: '3日', en: '3 days' },
+    url: '',
+    tags: ['カウンセリング', 'セラピー', 'Basic', '東京'],
+    published: true,
+    sections: [
+      {
+        heading: { ja: 'このサイトについて', en: 'About this site' },
+        body: {
+          ja: 'このサイトは、ZeroEnがカウンセリング・セラピー業を営む個人事業主向けに制作したデモLPです。実在するビジネスではありませんが、実際の制作プロセス・品質・スピードをそのまま反映しています。',
+          en: 'This is a demo LP built by ZeroEn to showcase what we can build for a solo counseling practice. The business is fictional, but the quality and process are exactly what real clients receive.',
+        },
+      },
+      {
+        heading: { ja: '想定クライアント像', en: 'Target ICP' },
+        body: {
+          ja: '心理カウンセラー・セラピスト・コーチとして開業したばかりの方。SNSでは活動しているが、サービス内容や料金を整理したLPがない。「問い合わせをどこで受ければいいのかわからない」という状況に置かれている方向けのLPです。',
+          en: 'A newly independent counselor, therapist, or coach who is active on social media but lacks a clear landing page for their services and pricing. Someone who isn\'t sure "where inquiries should land."',
+        },
+      },
+      {
+        heading: { ja: '制作のポイント', en: 'What we focused on' },
+        body: {
+          ja: 'カウンセリングLPで重要なのは「安心感」と「敷居の低さ」です。柔らかいトーン・余白の多いレイアウト・明確な初回申し込みフローで、初めての方が問い合わせしやすい構成を作りました。モバイルファースト設計、Next.js + Tailwind CSSで構築。3営業日以内に初稿を提出。',
+          en: 'For a counseling LP, the key is creating "safety" and lowering the barrier to inquiry. We used a gentle tone, spacious layout, and a clear first-appointment flow to help first-time visitors take the step. Mobile-first, Next.js + Tailwind CSS. Draft delivered within 3 business days.',
+        },
+      },
+    ],
+  },
+  {
     slug: 'webmori',
     title: {
       ja: 'WebMori — セキュリティ・SEO監査サービスのLP制作事例',

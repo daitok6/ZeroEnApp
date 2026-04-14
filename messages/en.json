@@ -3,6 +3,7 @@
     "howItWorks": "How It Works",
     "pricing": "Pricing",
     "cases": "Cases",
+    "about": "About",
     "dashboard": "Day One",
     "blog": "Blog",
     "login": "Log In",
@@ -45,6 +46,7 @@
         "6-month minimum"
       ],
       "cta": "Apply Free",
+      "seePricingCta": "See plans →",
       "minNote": "6-month minimum. Cancel anytime after."
     },
     "applySection": {
@@ -146,28 +148,28 @@
           "label": "Read case study →"
         },
         {
-          "name": "Client #2",
-          "desc": "LP for a coach/therapist — in progress.",
+          "name": "Sato Career Coaching",
+          "desc": "LP for a business career coaching service supporting professionals in transition.",
           "meta": [
-            "¥0 upfront",
-            "¥5,000/mo",
+            "Built in 3 days",
+            "Demo site",
             "Basic plan"
           ],
           "url": "",
           "screenshot": "",
-          "label": "In progress →"
+          "label": "Sample site"
         },
         {
-          "name": "Your LP here",
-          "desc": "Coaches, consultants, therapists — apply below.",
+          "name": "Kokoro no Mori Counseling",
+          "desc": "LP for a psychological counseling service focused on dialogue and support.",
           "meta": [
-            "¥0 upfront",
-            "From ¥5,000/mo",
-            "6-month min"
+            "Built in 3 days",
+            "Demo site",
+            "Basic plan"
           ],
           "url": "",
           "screenshot": "",
-          "label": "Apply →"
+          "label": "Sample site"
         }
       ]
     },
@@ -485,7 +487,17 @@
     },
     "company": {
       "heading": "Company",
-      "blog": "Blog"
+      "blog": "Blog",
+      "about": "About ZeroEn",
+      "cases": "Case Studies",
+      "pricing": "Pricing"
+    },
+    "resources": {
+      "heading": "Resources",
+      "blog": "Blog",
+      "faq": "FAQ",
+      "comparison": "Peraichi vs STUDIO vs ZeroEn",
+      "whatsIncluded": "What ¥5,000/mo includes"
     },
     "newsletter": {
       "heading": "Newsletter",
