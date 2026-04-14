@@ -15,7 +15,10 @@
       "line3": "元日立・元楽天エンジニアが、3日で公開します。",
       "subtitle": "6ヶ月から。いつでも解約可。",
       "cta": "無料で申し込む",
-      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
+      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3",
+      "scarcityBadge": "先着5名 限定枠 受付中",
+      "coconalaCta": "Coconalaで¥1,000相談から始める →",
+      "coconalaHint": "先着5名は、Coconala経由で¥1,000のご相談からスタートできます。"
     },
     "howItWorks": {
       "title": "仕組み",
@@ -299,8 +302,8 @@
         "a": "いいえ。Next.js・Tailwind・shadcn/uiで、あなたのブランドトークンに合わせて組みます。"
       },
       {
-        "q": "Coconalaの¥1,000と、直接申し込みの違いは？",
-        "a": "同じサービスです。Coconalaは¥1,000で「話を聞く」入口、zeroen.dev/applyはStripeで直接お申し込みいただけます。"
+        "q": "先着5名の枠はどこから申し込めますか？",
+        "a": "Coconala（https://coconala.com/services/4169857）からご相談（¥1,000）いただけます。ヒアリング後、月額契約をご検討いただける方に無料でLP制作を進めます。直接申し込みはzeroen.dev/applyからも可能です。"
       },
       {
         "q": "BasicからPremiumに後で切り替えられますか？",

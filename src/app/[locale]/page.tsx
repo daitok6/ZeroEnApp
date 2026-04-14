@@ -147,6 +147,9 @@ export default async function HomePage({ params }: Props) {
         ctaText={t('hero.cta')}
         terminalCommand={t('hero.terminalCommand')}
         locale={locale}
+        scarcityBadge={t('hero.scarcityBadge')}
+        coconalaCta={t('hero.coconalaCta')}
+        coconalaHint={t('hero.coconalaHint')}
       />
 
       {/* ── Section 2: Why ZeroEn ────────────────────────────── */}

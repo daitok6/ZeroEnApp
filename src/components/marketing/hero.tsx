@@ -12,9 +12,12 @@ interface HeroProps {
   ctaText: string;
   terminalCommand: string;
   locale: string;
+  scarcityBadge?: string;
+  coconalaCta?: string;
+  coconalaHint?: string;
 }
 
-export function Hero({ texts, subtitle, ctaText, terminalCommand, locale }: HeroProps) {
+export function Hero({ texts, subtitle, ctaText, terminalCommand, locale, scarcityBadge, coconalaCta, coconalaHint }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -39,6 +42,19 @@ export function Hero({ texts, subtitle, ctaText, terminalCommand, locale }: Hero
       />
 
       <div className="relative z-10 w-full max-w-2xl mx-auto flex flex-col items-center gap-10">
+        {/* Scarcity badge */}
+        {scarcityBadge && (
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <span className="inline-block border border-[#00E87A] text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-[0_0_12px_rgba(0,232,122,0.2)]">
+              {scarcityBadge}
+            </span>
+          </motion.div>
+        )}
+
         {/* Terminal */}
         <motion.div
           className="w-full"
@@ -101,6 +117,23 @@ export function Hero({ texts, subtitle, ctaText, terminalCommand, locale }: Hero
           >
             {ctaText}
           </Link>
+          {coconalaCta && (
+            <>
+              <a
+                href="https://coconala.com/services/4169857"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#00E87A] font-mono text-xs underline underline-offset-4 hover:text-[#00ff88] transition-colors duration-150"
+              >
+                {coconalaCta}
+              </a>
+              {coconalaHint && (
+                <p className="text-[#4B5563] font-mono text-xs text-center max-w-xs leading-relaxed">
+                  {coconalaHint}
+                </p>
+              )}
+            </>
+          )}
         </motion.div>
       </div>
 

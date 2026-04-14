@@ -15,7 +15,10 @@
       "line3": "Ex-Hitachi, ex-Rakuten engineer. Live in 3 days.",
       "subtitle": "6-month minimum. Cancel after.",
       "cta": "Apply Free",
-      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
+      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3",
+      "scarcityBadge": "First 5 clients · Now accepting",
+      "coconalaCta": "Start with ¥1,000 consult on Coconala →",
+      "coconalaHint": "First 5: start with a ¥1,000 (~$6.50) consult via Coconala."
     },
     "howItWorks": {
       "title": "How It Works",
