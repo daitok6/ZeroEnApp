@@ -70,12 +70,15 @@ export function BillingClient({
       t('hostingIncluded'),
       t('oneChangePerMonth'),
       t('pdfAnalytics'),
+      t('prioritySLABasic'),
     ],
     premium: [
       t('hostingIncluded'),
       t('twoChangesPerMonth'),
       t('fullYearAnalytics'),
       t('quarterlyAudits'),
+      t('prioritySLAPremium'),
+      t('copyRefreshCredit'),
     ],
   };
 

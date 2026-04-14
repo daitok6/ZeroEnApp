@@ -23,10 +23,13 @@ export function PlanSummaryCard({ planTier, commitmentStartsAt, locale }: PlanSu
     tBilling('twoChangesPerMonth'),
     tBilling('fullYearAnalytics'),
     tBilling('quarterlyAudits'),
+    tBilling('prioritySLAPremium'),
+    tBilling('copyRefreshCredit'),
   ] : [
     tBilling('hostingIncluded'),
     tBilling('oneChangePerMonth'),
     tBilling('pdfAnalytics'),
+    tBilling('prioritySLABasic'),
   ];
 
   return (

@@ -144,9 +144,16 @@ export async function POST(request: NextRequest) {
     });
 
     // Only reset commitment clock on upgrades — downgrades after commitment don't restart the clock
-    const updates: Record<string, string | null> = { plan_tier: targetPlan };
+    const updates: Record<string, string | number | null> = { plan_tier: targetPlan };
     if (targetPlan === 'premium') {
       updates.commitment_starts_at = new Date().toISOString();
+      // Grant 1 copy-refresh credit for the new Premium cycle. Quarterly reset is handled elsewhere (TODO).
+      updates.copy_refresh_credits_remaining = 1;
+      updates.copy_refresh_cycle_start = new Date().toISOString();
+    } else {
+      // Downgrade to Basic — clear any remaining copy-refresh credits.
+      updates.copy_refresh_credits_remaining = 0;
+      updates.copy_refresh_cycle_start = null;
     }
 
     await supabase

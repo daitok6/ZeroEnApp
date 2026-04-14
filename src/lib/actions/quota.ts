@@ -5,6 +5,7 @@ import { createClient as createAdminClient } from '@supabase/supabase-js';
 import { getMonthlyQuotaUsage, TIER_PRICE_CENTS, TIER_UNIT_COST } from '@/lib/billing/overage';
 
 export interface ProjectQuota {
+  planTier: string;
   usedUnits: number;
   capacityUnits: number;
   remainingUnits: number;
@@ -38,6 +39,7 @@ export async function getProjectQuota(projectId: string): Promise<ProjectQuota> 
   const quota = await getMonthlyQuotaUsage(projectId, adminSupabase);
 
   return {
+    planTier: quota.planTier,
     usedUnits: quota.usedUnits,
     capacityUnits: quota.capacityUnits,
     remainingUnits: quota.remainingUnits,

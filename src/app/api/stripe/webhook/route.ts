@@ -103,6 +103,12 @@ export async function POST(request: NextRequest) {
             .single();
 
           if (planTier && subscriptionId) {
+            // Premium grants 1 copy-refresh credit, cycle starting now.
+            // Basic stays at 0. Quarterly reset is handled by a separate cron (TODO: implement).
+            const copyRefreshUpdates = planTier === 'premium'
+              ? { copy_refresh_credits_remaining: 1, copy_refresh_cycle_start: new Date().toISOString() }
+              : { copy_refresh_credits_remaining: 0, copy_refresh_cycle_start: null };
+
             const { data: updatedProjects, error: updateError } = await supabase
               .from('projects')
               .update({
@@ -111,6 +117,7 @@ export async function POST(request: NextRequest) {
                 stripe_subscription_id: subscriptionId,
                 status: 'operating',
                 checkout_pending_at: null,
+                ...copyRefreshUpdates,
               })
               .eq('client_id', userId)
               .select('id');
@@ -285,6 +292,8 @@ export async function POST(request: NextRequest) {
             pending_plan_tier?: null;
             pending_plan_effective_at?: null;
             stripe_subscription_schedule_id?: null;
+            copy_refresh_credits_remaining?: number;
+            copy_refresh_cycle_start?: string | null;
           } = {
             plan_tier: newPlanTier,
             stripe_subscription_id: subscription.id,
@@ -297,9 +306,19 @@ export async function POST(request: NextRequest) {
               updates.pending_plan_tier = null;
               updates.pending_plan_effective_at = null;
               updates.stripe_subscription_schedule_id = null;
+              // Clear copy-refresh credits on downgrade to Basic
+              if (newPlanTier === 'basic') {
+                updates.copy_refresh_credits_remaining = 0;
+                updates.copy_refresh_cycle_start = null;
+              }
             } else {
               // Upgrade or immediate change — reset the 6-month commitment clock
               updates.commitment_starts_at = new Date().toISOString();
+              // Grant 1 copy-refresh credit when activating Premium
+              if (newPlanTier === 'premium') {
+                updates.copy_refresh_credits_remaining = 1;
+                updates.copy_refresh_cycle_start = new Date().toISOString();
+              }
             }
           }
 

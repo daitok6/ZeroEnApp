@@ -38,6 +38,7 @@ const SIZES = [
     time: { en: '1–3 hours', ja: '1〜3時間' },
     price: '¥10,000',
     included: { en: 'Premium: 1/mo (replaces 2 small)', ja: 'プレミアム: 1回/月（スモール2回の代替）' },
+    premiumOnly: true,
   },
   {
     key: 'large',
@@ -170,8 +171,8 @@ function getPlanAllowanceMessage(planTier: string | null, isJa: boolean): string
   if (!planTier) return null;
   if (planTier === 'basic') {
     return isJa
-      ? 'ベーシックプランには毎月スモール変更が1回含まれています。'
-      : 'Your Basic plan includes 1 small change per month.';
+      ? 'ベーシックプランには毎月スモール変更が1回含まれています。ミディアム変更はプレミアム限定です。'
+      : 'Your Basic plan includes 1 small change per month. Medium changes require upgrading to Premium.';
   }
   if (planTier === 'premium') {
     return isJa
@@ -234,9 +235,19 @@ export function ChangeCatalogueSheet({ locale, planTier }: ChangeCatalogueSheetP
                   className="border border-[#374151] rounded-lg px-3.5 py-3 bg-[#111827]"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[#F4F4F2] text-sm font-mono font-bold">
-                      {isJa ? size.ja : size.en}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#F4F4F2] text-sm font-mono font-bold">
+                        {isJa ? size.ja : size.en}
+                      </span>
+                      {size.premiumOnly && (
+                        <Badge
+                          variant="outline"
+                          className="border-[#00E87A]/40 text-[#00E87A] font-mono text-[10px]"
+                        >
+                          {isJa ? 'プレミアム限定' : 'Premium only'}
+                        </Badge>
+                      )}
+                    </div>
                     <Badge
                       variant="outline"
                       className="border-[#374151] text-[#9CA3AF] font-mono"
@@ -301,7 +312,10 @@ export function ChangeCatalogueSheet({ locale, planTier }: ChangeCatalogueSheetP
             <div className="space-y-1">
               {[
                 { label: { en: 'Small change', ja: 'スモール変更' }, price: '¥4,000' },
-                { label: { en: 'Medium change', ja: 'ミディアム変更' }, price: '¥10,000' },
+                {
+                  label: { en: 'Medium change', ja: 'ミディアム変更' },
+                  price: isJa ? 'プレミアム限定' : 'Premium only',
+                },
                 { label: { en: 'Large change', ja: 'ラージ変更' }, price: '¥25,000+' },
                 { label: { en: 'Security audit', ja: 'セキュリティ監査' }, price: '¥15,000' },
                 { label: { en: 'SEO audit', ja: 'SEO監査' }, price: '¥15,000' },

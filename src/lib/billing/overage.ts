@@ -111,6 +111,19 @@ export async function computeOverage(
   if (!changeRequest) return null;
   const currentTier = changeRequest.tier ?? 'small';
 
+  // Medium changes are Premium-only. A DB trigger blocks Basic+medium at insert, but
+  // guard here too in case a project downgrades between request submission and completion.
+  if (currentTier === 'medium') {
+    const { data: project } = await adminSupabase
+      .from('projects')
+      .select('plan_tier')
+      .eq('id', projectId)
+      .single();
+    if ((project?.plan_tier ?? 'basic') !== 'premium') {
+      throw new Error('Medium change requests require a Premium plan');
+    }
+  }
+
   // 2. Compute cycle boundaries for the response metadata
   const now = new Date();
   const cycleStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));

@@ -93,9 +93,16 @@ export function ChangeRequestForm({ projectId, locale: _locale }: ChangeRequestF
         >
           <option value="" disabled>{t('formSizePlaceholder')}</option>
           <option value="small">{t('sizeSmall')}</option>
-          <option value="medium">{t('sizeMedium')}</option>
+          {quota?.planTier !== 'basic' && (
+            <option value="medium">{t('sizeMedium')}</option>
+          )}
           <option value="large">{t('sizeLarge')}</option>
         </select>
+        {quota?.planTier === 'basic' && (
+          <p className="text-[#6B7280] text-[11px] font-mono mt-1.5">
+            {t('mediumPremiumOnly')}
+          </p>
+        )}
 
         {/* Quota counter + overage warning */}
         {quota && (

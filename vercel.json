@@ -15,6 +15,10 @@
     {
       "path": "/api/cron/analytics",
       "schedule": "0 18 1 * *"
+    },
+    {
+      "path": "/api/cron/copy-refresh-reset",
+      "schedule": "0 0 * * *"
     }
   ]
 }
