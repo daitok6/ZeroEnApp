@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { ApplyWizard } from '@/components/apply/wizard';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
@@ -104,15 +103,20 @@ export default async function StartupsPage({ params }: Props) {
 
       <GreenGlowLine />
 
-      {/* Apply wizard */}
+      {/* Get started CTA */}
       <section className="py-24 px-4">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto text-center">
           <ScrollReveal direction="up">
-            <h2 className="text-2xl font-heading font-bold text-[#F4F4F2] mb-12 text-center">
+            <h2 className="text-2xl font-heading font-bold text-[#F4F4F2] mb-6">
               {t('applyHeading')}
             </h2>
+            <Link
+              href={`/${locale}/login`}
+              className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold text-sm px-8 py-3 rounded tracking-widest uppercase hover:bg-[#00E87A]/90 transition-colors"
+            >
+              {locale === 'ja' ? 'はじめる →' : 'Get Started →'}
+            </Link>
           </ScrollReveal>
-          <ApplyWizard locale={locale} />
         </div>
       </section>
     </div>
