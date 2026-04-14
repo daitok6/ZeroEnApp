@@ -1,5 +1,3 @@
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import { TerminalWindow } from '@/components/marketing/terminal-window';
 import { OAuthButtons } from '@/components/auth/oauth-buttons';
 import type { Metadata } from 'next';
@@ -18,13 +16,6 @@ type Props = {
 
 export default async function LoginPage({ params }: Props) {
   const { locale } = await params;
-
-  // Redirect already-authenticated users
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (user) {
-    redirect(`/${locale}/dashboard`);
-  }
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] flex items-center justify-center px-4 py-16">
