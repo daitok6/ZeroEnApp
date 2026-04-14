@@ -13,20 +13,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (locale === 'ja') {
     return buildMetadata({
-      title: 'クライアントダッシュボード — ZeroEn',
+      title: '開始日からすぐ使える — ZeroEn',
       description: '契約後に使えるクライアントポータル。アナリティクス・変更依頼・請求書・メッセージをひとつの場所で管理。',
-      path: '/dashboard-preview',
+      path: '/live-from-day-one',
       locale,
-      ogTitle: 'クライアントダッシュボード',
+      ogTitle: '開始日からすぐ使える',
       ogSubtitle: '運用もぜんぶ、見える。',
     });
   }
   return buildMetadata({
-    title: 'Client Dashboard — ZeroEn',
+    title: 'Live from Day One — ZeroEn Client Portal',
     description: 'Your operations HQ. Analytics, change requests, invoices, and messages — all in one place.',
-    path: '/dashboard-preview',
+    path: '/live-from-day-one',
     locale,
-    ogTitle: 'Client Dashboard',
+    ogTitle: 'Live from Day One',
     ogSubtitle: 'Everything visible, always.',
   });
 }
@@ -38,7 +38,7 @@ const VIEW_SCREENSHOTS: Record<number, string> = {
   3: '/showcase/dashboard-messages.png',
 };
 
-export default async function DashboardPreviewPage({ params }: Props) {
+export default async function LiveFromDayOnePage({ params }: Props) {
   await params;
   const t = await getTranslations('dashboardPreview');
   const views = [0, 1, 2, 3].map((i) => ({
@@ -121,7 +121,7 @@ export default async function DashboardPreviewPage({ params }: Props) {
         <GreenGlowLine className="mb-24" />
         <ScrollReveal direction="up">
           <h2 className="text-2xl sm:text-3xl font-heading font-bold text-[#F4F4F2] mb-6">
-            {t('heading')}
+            {t('preCtaHeading')}
           </h2>
           <Link
             href={t('ctaHref')}

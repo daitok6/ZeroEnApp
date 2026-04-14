@@ -1,7 +1,7 @@
 {
   "nav": {
     "howItWorks": "仕組み",
-    "dashboard": "ダッシュボード",
+    "dashboard": "Day One",
     "blog": "ブログ",
     "login": "ログイン",
     "apply": "無料で申し込む"
@@ -191,11 +191,11 @@
         }
       ],
       "ctaLabel": "ダッシュボードを見る",
-      "ctaHref": "/ja/dashboard-preview"
+      "ctaHref": "/ja/live-from-day-one"
     }
   },
   "dashboardPreview": {
-    "eyebrow": "クライアントダッシュボード",
+    "eyebrow": "開始日からすぐ使える",
     "heading": "契約後に使えるもの、すべて。",
     "subheading": "アナリティクス・変更依頼・請求・メッセージ — ブランド統一されたポータルに集約。",
     "views": [
@@ -216,6 +216,7 @@
         "caption": "ZeroEnオペレーターとの直接スレッド。迅速で記録に残る非同期コミュニケーション。"
       }
     ],
+    "preCtaHeading": "あなたのサイトは、もう始まっています。",
     "ctaLabel": "無料で申し込む",
     "ctaHref": "/ja/login?intent=apply"
   },

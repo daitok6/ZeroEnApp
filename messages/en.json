@@ -1,7 +1,7 @@
 {
   "nav": {
     "howItWorks": "How It Works",
-    "dashboard": "Dashboard",
+    "dashboard": "Day One",
     "blog": "Blog",
     "login": "Log In",
     "apply": "Apply Free"
@@ -191,11 +191,11 @@
         }
       ],
       "ctaLabel": "Explore the dashboard",
-      "ctaHref": "/en/dashboard-preview"
+      "ctaHref": "/en/live-from-day-one"
     }
   },
   "dashboardPreview": {
-    "eyebrow": "Client Dashboard",
+    "eyebrow": "Live from day one.",
     "heading": "What you get when you sign up.",
     "subheading": "A branded client portal — analytics, requests, billing, and messaging — all in one place.",
     "views": [
@@ -216,6 +216,7 @@
         "caption": "Direct thread with your ZeroEn operator. Fast, async, documented."
       }
     ],
+    "preCtaHeading": "Your site is already waiting.",
     "ctaLabel": "Apply Free",
     "ctaHref": "/en/login?intent=apply"
   },
