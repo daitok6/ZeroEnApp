@@ -49,7 +49,7 @@ export function Footer({ locale }: { locale: string }) {
                 { href: `/${locale}/cases`, label: t('company.cases') },
                 { href: `/${locale}/pricing`, label: t('company.pricing') },
                 { href: `/${locale}/how-it-works`, label: t('product.howItWorks') },
-                { href: `/${locale}/login?intent=apply`, label: t('product.applyFree') },
+                { href: `/${locale}/login`, label: t('product.applyFree') },
               ].map((item) => (
                 <li key={item.href}>
                   <Link

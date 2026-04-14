@@ -28,15 +28,15 @@ export default async function DashboardLayout({ children, params }: Props) {
 
   // Fetch profile + project in parallel — both only need user.id
   const [{ data: profile }, { data: project }] = await Promise.all([
-    supabase.from('profiles').select('status, managed, onboarding_status').eq('id', user.id).single(),
+    supabase.from('profiles').select('status, onboarding_status').eq('id', user.id).single(),
     supabase.from('projects').select('id, client_visible, plan_tier').eq('client_id', user.id).single(),
   ]);
 
-  if (profile?.managed && profile?.onboarding_status !== 'complete') {
+  if (profile?.onboarding_status !== 'complete') {
     redirect(`/${locale}/design-wizard`);
   }
 
-  const navType = profile?.status === 'approved'
+  const navType = profile?.status === 'client'
     ? 'client'
     : profile?.status === 'onboarding'
     ? 'onboarding'

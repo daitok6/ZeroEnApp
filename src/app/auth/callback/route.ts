@@ -31,30 +31,17 @@ export async function GET(request: NextRequest) {
       if (!userError && user) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('role, locale, status, managed, onboarding_status')
+          .select('role, locale, onboarding_status')
           .eq('id', user.id)
           .single();
 
         const locale = profile?.locale ?? 'en';
         const role = profile?.role ?? 'client';
 
-        const intent = cookieStore.get('zeroen_auth_intent')?.value;
-        cookieStore.set('zeroen_auth_intent', '', { maxAge: 0, path: '/' });
-
         let destination: string;
         if (role === 'admin') {
           destination = `/${locale}/admin`;
-        } else if (intent === 'apply' && !profile?.managed) {
-          // New SaaS applicant — mark as managed/pending then send to design wizard
-          await supabase.from('profiles').upsert({
-            id: user.id,
-            managed: true,
-            onboarding_status: 'pending',
-            status: 'applicant',
-          }, { onConflict: 'id' });
-          destination = `/${locale}/design-wizard`;
-        } else if (profile?.managed && profile?.onboarding_status !== 'complete') {
-          // Managed clients who haven't completed the design wizard go there first
+        } else if (profile?.onboarding_status !== 'complete') {
           destination = `/${locale}/design-wizard`;
         } else {
           destination = `/${locale}/dashboard`;

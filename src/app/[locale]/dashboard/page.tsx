@@ -2,8 +2,6 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { ProjectStatusCard } from '@/components/dashboard/project-status-card';
 import { PlanSummaryCard } from '@/components/dashboard/plan-summary-card';
-import { CongratsModal } from '@/components/onboarding/congrats-modal';
-import { ResumeOnboardingBanner } from '@/components/onboarding/resume-banner';
 import { PlanWizard } from '@/components/dashboard/plan-wizard';
 import { SubscriptionPending } from '@/components/dashboard/subscription-pending';
 import Link from 'next/link';
@@ -12,8 +10,6 @@ import {
   FileText,
   Receipt,
   PlusCircle,
-  Send,
-  ClipboardList,
   ShieldCheck,
   Lock,
 } from 'lucide-react';
@@ -55,107 +51,9 @@ export default async function DashboardPage({ params, searchParams }: Props) {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('status, managed, onboarding_progress')
+    .select('status')
     .eq('id', user.id)
     .single();
-
-  // Onboarding users: first visit = congrats modal, return visit = resume banner
-  if (profile?.status === 'onboarding') {
-    if (profile.onboarding_progress) {
-      const progress = profile.onboarding_progress as { current_step: number };
-      return <ResumeOnboardingBanner locale={locale} currentStep={progress.current_step} />;
-    }
-    return <CongratsModal locale={locale} />;
-  }
-
-  // New SaaS applicants who completed the design wizard — show pending review
-  if (profile?.status === 'applicant') {
-    return (
-      <div className="space-y-6 max-w-2xl">
-        <div>
-          <h1 className="text-xl md:text-2xl font-bold font-heading text-zen-off-white">
-            {isJa ? '申請を受け付けました' : 'Application received.'}
-          </h1>
-          <p className="text-zen-subtle text-sm font-mono mt-1">
-            {isJa ? 'ZeroEnへようこそ' : 'Welcome to ZeroEn'}
-          </p>
-        </div>
-        <div className="border border-zen-border rounded-lg bg-zen-surface p-6 space-y-4">
-          <div className="flex items-center justify-center w-12 h-12 rounded-full border border-zen-green/30 bg-zen-green/5">
-            <span className="text-zen-green text-xl" aria-hidden="true">◎</span>
-          </div>
-          <p className="text-zen-off-white font-mono text-sm leading-relaxed">
-            {isJa
-              ? '運営者が3〜5営業日以内にレビューし、メールでお知らせします。審査通過後、フルダッシュボードへのアクセスが付与されます。'
-              : 'The operator will review your application within 3–5 business days and email you. Once approved, you\'ll get access to the full dashboard.'}
-          </p>
-          <Link
-            href={`/${locale}`}
-            className="inline-block text-zen-green font-mono text-sm hover:underline"
-          >
-            {isJa ? 'トップへ戻る →' : 'Back to home →'}
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  // Pending users: show apply CTA only
-  if (profile?.status !== 'approved') {
-    return (
-      <div className="space-y-6 max-w-2xl">
-        <div>
-          <h1 className="text-xl md:text-2xl font-bold font-heading text-zen-off-white">
-            {isJa ? 'ようこそ' : 'Welcome'}
-          </h1>
-          <p className="text-zen-subtle text-sm font-mono mt-1">
-            {isJa ? 'ZeroEnへようこそ' : 'Get started with ZeroEn'}
-          </p>
-        </div>
-        <div className="border border-zen-border rounded-lg bg-zen-surface p-6 space-y-4">
-          <p className="text-zen-off-white font-mono text-sm leading-relaxed">
-            {isJa
-              ? 'アカウントが作成されました。次は応募フォームの提出です。審査後、フルダッシュボードへのアクセスが付与されます。'
-              : "Your account is set up. The next step is to submit your application. Once reviewed and accepted, you'll get access to the full dashboard."}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <Link
-              href={`/${locale}/dashboard/apply`}
-              className="flex items-center gap-3 p-4 border border-zen-green/30 rounded-lg bg-zen-green/5 hover:bg-zen-green/10 hover:border-zen-green/60 transition-all group"
-            >
-              <Send size={16} className="text-zen-green shrink-0" aria-hidden="true" />
-              <div>
-                <p className="text-zen-off-white text-sm font-mono font-bold">
-                  {isJa ? '応募する' : 'Submit Application'}
-                </p>
-                <p className="text-zen-subtle text-xs font-mono mt-0.5">
-                  {isJa ? 'アイデアを共有する' : 'Share your idea'}
-                </p>
-              </div>
-            </Link>
-            <Link
-              href={`/${locale}/dashboard/application-status`}
-              className="flex items-center gap-3 p-4 border border-zen-border rounded-lg bg-zen-dark hover:border-zen-green/30 transition-all group"
-            >
-              <ClipboardList
-                size={16}
-                className="text-zen-subtle group-hover:text-zen-green shrink-0 transition-colors"
-                aria-hidden="true"
-              />
-              <div>
-                <p className="text-zen-off-white text-sm font-mono font-bold">
-                  {isJa ? '応募状況' : 'Application Status'}
-                </p>
-                <p className="text-zen-subtle text-xs font-mono mt-0.5">
-                  {isJa ? '審査状況を確認' : 'Check your status'}
-                </p>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   // Fetch project (may not exist yet)
   const { data: project } = await supabase
@@ -165,7 +63,7 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     .single();
 
   // Managed clients whose site isn't ready yet → show "being prepared" overview
-  if (profile?.managed && !project?.client_visible) {
+  if (!project?.client_visible) {
     return (
       <div className="space-y-6 max-w-2xl">
         <div>

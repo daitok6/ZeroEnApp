@@ -18,6 +18,11 @@ update public.profiles
   set status = 'client'
   where status = 'approved';
 
+-- Backfill: existing clients (previously 'approved') should not be sent to the new design wizard
+update public.profiles
+  set onboarding_status = 'complete'
+  where status = 'client';
+
 -- 4. Swap the CHECK constraint to the new allowed values.
 --    Must happen AFTER backfill so no row violates the new constraint.
 alter table public.profiles drop constraint profiles_status_check;
