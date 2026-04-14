@@ -8,7 +8,7 @@ const STORAGE_KEY = 'attribution_source';
 
 /**
  * Captures first-touch UTM attribution on landing and stores it in localStorage.
- * The stored string is `utm_source` (e.g. "coconala") or "direct" if no UTMs present.
+ * The stored string is `utm_source` (e.g. "x_twitter") or "direct" if no UTMs present.
  * Submitted alongside apply_submit and saas-intake form payloads.
  *
  * Only writes on first landing — does not overwrite an existing stored value.

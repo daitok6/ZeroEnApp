@@ -38,56 +38,18 @@ const monthlyReport: CadenceRule = async (date, db) => {
   }));
 };
 
-// ── Rule 2: Billing verification — Coconala clients (1st of month) ────────────
-const billingVerifyCoconala: CadenceRule = async (date, db) => {
-  if (date.getDate() !== 1) return [];
-
-  const { data: profiles } = await db
-    .from('profiles')
-    .select('id, full_name, email')
-    .eq('source', 'coconala')
-    .eq('role', 'client');
-
-  if (!profiles || profiles.length === 0) return [];
-
-  const clientIds = profiles.map((p: { id: string }) => p.id);
-  const { data: projects } = await db
-    .from('projects')
-    .select('id, client_id')
-    .in('client_id', clientIds)
-    .in('status', ['operating', 'launched']);
-
-  const activeClientIds = new Set((projects ?? []).map((p: { client_id: string }) => p.client_id));
-  const activeProfiles = profiles.filter((p: { id: string }) => activeClientIds.has(p.id));
-
-  return activeProfiles.map((p: { id: string; full_name: string | null; email: string }) => ({
-    title: `Verify Coconala billing — ${p.full_name ?? p.email}`,
-    kind: 'cadence' as const,
-    rule_key: 'billing_verify_coconala',
-    client_id: p.id,
-    due_date: fmt(addDays(date, 4)),
-    urgency: 'normal' as const,
-    category: 'billing' as const,
-    dedupe_key: `cadence:billing_verify_coconala:${fmt(date)}:${p.id}`,
-  }));
-};
-
-// ── Rule 3: Billing verification — Stripe clients (1st of month) ─────────────
+// ── Rule 2: Billing verification — Stripe clients (1st of month) ─────────────
 const billingVerifyStripe: CadenceRule = async (date, db) => {
   if (date.getDate() !== 1) return [];
 
   const { data: projects } = await db
     .from('projects')
-    .select('id, name, client_id, profiles!projects_client_id_fkey(id, full_name, email, source)')
+    .select('id, name, client_id')
     .in('status', ['operating', 'launched'])
     .not('stripe_subscription_id', 'is', null);
 
   return (projects ?? [])
-    .filter((p: { profiles: { source: string } | { source: string }[] | null }) => {
-      const profile = Array.isArray(p.profiles) ? p.profiles[0] : p.profiles;
-      return profile?.source !== 'coconala';
-    })
-    .map((p: { id: string; name: string; client_id: string; profiles: { id: string; full_name: string | null; email: string } | { id: string; full_name: string | null; email: string }[] | null }) => {
+    .map((p: { id: string; name: string; client_id: string }) => {
       return {
         title: `Verify Stripe billing — ${p.name}`,
         kind: 'cadence' as const,
@@ -156,7 +118,6 @@ const dailyMarketingTrigger: CadenceRule = async (date) => {
 
 export const CADENCE_RULES: CadenceRule[] = [
   monthlyReport,
-  billingVerifyCoconala,
   billingVerifyStripe,
   midMonthHealth,
   weeklyContentReview,

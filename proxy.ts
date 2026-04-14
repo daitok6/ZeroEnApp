@@ -57,8 +57,7 @@ export async function proxy(request: NextRequest) {
 
   const isProtected =
     pathWithoutLocale.startsWith('/dashboard') ||
-    pathWithoutLocale.startsWith('/admin') ||
-    pathWithoutLocale.startsWith('/coconala-onboarding');
+    pathWithoutLocale.startsWith('/admin');
   const isAuthPage =
     pathWithoutLocale === '/login' || pathWithoutLocale === '/signup';
 

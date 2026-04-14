@@ -15,10 +15,7 @@
       "line3": "Ex-Hitachi, ex-Rakuten engineer. Live in 3 days.",
       "subtitle": "6-month minimum. Cancel after.",
       "cta": "Apply Free",
-      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3",
-      "scarcityBadge": "First 5 clients · Now accepting",
-      "coconalaCta": "Start with ¥1,000 consult on Coconala →",
-      "coconalaHint": "First 5: start with a ¥1,000 (~$6.50) consult via Coconala."
+      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
     },
     "howItWorks": {
       "title": "How It Works",
@@ -27,7 +24,7 @@
     "valueProp": {
       "eyebrow": "Pricing",
       "title": "Build is free.\n¥5,000/month keeps it running.",
-      "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Coconala freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
+      "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
       "basicTitle": "Basic",
       "basicPrice": "¥5,000/mo",
       "basicItems": [
@@ -238,7 +235,7 @@
     },
     "eyebrow": "Pricing",
     "title": "Free to build.\n¥5,000/month to run.",
-    "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Coconala freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
+    "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
     "basic": {
       "name": "Basic",
       "price": "¥5,000",
@@ -300,10 +297,6 @@
       {
         "q": "Is it a template?",
         "a": "No. Built with Next.js, Tailwind, and shadcn/ui — assembled around your brand tokens from scratch."
-      },
-      {
-        "q": "Coconala ¥1,000 vs direct apply — what's the difference?",
-        "a": "Same service. Coconala is a ¥1,000 consultation entry point. zeroen.dev/apply lets you apply directly via Stripe."
       },
       {
         "q": "Can I upgrade from Basic to Premium later?",

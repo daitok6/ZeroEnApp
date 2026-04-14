@@ -346,12 +346,12 @@ export const helpArticles: HelpArticle[] = [
           'ドメインはお客様の所有物です。ZeroEnはDNS設定を管理して、ドメインをホストされたサイトに向けるだけです。いつでも他のプロバイダーにドメインを移行できます。',
       },
       {
-        headingEn: 'Why am I billed via Stripe and not Coconala?',
-        headingJa: 'なぜCoconolaではなくStripeで請求されるのですか？',
+        headingEn: 'How is billing handled?',
+        headingJa: '請求はどのように行われますか？',
         bodyEn:
-          'Your monthly subscription is managed directly through ZeroEn via Stripe, regardless of how you first found us. Only the one-time ¥500 intake fee is charged through Coconala. All recurring fees (¥5,000 or ¥10,000/month) are billed directly through zeroen.dev.',
+          'Your monthly subscription is billed directly through ZeroEn via Stripe on zeroen.dev. All recurring fees (¥5,000 or ¥10,000/month) are charged to the card on file on the same day each month.',
         bodyJa:
-          '月額サブスクリプションは、ご連絡いただいた経路に関係なく、Stripe経由でZeroEnから直接請求されます。Coconala経由で請求されるのは一度限りの¥500の受付料のみです。すべての継続的な費用（月¥5,000または¥10,000）はzeroen.dev経由で直接請求されます。',
+          '月額サブスクリプションは、zeroen.dev上のStripe経由でZeroEnから直接請求されます。継続的な費用（月¥5,000または¥10,000）は、毎月同じ日にご登録のカードに請求されます。',
       },
       {
         headingEn: 'How quickly do you respond to messages?',

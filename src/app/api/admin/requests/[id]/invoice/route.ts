@@ -59,7 +59,6 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   const adminSupabase = getAdminSupabase();
 
-  // Fetch the change request — include client source to guard Coconala clients
   const { data: changeRequest } = await adminSupabase
     .from('change_requests')
     .select('id, project_id, client_id, status')

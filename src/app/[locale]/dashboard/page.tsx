@@ -5,7 +5,6 @@ import { PlanSummaryCard } from '@/components/dashboard/plan-summary-card';
 import { CongratsModal } from '@/components/onboarding/congrats-modal';
 import { ResumeOnboardingBanner } from '@/components/onboarding/resume-banner';
 import { PlanWizard } from '@/components/dashboard/plan-wizard';
-import { ManagedPlanGate } from '@/components/dashboard/managed-plan-gate';
 import { SubscriptionPending } from '@/components/dashboard/subscription-pending';
 import Link from 'next/link';
 import {
@@ -215,23 +214,6 @@ export default async function DashboardPage({ params, searchParams }: Props) {
         <div className="space-y-6 max-w-2xl">
           <SubscriptionPending locale={locale} />
         </div>
-      );
-    }
-
-    // Managed clients get plan gate with scope ack + ownership ack
-    if (profile?.managed) {
-      const { data: intake } = await supabase
-        .from('managed_client_intake')
-        .select('scope_md')
-        .eq('profile_id', user.id)
-        .single();
-      return (
-        <ManagedPlanGate
-          projectId={project.id}
-          locale={locale}
-          siteUrl={project.site_url}
-          scopeMd={intake?.scope_md ?? null}
-        />
       );
     }
 
