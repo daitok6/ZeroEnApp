@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Plus } from 'lucide-react';
 import { step4Schema, type DesignWizardFormData } from '@/lib/validations/design-wizard';
+import { errorMsg } from '@/lib/wizard-errors';
 
 interface Step4Props {
   initialValues: Partial<DesignWizardFormData>;
@@ -60,7 +61,7 @@ export function Step4References({
   };
   const blurUrl = (idx: number, value: string) => {
     if (value && !isValidUrl(value)) {
-      setUrlErrors((e) => ({ ...e, [idx]: locale === 'ja' ? '有効なURLを入力' : 'Invalid URL' }));
+      setUrlErrors((e) => ({ ...e, [idx]: locale === 'ja' ? 'リンクの形式を確認してください。' : "That doesn't look like a valid link." }));
     } else {
       setUrlErrors((e) => {
         const next = { ...e };
@@ -108,7 +109,7 @@ export function Step4References({
     const cleanedUrls = urls.map((u) => u.trim()).filter(Boolean);
     const anyBadUrl = cleanedUrls.some((u) => !isValidUrl(u));
     if (anyBadUrl) {
-      setErrors({ reference_urls: locale === 'ja' ? 'URLが不正です' : 'One or more URLs are invalid' });
+      setErrors({ reference_urls: locale === 'ja' ? 'リンクの形式を確認してください。' : "One or more links don't look right. Please check them." });
       return;
     }
 
@@ -198,7 +199,7 @@ export function Step4References({
             {locale === 'ja' ? 'サイトを追加' : 'Add site'}
           </button>
         )}
-        {errors.reference_urls && <p className={ERROR_CLASS}>{errors.reference_urls}</p>}
+        {errors.reference_urls && <p className={ERROR_CLASS}>{errorMsg(errors.reference_urls, locale)}</p>}
       </div>
 
       {/* Vibe keywords */}
@@ -258,7 +259,7 @@ export function Step4References({
             {termsCopy}
           </span>
         </label>
-        {errors.terms_accepted && <p className={ERROR_CLASS}>{errors.terms_accepted}</p>}
+        {errors.terms_accepted && <p className={ERROR_CLASS}>{errorMsg(errors.terms_accepted, locale)}</p>}
       </div>
 
       <div className="flex justify-between gap-3 pt-2">

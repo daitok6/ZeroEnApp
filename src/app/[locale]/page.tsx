@@ -290,7 +290,7 @@ export default async function HomePage({ params }: Props) {
               {t('applySection.subtitle')}
             </p>
             <Link
-              href={`/${locale}/apply`}
+              href={`/${locale}/login`}
               className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-8 py-4 md:px-12 md:py-5 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)] hover:shadow-[0_0_48px_rgba(0,232,122,0.7)] mb-6"
             >
               {t('applySection.cta')}

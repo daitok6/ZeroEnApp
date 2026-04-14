@@ -82,7 +82,7 @@ export function Hero({ texts, subtitle, ctaText, terminalCommand, locale }: Hero
           transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <Link
-            href={`/${locale}/apply`}
+            href={`/${locale}/login`}
             onClick={() => trackEvent({ action: 'apply_login_click' })}
             className="
               inline-block

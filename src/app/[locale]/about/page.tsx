@@ -172,7 +172,7 @@ export default async function AboutPage({ params }: Props) {
               : 'Zero upfront. From ¥5,000/month. Your LP delivered in 3 days.'}
           </p>
           <Link
-            href={`/${locale}/apply`}
+            href={`/${locale}/login`}
             className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-10 py-4 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)]"
           >
             {ja ? '無料で申し込む' : 'Apply free'}

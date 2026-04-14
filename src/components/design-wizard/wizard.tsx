@@ -68,15 +68,22 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(merged),
       });
-      const payload = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(`${payload.error || 'Something went wrong.'} ${payload.detail || ''} ${payload.code || ''}`.trim());
+        setError(
+          locale === 'ja'
+            ? '保存できませんでした。もう一度お試しください。'
+            : "We couldn't save your answers. Please try again.",
+        );
         setIsSubmitting(false);
         return;
       }
       router.push(`/${locale}/dashboard`);
     } catch {
-      setError('Network error. Please try again.');
+      setError(
+        locale === 'ja'
+          ? '通信エラーです。接続を確認してもう一度お試しください。'
+          : 'Network problem. Check your connection and try again.',
+      );
       setIsSubmitting(false);
     }
   };

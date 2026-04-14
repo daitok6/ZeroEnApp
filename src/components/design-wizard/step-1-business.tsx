@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { step1Schema, type DesignWizardFormData } from '@/lib/validations/design-wizard';
+import { errorMsg } from '@/lib/wizard-errors';
 
 interface Step1Props {
   initialValues: Partial<DesignWizardFormData>;
@@ -71,7 +72,7 @@ export function Step1Business({ initialValues, onNext, locale }: Step1Props) {
           className={INPUT_CLASS}
           required
         />
-        {errors.business_name && <p className={ERROR_CLASS}>{errors.business_name}</p>}
+        {errors.business_name && <p className={ERROR_CLASS}>{errorMsg(errors.business_name, locale)}</p>}
       </div>
 
       <div>
@@ -87,7 +88,7 @@ export function Step1Business({ initialValues, onNext, locale }: Step1Props) {
           className={INPUT_CLASS}
           required
         />
-        {errors.industry && <p className={ERROR_CLASS}>{errors.industry}</p>}
+        {errors.industry && <p className={ERROR_CLASS}>{errorMsg(errors.industry, locale)}</p>}
       </div>
 
       <div>
@@ -149,7 +150,7 @@ export function Step1Business({ initialValues, onNext, locale }: Step1Props) {
             </option>
           ))}
         </select>
-        {errors.timezone && <p className={ERROR_CLASS}>{errors.timezone}</p>}
+        {errors.timezone && <p className={ERROR_CLASS}>{errorMsg(errors.timezone, locale)}</p>}
       </div>
 
       <div className="flex justify-end pt-2">

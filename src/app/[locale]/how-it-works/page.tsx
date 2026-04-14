@@ -150,7 +150,7 @@ export default async function HowItWorksPage({ params }: Props) {
               {t('cta.subtitle')}
             </p>
             <Link
-              href={`/${locale}/apply`}
+              href={`/${locale}/login`}
               className="
                 inline-block
                 bg-[#00E87A] text-[#0D0D0D]

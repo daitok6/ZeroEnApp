@@ -249,7 +249,7 @@ export default async function CaseStudyPage({ params }: Props) {
         {/* Footer CTA */}
         <div className="mt-12 pt-8 border-t border-[#374151]">
           <Link
-            href={`/${locale}/apply`}
+            href={`/${locale}/login`}
             className="block text-center bg-[#00E87A] text-[#0D0D0D] text-xs font-bold px-6 py-3 rounded tracking-widest uppercase hover:bg-[#00E87A]/90 transition-colors"
           >
             {ctaLabel}

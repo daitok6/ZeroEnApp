@@ -86,7 +86,8 @@ export async function POST(request: NextRequest) {
   );
 
   if (brandError) {
-    return NextResponse.json({ error: 'Failed to save brand data', detail: brandError.message, code: brandError.code }, { status: 500 });
+    console.error('[design-wizard/complete] brand upsert failed:', brandError.message, brandError.code);
+    return NextResponse.json({ error: 'save_failed' }, { status: 500 });
   }
 
   // Update profile: mark complete, clear draft progress
@@ -100,7 +101,8 @@ export async function POST(request: NextRequest) {
     .eq('id', user.id);
 
   if (profileError) {
-    return NextResponse.json({ error: 'Failed to update profile status' }, { status: 500 });
+    console.error('[design-wizard/complete] profile update failed:', profileError.message);
+    return NextResponse.json({ error: 'profile_update_failed' }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true });

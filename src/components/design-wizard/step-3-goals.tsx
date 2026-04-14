@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Plus } from 'lucide-react';
 import { step3Schema, type DesignWizardFormData } from '@/lib/validations/design-wizard';
+import { errorMsg } from '@/lib/wizard-errors';
 
 interface Step3Props {
   initialValues: Partial<DesignWizardFormData>;
@@ -77,7 +78,7 @@ export function Step3Goals({ initialValues, onNext, onBack, locale }: Step3Props
           required
           minLength={10}
         />
-        {errors.target_audience && <p className={ERROR_CLASS}>{errors.target_audience}</p>}
+        {errors.target_audience && <p className={ERROR_CLASS}>{errorMsg(errors.target_audience, locale)}</p>}
       </div>
 
       <div>
@@ -95,7 +96,7 @@ export function Step3Goals({ initialValues, onNext, onBack, locale }: Step3Props
           className={INPUT_CLASS}
           required
         />
-        {errors.primary_cta && <p className={ERROR_CLASS}>{errors.primary_cta}</p>}
+        {errors.primary_cta && <p className={ERROR_CLASS}>{errorMsg(errors.primary_cta, locale)}</p>}
       </div>
 
       <div>
@@ -135,7 +136,7 @@ export function Step3Goals({ initialValues, onNext, onBack, locale }: Step3Props
             {locale === 'ja' ? '追加' : 'Add another'}
           </button>
         )}
-        {errors.key_offerings && <p className={ERROR_CLASS}>{errors.key_offerings}</p>}
+        {errors.key_offerings && <p className={ERROR_CLASS}>{errorMsg(errors.key_offerings, locale)}</p>}
       </div>
 
       <div className="flex justify-between gap-3 pt-2">

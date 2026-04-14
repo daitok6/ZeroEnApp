@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { step2Schema, type DesignWizardFormData } from '@/lib/validations/design-wizard';
+import { errorMsg } from '@/lib/wizard-errors';
 
 interface Step2Props {
   initialValues: Partial<DesignWizardFormData>;
@@ -66,7 +67,7 @@ export function Step2Brand({ initialValues, onNext, onBack, userId, locale }: St
       const { data: pub } = supabase.storage.from('brand-assets').getPublicUrl(path);
       setState((s) => ({ ...s, logo_url: pub.publicUrl }));
     } catch (err) {
-      setUploadError(err instanceof Error ? err.message : 'Upload failed');
+      setUploadError(locale === 'ja' ? 'アップロードに失敗しました。もう一度お試しください。' : 'Upload failed. Please try again.');
     } finally {
       setUploading(false);
     }
@@ -142,7 +143,7 @@ export function Step2Brand({ initialValues, onNext, onBack, userId, locale }: St
           />
           <span className="text-[#F4F4F2] text-sm font-mono uppercase">{state.primary_color}</span>
         </div>
-        {errors.primary_color && <p className={ERROR_CLASS}>{errors.primary_color}</p>}
+        {errors.primary_color && <p className={ERROR_CLASS}>{errorMsg(errors.primary_color, locale)}</p>}
       </div>
 
       {/* Secondary color */}
@@ -160,7 +161,7 @@ export function Step2Brand({ initialValues, onNext, onBack, userId, locale }: St
           />
           <span className="text-[#F4F4F2] text-sm font-mono uppercase">{state.secondary_color}</span>
         </div>
-        {errors.secondary_color && <p className={ERROR_CLASS}>{errors.secondary_color}</p>}
+        {errors.secondary_color && <p className={ERROR_CLASS}>{errorMsg(errors.secondary_color, locale)}</p>}
       </div>
 
       {/* Font */}

@@ -168,7 +168,7 @@ export default async function PricingPage({ params }: Props) {
                   ))}
                 </ul>
                 <Link
-                  href={`/${locale}/apply`}
+                  href={`/${locale}/login`}
                   className="block text-center border border-[#00E87A] text-[#00E87A] font-heading font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00E87A]/10 transition-all duration-200"
                 >
                   {t('basic.cta')}
@@ -201,7 +201,7 @@ export default async function PricingPage({ params }: Props) {
                   ))}
                 </ul>
                 <Link
-                  href={`/${locale}/apply`}
+                  href={`/${locale}/login`}
                   className="block text-center bg-[#00E87A] text-[#0D0D0D] font-heading font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00ff88] transition-all duration-200 shadow-[0_0_16px_rgba(0,232,122,0.4)]"
                 >
                   {t('premium.cta')}
@@ -279,7 +279,7 @@ export default async function PricingPage({ params }: Props) {
       {/* CTA */}
       <section className="pb-32 px-4 text-center">
         <Link
-          href={`/${locale}/apply`}
+          href={`/${locale}/login`}
           className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-10 py-4 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)]"
         >
           {t('basic.cta')}
