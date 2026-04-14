@@ -10,7 +10,10 @@ drop function if exists public.complete_onboarding(uuid, text, text, jsonb);
 -- 2. Drop the applications table (cascade clears any FKs pointing to it)
 drop table if exists public.applications cascade;
 
--- 3. Backfill: map old status values to the new simplified set.
+-- 3. Drop the old CHECK constraint first so backfill and existing 'client' rows don't violate it
+alter table public.profiles drop constraint if exists profiles_status_check;
+
+-- 4. Backfill: map old status values to the new simplified set.
 --    'approved' → 'client'  (fully onboarded, paying client)
 --    'onboarding' stays as 'onboarding' — client is mid-wizard
 --    'pending' stays as 'pending' — new signup, not yet in wizard
@@ -18,14 +21,12 @@ update public.profiles
   set status = 'client'
   where status = 'approved';
 
--- Backfill: existing clients (previously 'approved') should not be sent to the new design wizard
+-- Backfill: existing clients should not be sent to the new design wizard
 update public.profiles
   set onboarding_status = 'complete'
   where status = 'client';
 
--- 4. Swap the CHECK constraint to the new allowed values.
---    Must happen AFTER backfill so no row violates the new constraint.
-alter table public.profiles drop constraint profiles_status_check;
+-- 5. Re-add the constraint with the new allowed values.
 alter table public.profiles add constraint profiles_status_check
   check (status in ('pending', 'onboarding', 'client'));
 
