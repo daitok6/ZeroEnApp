@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .container {
+    width: 1100px;
+    padding: 44px 64px;
+  }
+
+  .tag {
+    font-size: 11px;
+    color: #00E87A;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 40px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .item {
+    background: #111;
+    border: 1px solid #1E1E1E;
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .item.highlight {
+    border-color: rgba(0, 232, 122, 0.3);
+    background: rgba(0, 232, 122, 0.04);
+  }
+
+  .icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .content {
+    flex: 1;
+  }
+
+  .item-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #F4F4F2;
+    margin-bottom: 4px;
+  }
+
+  .item-desc {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.6;
+  }
+
+  .check {
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 232, 122, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .check::after {
+    content: '✓';
+    color: #00E87A;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .bottom-bar {
+    margin-top: 24px;
+    background: rgba(0, 232, 122, 0.06);
+    border: 1px solid rgba(0, 232, 122, 0.2);
+    border-radius: 8px;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .bottom-text {
+    font-size: 13px;
+    color: #AAA;
+  }
+
+  .bottom-text strong {
+    color: #00E87A;
+  }
+
+  .timeline-badge {
+    background: #00E87A;
+    color: #0D0D0D;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-family: 'Syne', sans-serif;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="tag">Deliverables / 納品物</div>
+  <div class="title">¥5,000/月に含まれるすべて</div>
+
+  <div class="grid">
+    <div class="item highlight">
+      <div class="icon">📄</div>
+      <div class="content">
+        <div class="item-title">LP 1枚（最大3セクション）</div>
+        <div class="item-desc">トップ・特徴・CTA など。スコープに応じてカスタム設計。レスポンシブ対応。</div>
+      </div>
+      <div class="check"></div>
+    </div>
+
+    <div class="item highlight">
+      <div class="icon">📱</div>
+      <div class="content">
+        <div class="item-title">モバイル最適化</div>
+        <div class="item-desc">スマートフォン・タブレット完全対応。Googleのコアウェブバイタル基準をクリア。</div>
+      </div>
+      <div class="check"></div>
+    </div>
+
+    <div class="item">
+      <div class="icon">📬</div>
+      <div class="content">
+        <div class="item-title">問い合わせフォーム連携</div>
+        <div class="item-desc">Formspree / Google Forms などの外部サービスと連携。メール通知設定まで。</div>
+      </div>
+      <div class="check"></div>
+    </div>
+
+    <div class="item">
+      <div class="icon">🌐</div>
+      <div class="content">
+        <div class="item-title">独自ドメイン接続</div>
+        <div class="item-desc">お客様所有のドメインをVercelに接続。DNS設定・SSL証明書も含む。</div>
+      </div>
+      <div class="check"></div>
+    </div>
+
+    <div class="item">
+      <div class="icon">🔒</div>
+      <div class="content">
+        <div class="item-title">Vercelホスティング・セキュリティ更新</div>
+        <div class="item-desc">月額に含まれる。サーバー管理は不要。セキュリティアップデートも対応。</div>
+      </div>
+      <div class="check"></div>
+    </div>
+
+    <div class="item">
+      <div class="icon">✏️</div>
+      <div class="content">
+        <div class="item-title">月1回の軽微な更新</div>
+        <div class="item-desc">テキスト・画像の差し替えなど小さな変更を月1回含む。追加変更は別料金。</div>
+      </div>
+      <div class="check"></div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="bottom-text">ヒアリング → 初稿まで<strong>最短1営業日</strong>・<strong>3営業日以内</strong>が目安。修正1回無料。</div>
+    <div class="timeline-badge">先着5名 無料制作中</div>
+  </div>
+</div>
+</body>
+</html>

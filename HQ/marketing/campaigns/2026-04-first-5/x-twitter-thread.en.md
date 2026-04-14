@@ -14,7 +14,7 @@ Ex-Hitachi, ex-Rakuten engineer here.
 
 I just launched ZeroEn — I'll build your landing page for free.
 
-The first 5 people pay ¥500 (≈ $3). That's for a beer, not the build.
+The first 5 people pay ¥1,000 (≈ $6.50). That's for a beer, not the build.
 
 Here's why I'm doing this 🧵
 ```
@@ -32,7 +32,7 @@ That covers my time. Initial build is on me.
 ```
 Why the ¥500?
 
-Japan's freelance platform (Coconala) has a ¥500 floor. I'm using it as a consultation fee — "buy me a beer" — while I collect the first 5 reviews.
+Japan's freelance platform (Coconala) doesn't allow homepage listings under ¥20,000. I'm using the IT consultation category at ¥1,000 — "buy me a beer" — while I collect the first 5 reviews.
 
 After that the intake goes away and new clients apply directly at zeroen.dev.
 ```
@@ -83,8 +83,8 @@ If the economics don't make sense to you on first read, this isn't the right ser
 ```
 Apply / DM:
 
-Coconala (JP): [URL]
-Background (Note, JP): [URL]
+Coconala (JP): https://coconala.com/services/4169857
+Background (Note, JP): https://note.com/zeroen_dev/n/n2d8f1bb2247a
 Portfolio: https://zeroen.dev
 
 DMs open. I'll reply in EN or JP.

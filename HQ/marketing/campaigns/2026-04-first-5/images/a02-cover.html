@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wrap { width: 1100px; display: flex; gap: 80px; align-items: center; }
+  .left { flex: 1; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; color: #00E87A;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 52px; line-height: 1.1; color: #F4F4F2;
+    letter-spacing: -1.5px; margin-bottom: 28px;
+  }
+  .highlight {
+    display: inline-block;
+    background: #00E87A; color: #0D0D0D;
+    padding: 0 8px; border-radius: 2px;
+  }
+  .desc {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 15px; color: #888; line-height: 1.7;
+  }
+  .right { width: 360px; display: flex; flex-direction: column; gap: 20px; }
+  .trap {
+    background: #111; border: 1px solid #2A2A2A;
+    padding: 20px 22px; border-radius: 6px;
+    position: relative; overflow: hidden;
+  }
+  .trap::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%; background: #00E87A;
+  }
+  .trap-num {
+    font-size: 11px; color: #00E87A; letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .trap-title {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 14px; font-weight: 700; color: #F4F4F2; line-height: 1.4;
+  }
+  .footer {
+    position: absolute; bottom: 28px; right: 48px;
+    font-size: 11px; color: #444;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="left">
+    <div class="eyebrow">ペライチ ユーザーへ</div>
+    <div class="title">ペライチで<br>詰まった<br><span class="highlight">3つの罠</span></div>
+    <div class="desc">
+      コーチ・セラピストが<br>
+      週末を溶かす前に<br>
+      知っておくべきこと。
+    </div>
+  </div>
+  <div class="right">
+    <div class="trap">
+      <div class="trap-num">TRAP 01</div>
+      <div class="trap-title">時間の罠<br>3週末 = 約72時間消えていく</div>
+    </div>
+    <div class="trap">
+      <div class="trap-num">TRAP 02</div>
+      <div class="trap-title">デザインの罠<br>全員が同じテンプレートに見える</div>
+    </div>
+    <div class="trap">
+      <div class="trap-num">TRAP 03</div>
+      <div class="trap-title">スマホの罠<br>PCはOKでもスマホで崩れる</div>
+    </div>
+  </div>
+</div>
+<div class="footer">zeroen.dev</div>
+</body>
+</html>

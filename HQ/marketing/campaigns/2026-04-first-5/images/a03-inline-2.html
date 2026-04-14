@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 800px; height: 450px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wrap { width: 720px; }
+  .title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 17px; color: #F4F4F2; margin-bottom: 6px;
+  }
+  .subtitle {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 12px; color: #555; margin-bottom: 22px;
+  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .section-label {
+    font-size: 10px; letter-spacing: 0.15em; color: #555;
+    text-transform: uppercase; margin-bottom: 10px;
+    padding-bottom: 6px; border-bottom: 1px solid #1E1E1E;
+  }
+  .section-label.out { color: #E85A0088; border-color: #E85A0022; }
+  .item {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 12px; line-height: 1.5; color: #AAA;
+    margin-bottom: 8px;
+  }
+  .item .dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .dot.green { background: #00E87A; }
+  .dot.orange { background: #E85A00; }
+  .item.out { color: #666; }
+  .price-note {
+    font-size: 11px; color: #444; margin-top: 4px;
+    padding: 6px 10px; background: #111; border-radius: 3px; border: 1px solid #1A1A1A;
+  }
+  .price-note span { color: #888; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="title">スコープの境界線 — 何が含まれて、何が別料金か</div>
+  <div class="subtitle">明確な境界線があるから、追加費用で揉めない</div>
+  <div class="two-col">
+    <div>
+      <div class="section-label">月額内（Basic ¥5,000）</div>
+      <div class="item"><div class="dot green"></div>テキスト変更・文章の差し替え</div>
+      <div class="item"><div class="dot green"></div>画像の入れ替え（既存スロット内）</div>
+      <div class="item"><div class="dot green"></div>問い合わせフォームの設定確認</div>
+      <div class="item"><div class="dot green"></div>Vercelホスティング・ドメインDNS</div>
+      <div class="item"><div class="dot green"></div>セキュリティアップデート対応</div>
+    </div>
+    <div>
+      <div class="section-label out">別料金（変更カタログ）</div>
+      <div class="item out"><div class="dot orange"></div>新規セクション追加 → ¥10,000〜</div>
+      <div class="item out"><div class="dot orange"></div>デザイン全体のリニューアル → ¥25,000〜</div>
+      <div class="item out"><div class="dot orange"></div>EC・会員機能の追加 → 別途見積</div>
+      <div class="item out"><div class="dot orange"></div>コード買い取り → 非対応</div>
+      <div class="price-note">変更サイズ: S=¥4,000 / M=¥10,000 / <span>L=¥25,000+</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

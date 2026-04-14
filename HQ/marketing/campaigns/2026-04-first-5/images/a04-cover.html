@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wrap { width: 1100px; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; color: #00E87A;
+    text-transform: uppercase; margin-bottom: 16px; text-align: center;
+  }
+  .title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 46px; line-height: 1.1; color: #F4F4F2;
+    letter-spacing: -1.5px; margin-bottom: 40px; text-align: center;
+  }
+  .title .vs { color: #444; font-size: 32px; margin: 0 12px; }
+  .title .highlight { color: #00E87A; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .card {
+    background: #111; border: 1px solid #1E1E1E;
+    border-radius: 6px; padding: 22px;
+  }
+  .card.winner { border-color: #00E87A55; background: #0D1A12; }
+  .card-name {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 18px; margin-bottom: 14px;
+  }
+  .card-name .badge {
+    display: inline-block; margin-left: 8px;
+    background: #00E87A; color: #0D0D0D;
+    font-size: 10px; padding: 2px 7px; border-radius: 10px;
+    font-weight: 700; vertical-align: middle;
+  }
+  .stat { margin-bottom: 10px; }
+  .stat-label { font-size: 10px; color: #555; letter-spacing: 0.08em; margin-bottom: 2px; }
+  .stat-val {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 13px; color: #AAA;
+  }
+  .stat-val.green { color: #00E87A; }
+  .stat-val.muted { color: #555; }
+  .footer {
+    position: absolute; bottom: 28px; right: 48px;
+    font-size: 11px; color: #444;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">開発者が正直に比較する</div>
+  <div class="title">
+    ペライチ
+    <span class="vs">vs</span>
+    STUDIO
+    <span class="vs">vs</span>
+    <span class="highlight">ZeroEn</span>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-name" style="color:#888">ペライチ</div>
+      <div class="stat">
+        <div class="stat-label">初期費用</div>
+        <div class="stat-val">¥0（自分で作る）</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">月額</div>
+        <div class="stat-val">¥1,465〜</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">公開まで</div>
+        <div class="stat-val">自分次第（数週間〜）</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">向いている人</div>
+        <div class="stat-val muted">DIYが苦にならない人</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-name" style="color:#AAA">STUDIO</div>
+      <div class="stat">
+        <div class="stat-label">初期費用</div>
+        <div class="stat-val">¥0（自分で作る）</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">月額</div>
+        <div class="stat-val">¥1,190〜¥12,900</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">公開まで</div>
+        <div class="stat-val">デザイン習得が必要</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">向いている人</div>
+        <div class="stat-val muted">デザイナー・時間ある人</div>
+      </div>
+    </div>
+    <div class="card winner">
+      <div class="card-name" style="color:#00E87A">ZeroEn <span class="badge">おまかせ</span></div>
+      <div class="stat">
+        <div class="stat-label">初期費用</div>
+        <div class="stat-val green">¥0（制作込み）</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">月額</div>
+        <div class="stat-val green">¥5,000〜（全部込み）</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">公開まで</div>
+        <div class="stat-val green">最短3営業日</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">向いている人</div>
+        <div class="stat-val green">コンテンツに集中したい人</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">zeroen.dev</div>
+</body>
+</html>

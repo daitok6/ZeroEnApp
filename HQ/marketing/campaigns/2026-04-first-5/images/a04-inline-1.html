@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 800px; height: 450px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wrap { width: 740px; }
+  .title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 16px; color: #F4F4F2; margin-bottom: 18px;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    padding: 8px 14px;
+    font-size: 11px; letter-spacing: 0.08em; color: #555;
+    font-family: 'IBM Plex Mono', monospace; font-weight: 400;
+    text-align: left; border-bottom: 1px solid #1E1E1E;
+  }
+  th.p { text-align: center; }
+  th.zeroen-h { color: #00E87A; text-align: center; }
+  td {
+    padding: 11px 14px; border-bottom: 1px solid #111;
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 12px; color: #AAA; vertical-align: middle;
+  }
+  td.center { text-align: center; }
+  td.zeroen-cell { background: #0D1A12; }
+  tr:last-child td { border-bottom: none; }
+  .y { color: #00E87A; }
+  .n { color: #333; }
+  .m { color: #888; font-size: 11px; }
+  .feature { color: #CCC; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="title">機能比較 — 正直マトリクス</div>
+  <table>
+    <tr>
+      <th style="width:38%">機能・特徴</th>
+      <th class="p" style="width:18%">ペライチ</th>
+      <th class="p" style="width:18%">STUDIO</th>
+      <th class="zeroen-h" style="width:18%">ZeroEn</th>
+    </tr>
+    <tr>
+      <td class="feature">制作不要（おまかせ）</td>
+      <td class="center"><span class="n">✗</span></td>
+      <td class="center"><span class="n">✗</span></td>
+      <td class="center zeroen-cell"><span class="y">✓</span></td>
+    </tr>
+    <tr>
+      <td class="feature">カスタムデザイン（非テンプレ）</td>
+      <td class="center"><span class="n">✗</span></td>
+      <td class="center"><span class="m">△</span></td>
+      <td class="center zeroen-cell"><span class="y">✓</span></td>
+    </tr>
+    <tr>
+      <td class="feature">モバイルファースト最適化</td>
+      <td class="center"><span class="m">△</span></td>
+      <td class="center"><span class="y">✓</span></td>
+      <td class="center zeroen-cell"><span class="y">✓</span></td>
+    </tr>
+    <tr>
+      <td class="feature">ホスティング込み</td>
+      <td class="center"><span class="y">✓</span></td>
+      <td class="center"><span class="y">✓</span></td>
+      <td class="center zeroen-cell"><span class="y">✓</span></td>
+    </tr>
+    <tr>
+      <td class="feature">月次更新サポート</td>
+      <td class="center"><span class="n">✗</span></td>
+      <td class="center"><span class="n">✗</span></td>
+      <td class="center zeroen-cell"><span class="y">✓</span></td>
+    </tr>
+    <tr>
+      <td class="feature">月額コスト（実質）</td>
+      <td class="center" style="color:#AAA">¥1,465〜<br><span style="font-size:10px;color:#555">+ 自分の時間</span></td>
+      <td class="center" style="color:#AAA">¥1,190〜<br><span style="font-size:10px;color:#555">+ 学習コスト</span></td>
+      <td class="center zeroen-cell" style="color:#00E87A">¥5,000<br><span style="font-size:10px;color:#555">全込み</span></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

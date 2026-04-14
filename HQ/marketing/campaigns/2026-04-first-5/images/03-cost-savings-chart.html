@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .container {
+    width: 1100px;
+    padding: 44px 64px;
+  }
+
+  .title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #F4F4F2;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 36px;
+    letter-spacing: 0.5px;
+  }
+
+  .chart-wrap {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+  }
+
+  .chart {
+    flex: 1;
+    position: relative;
+  }
+
+  /* Y-axis labels */
+  .y-axis {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 56px;
+  }
+
+  .y-label {
+    font-size: 10px;
+    color: #444;
+    text-align: right;
+    padding-right: 8px;
+  }
+
+  .chart-inner {
+    margin-left: 64px;
+    position: relative;
+    height: 280px;
+  }
+
+  /* Grid lines */
+  .grid-lines {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+  }
+
+  .grid-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: #1A1A1A;
+  }
+
+  /* SVG line chart */
+  svg {
+    width: 100%;
+    height: 280px;
+    overflow: visible;
+  }
+
+  /* X-axis labels */
+  .x-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 64px;
+    margin-top: 8px;
+  }
+
+  .x-label {
+    font-size: 10px;
+    color: #555;
+    text-align: center;
+    flex: 1;
+  }
+
+  .legend {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 20px;
+    margin-left: 64px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #AAA;
+  }
+
+  .legend-dot {
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  .legend-dot.industry { background: #555; }
+  .legend-dot.zeroen { background: #00E87A; }
+
+  .side-stats {
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 8px;
+  }
+
+  .stat-card {
+    background: #111;
+    border: 1px solid #1E1E1E;
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #00E87A;
+  }
+
+  .stat-note {
+    font-size: 10px;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  .footer {
+    margin-top: 20px;
+    font-size: 11px;
+    color: #444;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="title">12ヶ月間のトータルコスト比較</div>
+  <div class="subtitle">Web制作会社（初期30万円 + 月額1.5万円）vs ZeroEn（初期¥0 + 月額¥5,000）</div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot industry"></div>Web制作会社（標準）</div>
+    <div class="legend-item"><div class="legend-dot zeroen"></div>ZeroEn</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart">
+      <!-- Y axis labels -->
+      <div class="y-axis">
+        <div class="y-label">50万</div>
+        <div class="y-label">40万</div>
+        <div class="y-label">30万</div>
+        <div class="y-label">20万</div>
+        <div class="y-label">10万</div>
+        <div class="y-label">0</div>
+      </div>
+
+      <div class="chart-inner">
+        <!-- Grid lines -->
+        <div class="grid-lines">
+          <div class="grid-line" style="top:0%"></div>
+          <div class="grid-line" style="top:20%"></div>
+          <div class="grid-line" style="top:40%"></div>
+          <div class="grid-line" style="top:60%"></div>
+          <div class="grid-line" style="top:80%"></div>
+          <div class="grid-line" style="top:99%"></div>
+        </div>
+
+        <!-- SVG Chart: scale 0-500000 yen over 12 months -->
+        <!-- Industry: starts at 300000 (init), +15000/month -->
+        <!-- ZeroEn: starts at 0, +5000/month -->
+        <!-- Y = 280 - (value/500000 * 280) -->
+        <!-- X = month * (width/12), using 660px width -->
+        <svg viewBox="0 0 660 280" preserveAspectRatio="none">
+          <!-- Grid lines -->
+          <line x1="0" y1="56" x2="660" y2="56" stroke="#1E1E1E" stroke-width="1"/>
+          <line x1="0" y1="112" x2="660" y2="112" stroke="#1E1E1E" stroke-width="1"/>
+          <line x1="0" y1="168" x2="660" y2="168" stroke="#1E1E1E" stroke-width="1"/>
+          <line x1="0" y1="224" x2="660" y2="224" stroke="#1E1E1E" stroke-width="1"/>
+          <line x1="0" y1="280" x2="660" y2="280" stroke="#1E1E1E" stroke-width="1"/>
+
+          <!-- Industry line: starts at 300k, +15k/month -->
+          <!-- y = 280 - (value/500000 * 280) -->
+          <!-- 300k→112, 315k→103.6, 330k→95.2, 345k→86.8, 360k→78.4, 375k→70, 390k→61.6, 405k→53.2, 420k→44.8, 435k→36.4, 450k→28, 465k→19.6, 480k→11.2 -->
+          <polyline
+            points="0,112 55,103.6 110,95.2 165,86.8 220,78.4 275,70 330,61.6 385,53.2 440,44.8 495,36.4 550,28 605,19.6 660,11.2"
+            fill="none" stroke="#555" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+          <!-- ZeroEn line: starts at 0, +5k/month -->
+          <!-- 0→280, 5k→277.2, 10k→274.4, 15k→271.6, 20k→268.8, 25k→266, 30k→263.2, 35k→260.4, 40k→257.6, 45k→254.8, 50k→252, 55k→249.2, 60k→246.4 -->
+          <polyline
+            points="0,280 55,277.2 110,274.4 165,271.6 220,268.8 275,266 330,263.2 385,260.4 440,257.6 495,254.8 550,252 605,249.2 660,246.4"
+            fill="none" stroke="#00E87A" stroke-width="3"/>
+
+          <!-- Fill under ZeroEn -->
+          <polygon
+            points="0,280 55,277.2 110,274.4 165,271.6 220,268.8 275,266 330,263.2 385,260.4 440,257.6 495,254.8 550,252 605,249.2 660,246.4 660,280"
+            fill="rgba(0,232,122,0.06)"/>
+
+          <!-- Start dots -->
+          <circle cx="0" cy="112" r="5" fill="#555"/>
+          <circle cx="0" cy="280" r="5" fill="#00E87A"/>
+          <circle cx="660" cy="11.2" r="5" fill="#555"/>
+          <circle cx="660" cy="246.4" r="5" fill="#00E87A"/>
+
+          <!-- Annotation at month 12: gap from y=11.2 to y=246.4, midpoint ~128.8 -->
+          <line x1="660" y1="11.2" x2="660" y2="246.4" stroke="#333" stroke-width="1" stroke-dasharray="4,2"/>
+          <text x="620" y="122" fill="#F4F4F2" font-size="13" font-family="IBM Plex Mono" font-weight="600" text-anchor="middle">差額</text>
+          <text x="620" y="139" fill="#00E87A" font-size="13" font-family="IBM Plex Mono" font-weight="700" text-anchor="middle">42万円</text>
+        </svg>
+      </div>
+
+      <div class="x-labels">
+        <div class="x-label">契約時</div>
+        <div class="x-label">2ヶ月</div>
+        <div class="x-label">4ヶ月</div>
+        <div class="x-label">6ヶ月</div>
+        <div class="x-label">8ヶ月</div>
+        <div class="x-label">10ヶ月</div>
+        <div class="x-label">12ヶ月</div>
+      </div>
+    </div>
+
+    <!-- Side stats -->
+    <div class="side-stats">
+      <div class="stat-card">
+        <div class="stat-label">12ヶ月後の<br>ZeroEnトータルコスト</div>
+        <div class="stat-value">¥60,000</div>
+        <div class="stat-note">初期¥0 + ¥5,000×12ヶ月</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">12ヶ月後の<br>業界標準トータルコスト</div>
+        <div class="stat-value" style="color:#888;">¥480,000</div>
+        <div class="stat-note">初期30万 + 1.5万×12ヶ月</div>
+      </div>
+      <div class="stat-card" style="border-color:#00E87A; background: rgba(0,232,122,0.05);">
+        <div class="stat-label">削減できるコスト</div>
+        <div class="stat-value">¥420,000</div>
+        <div class="stat-note">同じ12ヶ月で87.5%オフ</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">zeroen.dev — ※業界標準は初期費用30万円・月額1.5万円で計算</div>
+</div>
+</body>
+</html>

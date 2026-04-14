@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 800px; height: 450px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wrap { width: 700px; }
+  .title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 18px; color: #F4F4F2; margin-bottom: 28px; text-align: center;
+  }
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .week {
+    display: flex; align-items: stretch; gap: 0;
+  }
+  .week-label {
+    width: 100px; display: flex; align-items: center; justify-content: flex-end;
+    padding-right: 20px;
+    font-size: 11px; color: #555; letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .week-dot {
+    width: 40px; display: flex; flex-direction: column; align-items: center;
+    flex-shrink: 0;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; margin-top: 18px; }
+  .dot.red { background: #00E87A; }
+  .line { width: 2px; flex: 1; background: #222; margin-top: 2px; }
+  .week:last-child .line { display: none; }
+  .week-content {
+    flex: 1; padding: 14px 20px;
+    background: #111; border: 1px solid #1E1E1E;
+    border-radius: 4px; margin: 6px 0;
+  }
+  .week-hours {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    font-size: 20px; color: #00E87A; margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+  .week-desc {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 12px; color: #777; line-height: 1.5;
+  }
+  .total {
+    margin-top: 20px; text-align: center;
+    font-size: 13px; color: #555;
+  }
+  .total strong { color: #00E87A; font-family: 'Syne', sans-serif; font-size: 18px; }
+  .vs {
+    margin-top: 8px; text-align: center;
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 13px; color: #00E87A;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="title">「あとちょっとで完成するはず」の3週間</div>
+  <div class="timeline">
+    <div class="week">
+      <div class="week-label">週末1</div>
+      <div class="week-dot"><div class="dot red"></div><div class="line"></div></div>
+      <div class="week-content">
+        <div class="week-hours">〜24h</div>
+        <div class="week-desc">アカウント作成・テンプレ選び・とにかく入力。「思ったより時間かかるな」</div>
+      </div>
+    </div>
+    <div class="week">
+      <div class="week-label">週末2</div>
+      <div class="week-dot"><div class="dot red"></div><div class="line"></div></div>
+      <div class="week-content">
+        <div class="week-hours">〜24h</div>
+        <div class="week-desc">色・フォント・画像で迷い迷い。「なんかダサい。やり直しかも」</div>
+      </div>
+    </div>
+    <div class="week">
+      <div class="week-label">週末3</div>
+      <div class="week-dot"><div class="dot red"></div><div class="line"></div></div>
+      <div class="week-content">
+        <div class="week-hours">〜24h</div>
+        <div class="week-desc">スマホで確認したら崩れていた。修正しても直らない。諦めかけている。</div>
+      </div>
+    </div>
+  </div>
+  <div class="total">合計 <strong>72時間</strong> を費やして、まだ公開できていない</div>
+  <div class="vs">ZeroEn なら ヒアリング後3営業日で公開</div>
+</div>
+</body>
+</html>

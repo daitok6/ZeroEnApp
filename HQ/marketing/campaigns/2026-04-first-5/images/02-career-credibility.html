@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .container {
+    width: 1100px;
+    padding: 52px 64px;
+  }
+
+  .tag {
+    font-size: 11px;
+    color: #00E87A;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #F4F4F2;
+    margin-bottom: 52px;
+    letter-spacing: -0.5px;
+  }
+
+  .timeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  .step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .dot {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+    border: 2px solid #333;
+    background: #1A1A1A;
+    font-weight: 700;
+  }
+
+  .dot.active {
+    border-color: #00E87A;
+    background: rgba(0, 232, 122, 0.08);
+  }
+
+  .company {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .company.active { color: #00E87A; }
+
+  .role {
+    font-size: 11px;
+    color: #888;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 200px;
+  }
+
+  .connector {
+    flex: 0 0 80px;
+    height: 2px;
+    background: linear-gradient(90deg, #333 0%, #00E87A 100%);
+    margin-bottom: 76px;
+    z-index: 1;
+  }
+
+  .connector.dim {
+    background: #2A2A2A;
+  }
+
+  .year {
+    font-size: 10px;
+    color: #555;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+
+  .highlight-box {
+    margin-top: 48px;
+    border: 1px solid #1E1E1E;
+    border-left: 3px solid #00E87A;
+    background: rgba(0, 232, 122, 0.04);
+    padding: 16px 24px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #AAA;
+    line-height: 1.7;
+  }
+
+  .highlight-box strong {
+    color: #F4F4F2;
+  }
+
+  .footer {
+    margin-top: 16px;
+    font-size: 11px;
+    color: #555;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="tag">Profile / 経歴</div>
+  <div class="title">大手企業で培った技術を、個人に届ける</div>
+
+  <div class="timeline">
+    <div class="step">
+      <div class="year">〜2020</div>
+      <div class="dot">🏭</div>
+      <div class="company">日立製作所</div>
+      <div class="role">社内システム・<br>Webアプリ開発</div>
+    </div>
+
+    <div class="connector dim"></div>
+
+    <div class="step">
+      <div class="year">2020〜2024</div>
+      <div class="dot">🛒</div>
+      <div class="company">楽天</div>
+      <div class="role">大規模Webサービス<br>フロントエンド・<br>バックエンド開発</div>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="step">
+      <div class="year">2026〜</div>
+      <div class="dot active">⚡</div>
+      <div class="company active">ZeroEn</div>
+      <div class="role">Next.js / React /<br>TypeScript中心の<br>Web開発（個人）</div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    企業の中でWebを作ってきたからこそわかる、<strong>「個人には20〜50万円の初期費用は現実的でない」</strong>。<br>
+    だから、ZeroEnは初期費用をゼロにしました。
+  </div>
+
+  <div class="footer">zeroen.dev</div>
+</div>
+</body>
+</html>

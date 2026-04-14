@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .container {
+    width: 1100px;
+    padding: 48px;
+  }
+
+  .title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #F4F4F2;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 44px;
+    letter-spacing: 0.5px;
+  }
+
+  .chart-area {
+    display: flex;
+    gap: 80px;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .bars {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .bar-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #F4F4F2;
+  }
+
+  .bar {
+    width: 100px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+  }
+
+  .bar.industry-init {
+    height: 340px;
+    background: linear-gradient(180deg, #444 0%, #333 100%);
+  }
+
+  .bar.industry-monthly {
+    height: 160px;
+    background: linear-gradient(180deg, #555 0%, #444 100%);
+  }
+
+  .bar.zeroen-init {
+    height: 2px;
+    background: #00E87A;
+    position: relative;
+  }
+
+  .bar.zeroen-monthly {
+    height: 28px;
+    background: linear-gradient(180deg, #00E87A 0%, #00c868 100%);
+  }
+
+  .bar-label {
+    font-size: 11px;
+    color: #888;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .col-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #F4F4F2;
+    text-align: center;
+    padding-top: 12px;
+    border-top: 2px solid #333;
+    width: 100%;
+  }
+
+  .col-label.zeroen { color: #00E87A; border-color: #00E87A; }
+
+  .divider {
+    width: 1px;
+    height: 360px;
+    background: #222;
+    align-self: flex-end;
+  }
+
+  .zero-label {
+    font-size: 20px;
+    font-weight: 600;
+    color: #00E87A;
+    margin-bottom: 4px;
+  }
+
+  .axis-label {
+    font-size: 10px;
+    color: #555;
+    position: absolute;
+    right: -48px;
+    white-space: nowrap;
+  }
+
+  .badge {
+    background: #00E87A;
+    color: #0D0D0D;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 8px;
+  }
+
+  .scale {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 340px;
+    padding-bottom: 0;
+    margin-right: 16px;
+    align-self: flex-end;
+  }
+
+  .scale-item {
+    font-size: 10px;
+    color: #444;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .footer {
+    margin-top: 32px;
+    font-size: 11px;
+    color: #555;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="title">初期費用・月額費用の比較</div>
+  <div class="subtitle">Web制作会社の標準モデル vs ZeroEn</div>
+
+  <div style="display:flex; gap:48px; align-items: flex-end; justify-content: center;">
+
+    <!-- Industry Column -->
+    <div style="display:flex; flex-direction:column; align-items:center; gap:0; flex:1;">
+      <div class="bars">
+        <div class="bar-wrap">
+          <div class="bar-value">20〜50万円</div>
+          <div class="bar industry-init"></div>
+          <div class="bar-label">初期費用<br>（制作費）</div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-value">1〜3万円/月</div>
+          <div class="bar industry-monthly"></div>
+          <div class="bar-label">月額費用<br>（保守）</div>
+        </div>
+      </div>
+      <div class="col-label" style="margin-top:16px;">Web制作会社</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ZeroEn Column -->
+    <div style="display:flex; flex-direction:column; align-items:center; gap:0; flex:1;">
+      <div class="bars">
+        <div class="bar-wrap">
+          <div class="zero-label">¥0</div>
+          <div class="bar zeroen-init"></div>
+          <div class="bar-label">初期費用<br>（無料）</div>
+        </div>
+        <div class="bar-wrap" style="margin-left:8px;">
+          <div class="bar-value" style="color:#00E87A;">¥5,000/月</div>
+          <div class="bar zeroen-monthly"></div>
+          <div class="bar-label">月額費用<br>（ホスティング含む）</div>
+        </div>
+      </div>
+      <div class="col-label zeroen" style="margin-top:16px;">ZeroEn</div>
+      <div class="badge">先着5名 無料制作</div>
+    </div>
+
+  </div>
+
+  <div class="footer">zeroen.dev — 初期費用ゼロ、月額¥5,000〜</div>
+</div>
+</body>
+</html>
