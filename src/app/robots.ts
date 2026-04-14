@@ -6,7 +6,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/dashboard/', '/en/dashboard/', '/ja/dashboard/'],
+        disallow: [
+          '/dashboard/',
+          '/en/dashboard/',
+          '/ja/dashboard/',
+          '/en/startups',
+          '/ja/startups',
+          '/startups',
+        ],
       },
     ],
     sitemap: 'https://zeroen.dev/sitemap.xml',

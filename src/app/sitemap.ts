@@ -7,9 +7,13 @@ const LOCALES = ['en', 'ja'] as const;
 const MARKETING_PAGES = [
   '',
   '/how-it-works',
+  '/pricing',
+  '/cases',
   '/apply',
+  '/live-from-day-one',
   '/blog',
   '/terms',
+  '/privacy',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

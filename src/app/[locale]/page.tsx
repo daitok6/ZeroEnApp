@@ -23,23 +23,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (locale === 'ja') {
     return buildMetadata({
-      title: 'ZeroEn — 無料MVP・10%エクイティ。AIテクニカル共同創業者。',
+      title: 'ZeroEn — 前金0円。LP制作・運用・毎月の改善まで月¥5,000。',
       description:
-        'エクイティと引き換えに、スタートアップのMVPを無料で構築。AIを活用したフルスタックのテクニカル共同創業者です。',
+        '元日立・元楽天エンジニアが、コーチ・コンサルタント・セラピストのLP（ランディングページ）を無料で制作。月¥5,000のサブスクリプションでホスティング・運用・毎月の改善まで提供します。',
       path: '',
       locale,
       ogTitle: 'ZeroEn',
-      ogSubtitle: '無料MVP・10%エクイティ。AIテクニカル共同創業者。',
+      ogSubtitle: '前金0円。月¥5,000で、制作・運用・毎月の改善まで。',
     });
   }
   return buildMetadata({
-    title: 'ZeroEn — Free MVP, 10% Equity. Your AI Technical Co-Founder.',
+    title: 'ZeroEn — Free Landing Page. ¥5,000/month Hosting + Updates.',
     description:
-      "We build your startup's MVP for free in exchange for equity. Get a full-stack technical co-founder powered by AI.",
+      'Ex-Hitachi, ex-Rakuten engineer builds your landing page for free. ¥5,000/month covers hosting, monthly updates, and improvements. Live in 3 days.',
     path: '',
     locale,
     ogTitle: 'ZeroEn',
-    ogSubtitle: 'Free MVP. 10% Equity. Your AI Technical Co-Founder.',
+    ogSubtitle: 'Free LP. ¥5,000/month. Live in 3 days.',
   });
 }
 
@@ -60,12 +60,23 @@ const organizationJsonLd = {
 const serviceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'ZeroEn Technical Co-Founder Service',
+  name: 'ZeroEn LP制作・運用サービス',
   provider: { '@type': 'Organization', name: 'ZeroEn', url: 'https://zeroen.dev' },
   description:
-    'We build free MVPs for startups in exchange for equity. AI-powered full-stack technical co-founder service using Next.js and Supabase.',
-  areaServed: 'Worldwide',
-  serviceType: 'Software Development',
+    '元日立・元楽天エンジニアによるLP（ランディングページ）制作・運用サービス。初期費用¥0、月¥5,000から。Next.js・Tailwind CSS・Vercelで3日公開。コーチ・コンサルタント・セラピスト向け。',
+  areaServed: 'JP',
+  serviceType: 'Web Design',
+  offers: {
+    '@type': 'Offer',
+    price: '5000',
+    priceCurrency: 'JPY',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: '5000',
+      priceCurrency: 'JPY',
+      unitCode: 'MON',
+    },
+  },
 };
 
 export default async function HomePage({ params }: Props) {
@@ -134,6 +145,8 @@ export default async function HomePage({ params }: Props) {
         texts={heroTexts}
         subtitle={t('hero.subtitle')}
         ctaText={t('hero.cta')}
+        ctaTagline={t('hero.ctaSecondary')}
+        terminalCommand={t('hero.terminalCommand')}
         locale={locale}
       />
 
@@ -231,7 +244,7 @@ export default async function HomePage({ params }: Props) {
         placeholders={caseStudyPlaceholders}
       />
 
-      {/* ── Section 8: Value Proposition ─────────────────────── */}
+      {/* ── Section 8: Pricing Preview ───────────────────────── */}
       <section className="py-24 px-4 bg-[#080808]">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal direction="up">
@@ -242,42 +255,56 @@ export default async function HomePage({ params }: Props) {
               <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4 whitespace-pre-line">
                 {t('valueProp.title')}
               </h2>
-              <p className="text-[#6B7280] font-mono text-sm">
+              <p className="text-[#6B7280] font-mono text-sm max-w-2xl mx-auto">
                 {t('valueProp.subtitle')}
               </p>
             </div>
           </ScrollReveal>
           <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.12}>
-            {/* What you get */}
+            {/* Basic */}
             <StaggerItem>
-              <div className="relative flex flex-col bg-[#111827] rounded-lg border-2 border-[#00E87A] p-6 md:p-8 shadow-[0_0_32px_rgba(0,232,122,0.15)] hover:shadow-[0_0_48px_rgba(0,232,122,0.25)] transition-all duration-300 h-full">
-                <p className="text-[#00E87A] font-mono text-xs uppercase tracking-widest mb-5">
-                  {t('valueProp.youGetTitle')}
+              <div className="relative flex flex-col bg-[#111827] rounded-lg border border-[#374151] p-6 md:p-8 hover:shadow-[0_0_24px_rgba(0,232,122,0.08)] transition-all duration-300 h-full">
+                <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest mb-2">
+                  {t('valueProp.basicTitle')}
                 </p>
+                <p className="text-[#F4F4F2] font-heading font-bold text-3xl mb-1">
+                  {t('valueProp.basicPrice')}
+                </p>
+                <p className="text-[#6B7280] font-mono text-xs mb-6">{t('valueProp.minNote')}</p>
                 <ul className="space-y-3 flex-1">
-                  {(t.raw('valueProp.youGet') as string[]).map((f) => (
+                  {(t.raw('valueProp.basicItems') as string[]).map((f) => (
                     <li key={f} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
                       <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>{f}
                     </li>
                   ))}
                 </ul>
+                <Link
+                  href={`/${locale}/apply`}
+                  className="mt-8 block text-center border border-[#00E87A] text-[#00E87A] font-heading font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00E87A]/10 transition-all duration-200"
+                >
+                  {t('valueProp.cta')}
+                </Link>
               </div>
             </StaggerItem>
-            {/* What we ask */}
+            {/* Premium */}
             <StaggerItem>
-              <div className="relative flex flex-col bg-[#111827] rounded-lg border border-[#374151] p-6 md:p-8 hover:shadow-[0_0_24px_rgba(0,232,122,0.08)] transition-all duration-300 h-full">
-                <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest mb-5">
-                  {t('valueProp.weAskTitle')}
+              <div className="relative flex flex-col bg-[#111827] rounded-lg border-2 border-[#00E87A] p-6 md:p-8 shadow-[0_0_32px_rgba(0,232,122,0.15)] hover:shadow-[0_0_48px_rgba(0,232,122,0.25)] transition-all duration-300 h-full">
+                <p className="text-[#00E87A] font-mono text-xs uppercase tracking-widest mb-2">
+                  {t('valueProp.premiumTitle')}
                 </p>
+                <p className="text-[#F4F4F2] font-heading font-bold text-3xl mb-1">
+                  {t('valueProp.premiumPrice')}
+                </p>
+                <p className="text-[#6B7280] font-mono text-xs mb-6">{t('valueProp.minNote')}</p>
                 <ul className="space-y-3 flex-1">
-                  {(t.raw('valueProp.weAsk') as string[]).map((f) => (
+                  {(t.raw('valueProp.premiumItems') as string[]).map((f) => (
                     <li key={f} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
-                      <span className="text-[#6B7280] flex-shrink-0 mt-0.5">→</span>{f}
+                      <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>{f}
                     </li>
                   ))}
                 </ul>
                 <Link
-                  href={`/${locale}/login?intent=apply`}
+                  href={`/${locale}/apply`}
                   className="mt-8 block text-center bg-[#00E87A] text-[#0D0D0D] font-heading font-bold text-sm uppercase tracking-widest py-3 px-6 rounded hover:bg-[#00ff88] transition-all duration-200 shadow-[0_0_16px_rgba(0,232,122,0.4)]"
                 >
                   {t('valueProp.cta')}
@@ -300,13 +327,13 @@ export default async function HomePage({ params }: Props) {
               {t('applySection.subtitle')}
             </p>
             <Link
-              href={`/${locale}/login?intent=apply`}
+              href={`/${locale}/apply`}
               className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-8 py-4 md:px-12 md:py-5 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)] hover:shadow-[0_0_48px_rgba(0,232,122,0.7)] mb-6"
             >
               {t('applySection.cta')}
             </Link>
             <p className="text-[#374151] font-mono text-xs">
-              {t('valueProp.noEquityPayment')}
+              {t('valueProp.minNote')}
             </p>
           </ScrollReveal>
         </div>

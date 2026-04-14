@@ -1,6 +1,8 @@
 {
   "nav": {
     "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "cases": "Cases",
     "dashboard": "Day One",
     "blog": "Blog",
     "login": "Log In",
@@ -8,158 +10,165 @@
   },
   "home": {
     "hero": {
-      "line1": "Your idea deserves to exist.",
-      "line2": "We build what you can't yet.",
-      "line3": "From napkin to production.",
-      "subtitle": "Bring your idea to life.",
-      "cta": "Apply Free"
+      "line1": "Free landing page. No upfront cost.",
+      "line2": "¥5,000/month. Hosting, updates, monthly improvements.",
+      "line3": "Ex-Hitachi, ex-Rakuten engineer. Live in 3 days.",
+      "subtitle": "6-month minimum. Cancel after.",
+      "cta": "Apply at zeroen.dev",
+      "ctaSecondary": "¥1,000 consultation on Coconala →",
+      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
     },
     "howItWorks": {
       "title": "How It Works",
       "subtitle": "From idea to launch, we handle the tech."
     },
     "valueProp": {
-      "eyebrow": "The Deal",
-      "title": "We build it. You own it.\n$0 upfront.",
-      "subtitle": "Aligned incentives — we only win when you win.",
-      "youGetTitle": "What you get",
-      "youGet": [
-        "Full-stack MVP (Next.js + Supabase + Vercel)",
-        "Up to 5 core features, agreed at kickoff",
-        "Authentication, database, APIs — all included",
-        "Deployed to production on Vercel",
-        "30 days of post-launch support",
-        "Founder dashboard access"
+      "eyebrow": "Pricing",
+      "title": "Build is free.\n¥5,000/month keeps it running.",
+      "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Coconala freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
+      "basicTitle": "Basic",
+      "basicPrice": "¥5,000/mo",
+      "basicItems": [
+        "Landing page build (¥0 setup)",
+        "Vercel hosting included",
+        "1 small change per month",
+        "Monthly analytics PDF",
+        "6-month minimum"
       ],
-      "weAskTitle": "What we ask",
-      "weAsk": [
-        "10% equity via SAFE note",
-        "Your active participation — feedback, decisions, domain expertise"
+      "premiumTitle": "Premium",
+      "premiumPrice": "¥10,000/mo",
+      "premiumItems": [
+        "Landing page build (¥0 setup)",
+        "Vercel hosting included",
+        "2 small or 1 medium change per month",
+        "Full-year dashboard + monthly PDF",
+        "Quarterly SEO & security audit",
+        "6-month minimum"
       ],
       "cta": "Apply Free",
-      "noEquityPayment": "No equity payment until your app launches."
+      "minNote": "6-month minimum. Cancel anytime after."
     },
     "applySection": {
-      "title": "Ready to build?",
-      "subtitle": "We take equity, not fees. Your idea, our execution.",
-      "cta": "Apply Now — It's Free"
+      "title": "Ready to launch?",
+      "subtitle": "Free landing page. ¥5,000/month. Live in 3 days.",
+      "cta": "Apply Free →"
     },
     "whyZeroEn": {
       "eyebrow": "Why ZeroEn",
-      "title": "Build for free.\nPay us when you win.",
-      "subtitle": "We take 10% equity. You bring the idea. That's the entire deal.",
+      "title": "Live in 3 days.\n¥5,000/month, forever.",
+      "subtitle": "Built by an ex-Hitachi, ex-Rakuten engineer using Next.js + Tailwind. Fitted to your brand — not a template.",
       "pillars": [
         {
-          "title": "Zero upfront cost",
-          "desc": "We build your full-stack MVP — Next.js, Supabase, Vercel — for $0. No retainers, no hourly billing."
+          "title": "No upfront cost",
+          "desc": "Landing page build is completely free. We recover the build cost through your monthly subscription. No retainers, no hourly billing."
         },
         {
-          "title": "Real equity partnership",
-          "desc": "We take 10% via SAFE note. We only win when you win. Aligned incentives from day one."
+          "title": "Live in 3 days",
+          "desc": "If your content (copy + images) is ready, your LP ships in 3 days. WebMori launched in 3 days."
         },
         {
-          "title": "Selective by design",
-          "desc": "We accept fewer than 20% of applications. Apply now while slots are open."
+          "title": "Build-and-run, not build-and-forget",
+          "desc": "Monthly updates, analytics, and change requests are included in the monthly fee. 6-month minimum, cancel anytime after."
         }
       ],
-      "urgency": "Currently reviewing applications. Spots are limited."
+      "urgency": "Now accepting new clients."
     },
     "trustSection": {
-      "eyebrow": "Trust",
-      "title": "Your idea stays yours.",
+      "eyebrow": "How it works",
+      "title": "Ex-Hitachi, ex-Rakuten.\nBuilt for your brand.",
       "points": [
         {
-          "title": "Mutual NDA before you apply",
-          "desc": "We sign a confidentiality agreement with every applicant before you share a single detail."
+          "title": "ZeroEn owns the code",
+          "desc": "Same model as Shopify or Squarespace. Your domain is yours. You license the live site via active subscription."
         },
         {
-          "title": "Aligned incentives",
-          "desc": "We take equity. If we stole ideas instead of building them, we'd make $0."
+          "title": "No surprise invoices",
+          "desc": "Every change request shows the price before you approve. Nothing outside monthly fee without written agreement."
         },
         {
-          "title": "Full data control",
-          "desc": "Request deletion of your data at any time. Rejected applications are wiped within 30 days."
+          "title": "Cancel safely after 6 months",
+          "desc": "After your minimum term, cancel anytime. Site is archived; code stays with ZeroEn."
         }
       ]
     },
     "techStack": {
-      "eyebrow": "What You Get",
-      "title": "Production-grade stack.\nOut of the box.",
-      "subtitle": "The same infrastructure used by YC-backed startups — included in every build.",
-      "terminalTitle": "zeroen — init",
+      "eyebrow": "The Stack",
+      "title": "Not a template.\nBuilt to your brand.",
+      "subtitle": "Next.js + Tailwind CSS + shadcn/ui — assembled around your brand tokens. Not a ペライチ clone.",
+      "terminalTitle": "zeroen — build-lp",
       "lines": [
-        "$ zeroen --init your-startup",
+        "$ zeroen --build-lp --stack=next+tailwind --days=3",
         "> installing next@15 (App Router)...",
-        "> linking supabase (auth + db + storage)...",
-        "> configuring vercel (global deploy)...",
-        "> wiring stripe (payments + billing)...",
-        "✓ MVP ready. Est. 4 weeks."
+        "> configuring tailwindcss + shadcn/ui...",
+        "> applying brand tokens...",
+        "> deploying to vercel (global edge)...",
+        "✓ LP live. 3 days."
       ],
       "tools": [
         {
           "name": "Next.js 15",
           "tag": "Frontend",
-          "desc": "App Router, Server Components, streaming — the fastest React framework in production."
+          "desc": "App Router, Server Components — fast, SEO-ready out of the box."
         },
         {
-          "name": "Supabase",
-          "tag": "Backend",
-          "desc": "Postgres database, Auth, realtime, and file storage. Free tier per client."
+          "name": "Tailwind CSS",
+          "tag": "Styling",
+          "desc": "Your brand colors, fonts, and spacing as design tokens. Consistent across every page."
         },
         {
           "name": "Vercel",
           "tag": "Hosting",
-          "desc": "Global edge deployment, preview URLs, analytics. Zero DevOps."
+          "desc": "Global edge deployment, Core Web Vitals monitoring. Included in monthly fee."
         },
         {
           "name": "Stripe",
-          "tag": "Payments",
-          "desc": "Subscriptions, invoicing, and webhooks. Revenue from day one."
+          "tag": "Billing",
+          "desc": "Monthly subscriptions, invoices, and change request payments — all in your dashboard."
         }
       ]
     },
     "caseStudies": {
-      "eyebrow": "Portfolio",
-      "title": "What we've built.",
-      "subtitle": "Real MVPs. Real founders. Real equity.",
+      "eyebrow": "Case Studies",
+      "title": "Live sites we've built.",
+      "subtitle": "Real clients. Real landing pages. Real results.",
       "comingSoon": "Coming soon",
       "live": "Live",
       "placeholders": [
         {
           "name": "WebMori",
-          "desc": "Problems found before they happen.",
+          "desc": "Security & SEO audit service — problems found before they happen.",
           "meta": [
-            "Monthly audits",
-            "12 clients · Tokyo",
-            "¥19,800/mo"
+            "Live in 3 days",
+            "Monthly audits · Tokyo",
+            "Premium plan"
           ],
           "url": "https://webmori.jp",
           "screenshot": "/webmori-screenshot.png",
-          "label": ""
+          "label": "Read case study →"
         },
         {
           "name": "Client #2",
-          "desc": "MVP in progress — equity deal locked.",
+          "desc": "LP for a coach/therapist — in progress.",
           "meta": [
-            "Free build",
-            "10% equity",
-            "$50/mo hosting"
+            "¥0 upfront",
+            "¥5,000/mo",
+            "Basic plan"
           ],
           "url": "",
           "screenshot": "",
-          "label": "Working on it →"
+          "label": "In progress →"
         },
         {
-          "name": "Client #3",
-          "desc": "Got an idea? We build it free for equity.",
+          "name": "Your LP here",
+          "desc": "Coaches, consultants, therapists — apply below.",
           "meta": [
-            "Free build",
-            "10% equity",
-            "$50/mo hosting"
+            "¥0 upfront",
+            "From ¥5,000/mo",
+            "6-month min"
           ],
           "url": "",
           "screenshot": "",
-          "label": "This could be you."
+          "label": "Apply →"
         }
       ]
     },
@@ -218,7 +227,112 @@
     ],
     "preCtaHeading": "Your site is already waiting.",
     "ctaLabel": "Apply Free",
-    "ctaHref": "/en/login?intent=apply"
+    "ctaHref": "/en/apply"
+  },
+  "pricing": {
+    "meta": {
+      "title": "Pricing — ZeroEn",
+      "description": "Free landing page build. ¥5,000/month hosting, updates, and monthly improvements. Basic and Premium plans."
+    },
+    "eyebrow": "Pricing",
+    "title": "Free to build.\n¥5,000/month to run.",
+    "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Coconala freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
+    "basic": {
+      "name": "Basic",
+      "price": "¥5,000",
+      "period": "/mo",
+      "setup": "¥0 setup",
+      "items": [
+        "Landing page build (¥0 upfront)",
+        "Vercel hosting included",
+        "1 small change per month",
+        "Monthly analytics PDF",
+        "6-month minimum"
+      ],
+      "cta": "Apply — Basic"
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "¥10,000",
+      "period": "/mo",
+      "setup": "¥0 setup",
+      "badge": "Recommended",
+      "items": [
+        "Landing page build (¥0 upfront)",
+        "Vercel hosting included",
+        "2 small or 1 medium change per month",
+        "Full-year dashboard + monthly PDF",
+        "Quarterly SEO & security audit",
+        "6-month minimum"
+      ],
+      "cta": "Apply — Premium"
+    },
+    "minNote": "6-month minimum. Cancel anytime after.",
+    "changeTitle": "Per-request pricing",
+    "changeItems": [
+      { "size": "Small", "price": "¥4,000", "desc": "Text edits, image swaps, minor layout tweaks" },
+      { "size": "Medium", "price": "¥10,000", "desc": "New section, layout change, form update" },
+      { "size": "Large", "price": "¥25,000+", "desc": "New page, new feature, major redesign" }
+    ],
+    "faqTitle": "FAQ",
+    "faqs": [
+      {
+        "q": "Why is the build free?",
+        "a": "ZeroEn covers the build cost and recovers it through monthly subscription fees. We're here to break the industry's upfront-payment model."
+      },
+      {
+        "q": "Who owns the code?",
+        "a": "ZeroEn retains code ownership — same model as Shopify or Squarespace. Your domain is yours. You license the live site via active subscription."
+      },
+      {
+        "q": "Can I cancel?",
+        "a": "After the 6-month minimum, cancel anytime. The site is archived and the code stays with ZeroEn."
+      },
+      {
+        "q": "Really live in 3 days?",
+        "a": "For landing pages, yes. WebMori launched in 3 days. Your content (copy + images) must be ready at kickoff."
+      },
+      {
+        "q": "Is it a template?",
+        "a": "No. Built with Next.js, Tailwind, and shadcn/ui — assembled around your brand tokens from scratch."
+      },
+      {
+        "q": "Coconala ¥1,000 vs direct apply — what's the difference?",
+        "a": "Same service. Coconala is a ¥1,000 consultation entry point. zeroen.dev/apply lets you apply directly via Stripe."
+      }
+    ]
+  },
+  "mockDashboard": {
+    "clientName": "Tanaka Akiko",
+    "clientPlan": "Basic · ¥5,000/mo",
+    "tabs": {
+      "analytics": "Analytics",
+      "requests": "Requests",
+      "invoices": "Invoices",
+      "messages": "Messages"
+    },
+    "analyticsMetrics": {
+      "visitors": "Visitors",
+      "pageViews": "Page Views",
+      "avgSession": "Avg Session",
+      "bounceRate": "Bounce Rate"
+    },
+    "analyticsValues": {
+      "visitors": "1,204",
+      "visitorsChange": "+12%",
+      "pageViews": "3,891",
+      "avgSession": "2m 14s",
+      "bounceRate": "38%"
+    },
+    "topPages": "Top Pages",
+    "requestStatuses": {
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "quoted": "Quoted"
+    },
+    "invoiceStatus": "Paid",
+    "messageFrom": "ZeroEn",
+    "messageTo": "Tanaka-san"
   },
   "apply": {
     "title": "Apply to ZeroEn",
@@ -1089,5 +1203,67 @@
         "body": "For any privacy-related questions or requests: hello@zeroen.dev"
       }
     ]
+  },
+  "startups": {
+    "eyebrow": "FOR STARTUPS",
+    "title": "Free MVP.\n10% Equity.",
+    "subtitle": "We build your product for free. In exchange, we take 10% equity.",
+    "badge": "Invite Only",
+    "what": {
+      "heading": "What ZeroEn builds",
+      "items": [
+        "Full-stack MVP (Next.js + Supabase)",
+        "AI agent automation",
+        "Vercel deployment",
+        "6-month operating support",
+        "Ex-Hitachi / ex-Rakuten engineering advisor"
+      ]
+    },
+    "ask": {
+      "heading": "What ZeroEn asks",
+      "items": [
+        "10% equity via SAFE note at incorporation",
+        "Proven founding team",
+        "Strong commitment to the product"
+      ]
+    },
+    "note": "This route is for startup founders. If you're a coach, consultant, or therapist, check out our LP plan instead.",
+    "lpCta": "See the LP plan →",
+    "applyHeading": "Apply"
+  },
+  "saasApply": {
+    "meta": {
+      "title": "Apply for a Free LP — ZeroEn",
+      "description": "Get a free landing page built for your coaching, consulting, or therapy practice. ¥5,000/month covers hosting, updates, and monthly improvements."
+    },
+    "eyebrow": "APPLY",
+    "title": "Let's build your LP — for free",
+    "subtitle": "Fill in the form. We'll be in touch within 3–5 business days.",
+    "labelName": "Your name",
+    "placeholderName": "Jane Smith",
+    "labelBusinessType": "Your business type",
+    "placeholderBusinessType": "Select one",
+    "businessTypes": {
+      "coach": "Coach",
+      "therapist": "Therapist",
+      "counselor": "Counselor",
+      "consultant": "Consultant",
+      "other": "Other"
+    },
+    "labelCurrentSite": "Current website (optional)",
+    "placeholderCurrentSite": "https://example.com",
+    "labelGoal": "What do you want your LP to achieve?",
+    "placeholderGoal": "e.g. Get new clients, promote a seminar, build brand awareness",
+    "labelTimeline": "Ideal launch timeline (optional)",
+    "placeholderTimeline": "e.g. This month, next month, no rush",
+    "labelEmail": "Email address",
+    "placeholderEmail": "hello@example.com",
+    "submit": "Apply (free)",
+    "submitting": "Sending...",
+    "successTitle": "Application received",
+    "successBody": "We'll email you within 3–5 business days.",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "note": "No upfront cost. Cancel any time.",
+    "required": "Required"
   }
 }

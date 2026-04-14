@@ -9,10 +9,12 @@ interface HeroProps {
   texts: string[];
   subtitle: string;
   ctaText: string;
+  ctaTagline: string;
+  terminalCommand: string;
   locale: string;
 }
 
-export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
+export function Hero({ texts, subtitle, ctaText, ctaTagline, terminalCommand, locale }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -49,7 +51,7 @@ export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
               {/* Prompt line */}
               <div className="flex items-center gap-2">
                 <span className="text-[#00E87A]">$</span>
-                <span className="text-[#00E87A]">zeroen --build-free-mvp</span>
+                <span className="text-[#00E87A]">{terminalCommand}</span>
               </div>
 
               {/* Typing effect line */}
@@ -80,7 +82,7 @@ export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <Link
-            href={`/${locale}/login?intent=apply`}
+            href={`/${locale}/apply`}
             className="
               inline-block
               bg-[#00E87A] text-[#0D0D0D]
@@ -99,7 +101,7 @@ export function Hero({ texts, subtitle, ctaText, locale }: HeroProps) {
             {ctaText}
           </Link>
           <p className="text-[#6B7280] text-xs font-mono">
-            No upfront cost. No hourly billing.
+            {ctaTagline}
           </p>
         </motion.div>
       </div>

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 const BASE_URL = 'https://zeroen.dev';
 const SITE_NAME = 'ZeroEn';
-const DEFAULT_OG_IMAGE = `${BASE_URL}/api/og?title=ZeroEn&subtitle=Free+MVP.+10%25+Equity.`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/api/og?title=ZeroEn&subtitle=%E5%89%8D%E9%87%910%E5%86%86%E3%80%82%E6%9C%88%C2%A55%2C000%E3%81%8B%E3%82%89%E3%80%82&locale=ja`;
 
 export interface PageSEO {
   title: string;

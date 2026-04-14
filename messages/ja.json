@@ -1,6 +1,8 @@
 {
   "nav": {
     "howItWorks": "仕組み",
+    "pricing": "料金",
+    "cases": "実績",
     "dashboard": "Day One",
     "blog": "ブログ",
     "login": "ログイン",
@@ -8,158 +10,165 @@
   },
   "home": {
     "hero": {
-      "line1": "あなたのアイデアに、居場所を。",
-      "line2": "かたちにする最初の一歩、お任せください。",
-      "line3": "思いつきから、本番環境へ。",
-      "subtitle": "アイデアを、形にする。",
-      "cta": "無料で申し込む"
+      "line1": "前金0円。LPは無料で作ります。",
+      "line2": "月¥5,000で、制作・運用・毎月の改善まで。",
+      "line3": "元日立・元楽天エンジニアが、3日で公開します。",
+      "subtitle": "6ヶ月から。いつでも解約可。",
+      "cta": "zeroen.dev/apply で申し込む",
+      "ctaSecondary": "Coconalaで¥1,000相談 →",
+      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
     },
     "howItWorks": {
       "title": "仕組み",
       "subtitle": "アイデアから、ローンチまで。"
     },
     "valueProp": {
-      "eyebrow": "契約内容",
-      "title": "私たちが作る。あなたが所有する。\n初期費用$0。",
-      "subtitle": "利害が一致 — あなたが成功すれば、私たちも成功する。",
-      "youGetTitle": "提供するもの",
-      "youGet": [
-        "フルスタックMVP（Next.js + Supabase + Vercel）",
-        "キックオフで合意した最大5つのコア機能",
-        "認証・データベース・API — すべて含む",
-        "Vercelに本番デプロイ",
-        "ローンチ後30日間サポート",
-        "ファウンダーダッシュボードアクセス"
+      "eyebrow": "料金プラン",
+      "title": "制作は無料。\n月¥5,000で、ずっと動き続ける。",
+      "subtitle": "ペライチは月¥1,465。ただし自分で作ります。Coconalaフリーランスは¥50〜150kで納品のみ。ZeroEnは制作・運用・改善まで月¥5,000。",
+      "basicTitle": "Basic",
+      "basicPrice": "¥5,000/月",
+      "basicItems": [
+        "LP制作（初期費用¥0）",
+        "Vercelホスティング込み",
+        "月1回の小変更",
+        "月次アクセスレポートPDF",
+        "6ヶ月最低契約"
       ],
-      "weAskTitle": "お願いするもの",
-      "weAsk": [
-        "SAFEノートによる株式10%",
-        "積極的な参加 — フィードバック、意思決定、業界知見"
+      "premiumTitle": "Premium",
+      "premiumPrice": "¥10,000/月",
+      "premiumItems": [
+        "LP制作（初期費用¥0）",
+        "Vercelホスティング込み",
+        "月2回の小変更または1回の中変更",
+        "年間ダッシュボード＋PDF",
+        "四半期SEO・セキュリティ監査",
+        "6ヶ月最低契約"
       ],
       "cta": "無料で申し込む",
-      "noEquityPayment": "ローンチ前にエクイティが動くことはありません。"
+      "minNote": "6ヶ月最低契約。以降いつでも解約可。"
     },
     "applySection": {
-      "title": "一緒に作りますか？",
-      "subtitle": "手数料なし。エクイティのみ。あなたのアイデアを、私たちが形にする。",
-      "cta": "今すぐ申し込む — 無料"
+      "title": "今すぐ始めませんか？",
+      "subtitle": "前金0円。月¥5,000から。あなた専用のLPを3日で公開します。",
+      "cta": "無料で申し込む →"
     },
     "whyZeroEn": {
       "eyebrow": "ZeroEnとは",
-      "title": "無料で作る。\n成果が出たら、分かち合う。",
-      "subtitle": "エクイティ10%をいただきます。アイデアはあなたが持つ。それだけです。",
+      "title": "3日で公開。\n月¥5,000で、ずっと運用。",
+      "subtitle": "元日立・元楽天エンジニアが、あなた専用のブランドをNext.js＋Tailwindで組みます。テンプレートの寄せ集めではありません。",
       "pillars": [
         {
-          "title": "初期費用ゼロ",
-          "desc": "Next.js・Supabase・Vercelを使ったフルスタックMVPを$0で構築。前払い・時間単位の請求なし。"
+          "title": "前金0円",
+          "desc": "LP制作は完全無料。月¥5,000のサブスクリプションで制作費を回収するモデルです。前払い・時間単価の請求は一切なし。"
         },
         {
-          "title": "本物のエクイティパートナー",
-          "desc": "SAFEノートで10%のエクイティをいただきます。あなたが成功したときだけ、私たちも成功する。"
+          "title": "3日で本番公開",
+          "desc": "コンテンツ（文章・画像）が揃っていれば、LPなら3日で公開できます。WebMori様も3日で公開しました。"
         },
         {
-          "title": "厳選審査",
-          "desc": "採択率は20%未満。枠があるうちにお申し込みください。"
+          "title": "作って終わりじゃない",
+          "desc": "毎月の改善・アクセス解析・変更依頼対応がすべて月額に含まれます。6ヶ月最低契約、以降いつでも解約可。"
         }
       ],
-      "urgency": "現在、応募を審査中です。枠には限りがあります。"
+      "urgency": "現在、新規クライアントを受付中です。"
     },
     "trustSection": {
-      "eyebrow": "信頼",
-      "title": "あなたのアイデアは、あなたのもの。",
+      "eyebrow": "安心して始める",
+      "title": "元日立・元楽天エンジニアが、\nあなた専用のLPを作ります。",
       "points": [
         {
-          "title": "申し込み前に相互NDA",
-          "desc": "すべての申請者と、詳細を共有する前に秘密保持契約を締結します。"
+          "title": "コードはZeroEnが保有",
+          "desc": "Shopify・SquarespaceとJAPANESE同じSaaS構造。ドメインはあなたのもの。サブスクで公開中のサイトを使えます。"
         },
         {
-          "title": "利害の一致",
-          "desc": "私たちの利益はエクイティから生まれます。盗んでも一銭にもなりません。"
+          "title": "サプライズ請求なし",
+          "desc": "変更依頼は承認前に料金を明示。月額以外の費用は事前合意なしに発生しません。"
         },
         {
-          "title": "データの完全な管理権",
-          "desc": "いつでもデータの削除を依頼できます。不採択の申し込みは30日以内に自動削除されます。"
+          "title": "解約後もデータは安全",
+          "desc": "6ヶ月後はいつでも解約可。解約後はサイトをアーカイブし、コードはZeroEnが保管します。"
         }
       ]
     },
     "techStack": {
-      "eyebrow": "提供内容",
-      "title": "本番環境対応のスタック。\nすぐに使えます。",
-      "subtitle": "YC採択企業と同じインフラ — 全ビルドに含まれています。",
-      "terminalTitle": "zeroen — init",
+      "eyebrow": "使用技術",
+      "title": "テンプレートじゃない。\nあなたのブランドで組みます。",
+      "subtitle": "Next.js・Tailwind CSS・shadcn/ui — ブランドトークンに合わせてゼロから構築。ペライチの寄せ集めとは違います。",
+      "terminalTitle": "zeroen — build-lp",
       "lines": [
-        "$ zeroen --init your-startup",
+        "$ zeroen --build-lp --stack=next+tailwind --days=3",
         "> next@15 をインストール中 (App Router)...",
-        "> supabase を連携中 (認証 + DB + ストレージ)...",
-        "> vercel を設定中 (グローバルデプロイ)...",
-        "> stripe を接続中 (決済 + 請求)...",
-        "✓ MVP 完成。目安: 4週間。"
+        "> tailwindcss + shadcn/ui を設定中...",
+        "> ブランドトークンを適用中...",
+        "> vercel にデプロイ中 (グローバルエッジ)...",
+        "✓ LP 公開完了。3日。"
       ],
       "tools": [
         {
           "name": "Next.js 15",
           "tag": "フロントエンド",
-          "desc": "App Router・サーバーコンポーネント・ストリーミング — 最速のReactフレームワーク。"
+          "desc": "App Router・サーバーコンポーネント — 高速で、SEOに強い。"
         },
         {
-          "name": "Supabase",
-          "tag": "バックエンド",
-          "desc": "Postgresデータベース・認証・リアルタイム・ファイルストレージ。クライアントごとに無料枠。"
+          "name": "Tailwind CSS",
+          "tag": "スタイリング",
+          "desc": "あなたのブランドカラー・フォント・余白をトークンで管理。デザインに一貫性が出ます。"
         },
         {
           "name": "Vercel",
           "tag": "ホスティング",
-          "desc": "グローバルエッジデプロイ・プレビューURL・アナリティクス。DevOps不要。"
+          "desc": "グローバルエッジデプロイ・プレビューURL・Core Web Vitals計測。月額に込み。"
         },
         {
           "name": "Stripe",
           "tag": "決済",
-          "desc": "サブスクリプション・請求書・Webhook。初日から収益化。"
+          "desc": "月額サブスクリプション・請求書・変更依頼の支払い。すべてダッシュボードで完結。"
         }
       ]
     },
     "caseStudies": {
-      "eyebrow": "ポートフォリオ",
-      "title": "構築実績",
-      "subtitle": "本物のMVP。本物のファウンダー。本物のエクイティ。",
+      "eyebrow": "制作実績",
+      "title": "公開済みのLP",
+      "subtitle": "本物のクライアント。本物のLP。本物の結果。",
       "comingSoon": "近日公開",
       "live": "公開中",
       "placeholders": [
         {
           "name": "WebMori",
-          "desc": "問題が起きる前に発見する。",
+          "desc": "問題が起きる前に発見する — セキュリティ・SEO監査サービス。",
           "meta": [
-            "月次監査",
-            "12社 · 東京",
-            "¥19,800/mo"
+            "3日で公開",
+            "月次監査 · 東京",
+            "Premium プラン"
           ],
           "url": "https://webmori.jp",
           "screenshot": "/webmori-screenshot.png",
-          "label": ""
+          "label": "事例を読む →"
         },
         {
           "name": "クライアント #2",
-          "desc": "MVP開発中 — エクイティ契約済み。",
+          "desc": "コーチ・セラピスト向けLP — 制作中。",
           "meta": [
-            "無料開発",
-            "10%エクイティ",
-            "$50/mo ホスティング"
+            "前金0円",
+            "月¥5,000",
+            "Basic プラン"
           ],
           "url": "",
           "screenshot": "",
-          "label": "制作進行中 →"
+          "label": "制作中 →"
         },
         {
-          "name": "クライアント #3",
-          "desc": "アイデアがあれば、エクイティと引き換えに無料で開発します。",
+          "name": "あなたのLPがここに",
+          "desc": "コーチ・コンサルタント・セラピストの方、お気軽にどうぞ。",
           "meta": [
-            "無料開発",
-            "10%エクイティ",
-            "$50/mo ホスティング"
+            "前金0円",
+            "月¥5,000〜",
+            "6ヶ月から"
           ],
           "url": "",
           "screenshot": "",
-          "label": "あなたのプロダクトがここに"
+          "label": "申し込む →"
         }
       ]
     },
@@ -218,7 +227,112 @@
     ],
     "preCtaHeading": "あなたのサイトは、もう始まっています。",
     "ctaLabel": "無料で申し込む",
-    "ctaHref": "/ja/login?intent=apply"
+    "ctaHref": "/ja/apply"
+  },
+  "pricing": {
+    "meta": {
+      "title": "料金プラン — ZeroEn",
+      "description": "前金0円。月¥5,000で制作・運用・毎月の改善まで。Basic・Premiumプランの詳細。"
+    },
+    "eyebrow": "料金プラン",
+    "title": "前金0円。\n月¥5,000から。",
+    "subtitle": "ペライチは月¥1,465。ただし自分で作ります。Coconalaフリーランスは¥50〜150kで納品のみ。ZeroEnは制作・運用・改善まで月¥5,000。",
+    "basic": {
+      "name": "Basic",
+      "price": "¥5,000",
+      "period": "月",
+      "setup": "初期費用¥0",
+      "items": [
+        "LP制作（初期費用¥0）",
+        "Vercelホスティング込み",
+        "月1回の小変更",
+        "月次アクセスレポートPDF",
+        "6ヶ月最低契約"
+      ],
+      "cta": "Basicで申し込む"
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "¥10,000",
+      "period": "月",
+      "setup": "初期費用¥0",
+      "badge": "おすすめ",
+      "items": [
+        "LP制作（初期費用¥0）",
+        "Vercelホスティング込み",
+        "月2回の小変更または1回の中変更",
+        "年間ダッシュボード＋月次PDF",
+        "四半期SEO・セキュリティ監査",
+        "6ヶ月最低契約"
+      ],
+      "cta": "Premiumで申し込む"
+    },
+    "minNote": "6ヶ月最低契約。以降いつでも解約可。",
+    "changeTitle": "スポット変更（都度料金）",
+    "changeItems": [
+      { "size": "S（小）", "price": "¥4,000", "desc": "テキスト修正・画像差し替えなど" },
+      { "size": "M（中）", "price": "¥10,000", "desc": "セクション追加・レイアウト変更など" },
+      { "size": "L（大）", "price": "¥25,000〜", "desc": "新規ページ・機能追加など" }
+    ],
+    "faqTitle": "よくある質問",
+    "faqs": [
+      {
+        "q": "なぜ無料なんですか？",
+        "a": "制作費をZeroEnが負担し、月額で回収します。前金を払わせる業界構造を壊したいからです。"
+      },
+      {
+        "q": "コードは誰のものですか？",
+        "a": "ZeroEnが保有します。あなたは公開中のサイトをサブスクで使います。Shopify・Squarespace・ペライチと同じ構造です。ドメインはあなたのものです。"
+      },
+      {
+        "q": "途中でキャンセルできますか？",
+        "a": "6ヶ月の最低契約期間があります。以降はいつでも解約可能。解約後はサイトをアーカイブし、コードはZeroEnが保管します。"
+      },
+      {
+        "q": "本当に3日で公開できますか？",
+        "a": "LPなら可能。WebMori様も3日で公開しました。ただし、あなたが準備するコンテンツ（文章・画像）が揃っていることが条件です。"
+      },
+      {
+        "q": "テンプレートの寄せ集めになりませんか？",
+        "a": "いいえ。Next.js・Tailwind・shadcn/uiで、あなたのブランドトークンに合わせて組みます。"
+      },
+      {
+        "q": "Coconalaの¥1,000と、直接申し込みの違いは？",
+        "a": "同じサービスです。Coconalaは¥1,000で「話を聞く」入口、zeroen.dev/applyはStripeで直接お申し込みいただけます。"
+      }
+    ]
+  },
+  "mockDashboard": {
+    "clientName": "田中 明子",
+    "clientPlan": "Basic · ¥5,000/月",
+    "tabs": {
+      "analytics": "アナリティクス",
+      "requests": "変更依頼",
+      "invoices": "請求書",
+      "messages": "メッセージ"
+    },
+    "analyticsMetrics": {
+      "visitors": "訪問者",
+      "pageViews": "ページビュー",
+      "avgSession": "平均滞在時間",
+      "bounceRate": "直帰率"
+    },
+    "analyticsValues": {
+      "visitors": "1,204",
+      "visitorsChange": "+12%",
+      "pageViews": "3,891",
+      "avgSession": "2分14秒",
+      "bounceRate": "38%"
+    },
+    "topPages": "人気ページ",
+    "requestStatuses": {
+      "completed": "完了",
+      "inProgress": "対応中",
+      "quoted": "見積済"
+    },
+    "invoiceStatus": "支払済",
+    "messageFrom": "ZeroEn",
+    "messageTo": "田中様"
   },
   "apply": {
     "title": "ZeroEnに申し込む",
@@ -1089,5 +1203,67 @@
         "body": "プライバシーに関するご質問・ご要望：hello@zeroen.dev"
       }
     ]
+  },
+  "startups": {
+    "eyebrow": "FOR STARTUPS",
+    "title": "Free MVP.\n10% Equity.",
+    "subtitle": "あなたのプロダクトを無料で構築します。代わりに、10%のエクイティをいただきます。",
+    "badge": "招待制 · Invite Only",
+    "what": {
+      "heading": "ZeroEnが提供するもの",
+      "items": [
+        "フルスタックMVP（Next.js + Supabase）",
+        "AIエージェントによる自動化",
+        "Vercelへのデプロイ",
+        "6ヶ月間の運用サポート",
+        "元日立・元楽天エンジニアによる技術顧問"
+      ]
+    },
+    "ask": {
+      "heading": "ZeroEnが求めるもの",
+      "items": [
+        "会社設立時にSAFEノートで10%エクイティ",
+        "実績のあるチーム",
+        "プロダクトへの強いコミットメント"
+      ]
+    },
+    "note": "このルートはスタートアップファウンダー向けです。個人事業主・コーチ・コンサルタントの方は、LPプランをご検討ください。",
+    "lpCta": "LPプランを見る →",
+    "applyHeading": "申し込み"
+  },
+  "saasApply": {
+    "meta": {
+      "title": "無料相談を申し込む — ZeroEn",
+      "description": "コーチ・コンサルタント・セラピストのLP制作を無料で承ります。月¥5,000で制作・運用・毎月の改善まで。"
+    },
+    "eyebrow": "APPLY",
+    "title": "無料でLPを作りましょう",
+    "subtitle": "フォームに記入するだけ。3〜5営業日以内にご連絡します。",
+    "labelName": "お名前",
+    "placeholderName": "山田 太郎",
+    "labelBusinessType": "職業・事業内容",
+    "placeholderBusinessType": "選択してください",
+    "businessTypes": {
+      "coach": "コーチ",
+      "therapist": "セラピスト",
+      "counselor": "カウンセラー",
+      "consultant": "コンサルタント",
+      "other": "その他"
+    },
+    "labelCurrentSite": "現在のウェブサイト（任意）",
+    "placeholderCurrentSite": "https://example.com",
+    "labelGoal": "LPで達成したいこと",
+    "placeholderGoal": "例：新規クライアントの獲得、セミナーへの集客、ブランド認知の向上",
+    "labelTimeline": "ご希望の公開時期（任意）",
+    "placeholderTimeline": "例：今月中、来月、急いでいない",
+    "labelEmail": "メールアドレス",
+    "placeholderEmail": "hello@example.com",
+    "submit": "申し込む（無料）",
+    "submitting": "送信中...",
+    "successTitle": "申し込みを受け付けました",
+    "successBody": "3〜5営業日以内にメールでご連絡いたします。",
+    "errorGeneric": "エラーが発生しました。もう一度お試しください。",
+    "note": "前金0円。気に入らなければキャンセル可能。",
+    "required": "必須"
   }
 }
