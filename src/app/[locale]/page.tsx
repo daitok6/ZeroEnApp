@@ -145,7 +145,6 @@ export default async function HomePage({ params }: Props) {
         texts={heroTexts}
         subtitle={t('hero.subtitle')}
         ctaText={t('hero.cta')}
-        ctaTagline={t('hero.ctaSecondary')}
         terminalCommand={t('hero.terminalCommand')}
         locale={locale}
       />

@@ -44,11 +44,18 @@ export async function GET(request: NextRequest) {
         let destination: string;
         if (role === 'admin') {
           destination = `/${locale}/admin`;
+        } else if (intent === 'apply' && !profile?.managed) {
+          // New SaaS applicant — mark as managed/pending then send to design wizard
+          await supabase.from('profiles').upsert({
+            id: user.id,
+            managed: true,
+            onboarding_status: 'pending',
+            status: 'applicant',
+          }, { onConflict: 'id' });
+          destination = `/${locale}/design-wizard`;
         } else if (profile?.managed && profile?.onboarding_status !== 'complete') {
           // Managed clients who haven't completed the design wizard go there first
           destination = `/${locale}/design-wizard`;
-        } else if (intent === 'apply') {
-          destination = `/${locale}/dashboard/apply`;
         } else {
           destination = `/${locale}/dashboard`;
         }

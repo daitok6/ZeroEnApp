@@ -28,8 +28,8 @@ export default async function DesignWizardPage({ params }: Props) {
     .eq('id', user.id)
     .single();
 
-  // Non-managed clients or already-complete clients go to dashboard
-  if (!profile?.managed || profile?.onboarding_status === 'complete') {
+  // Already-complete clients go to dashboard
+  if (profile?.onboarding_status === 'complete') {
     redirect(`/${locale}/dashboard`);
   }
 

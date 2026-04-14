@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { trackEvent } from '@/components/analytics/google-analytics';
 import { WizardHeader } from '@/components/shared/wizard/WizardHeader';
 import { BrandKitStep } from '@/components/shared/wizard/BrandKitStep';
 import { AssetsStep } from '@/components/shared/wizard/AssetsStep';
@@ -73,6 +74,12 @@ export function DesignWizard({ locale, profileId, initialIntake }: Props) {
         const j = await done.json().catch(() => ({}));
         setError(j.error || t(locale, 'Failed to complete', '完了できませんでした'));
         return;
+      }
+      try {
+        const attribution = localStorage.getItem('attribution_source') ?? 'direct';
+        trackEvent({ action: 'apply_submit', params: { referral_source: attribution } });
+      } catch {
+        // localStorage unavailable — skip tracking
       }
       router.push(`/${locale}/dashboard`);
       router.refresh();

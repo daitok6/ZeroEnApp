@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
+import { trackEvent } from '@/components/analytics/google-analytics';
 import { TerminalWindow } from './terminal-window';
 import { TypingEffect } from './typing-effect';
 
@@ -9,12 +10,11 @@ interface HeroProps {
   texts: string[];
   subtitle: string;
   ctaText: string;
-  ctaTagline: string;
   terminalCommand: string;
   locale: string;
 }
 
-export function Hero({ texts, subtitle, ctaText, ctaTagline, terminalCommand, locale }: HeroProps) {
+export function Hero({ texts, subtitle, ctaText, terminalCommand, locale }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -83,6 +83,7 @@ export function Hero({ texts, subtitle, ctaText, ctaTagline, terminalCommand, lo
         >
           <Link
             href={`/${locale}/apply`}
+            onClick={() => trackEvent({ action: 'apply_login_click' })}
             className="
               inline-block
               bg-[#00E87A] text-[#0D0D0D]
@@ -100,9 +101,6 @@ export function Hero({ texts, subtitle, ctaText, ctaTagline, terminalCommand, lo
           >
             {ctaText}
           </Link>
-          <p className="text-[#6B7280] text-xs font-mono">
-            {ctaTagline}
-          </p>
         </motion.div>
       </div>
 

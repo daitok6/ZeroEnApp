@@ -69,6 +69,38 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     return <CongratsModal locale={locale} />;
   }
 
+  // New SaaS applicants who completed the design wizard — show pending review
+  if (profile?.status === 'applicant') {
+    return (
+      <div className="space-y-6 max-w-2xl">
+        <div>
+          <h1 className="text-xl md:text-2xl font-bold font-heading text-zen-off-white">
+            {isJa ? '申請を受け付けました' : 'Application received.'}
+          </h1>
+          <p className="text-zen-subtle text-sm font-mono mt-1">
+            {isJa ? 'ZeroEnへようこそ' : 'Welcome to ZeroEn'}
+          </p>
+        </div>
+        <div className="border border-zen-border rounded-lg bg-zen-surface p-6 space-y-4">
+          <div className="flex items-center justify-center w-12 h-12 rounded-full border border-zen-green/30 bg-zen-green/5">
+            <span className="text-zen-green text-xl" aria-hidden="true">◎</span>
+          </div>
+          <p className="text-zen-off-white font-mono text-sm leading-relaxed">
+            {isJa
+              ? '運営者が3〜5営業日以内にレビューし、メールでお知らせします。審査通過後、フルダッシュボードへのアクセスが付与されます。'
+              : 'The operator will review your application within 3–5 business days and email you. Once approved, you\'ll get access to the full dashboard.'}
+          </p>
+          <Link
+            href={`/${locale}`}
+            className="inline-block text-zen-green font-mono text-sm hover:underline"
+          >
+            {isJa ? 'トップへ戻る →' : 'Back to home →'}
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   // Pending users: show apply CTA only
   if (profile?.status !== 'approved') {
     return (

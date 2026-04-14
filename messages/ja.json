@@ -14,8 +14,7 @@
       "line2": "月¥5,000で、制作・運用・毎月の改善まで。",
       "line3": "元日立・元楽天エンジニアが、3日で公開します。",
       "subtitle": "6ヶ月から。いつでも解約可。",
-      "cta": "zeroen.dev/apply で申し込む",
-      "ctaSecondary": "Coconalaで¥1,000相談 →",
+      "cta": "無料で申し込む",
       "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
     },
     "howItWorks": {
@@ -1231,39 +1230,4 @@
     "lpCta": "LPプランを見る →",
     "applyHeading": "申し込み"
   },
-  "saasApply": {
-    "meta": {
-      "title": "無料相談を申し込む — ZeroEn",
-      "description": "コーチ・コンサルタント・セラピストのLP制作を無料で承ります。月¥5,000で制作・運用・毎月の改善まで。"
-    },
-    "eyebrow": "APPLY",
-    "title": "無料でLPを作りましょう",
-    "subtitle": "フォームに記入するだけ。3〜5営業日以内にご連絡します。",
-    "labelName": "お名前",
-    "placeholderName": "山田 太郎",
-    "labelBusinessType": "職業・事業内容",
-    "placeholderBusinessType": "選択してください",
-    "businessTypes": {
-      "coach": "コーチ",
-      "therapist": "セラピスト",
-      "counselor": "カウンセラー",
-      "consultant": "コンサルタント",
-      "other": "その他"
-    },
-    "labelCurrentSite": "現在のウェブサイト（任意）",
-    "placeholderCurrentSite": "https://example.com",
-    "labelGoal": "LPで達成したいこと",
-    "placeholderGoal": "例：新規クライアントの獲得、セミナーへの集客、ブランド認知の向上",
-    "labelTimeline": "ご希望の公開時期（任意）",
-    "placeholderTimeline": "例：今月中、来月、急いでいない",
-    "labelEmail": "メールアドレス",
-    "placeholderEmail": "hello@example.com",
-    "submit": "申し込む（無料）",
-    "submitting": "送信中...",
-    "successTitle": "申し込みを受け付けました",
-    "successBody": "3〜5営業日以内にメールでご連絡いたします。",
-    "errorGeneric": "エラーが発生しました。もう一度お試しください。",
-    "note": "前金0円。気に入らなければキャンセル可能。",
-    "required": "必須"
-  }
 }

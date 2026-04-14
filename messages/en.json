@@ -14,8 +14,7 @@
       "line2": "¥5,000/month. Hosting, updates, monthly improvements.",
       "line3": "Ex-Hitachi, ex-Rakuten engineer. Live in 3 days.",
       "subtitle": "6-month minimum. Cancel after.",
-      "cta": "Apply at zeroen.dev",
-      "ctaSecondary": "¥1,000 consultation on Coconala →",
+      "cta": "Apply Free",
       "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
     },
     "howItWorks": {
@@ -1231,39 +1230,4 @@
     "lpCta": "See the LP plan →",
     "applyHeading": "Apply"
   },
-  "saasApply": {
-    "meta": {
-      "title": "Apply for a Free LP — ZeroEn",
-      "description": "Get a free landing page built for your coaching, consulting, or therapy practice. ¥5,000/month covers hosting, updates, and monthly improvements."
-    },
-    "eyebrow": "APPLY",
-    "title": "Let's build your LP — for free",
-    "subtitle": "Fill in the form. We'll be in touch within 3–5 business days.",
-    "labelName": "Your name",
-    "placeholderName": "Jane Smith",
-    "labelBusinessType": "Your business type",
-    "placeholderBusinessType": "Select one",
-    "businessTypes": {
-      "coach": "Coach",
-      "therapist": "Therapist",
-      "counselor": "Counselor",
-      "consultant": "Consultant",
-      "other": "Other"
-    },
-    "labelCurrentSite": "Current website (optional)",
-    "placeholderCurrentSite": "https://example.com",
-    "labelGoal": "What do you want your LP to achieve?",
-    "placeholderGoal": "e.g. Get new clients, promote a seminar, build brand awareness",
-    "labelTimeline": "Ideal launch timeline (optional)",
-    "placeholderTimeline": "e.g. This month, next month, no rush",
-    "labelEmail": "Email address",
-    "placeholderEmail": "hello@example.com",
-    "submit": "Apply (free)",
-    "submitting": "Sending...",
-    "successTitle": "Application received",
-    "successBody": "We'll email you within 3–5 business days.",
-    "errorGeneric": "Something went wrong. Please try again.",
-    "note": "No upfront cost. Cancel any time.",
-    "required": "Required"
-  }
 }
