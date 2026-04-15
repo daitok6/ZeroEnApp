@@ -91,14 +91,20 @@ export async function GET(_request: NextRequest, { params }: Params) {
   await Promise.all(tasks);
 
   const zipBytes = await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE' });
-  const blob = new Blob([zipBytes], { type: 'application/zip' });
 
-  return new NextResponse(blob, {
+  // JSZip returns Uint8Array<ArrayBufferLike> but Response requires ArrayBuffer.
+  // Copying into a fresh ArrayBuffer is the only cast-free way to satisfy the type.
+  const arrayBuffer = zipBytes.buffer.slice(
+    zipBytes.byteOffset,
+    zipBytes.byteOffset + zipBytes.byteLength
+  ) as ArrayBuffer;
+
+  return new Response(arrayBuffer, {
     status: 200,
     headers: {
       'Content-Type': 'application/zip',
       'Content-Disposition': `attachment; filename="${slug}-brand.zip"`,
-      'Content-Length': String(blob.size),
+      'Content-Length': String(arrayBuffer.byteLength),
     },
   });
 }
