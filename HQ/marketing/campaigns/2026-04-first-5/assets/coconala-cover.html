@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ZeroEn — Coconala Cover</title>
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@700&family=DM+Sans:wght@700&display=block" rel="stylesheet">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #0D0D0D;
+    width: 1600px;
+    height: 400px;
+    overflow: hidden;
+  }
+  /* Safe area: keep all content inside this box so Coconala's auto-crop doesn't clip it */
+  .safe {
+    position: fixed;
+    /* ~14% horizontal padding on each side; ~12% vertical */
+    top: 48px;
+    bottom: 48px;
+    left: 220px;
+    right: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+  .tagline {
+    font-family: 'Murecho', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    font-weight: 700;
+    color: #F4F4F2;
+    font-size: 88px;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .wordmark {
+    font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    color: #00E87A;
+    font-size: 32px;
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+  <div class="safe">
+    <div class="tagline">アイデアを、形にする。</div>
+    <div class="wordmark">ZeroEn</div>
+  </div>
+</body>
+</html>
