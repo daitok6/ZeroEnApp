@@ -87,10 +87,11 @@ gantt
     X JP Thread (weekly Thu):active, xj, 2026-04-23, 84d
     X JP daily build        :active, xjd, 2026-04-21, 84d
 
-    section Outbound
-    Cold email COACH-01 W3  :em1, 2026-04-30, 1d
-    Cold email 50/wk W4-7   :em2, 2026-05-07, 28d
-    Cold email 100/wk W8-13 :em3, 2026-06-04, 42d
+    section Outbound (PRIMARY channel — Coconala sunset 2026-04-14)
+    Cold email infra setup   :crit, em0, 2026-04-15, 2d
+    Cold email pilot 25/wk   :crit, em1, 2026-04-17, 14d
+    Cold email 60/wk W3-7    :em2, 2026-05-01, 35d
+    Cold email 100/wk W8-13  :em3, 2026-06-04, 42d
 
     section Case studies
     WebMori baseline        :crit, cs0, 2026-04-14, 7d
