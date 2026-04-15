@@ -41,8 +41,6 @@ export async function GET(request: NextRequest) {
         let destination: string;
         if (role === 'admin') {
           destination = `/${locale}/admin`;
-        } else if (profile?.onboarding_status !== 'complete') {
-          destination = `/${locale}/design-wizard`;
         } else {
           destination = `/${locale}/dashboard`;
         }

@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
+import { WizardModal } from '@/components/design-wizard/wizard-modal';
 import { ProjectStatusCard } from '@/components/dashboard/project-status-card';
 import { PlanSummaryCard } from '@/components/dashboard/plan-summary-card';
 import { PlanWizard } from '@/components/dashboard/plan-wizard';
@@ -51,9 +52,26 @@ export default async function DashboardPage({ params, searchParams }: Props) {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('status')
+    .select('status, onboarding_status, onboarding_progress')
     .eq('id', user.id)
     .single();
+
+  const showWizard = profile?.onboarding_status !== 'complete';
+  const onboardingProgress = (profile?.onboarding_progress ?? {}) as Record<string, unknown>;
+  const wizardInitialStep =
+    typeof onboardingProgress.current_step === 'number' &&
+    onboardingProgress.current_step >= 1 &&
+    onboardingProgress.current_step <= 4
+      ? onboardingProgress.current_step
+      : 1;
+  const wizardModal = showWizard ? (
+    <WizardModal
+      userId={user.id}
+      locale={locale}
+      initialStep={wizardInitialStep}
+      initialData={onboardingProgress}
+    />
+  ) : null;
 
   // Fetch project (may not exist yet)
   const { data: project } = await supabase
@@ -65,32 +83,35 @@ export default async function DashboardPage({ params, searchParams }: Props) {
   // Managed clients whose site isn't ready yet → show "being prepared" overview
   if (!project?.client_visible) {
     return (
-      <div className="space-y-6 max-w-2xl">
-        <div>
-          <h1 className="text-xl md:text-2xl font-bold font-heading text-zen-off-white">
-            {isJa ? 'ダッシュボード' : 'Dashboard'}
-          </h1>
-        </div>
-        <div className="border border-zen-border rounded-lg bg-zen-surface p-6 md:p-8 text-center space-y-4">
-          <div
-            className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-zen-green/30 bg-zen-green/5 mx-auto"
-            aria-hidden="true"
-          >
-            <span className="text-zen-green text-xl">◎</span>
+      <>
+        {wizardModal}
+        <div className="space-y-6 max-w-2xl">
+          <div>
+            <h1 className="text-xl md:text-2xl font-bold font-heading text-zen-off-white">
+              {isJa ? 'ダッシュボード' : 'Dashboard'}
+            </h1>
           </div>
-          <h2 className="text-zen-off-white font-mono font-bold text-lg">
-            {isJa ? 'ウェブサイトを制作中です' : 'Your website is being prepared'}
-          </h2>
-          <p className="text-zen-subtle font-mono text-sm leading-relaxed max-w-md mx-auto">
-            {isJa
-              ? 'デザインブリーフを受け取りました。サイトの準備ができ次第、メールでお知らせします。'
-              : "We've received your design brief. You'll get an email when your site is ready to preview."}
-          </p>
-          <p className="text-zen-subtle/70 font-mono text-xs">
-            {isJa ? '質問はメッセージから' : 'Questions? Use Messages to reach us.'}
-          </p>
+          <div className="border border-zen-border rounded-lg bg-zen-surface p-6 md:p-8 text-center space-y-4">
+            <div
+              className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-zen-green/30 bg-zen-green/5 mx-auto"
+              aria-hidden="true"
+            >
+              <span className="text-zen-green text-xl">◎</span>
+            </div>
+            <h2 className="text-zen-off-white font-mono font-bold text-lg">
+              {isJa ? 'ウェブサイトを制作中です' : 'Your website is being prepared'}
+            </h2>
+            <p className="text-zen-subtle font-mono text-sm leading-relaxed max-w-md mx-auto">
+              {isJa
+                ? 'デザインブリーフを受け取りました。サイトの準備ができ次第、メールでお知らせします。'
+                : "We've received your design brief. You'll get an email when your site is ready to preview."}
+            </p>
+            <p className="text-zen-subtle/70 font-mono text-xs">
+              {isJa ? '質問はメッセージから' : 'Questions? Use Messages to reach us.'}
+            </p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
@@ -109,16 +130,22 @@ export default async function DashboardPage({ params, searchParams }: Props) {
 
     if (isPendingRecently || subscribed === 'true') {
       return (
-        <div className="space-y-6 max-w-2xl">
-          <SubscriptionPending locale={locale} />
-        </div>
+        <>
+          {wizardModal}
+          <div className="space-y-6 max-w-2xl">
+            <SubscriptionPending locale={locale} />
+          </div>
+        </>
       );
     }
 
     return (
-      <div className="space-y-6 max-w-2xl">
-        <PlanWizard projectId={project.id} locale={locale} siteUrl={project.site_url} />
-      </div>
+      <>
+        {wizardModal}
+        <div className="space-y-6 max-w-2xl">
+          <PlanWizard projectId={project.id} locale={locale} siteUrl={project.site_url} />
+        </div>
+      </>
     );
   }
 
@@ -175,7 +202,9 @@ export default async function DashboardPage({ params, searchParams }: Props) {
   ];
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <>
+      {wizardModal}
+      <div className="space-y-6 max-w-4xl">
       {/* Page title */}
       <div>
         <div className="flex items-center gap-3">
@@ -269,5 +298,6 @@ export default async function DashboardPage({ params, searchParams }: Props) {
         </div>
       </div>
     </div>
+    </>
   );
 }

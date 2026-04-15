@@ -32,10 +32,6 @@ export default async function DashboardLayout({ children, params }: Props) {
     supabase.from('projects').select('id, client_visible, plan_tier').eq('client_id', user.id).single(),
   ]);
 
-  if (profile?.onboarding_status !== 'complete') {
-    redirect(`/${locale}/design-wizard`);
-  }
-
   const navType = profile?.status === 'client'
     ? 'client'
     : profile?.status === 'onboarding'
