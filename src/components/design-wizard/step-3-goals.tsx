@@ -10,6 +10,7 @@ interface Step3Props {
   onNext: (data: Partial<DesignWizardFormData>) => void;
   onBack: () => void;
   locale: string;
+  isAdvancing?: boolean;
 }
 
 const LABEL_CLASS = 'block text-[#F4F4F2] text-xs font-mono uppercase tracking-widest mb-2';
@@ -19,7 +20,7 @@ const ERROR_CLASS = 'text-red-400 text-xs font-mono mt-1';
 
 const MAX_OFFERINGS = 6;
 
-export function Step3Goals({ initialValues, onNext, onBack, locale }: Step3Props) {
+export function Step3Goals({ initialValues, onNext, onBack, locale, isAdvancing = false }: Step3Props) {
   const [targetAudience, setTargetAudience] = useState<string>(
     (initialValues.target_audience as string) ?? ''
   );
@@ -149,9 +150,10 @@ export function Step3Goals({ initialValues, onNext, onBack, locale }: Step3Props
         </button>
         <button
           type="submit"
-          className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono uppercase tracking-widest text-sm px-6 py-3 rounded hover:bg-[#00E87A]/90 transition-colors"
+          disabled={isAdvancing}
+          className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono uppercase tracking-widest text-sm px-6 py-3 rounded hover:bg-[#00E87A]/90 active:bg-[#00C96A] active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {locale === 'ja' ? '次へ' : 'Next'}
+          {isAdvancing ? (locale === 'ja' ? '保存中...' : 'Saving...') : (locale === 'ja' ? '次へ' : 'Next')}
         </button>
       </div>
     </form>

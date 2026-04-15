@@ -8,6 +8,7 @@ interface Step1Props {
   initialValues: Partial<DesignWizardFormData>;
   onNext: (data: Partial<DesignWizardFormData>) => void;
   locale: string;
+  isAdvancing?: boolean;
 }
 
 const TIMEZONES = [
@@ -27,7 +28,7 @@ const INPUT_CLASS =
   'w-full bg-[#0D0D0D] border border-[#1F2937] rounded px-3 py-2 text-[#F4F4F2] text-sm font-mono focus:outline-none focus:border-[#00E87A] transition-colors';
 const ERROR_CLASS = 'text-red-400 text-xs font-mono mt-1';
 
-export function Step1Business({ initialValues, onNext, locale }: Step1Props) {
+export function Step1Business({ initialValues, onNext, locale, isAdvancing = false }: Step1Props) {
   const [state, setState] = useState({
     business_name: (initialValues.business_name as string) ?? '',
     industry: (initialValues.industry as string) ?? '',
@@ -156,9 +157,10 @@ export function Step1Business({ initialValues, onNext, locale }: Step1Props) {
       <div className="flex justify-end pt-2">
         <button
           type="submit"
-          className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono uppercase tracking-widest text-sm px-6 py-3 rounded hover:bg-[#00E87A]/90 transition-colors"
+          disabled={isAdvancing}
+          className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono uppercase tracking-widest text-sm px-6 py-3 rounded hover:bg-[#00E87A]/90 active:bg-[#00C96A] active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {locale === 'ja' ? '次へ' : 'Next'}
+          {isAdvancing ? (locale === 'ja' ? '保存中...' : 'Saving...') : (locale === 'ja' ? '次へ' : 'Next')}
         </button>
       </div>
     </form>

@@ -26,6 +26,7 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
     initialData as Partial<DesignWizardFormData>
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAdvancing, setIsAdvancing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const titles = locale === 'ja' ? STEP_TITLES_JA : STEP_TITLES_EN;
@@ -43,12 +44,18 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
   };
 
   const handleNext = async (stepData: Partial<DesignWizardFormData>) => {
-    const merged = { ...formData, ...stepData };
-    setFormData(merged);
-    setError(null);
-    await saveProgress(currentStep, stepData);
-    setCurrentStep((s) => Math.min(s + 1, 4));
-    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (isAdvancing) return;
+    setIsAdvancing(true);
+    try {
+      const merged = { ...formData, ...stepData };
+      setFormData(merged);
+      setError(null);
+      await saveProgress(currentStep, stepData);
+      setCurrentStep((s) => Math.min(s + 1, 4));
+      if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
+    } finally {
+      setIsAdvancing(false);
+    }
   };
 
   const handleBack = () => {
@@ -103,7 +110,7 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
 
       <div className="rounded-lg border border-[#1F2937] bg-[#131313] p-5 sm:p-7">
         {currentStep === 1 && (
-          <Step1Business initialValues={formData} onNext={handleNext} locale={locale} />
+          <Step1Business initialValues={formData} onNext={handleNext} locale={locale} isAdvancing={isAdvancing} />
         )}
         {currentStep === 2 && (
           <Step2Brand
@@ -112,6 +119,7 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
             onBack={handleBack}
             userId={userId}
             locale={locale}
+            isAdvancing={isAdvancing}
           />
         )}
         {currentStep === 3 && (
@@ -120,6 +128,7 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
             onNext={handleNext}
             onBack={handleBack}
             locale={locale}
+            isAdvancing={isAdvancing}
           />
         )}
         {currentStep === 4 && (
