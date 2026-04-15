@@ -35,6 +35,7 @@ export function getLockedKeys(project: { client_visible: boolean; plan_tier: str
 
 export const pendingNavItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Get Started', labelJa: 'はじめる', path: '/dashboard' },
+  { key: 'messages', icon: MessageSquare, labelEn: 'Messages', labelJa: 'メッセージ', path: '/dashboard/messages' },
 ] as const;
 
 export const onboardingNavItems = [

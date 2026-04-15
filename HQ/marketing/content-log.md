@@ -2507,3 +2507,13 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-15 20:55] created: `HQ/platform/supabase/migrations/0048_brand_assets_bucket_size.sql`
 - [2026-04-15 21:19] edited: `HQ/crm/leads.csv`
 - [2026-04-15 21:24] edited: `HQ/commands/new-client.md`
+- [2026-04-15 21:27] created: `HQ/crm/leads-batch3.csv`
+- [2026-04-15 21:30] edited: `tsconfig.json`
+- [2026-04-15 21:30] edited: `HQ/crm/leads.csv`
+- [2026-04-15 21:31] created: `HQ/marketing/cold-email/drafts/lead-016-step1.md`
+- [2026-04-15 21:31] created: `HQ/marketing/cold-email/drafts/lead-017-step1.md`
+- [2026-04-15 21:31] created: `HQ/marketing/cold-email/drafts/lead-019-step1.md`
+- [2026-04-15 21:32] created: `HQ/marketing/cold-email/drafts/lead-022-step1.md`
+- [2026-04-15 21:32] created: `HQ/marketing/cold-email/drafts/lead-023-step1.md`
+- [2026-04-15 21:32] created: `HQ/marketing/cold-email/drafts/lead-025-step1.md`
+- [2026-04-15 21:39] edited: `src/components/dashboard/nav-items.ts`
