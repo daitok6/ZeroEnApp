@@ -1,4 +1,4 @@
-import { requireApproved } from '@/lib/auth/require-approved';
+import { getDashboardSession } from '@/lib/dashboard/session';
 import { SettingsForm } from '@/components/dashboard/settings-form';
 import type { Metadata } from 'next';
 
@@ -11,7 +11,7 @@ type Props = { params: Promise<{ locale: string }> };
 
 export default async function SettingsPage({ params }: Props) {
   const { locale } = await params;
-  const { user, supabase } = await requireApproved(locale);
+  const { user, supabase } = await getDashboardSession(locale);
 
   const { data: profile } = await supabase
     .from('profiles')

@@ -1,6 +1,5 @@
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import { cookies, headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { WizardModal } from '@/components/design-wizard/wizard-modal';
 import { ProjectStatusCard } from '@/components/dashboard/project-status-card';
 import { PlanSummaryCard } from '@/components/dashboard/plan-summary-card';
@@ -17,6 +16,8 @@ import {
 } from 'lucide-react';
 import type { Metadata } from 'next';
 import type { LucideIcon } from 'lucide-react';
+import { getDashboardSession } from '@/lib/dashboard/session';
+import type { Database } from '@/types/database';
 
 export const metadata: Metadata = {
   title: 'Dashboard — ZeroEn',
@@ -40,29 +41,20 @@ type QuickLink = {
   locked?: boolean;
 };
 
+type DbProject = Database['public']['Tables']['projects']['Row'];
+
 export default async function DashboardPage({ params, searchParams }: Props) {
   const { locale } = await params;
   const { subscribed } = await searchParams;
   const isJa = locale === 'ja';
-  const supabase = await createClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect(`/${locale}/login`);
-
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('status, onboarding_status, onboarding_progress')
-    .eq('id', user.id)
-    .single();
+  const { user, profile, project } = await getDashboardSession(locale);
 
   const showWizard = profile?.onboarding_status !== 'complete';
 
   // First-entry browser-language default: if the wizard will open and the
   // user has no persisted locale choice, redirect to the locale matching
-  // their browser preference. LocaleSwitcher sets NEXT_LOCALE on click, so
-  // manual choice persists and isn't silently reverted.
+  // their browser preference.
   if (showWizard) {
     const cookieStore = await cookies();
     if (!cookieStore.get('NEXT_LOCALE')?.value) {
@@ -103,13 +95,6 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     />
   ) : null;
 
-  // Fetch project (may not exist yet)
-  const { data: project } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('client_id', user.id)
-    .single();
-
   // Managed clients whose site isn't ready yet → show "being prepared" overview
   if (!project?.client_visible) {
     return (
@@ -147,9 +132,6 @@ export default async function DashboardPage({ params, searchParams }: Props) {
 
   // If project is visible to client but no plan chosen → show plan gate
   if (project?.client_visible && !project?.plan_tier) {
-    // checkout_pending_at is set when the Stripe Checkout session is created and
-    // cleared by the webhook on success. Show pending UI for up to 15 minutes —
-    // this survives page refreshes (unlike relying solely on ?subscribed=true).
     const checkoutPendingAt = project?.checkout_pending_at
       ? new Date(project.checkout_pending_at)
       : null;
@@ -231,6 +213,9 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     },
   ];
 
+  // Cast to full DB type — all required fields are fetched in getDashboardSession
+  const dbProject = project as unknown as DbProject;
+
   return (
     <>
       {wizardModal}
@@ -261,11 +246,10 @@ export default async function DashboardPage({ params, searchParams }: Props) {
       {/* Project status + plan summary */}
       {project?.plan_tier ? (
         <div className="space-y-4">
-          {/* Top row: project status + plan summary */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <ProjectStatusCard project={project} locale={locale} hideAdminLinks={true} />
+            <ProjectStatusCard project={dbProject} locale={locale} hideAdminLinks={true} />
             <PlanSummaryCard
-              planTier={project.plan_tier}
+              planTier={project.plan_tier as 'basic' | 'premium'}
               commitmentStartsAt={project.commitment_starts_at ?? new Date().toISOString()}
               locale={locale}
             />
@@ -273,7 +257,7 @@ export default async function DashboardPage({ params, searchParams }: Props) {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ProjectStatusCard project={project} locale={locale} />
+          <ProjectStatusCard project={dbProject} locale={locale} />
         </div>
       )}
 

@@ -1,4 +1,4 @@
-import { requireApproved } from '@/lib/auth/require-approved';
+import { getDashboardSession } from '@/lib/dashboard/session';
 import { DocumentList } from '@/components/dashboard/document-list';
 import type { DocumentItem } from '@/components/dashboard/document-list';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ type Props = { params: Promise<{ locale: string }> };
 
 export default async function DocumentsPage({ params }: Props) {
   const { locale } = await params;
-  const { user, supabase } = await requireApproved(locale);
+  const { user, supabase } = await getDashboardSession(locale);
 
   // Fetch from signed_documents — the immutable source of truth
   const { data: signedDocs } = await supabase

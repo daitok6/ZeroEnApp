@@ -1,4 +1,4 @@
-import { requireApproved } from '@/lib/auth/require-approved';
+import { getDashboardSession } from '@/lib/dashboard/session';
 import { ChangeRequestForm } from '@/components/dashboard/change-request-form';
 import { ChangeCatalogueSheet } from '@/components/dashboard/change-catalogue-sheet-client';
 import { RequestCard } from '@/components/dashboard/request-card';
@@ -17,13 +17,7 @@ type Props = { params: Promise<{ locale: string }> };
 
 export default async function RequestsPage({ params }: Props) {
   const { locale } = await params;
-  const { user, supabase } = await requireApproved(locale);
-
-  const { data: project } = await supabase
-    .from('projects')
-    .select('id, client_visible, plan_tier')
-    .eq('client_id', user.id)
-    .single();
+  const { user, project, supabase } = await getDashboardSession(locale);
 
   if (project && project.client_visible && !project.plan_tier) {
     return <SubscriptionRequired locale={locale} />;
