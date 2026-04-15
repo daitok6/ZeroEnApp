@@ -16,6 +16,12 @@ import {
   type FontMeta,
   type FontCategory,
 } from '@/lib/fonts/google-fonts';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion';
 
 interface Step2Props {
   initialValues: Partial<DesignWizardFormData>;
@@ -188,6 +194,7 @@ export function Step2Brand({
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [selectedPaletteId, setSelectedPaletteId] = useState<string | null>(null);
   const [fontSearch, setFontSearch] = useState('');
+  const [fontListOpen, setFontListOpen] = useState<string[]>([]);
 
   // ── Logo upload ───────────────────────────────────────────────────────────
 
@@ -427,7 +434,10 @@ export function Step2Brand({
         <input
           type="text"
           value={fontSearch}
-          onChange={(e) => setFontSearch(e.target.value)}
+          onChange={(e) => {
+              setFontSearch(e.target.value);
+              if (e.target.value) setFontListOpen(['fonts']);
+            }}
           placeholder={isJa ? 'フォント名で検索...' : 'Search fonts...'}
           className={`${INPUT_CLASS} mb-4`}
         />
@@ -451,34 +461,49 @@ export function Step2Brand({
           </p>
         </div>
 
-        {/* Grouped font cards */}
-        {filteredFonts.length === 0 ? (
-          <p className="text-[#6B7280] text-xs font-mono">
-            {isJa ? '一致するフォントが見つかりません。' : 'No fonts match your search.'}
-          </p>
-        ) : (
-          categoryOrder.map((cat) => {
-            const fonts = groupedFonts[cat];
-            if (!fonts || fonts.length === 0) return null;
-            return (
-              <div key={cat}>
-                <GroupHeading
-                  label={`${CATEGORY_LABEL[cat][isJa ? 'ja' : 'en']} (${fonts.length})`}
-                />
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {fonts.map((font) => (
-                    <FontCard
-                      key={font.family}
-                      font={font}
-                      selected={state.font_preference === font.family}
-                      onClick={() => setState((s) => ({ ...s, font_preference: font.family }))}
-                    />
-                  ))}
-                </div>
-              </div>
-            );
-          })
-        )}
+        {/* Grouped font cards — collapsible */}
+        <Accordion value={fontListOpen} onValueChange={setFontListOpen}>
+          <AccordionItem value="fonts" className="border-[#1F2937]">
+            <AccordionTrigger className="py-3 text-[#F4F4F2] font-mono text-xs uppercase tracking-widest hover:no-underline">
+              {state.font_preference && state.font_preference !== 'No preference'
+                ? (isJa
+                    ? `選択中: ${state.font_preference} — フォントを変更する (${filteredFonts.length})`
+                    : `Selected: ${state.font_preference} — Browse fonts (${filteredFonts.length})`)
+                : (isJa
+                    ? `すべてのフォントを見る (${filteredFonts.length})`
+                    : `Browse all fonts (${filteredFonts.length})`)}
+            </AccordionTrigger>
+            <AccordionContent>
+              {filteredFonts.length === 0 ? (
+                <p className="text-[#6B7280] text-xs font-mono">
+                  {isJa ? '一致するフォントが見つかりません。' : 'No fonts match your search.'}
+                </p>
+              ) : (
+                categoryOrder.map((cat) => {
+                  const fonts = groupedFonts[cat];
+                  if (!fonts || fonts.length === 0) return null;
+                  return (
+                    <div key={cat}>
+                      <GroupHeading
+                        label={`${CATEGORY_LABEL[cat][isJa ? 'ja' : 'en']} (${fonts.length})`}
+                      />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {fonts.map((font) => (
+                          <FontCard
+                            key={font.family}
+                            font={font}
+                            selected={state.font_preference === font.family}
+                            onClick={() => setState((s) => ({ ...s, font_preference: font.family }))}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         {/* Selected font preview */}
         {state.font_preference && state.font_preference !== 'No preference' && (
