@@ -192,6 +192,8 @@ export function Step2Brand({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [logoLater, setLogoLater] = useState(false);
+  const [logoPath, setLogoPath] = useState('');
   const [selectedPaletteId, setSelectedPaletteId] = useState<string | null>(null);
   const [fontSearch, setFontSearch] = useState('');
   const [fontListOpen, setFontListOpen] = useState<string[]>([]);
@@ -223,6 +225,7 @@ export function Step2Brand({
         .from('brand-assets')
         .createSignedUrl(path, 3600); // 1-hour expiry — enough for the wizard session
       if (signErr) throw signErr;
+      setLogoPath(path);
       setState((s) => ({ ...s, logo_url: signed.signedUrl }));
     } catch {
       setUploadError(
@@ -232,6 +235,16 @@ export function Step2Brand({
       );
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleLogoLater = (checked: boolean) => {
+    setLogoLater(checked);
+    if (checked && logoPath) {
+      createClient().storage.from('brand-assets').remove([logoPath]).catch(() => {});
+      setLogoPath('');
+      setState((s) => ({ ...s, logo_url: '' }));
+      setUploadError(null);
     }
   };
 
@@ -321,37 +334,52 @@ export function Step2Brand({
 
       {/* ── Logo ── */}
       <div>
-        <label htmlFor="logo" className={LABEL_CLASS}>
+        <p className={LABEL_CLASS}>
           {isJa ? 'ロゴ' : 'Logo'}
-        </label>
-        <input
-          id="logo"
-          type="file"
-          accept=".png,.jpg,.jpeg,.svg,.webp"
-          onChange={handleFile}
-          disabled={uploading}
-          className="block w-full text-xs font-mono text-[#9CA3AF] file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-mono file:font-bold file:uppercase file:tracking-widest file:bg-[#00E87A] file:text-[#0D0D0D] hover:file:bg-[#00E87A]/90 file:cursor-pointer"
-        />
-        <p className="text-[#6B7280] text-xs font-mono mt-1">
-          {isJa ? 'PNG/JPG/SVG/WebP — 最大2MB' : 'PNG, JPG, SVG, WebP — max 2MB'}
         </p>
-        {uploading && (
-          <p className="text-[#00E87A] text-xs font-mono mt-1">
-            {isJa ? 'アップロード中...' : 'Uploading...'}
-          </p>
-        )}
-        {uploadError && <p className={ERROR_CLASS}>{uploadError}</p>}
-        {state.logo_url && !uploading && (
-          <div className="mt-3 inline-block p-3 border border-[#1F2937] rounded bg-[#0D0D0D]">
-            <Image
-              src={state.logo_url}
-              alt="Logo preview"
-              width={96}
-              height={96}
-              className="h-24 w-auto object-contain"
-              unoptimized
+        <label className="flex items-center gap-2 mb-3 cursor-pointer group">
+          <input
+            type="checkbox"
+            checked={logoLater}
+            onChange={(e) => handleLogoLater(e.target.checked)}
+            className="h-4 w-4 rounded border-[#1F2937] bg-[#0D0D0D] accent-[#00E87A] cursor-pointer shrink-0"
+          />
+          <span className="text-[#9CA3AF] text-xs font-mono group-hover:text-[#F4F4F2] transition-colors">
+            {isJa ? 'ロゴは後で追加します' : "I'll add my logo later"}
+          </span>
+        </label>
+        {!logoLater && (
+          <>
+            <input
+              id="logo"
+              type="file"
+              accept=".png,.jpg,.jpeg,.svg,.webp"
+              onChange={handleFile}
+              disabled={uploading}
+              className="block w-full text-xs font-mono text-[#9CA3AF] file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-mono file:font-bold file:uppercase file:tracking-widest file:bg-[#00E87A] file:text-[#0D0D0D] hover:file:bg-[#00E87A]/90 file:cursor-pointer"
             />
-          </div>
+            <p className="text-[#6B7280] text-xs font-mono mt-1">
+              {isJa ? 'PNG/JPG/SVG/WebP — 最大2MB' : 'PNG, JPG, SVG, WebP — max 2MB'}
+            </p>
+            {uploading && (
+              <p className="text-[#00E87A] text-xs font-mono mt-1">
+                {isJa ? 'アップロード中...' : 'Uploading...'}
+              </p>
+            )}
+            {uploadError && <p className={ERROR_CLASS}>{uploadError}</p>}
+            {state.logo_url && !uploading && (
+              <div className="mt-3 inline-block p-3 border border-[#1F2937] rounded bg-[#0D0D0D]">
+                <Image
+                  src={state.logo_url}
+                  alt="Logo preview"
+                  width={96}
+                  height={96}
+                  className="h-24 w-auto object-contain"
+                  unoptimized
+                />
+              </div>
+            )}
+          </>
         )}
       </div>
 

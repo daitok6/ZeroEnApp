@@ -17,8 +17,8 @@ interface DesignWizardProps {
   userId: string;
 }
 
-const STEP_TITLES_EN = ['Your Business', 'Brand Identity', 'Site Goals', 'Final Details', 'Site Assets'];
-const STEP_TITLES_JA = ['事業について', 'ブランド', 'サイトの目的', '最終確認', '素材・画像'];
+const STEP_TITLES_EN = ['Your Business', 'Brand Identity', 'Site Goals', 'Site Assets', 'Final Details'];
+const STEP_TITLES_JA = ['事業について', 'ブランド', 'サイトの目的', '素材・画像', '最終確認'];
 
 export function DesignWizard({ initialStep, initialData, locale, userId }: DesignWizardProps) {
   const router = useRouter();
@@ -151,20 +151,20 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
           />
         )}
         {currentStep === 4 && (
-          <Step4References
+          <Step5Assets
             initialValues={formData}
             onSubmit={handleNext}
             onBack={handleBack}
+            userId={userId}
             locale={locale}
             isSubmitting={isAdvancing}
           />
         )}
         {currentStep === 5 && (
-          <Step5Assets
+          <Step4References
             initialValues={formData}
             onSubmit={handleSubmit}
             onBack={handleBack}
-            userId={userId}
             locale={locale}
             isSubmitting={isSubmitting}
           />
