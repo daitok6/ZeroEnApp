@@ -14,15 +14,15 @@ A solo, AI-powered technical co-founder service. Build free MVPs for founders in
 | Stream | Amount | When it pays |
 |--------|--------|-------------|
 | **Free MVP Build** | $0 to client | You invest time, earn equity + rev share |
-| **Monthly Subscription** | ¥5,000-10,000 (Coconala) or $50 (direct) | Hosting + changes + analytics. Two tiers: Basic and Premium. See `HQ/crm/coconala-playbook.md` |
+| **Monthly Subscription** | ¥5,000-10,000/mo | Hosting + changes + analytics. Two tiers: Basic and Premium. See `HQ/crm/change-catalogue.md` |
 | **10% Equity** | SAFE + profit-sharing | Long-term: converts when client incorporates, or profit-sharing if they don't |
 | **~10% Revenue Share** | % of app revenue | Ongoing passive income, negotiated per deal |
-| **Per-Request Charges** | ¥4,000-25,000+ (Coconala) or $50-2,000 (direct) | Small, Medium, Large. See `HQ/crm/change-catalogue.md` |
+| **Per-Request Charges** | ¥4,000-25,000+ | Small, Medium, Large. See `HQ/crm/change-catalogue.md` |
 
 **Revenue target:** $3,000-5,000/mo (long-term)
 **Interim target:** $1,000-1,500/mo by November 2026 (Malaysia move)
-**Path to interim target:** 15-20 clients across Coconala (¥5,000-10,000/mo) and direct (zeroen.dev) channels. See `HQ/crm/coconala-playbook.md` for channel-specific projections.
-**Path to long-term target:** 40-60 clients across multiple channels. Coconala for Japan market, zeroen.dev for global.
+**Path to interim target:** 15-20 clients via zeroen.dev, X/note/Lancers/MENTA discovery channels.
+**Path to long-term target:** 40-60 clients across multiple channels. zeroen.dev as primary; marketplace channels (Lancers, MENTA, CrowdWorks) for Japan market reach.
 
 ---
 
@@ -239,11 +239,10 @@ ZeroEn feeds WebMori. Two businesses, one pipeline. Kept as separate brands.
 | Legal disputes | Sole prop → LLC. Written contracts for every deal. |
 | Equity = $0 | Platform fees + per-request = real income. Equity is bonus. |
 | Scope creep | Locked scope. Changes = paid. No exceptions. |
-| Client stops paying | 14-day grace → site paused → 44 days → archived. See `coconala-playbook.md`. |
+| Client stops paying | 14-day grace → site paused → 44 days → archived. |
 | Burnout | Template everything. All builds are free but scope is strictly locked. |
 | Client copies code | ZeroEn owns code permanently. No buyout option. Site is archived on cancellation; ZeroEn retains the code. |
-| Revenue too slow | Coconala (Japan) + zeroen.dev (global) dual channel. Direct billing avoids 22% commission. |
-| Coconala platform risk | ToS compliance: Coconala is lead-gen only (¥500 intake). Recurring billing via Stripe for all clients. |
+| Revenue too slow | zeroen.dev (primary) + JP marketplace channels (Lancers, MENTA, CrowdWorks — ToS reviewed per platform). Direct billing avoids commission. |
 | Free build exploitation | 6-month minimum commitment. Early cancellation = pay remaining months on commitment. |
 | Supabase limits | Client pays for Supabase Pro upgrade if usage exceeds free tier. Stated in terms. |
 
@@ -256,12 +255,12 @@ ZeroEn feeds WebMori. Two businesses, one pipeline. Kept as separate brands.
 3. Build application form + scoring system
 4. Create SAFE + profit-sharing contract template (include 6-month minimum; no code buyout — ZeroEn retains code permanently)
 5. Create Next.js + Supabase starter template
-6. **Launch Coconala listing by Apr 25** — first 5 priority slots, free build
-7. Land first 5 clients on Coconala (promo phase)
+6. **Launch zeroen.dev application form** — first 5 priority slots, free build
+7. Land first 5 clients via zeroen.dev / X / note / Lancers
 8. **Build zeroen.dev by Jul 31** — application form, Stripe billing, portfolio
 9. Start build-in-public content
 10. **Form Wyoming LLC by Sep 15**
 11. **Apply for DE Rantau visa by Oct 1**
 12. **GO/NO-GO on Malaysia move by Oct 15** — need ¥150,000+/mo net MRR for 2+ months
 
-See `HQ/crm/coconala-playbook.md` for full timeline and milestones.
+See `HQ/crm/change-catalogue.md` for pricing details.

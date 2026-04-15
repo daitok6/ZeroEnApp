@@ -1,3 +1,5 @@
+<!-- ARCHIVED 2026-04-14 — Coconala channel dropped. See HQ/crm/coconala-playbook.md for the post-mortem. -->
+
 # Coconala Profile — Account Rebrand Spec (Draft)
 
 **Action:** Rebrand existing `webmori` account to `ZeroEn / 大都`. See `webmori-takedown-checklist.md` for execution steps.

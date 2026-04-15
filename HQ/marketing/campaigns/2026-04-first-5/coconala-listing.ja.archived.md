@@ -1,3 +1,5 @@
+<!-- ARCHIVED 2026-04-14 — Coconala channel dropped. See HQ/crm/coconala-playbook.md for the post-mortem. -->
+
 # Coconala Listing — Form Fill-In Sheet (Draft)
 
 **Status:** Draft. Requires `mktg-copy` + `mktg-strategy` review before publishing.

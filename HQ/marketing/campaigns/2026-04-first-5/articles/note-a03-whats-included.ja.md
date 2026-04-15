@@ -128,10 +128,7 @@ Basicプラン（¥5,000）に加えて、以下が含まれます：
 
 「自分のケースはどうなるのか」が気になる方は、まずご相談だけでも大歓迎です。
 
-- **Coconala（¥1,000 ご相談）：** https://coconala.com/services/4169857
-- **zeroen.dev（直接お申し込み）：** https://zeroen.dev
-
-スコープが合わない場合は、¥1,000を全額ご返金いたします。
+- **zeroen.dev（お申し込み）：** https://zeroen.dev
 
 大都
 

@@ -90,7 +90,4 @@ published: false
 
 先着5名様のLP無料制作キャンペーン中です。まずはお気軽にご相談ください。
 
-- **Coconala（¥1,000 ご相談）：** https://coconala.com/services/4169857
 - **zeroen.dev：** https://zeroen.dev
-
-スコープが合わない場合は、¥1,000を全額ご返金いたします。

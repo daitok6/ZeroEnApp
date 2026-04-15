@@ -30,7 +30,7 @@
 | Week | Dates | Phase | Theme | Must-ship |
 |---|---|---|---|---|
 | 1 | Apr 14-20 | 0 | Research + reconcile | All 6 research docs + positioning + analytics spec + Coconala rebrand |
-| 2 | Apr 21-27 | 1 | Listings go live | Coconala · Note article · X JP/EN threads · Lancers · MENTA |
+| 2 | Apr 21-27 | 1 | Listings go live + Google Ads launch | Note article · X JP/EN threads · **Google Search Ads live** (`2026-04-google-ads-coaches/`) · /apply form deployed |
 | 3 | Apr 28-May 4 | 1 | zeroen.dev v2 + outbound pilot | Website deploy · 25 cold emails · first intake leads |
 | 4 | May 5-11 | 2 | Expand tier-B | CrowdWorks · TimeTicket · Note follow-up |
 | 5 | May 12-18 | 2 | **WebMori case study** | Case study on Note + zeroen.dev + X thread (JP + EN) |

@@ -12,14 +12,14 @@ This repo (`daitok6/ZeroEn`, private) contains the HQ (agents, skills, commands,
 
 **Domain:** `zeroen.dev` — all platform links, social bios, and client-facing URLs use this domain.
 
-The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/crm/coconala-playbook.md`.
+The full business plan is in `PRD.md`. The channel post-mortem (Coconala abandoned 2026-04-14) is in `HQ/crm/coconala-playbook.md`.
 
 **You are the build engine, business ops, and marketing team. Your job:**
 1. Build free landing pages/homepages for clients using Next.js (Phase 1 — no Supabase needed)
 2. Deploy client sites on the operator's Vercel account
 3. Generate monthly analytics report PDFs per client
 4. Run marketing automation — build-in-public content, SEO, outreach
-5. Manage client lifecycle — onboarding, scoring, tracking, billing (¥1,000 intake via Coconala + recurring via Stripe)
+5. Manage client lifecycle — onboarding, scoring, tracking, billing (intake via zeroen.dev + recurring via Stripe)
 6. Maintain quality gates — automated testing, validation, client UAT
 
 ---
@@ -29,7 +29,7 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 1. **Every command requires a `clientId`.** No agent or command runs without knowing which client it operates on.
 2. **Client code lives in `Clients/<clientId>/`.** Never mix client code into HQ.
 3. **HQ code lives in `HQ/`.** Business logic, agents, templates, marketing — all in HQ.
-4. **Phase 1: Landing pages only — no Supabase needed.** Phase 2 (dynamic sites) comes after 15+ clients. See `HQ/crm/coconala-playbook.md`.
+4. **Phase 1: Landing pages only — no Supabase needed.** Phase 2 (dynamic sites) comes after 15+ clients.
 5. **All sites deploy on the operator's Vercel account.** The operator controls hosting infrastructure.
 6. **Scope is locked at kickoff.** The scope agreed during onboarding is the scope. Anything beyond = per-request charge (see `HQ/crm/change-catalogue.md`).
 7. **Never expose client secrets.** Redact API keys, tokens, and credentials in all outputs.
@@ -37,18 +37,12 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 9. **All social posts go through the marketing team.** Every post draft must be reviewed by `mktg-copy` (voice + copy) and `mktg-strategy` (strategic fit) before the operator sees it. No exceptions.
 10. **Quality gates must pass before production deploy.** Linting, type checking, and tests must pass.
 11. **ZeroEn retains code ownership.** Client licenses the live site via active subscription. Code is never transferred to the client — on cancellation the site is archived and ZeroEn keeps the code.
-12. **Coconala is lead-gen only.** Coconala listing charges a one-time ¥1,000 intake fee (casual "buy me a beer" framing). All recurring subscription fees (¥5,000/¥10,000/mo) are billed directly through Stripe via zeroen.dev — for all clients regardless of acquisition channel.
+12. **All intake flows through zeroen.dev.** Other channels (X, note, Lancers, MENTA, TimeTicket) are evaluated per-platform ToS before listing. All recurring subscription fees (¥5,000/¥10,000/mo) are billed through Stripe via zeroen.dev.
 13. **All clients require a 6-month minimum subscription commitment.** Early cancellation = client pays the remaining months on the commitment. Site is archived, code is retained by ZeroEn.
 
 ---
 
 ## Revenue Model
-
-### Coconala Channel
-
-| Fee | Amount | Notes |
-|---|---|---|
-| Intake fee (one-time) | ¥1,000 | Charged through Coconala ("buy me a beer" framing). Coconala ~22% cut = you net ¥780. Lead-gen only. |
 
 ### Subscription Tiers (All Clients — Stripe via zeroen.dev)
 
@@ -64,7 +58,7 @@ The full business plan is in `PRD.md`. The Coconala channel strategy is in `HQ/c
 | Copy refresh credit | — | 1 headline/CTA rewrite/quarter |
 | Change request SLA | ≤14 business days | ≤5 business days (priority) |
 
-All recurring billing goes through Stripe regardless of whether the client came via Coconala or zeroen.dev.
+All recurring billing goes through Stripe via zeroen.dev.
 
 ### Additional Revenue
 
@@ -81,7 +75,7 @@ All recurring billing goes through Stripe regardless of whether the client came 
 - **Upgrade (Basic → Premium):** Allowed anytime. Triggers a fresh 6-month Premium commitment (replaces remaining Basic term).
 - **Downgrade (Premium → Basic):** Only after the 6-month Premium commitment completes. No exceptions mid-term.
 
-Full pricing details: `HQ/crm/coconala-playbook.md` and `HQ/crm/change-catalogue.md`
+Full pricing details: `HQ/crm/change-catalogue.md`
 
 ---
 
@@ -132,7 +126,7 @@ ZeroEn/
 │   ├── marketing/          ← Marketing ops, content, SEO, outreach
 │   ├── crm/                ← Client registry, scoring, contracts
 │   │   ├── clients.json    ← Master client registry
-│   │   ├── coconala-playbook.md  ← Coconala channel strategy & policies
+│   │   ├── coconala-playbook.md  ← Coconala post-mortem (channel abandoned 2026-04-14)
 │   │   └── change-catalogue.md   ← Change size definitions & pricing
 │   └── scripts/            ← Utility scripts (clone-all.sh, etc.)
 ├── Clients/                ← NOT tracked (gitignored)
@@ -169,21 +163,7 @@ No Supabase needed for landing pages. Pure static/SSG.
 
 ## Client Lifecycle
 
-### Coconala Clients (Japan)
-
-```
-1. DISCOVER  → Coconala listing, build-in-public content, social media
-2. INQUIRE   → Client contacts via Coconala messaging
-3. QUALIFY   → 5-question scoring: purpose, audience, content readiness, commitment, responsiveness
-4. ONBOARD   → Client pays ¥500 intake fee on Coconala → form-based scoping → scope locked → 6-month commitment agreed in writing
-5. BUILD     → /new-client <clientId> → landing page (1-3 days)
-6. LAUNCH    → Deploy to Vercel → Stripe subscription starts (¥5,000 or ¥10,000/mo via zeroen.dev)
-7. OPERATE   → Monthly analytics PDF → included changes
-8. GROW      → Per-request charges via Stripe invoice → upgrade Basic → Premium
-9. UPSELL    → Quarterly audits surface issues → WebMori audit service
-```
-
-### Direct Clients (zeroen.dev)
+### All Clients (zeroen.dev + marketplace channels)
 
 ```
 1. DISCOVER  → zeroen.dev, build-in-public content, referrals
@@ -296,7 +276,7 @@ Adapted from SiteAudit's wave-based pipeline:
 
 | Document | Path | Purpose |
 |----------|------|---------|
-| Coconala playbook | `HQ/crm/coconala-playbook.md` | Channel strategy, tiers, policies, milestones |
+| Coconala post-mortem | `HQ/crm/coconala-playbook.md` | Why Coconala was abandoned (2026-04-14); do not re-open without reading this |
 | Change catalogue | `HQ/crm/change-catalogue.md` | Change size definitions, a-la-carte pricing |
 | Client profiles | `HQ/crm/clients/<clientId>/profile.md` | Per-client data, billing, status |
 | Client registry (HQ infra) | `HQ/crm/clients.json` | Repo/Vercel/Supabase URLs per clientId — used by scripts |
@@ -313,7 +293,6 @@ Adapted from SiteAudit's wave-based pipeline:
 - Never auto-send anything to clients without operator review
 - Never modify a client's scope without documenting it and updating pricing
 - Never store secrets in client repos — use environment variables
-- Never bill Coconala intake fees outside of Coconala (the ¥500 must go through Coconala)
 - Never build dynamic sites (auth, database) in Phase 1 — landing pages only
 - Never accept a client without confirming the 6-month commitment in writing
 - Never quote change sizes without referencing `HQ/crm/change-catalogue.md`
