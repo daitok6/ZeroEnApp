@@ -752,12 +752,13 @@
     "whyMonthlyChanges": "毎月の変更対応 — サイトが常に最新の状態を保てます",
     "premiumValueTitle": "プレミアムで得られる価値",
     "premiumValueChanges": "小変更2回/月 — 都度依頼では¥10,000相当",
-    "premiumValueSecAudit": "四半期セキュリティ監査 — 月換算¥5,000相当",
-    "premiumValueSeoAudit": "四半期SEO監査 — 月換算¥5,000相当",
+    "premiumValueSecAudit": "四半期セキュリティ監査 — ¥15,000相当",
+    "premiumValueSeoAudit": "四半期SEO監査 — ¥5,000相当",
+    "premiumValueFindings": "監査の指摘事項の修正対応 — 最大¥50,000/四半期、含む",
     "premiumValuePriority": "優先SLA＋コピー修正クレジット — 含む",
-    "premiumValueTotal": "都度依頼合計：月約¥20,000相当 → ¥10,000/月で提供",
+    "premiumValueTotal": "都度依頼合計：月約¥30,000以上相当 → ¥10,000/月で提供",
     "premiumValueBenchmark": "同等のサポートをフリーランスや制作会社に依頼すると、¥30,000〜50,000/月が相場です。",
-    "premiumSavingsBadge": "約¥10,000/月お得"
+    "premiumSavingsBadge": "月¥20,000以上お得"
   },
   "common": {
     "all": "すべて",

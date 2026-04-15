@@ -214,6 +214,7 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
                       t('premiumValueChanges'),
                       t('premiumValueSecAudit'),
                       t('premiumValueSeoAudit'),
+                      t('premiumValueFindings'),
                       t('premiumValuePriority'),
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-2">
