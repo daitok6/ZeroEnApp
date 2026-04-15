@@ -259,7 +259,8 @@ export interface ClientBrand {
   tagline: string | null;
   entityName: string | null;
   timezone: string | null;
-  logoUrl: string | null;
+  logoUrl: string | null;       // fresh signed URL for preview
+  logoDownloadUrl: string | null; // fresh signed URL with download header
   primaryColor: string | null;
   secondaryColor: string | null;
   fontPreference: string | null;
@@ -271,6 +272,21 @@ export interface ClientBrand {
   termsAcceptedAt: string | null;
   createdAt: string;
   updatedAt: string;
+}
+
+/** Extract the storage path from a Supabase signed URL.
+ *  Signed URL format: https://<ref>.supabase.co/storage/v1/object/sign/<bucket>/<path>?token=...
+ */
+function extractStoragePath(signedUrl: string, bucket: string): string | null {
+  try {
+    const url = new URL(signedUrl);
+    const marker = `/object/sign/${bucket}/`;
+    const idx = url.pathname.indexOf(marker);
+    if (idx === -1) return null;
+    return url.pathname.slice(idx + marker.length);
+  } catch {
+    return null;
+  }
 }
 
 export async function getClientBrand(
@@ -285,6 +301,21 @@ export async function getClientBrand(
 
   if (!data) return null;
 
+  // Re-generate fresh signed URLs if a logo is stored
+  let logoUrl: string | null = null;
+  let logoDownloadUrl: string | null = null;
+  if (data.logo_url) {
+    const path = extractStoragePath(data.logo_url, 'brand-assets');
+    if (path) {
+      const [{ data: preview }, { data: download }] = await Promise.all([
+        supabase.storage.from('brand-assets').createSignedUrl(path, 3600),
+        supabase.storage.from('brand-assets').createSignedUrl(path, 3600, { download: true }),
+      ]);
+      logoUrl = preview?.signedUrl ?? null;
+      logoDownloadUrl = download?.signedUrl ?? null;
+    }
+  }
+
   return {
     profileId: data.profile_id,
     businessName: data.business_name,
@@ -293,7 +324,8 @@ export async function getClientBrand(
     tagline: data.tagline,
     entityName: data.entity_name,
     timezone: data.timezone,
-    logoUrl: data.logo_url,
+    logoUrl,
+    logoDownloadUrl,
     primaryColor: data.primary_color,
     secondaryColor: data.secondary_color,
     fontPreference: data.font_preference,

@@ -182,8 +182,16 @@ export default async function AdminClientDetailPage({ params }: Props) {
                     <img
                       src={brand.logoUrl}
                       alt="Client logo"
-                      className="h-16 w-auto object-contain rounded border border-[#374151] bg-[#0D0D0D] p-2"
+                      className="h-16 w-auto object-contain rounded border border-[#374151] bg-[#0D0D0D] p-2 mb-2"
                     />
+                    {brand.logoDownloadUrl && (
+                      <a
+                        href={brand.logoDownloadUrl}
+                        className="inline-flex items-center gap-1 text-[#6B7280] hover:text-[#F4F4F2] font-mono text-xs transition-colors"
+                      >
+                        ↓ {isJa ? 'ダウンロード' : 'Download'}
+                      </a>
+                    )}
                   </div>
                 )}
                 {/* Colours */}
