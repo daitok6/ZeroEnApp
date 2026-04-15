@@ -10,7 +10,7 @@ const lpInquirySchema = z.object({
   current_site_url: z.string().url().optional().or(z.literal('')),
   challenge: z.string().min(1, 'Challenge is required').max(1000),
   first_touch: z.string().optional(),
-  attribution_meta: z.record(z.string()).optional(),
+  attribution_meta: z.record(z.string(), z.unknown()).optional(),
   locale: z.enum(['en', 'ja']).default('ja'),
 });
 
