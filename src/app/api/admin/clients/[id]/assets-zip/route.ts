@@ -91,13 +91,14 @@ export async function GET(_request: NextRequest, { params }: Params) {
   await Promise.all(tasks);
 
   const zipBytes = await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE' });
+  const blob = new Blob([zipBytes], { type: 'application/zip' });
 
-  return new NextResponse(zipBytes, {
+  return new NextResponse(blob, {
     status: 200,
     headers: {
       'Content-Type': 'application/zip',
       'Content-Disposition': `attachment; filename="${slug}-brand.zip"`,
-      'Content-Length': String(zipBytes.byteLength),
+      'Content-Length': String(blob.size),
     },
   });
 }
