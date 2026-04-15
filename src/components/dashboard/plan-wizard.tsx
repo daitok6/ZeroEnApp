@@ -38,9 +38,11 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
       price: t('premiumPrice'),
       features: [
         tBilling('hostingIncluded'),
-        tBilling('twoChangesPerMonth'),
+        t('premiumFeatureChanges'),
+        t('premiumFeatureAudits'),
+        t('premiumFeatureFindings'),
+        t('premiumFeaturePriority'),
         tBilling('fullYearAnalytics'),
-        tBilling('quarterlyAudits'),
       ],
       popular: true,
     },
@@ -198,35 +200,18 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
                 ))}
               </ul>
 
-              {/* Premium value stack */}
+              {/* Premium value punchline */}
               {tier === 'premium' && (
-                <div className="mt-4 pt-4 border-t border-[#374151]/60">
-                  <div className="flex items-center justify-between mb-2">
-                    <p className="text-[#F4F4F2] text-xs font-mono font-bold uppercase tracking-widest">
-                      {t('premiumValueTitle')}
+                <div className="mt-4 pt-4 border-t border-[#374151]/60 space-y-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-[#00E87A] text-xs font-mono font-bold leading-relaxed">
+                      {t('premiumValueTotal')}
                     </p>
                     <span className="text-[10px] font-mono font-bold uppercase tracking-widest bg-[#00E87A]/10 text-[#00E87A] border border-[#00E87A]/30 px-2 py-0.5 rounded-full whitespace-nowrap">
                       {t('premiumSavingsBadge')}
                     </span>
                   </div>
-                  <ul className="space-y-1.5 mb-3">
-                    {[
-                      t('premiumValueChanges'),
-                      t('premiumValueSecAudit'),
-                      t('premiumValueSeoAudit'),
-                      t('premiumValueFindings'),
-                      t('premiumValuePriority'),
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <span className="text-[#00E87A] text-xs font-mono shrink-0 mt-0.5">→</span>
-                        <span className="text-[#6B7280] text-[11px] font-mono leading-relaxed">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-[#00E87A] text-xs font-mono font-bold leading-relaxed">
-                    {t('premiumValueTotal')}
-                  </p>
-                  <p className="text-[#6B7280] text-[11px] font-mono leading-relaxed mt-1">
+                  <p className="text-[#6B7280] text-[11px] font-mono leading-relaxed">
                     {t('premiumValueBenchmark')}
                   </p>
                 </div>
