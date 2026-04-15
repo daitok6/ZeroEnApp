@@ -1,3 +1,5 @@
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/dashboard/sidebar';
@@ -15,6 +17,8 @@ type Props = {
 
 export default async function AdminLayout({ children, params }: Props) {
   const { locale } = await params;
+
+  const messages = await getMessages();
 
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -61,21 +65,23 @@ export default async function AdminLayout({ children, params }: Props) {
   );
 
   return (
-    <div data-admin className="h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
-      <Sidebar locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} requestsBadge={requestsBadge} />
+    <NextIntlClientProvider messages={messages}>
+      <div data-admin className="h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
+        <Sidebar locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} requestsBadge={requestsBadge} />
 
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <DashboardTopbar
-          locale={locale}
-          label={locale === 'ja' ? '管理ダッシュボード' : 'Admin Dashboard'}
-        />
+        <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+          <DashboardTopbar
+            locale={locale}
+            label={locale === 'ja' ? '管理ダッシュボード' : 'Admin Dashboard'}
+          />
 
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 pb-24 md:pb-6">
-          {children}
-        </main>
+          <main className="flex-1 overflow-y-auto p-4 md:p-6 pb-24 md:pb-6">
+            {children}
+          </main>
+        </div>
+
+        <BottomNav locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} requestsBadge={requestsBadge} />
       </div>
-
-      <BottomNav locale={locale} navType="admin" basePath="/admin" messagesBadge={messagesBadge} requestsBadge={requestsBadge} />
-    </div>
+    </NextIntlClientProvider>
   );
 }
