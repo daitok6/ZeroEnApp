@@ -116,6 +116,12 @@ export function Footer({ locale }: { locale: string }) {
             >
               {t('bottom.privacy')}
             </Link>
+            <Link
+              href={`/${locale}/tokushoho`}
+              className="text-[#6B7280] hover:text-[#F4F4F2] text-xs font-mono transition-colors"
+            >
+              {t('bottom.tokushoho')}
+            </Link>
             <p className="text-[#6B7280] text-xs font-mono">
               {t('bottom.tagline')}
             </p>
