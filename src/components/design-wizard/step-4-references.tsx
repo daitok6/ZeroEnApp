@@ -21,15 +21,6 @@ const ERROR_CLASS = 'text-red-400 text-xs font-mono mt-1';
 const MAX_URLS = 5;
 const MAX_KEYWORDS = 10;
 
-function isValidUrl(value: string) {
-  try {
-    new URL(value);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 export function Step4References({
   initialValues,
   onSubmit,
@@ -41,7 +32,6 @@ export function Step4References({
     const arr = initialValues.reference_urls as string[] | undefined;
     return arr && arr.length > 0 ? arr : [''];
   });
-  const [urlErrors, setUrlErrors] = useState<Record<number, string>>({});
   const [keywords, setKeywords] = useState<string[]>(
     (initialValues.vibe_keywords as string[] | undefined) ?? []
   );
@@ -59,27 +49,11 @@ export function Step4References({
   const updateUrl = (idx: number, value: string) => {
     setUrls((arr) => arr.map((v, i) => (i === idx ? value : v)));
   };
-  const blurUrl = (idx: number, value: string) => {
-    if (value && !isValidUrl(value)) {
-      setUrlErrors((e) => ({ ...e, [idx]: locale === 'ja' ? 'リンクの形式を確認してください。' : "That doesn't look like a valid link." }));
-    } else {
-      setUrlErrors((e) => {
-        const next = { ...e };
-        delete next[idx];
-        return next;
-      });
-    }
-  };
   const addUrl = () => {
     if (urls.length < MAX_URLS) setUrls((arr) => [...arr, '']);
   };
   const removeUrl = (idx: number) => {
     setUrls((arr) => (arr.length > 1 ? arr.filter((_, i) => i !== idx) : ['']));
-    setUrlErrors((e) => {
-      const next = { ...e };
-      delete next[idx];
-      return next;
-    });
   };
 
   const addKeyword = (raw: string) => {
@@ -107,11 +81,6 @@ export function Step4References({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cleanedUrls = urls.map((u) => u.trim()).filter(Boolean);
-    const anyBadUrl = cleanedUrls.some((u) => !isValidUrl(u));
-    if (anyBadUrl) {
-      setErrors({ reference_urls: locale === 'ja' ? 'リンクの形式を確認してください。' : "One or more links don't look right. Please check them." });
-      return;
-    }
 
     const parsed = step4Schema.safeParse({
       reference_urls: cleanedUrls,
@@ -169,10 +138,9 @@ export function Step4References({
             <div key={idx}>
               <div className="flex gap-2">
                 <input
-                  type="url"
+                  type="text"
                   value={url}
                   onChange={(e) => updateUrl(idx, e.target.value)}
-                  onBlur={(e) => blurUrl(idx, e.target.value)}
                   placeholder="https://example.com"
                   className={INPUT_CLASS}
                 />
@@ -185,7 +153,6 @@ export function Step4References({
                   <X size={14} />
                 </button>
               </div>
-              {urlErrors[idx] && <p className={ERROR_CLASS}>{urlErrors[idx]}</p>}
             </div>
           ))}
         </div>
@@ -199,7 +166,6 @@ export function Step4References({
             {locale === 'ja' ? 'サイトを追加' : 'Add site'}
           </button>
         )}
-        {errors.reference_urls && <p className={ERROR_CLASS}>{errorMsg(errors.reference_urls, locale)}</p>}
       </div>
 
       {/* Vibe keywords */}

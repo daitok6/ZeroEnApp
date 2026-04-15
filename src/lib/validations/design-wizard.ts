@@ -46,7 +46,7 @@ export const step3Schema = z.object({
 
 // ─── Step 4 — References + Terms ─────────────────────────────────────────────
 export const step4Schema = z.object({
-  reference_urls: z.array(z.string().url({ error: 'errors.urlInvalid' })).max(5).optional().default([]),
+  reference_urls: z.array(z.string()).max(5).optional().default([]),
   vibe_keywords: z.array(z.string().min(1)).max(10).optional().default([]),
   terms_accepted: z.literal(true, { error: 'errors.termsRequired' }),
 });
