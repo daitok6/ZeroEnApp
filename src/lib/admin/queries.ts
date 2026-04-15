@@ -249,6 +249,65 @@ export async function getClientList(supabase: SupabaseClient): Promise<ClientRow
   );
 }
 
+// ─── Client Brand ─────────────────────────────────────────────────────────────
+
+export interface ClientBrand {
+  profileId: string;
+  businessName: string | null;
+  industry: string | null;
+  location: string | null;
+  tagline: string | null;
+  entityName: string | null;
+  timezone: string | null;
+  logoUrl: string | null;
+  primaryColor: string | null;
+  secondaryColor: string | null;
+  fontPreference: string | null;
+  targetAudience: string | null;
+  primaryCta: string | null;
+  keyOfferings: string[];
+  referenceUrls: string[];
+  vibeKeywords: string[];
+  termsAcceptedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export async function getClientBrand(
+  supabase: SupabaseClient,
+  profileId: string
+): Promise<ClientBrand | null> {
+  const { data } = await supabase
+    .from('client_brand')
+    .select('*')
+    .eq('profile_id', profileId)
+    .single();
+
+  if (!data) return null;
+
+  return {
+    profileId: data.profile_id,
+    businessName: data.business_name,
+    industry: data.industry,
+    location: data.location,
+    tagline: data.tagline,
+    entityName: data.entity_name,
+    timezone: data.timezone,
+    logoUrl: data.logo_url,
+    primaryColor: data.primary_color,
+    secondaryColor: data.secondary_color,
+    fontPreference: data.font_preference,
+    targetAudience: data.target_audience,
+    primaryCta: data.primary_cta,
+    keyOfferings: data.key_offerings ?? [],
+    referenceUrls: data.reference_urls ?? [],
+    vibeKeywords: data.vibe_keywords ?? [],
+    termsAcceptedAt: data.terms_accepted_at,
+    createdAt: data.created_at,
+    updatedAt: data.updated_at,
+  };
+}
+
 // ─── Client Detail ────────────────────────────────────────────────────────────
 
 export interface ClientProject {

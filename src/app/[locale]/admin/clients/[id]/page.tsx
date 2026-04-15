@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getClientById } from '@/lib/admin/queries';
+import { getClientById, getClientBrand, type ClientBrand } from '@/lib/admin/queries';
 import { ProjectSettingsForm } from '@/components/admin/project-settings-form';
 import { ExternalLink } from 'lucide-react';
 
@@ -72,7 +72,10 @@ export default async function AdminClientDetailPage({ params }: Props) {
   const isJa = locale === 'ja';
   const supabase = await createClient();
 
-  const client = await getClientById(supabase, id);
+  const [client, brand] = await Promise.all([
+    getClientById(supabase, id),
+    getClientBrand(supabase, id),
+  ]);
   if (!client) notFound();
 
   const project = client.projects[0] ?? null;
@@ -132,6 +135,167 @@ export default async function AdminClientDetailPage({ params }: Props) {
           </span>
         </div>
       </div>
+
+      {/* ── Brand / Design Wizard ────────────────────────────────── */}
+      <section className="border border-[#374151] rounded-lg bg-[#111827] p-4 md:p-6 space-y-5">
+        <SectionHeader title={isJa ? 'ブランド / デザインウィザード' : 'Brand / Design Wizard'} />
+        {!brand ? (
+          <p className="text-[#6B7280] font-mono text-sm">
+            {isJa ? 'デザインウィザードの回答がまだありません。' : 'No design-wizard submission yet.'}
+          </p>
+        ) : (
+          <div className="space-y-6">
+
+            {/* Business */}
+            <div>
+              <p className="text-[#6B7280] text-[10px] font-mono uppercase tracking-widest mb-3">
+                {isJa ? '事業' : 'Business'}
+              </p>
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm font-mono">
+                {[
+                  { label: isJa ? '屋号・社名' : 'Business name', value: brand.businessName },
+                  { label: isJa ? '法人名' : 'Entity name', value: brand.entityName },
+                  { label: isJa ? '業種' : 'Industry', value: brand.industry },
+                  { label: isJa ? '所在地' : 'Location', value: brand.location },
+                  { label: isJa ? 'タグライン' : 'Tagline', value: brand.tagline },
+                  { label: isJa ? 'タイムゾーン' : 'Timezone', value: brand.timezone },
+                ].map(({ label, value }) => value ? (
+                  <div key={label}>
+                    <dt className="text-[#6B7280] text-xs mb-0.5">{label}</dt>
+                    <dd className="text-[#F4F4F2]">{value}</dd>
+                  </div>
+                ) : null)}
+              </dl>
+            </div>
+
+            {/* Brand identity */}
+            <div>
+              <p className="text-[#6B7280] text-[10px] font-mono uppercase tracking-widest mb-3">
+                {isJa ? 'ブランド' : 'Brand identity'}
+              </p>
+              <div className="space-y-3">
+                {/* Logo */}
+                {brand.logoUrl && (
+                  <div>
+                    <p className="text-[#6B7280] text-xs font-mono mb-1">{isJa ? 'ロゴ' : 'Logo'}</p>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={brand.logoUrl}
+                      alt="Client logo"
+                      className="h-16 w-auto object-contain rounded border border-[#374151] bg-[#0D0D0D] p-2"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                    />
+                  </div>
+                )}
+                {/* Colours */}
+                <div className="flex flex-wrap gap-4">
+                  {brand.primaryColor && (
+                    <div>
+                      <p className="text-[#6B7280] text-xs font-mono mb-1">{isJa ? 'メインカラー' : 'Primary'}</p>
+                      <div className="flex items-center gap-2">
+                        <span className="inline-block h-5 w-5 rounded border border-[#374151]" style={{ backgroundColor: brand.primaryColor }} />
+                        <span className="text-[#F4F4F2] font-mono text-xs uppercase">{brand.primaryColor}</span>
+                      </div>
+                    </div>
+                  )}
+                  {brand.secondaryColor && (
+                    <div>
+                      <p className="text-[#6B7280] text-xs font-mono mb-1">{isJa ? 'サブカラー' : 'Secondary'}</p>
+                      <div className="flex items-center gap-2">
+                        <span className="inline-block h-5 w-5 rounded border border-[#374151]" style={{ backgroundColor: brand.secondaryColor }} />
+                        <span className="text-[#F4F4F2] font-mono text-xs uppercase">{brand.secondaryColor}</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {/* Font */}
+                {brand.fontPreference && (
+                  <div>
+                    <p className="text-[#6B7280] text-xs font-mono mb-1">{isJa ? 'フォント' : 'Font'}</p>
+                    <p className="text-[#F4F4F2] font-mono text-sm">{brand.fontPreference}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Goals */}
+            <div>
+              <p className="text-[#6B7280] text-[10px] font-mono uppercase tracking-widest mb-3">
+                {isJa ? 'サイトの目的' : 'Goals'}
+              </p>
+              <dl className="space-y-3 text-sm font-mono">
+                {brand.targetAudience && (
+                  <div>
+                    <dt className="text-[#6B7280] text-xs mb-0.5">{isJa ? 'ターゲット' : 'Target audience'}</dt>
+                    <dd className="text-[#F4F4F2]">{brand.targetAudience}</dd>
+                  </div>
+                )}
+                {brand.primaryCta && (
+                  <div>
+                    <dt className="text-[#6B7280] text-xs mb-0.5">{isJa ? 'メインCTA' : 'Primary CTA'}</dt>
+                    <dd className="text-[#F4F4F2]">{brand.primaryCta}</dd>
+                  </div>
+                )}
+                {brand.keyOfferings.length > 0 && (
+                  <div>
+                    <dt className="text-[#6B7280] text-xs mb-1">{isJa ? '提供サービス' : 'Key offerings'}</dt>
+                    <dd className="flex flex-wrap gap-1.5">
+                      {brand.keyOfferings.map((item, i) => (
+                        <span key={i} className="px-2 py-0.5 rounded bg-[#1F2937] text-[#F4F4F2] text-xs font-mono">
+                          {item}
+                        </span>
+                      ))}
+                    </dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+
+            {/* References */}
+            <div>
+              <p className="text-[#6B7280] text-[10px] font-mono uppercase tracking-widest mb-3">
+                {isJa ? '参考・雰囲気' : 'References & vibe'}
+              </p>
+              <div className="space-y-3 text-sm font-mono">
+                {brand.vibeKeywords.length > 0 && (
+                  <div>
+                    <p className="text-[#6B7280] text-xs mb-1">{isJa ? 'キーワード' : 'Vibe keywords'}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {brand.vibeKeywords.map((kw, i) => (
+                        <span key={i} className="px-2 py-0.5 rounded bg-[#00E87A]/10 text-[#00E87A] text-xs font-mono border border-[#00E87A]/20">
+                          {kw}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {brand.referenceUrls.length > 0 && (
+                  <div>
+                    <p className="text-[#6B7280] text-xs mb-1">{isJa ? '参考URL' : 'Reference URLs'}</p>
+                    <ul className="space-y-1">
+                      {brand.referenceUrls.map((url, i) => (
+                        <li key={i}>
+                          <a href={url} target="_blank" rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[#3B82F6] hover:text-[#60A5FA] text-xs transition-colors break-all">
+                            <ExternalLink size={10} /> {url}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {brand.termsAcceptedAt && (
+                  <p className="text-[#6B7280] text-xs">
+                    {isJa ? '利用規約同意日時: ' : 'Terms accepted: '}
+                    <span className="text-[#9CA3AF]">{formatDate(brand.termsAcceptedAt, locale)}</span>
+                  </p>
+                )}
+              </div>
+            </div>
+
+          </div>
+        )}
+      </section>
 
       {/* ── Project & Settings ─────────────────────────────────────── */}
       <section className="border border-[#374151] rounded-lg bg-[#111827] p-4 md:p-6 space-y-5">
