@@ -1252,5 +1252,46 @@
     "note": "このルートはスタートアップファウンダー向けです。個人事業主・コーチ・コンサルタントの方は、LPプランをご検討ください。",
     "lpCta": "LPプランを見る →",
     "applyHeading": "申し込み"
+  },
+  "lpApply": {
+    "meta": {
+      "title": "応募する — 無料LP制作 | ZeroEn",
+      "description": "ランディングページの無料制作に応募。3日で制作・公開。月¥5,000でホスティング・運用・毎月の改善まで。"
+    },
+    "eyebrow": "LP制作 無料応募",
+    "title": "LPを作りましょう。",
+    "subtitle": "前金0円。3日で公開。月¥5,000でホスティング・更新・毎月の改善まで。6ヶ月から。",
+    "form": {
+      "name": "お名前",
+      "namePlaceholder": "山田 太郎",
+      "email": "メールアドレス",
+      "emailPlaceholder": "you@example.com",
+      "occupation": "ご職業",
+      "occupationPlaceholder": "ご職業を選択してください",
+      "occupationCoach": "コーチ",
+      "occupationTherapist": "セラピスト",
+      "occupationCounselor": "カウンセラー",
+      "occupationOther": "その他",
+      "currentSite": "現在のサイトURL（任意）",
+      "currentSitePlaceholder": "https://yoursite.com",
+      "challenge": "LPで一番困っていること",
+      "challengePlaceholder": "例：ペライチで作ったけどお問い合わせが来ない。ブランドを伝えたいがどうすれば良いか分からない...",
+      "consent": "プライバシーポリシーに同意のうえ、本応募に関する連絡を受け取ることに同意します。",
+      "submit": "応募する →",
+      "submitting": "送信中...",
+      "fieldRequired": "必須項目です",
+      "emailInvalid": "有効なメールアドレスを入力してください"
+    },
+    "thankYou": {
+      "eyebrow": "応募を受け付けました",
+      "title": "ご連絡します。",
+      "message": "応募内容を受け取りました。すべての応募を個別に確認し、24時間以内にご連絡します。",
+      "nextSteps": "今後の流れ",
+      "step1": "応募内容を確認します",
+      "step2": "24時間以内にご返信します",
+      "step3": "スコープを確認してキックオフします",
+      "step4": "3日以内にLPが公開されます",
+      "cta": "ホームへ戻る"
+    }
   }
 }

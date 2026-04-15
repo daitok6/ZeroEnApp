@@ -90,15 +90,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'save_failed' }, { status: 500 });
   }
 
-  // Update profile: mark complete, clear draft progress
-  const { error: profileError } = await supabase
-    .from('profiles')
-    .update({
-      onboarding_status: 'complete',
-      status: 'client',
-      onboarding_progress: null,
-    })
-    .eq('id', user.id);
+  // Update profile: mark complete, clear draft progress.
+  // Uses a SECURITY DEFINER RPC to bypass the RLS policy that pins status to
+  // its current value (users cannot self-transition via a direct UPDATE).
+  const { error: profileError } = await supabase.rpc('complete_design_wizard');
 
   if (profileError) {
     console.error('[design-wizard/complete] profile update failed:', profileError.message);

@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 import { routing } from '@/i18n/routing';
 import { MarketingShell } from '@/components/layout/marketing-shell';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
+import { GoogleAds } from '@/components/analytics/google-ads';
 import { UtmCapture } from '@/components/analytics/utm-capture';
 import '../globals.css';
 
@@ -87,6 +88,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <MarketingShell locale={locale}>{children}</MarketingShell>
         </NextIntlClientProvider>
         <GoogleAnalytics />
+        <GoogleAds />
         <Analytics />
       </body>
     </html>

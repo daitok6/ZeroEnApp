@@ -1252,5 +1252,46 @@
     "note": "This route is for startup founders. If you're a coach, consultant, or therapist, check out our LP plan instead.",
     "lpCta": "See the LP plan →",
     "applyHeading": "Apply"
+  },
+  "lpApply": {
+    "meta": {
+      "title": "Apply — Free LP Build | ZeroEn",
+      "description": "Apply for your free landing page. ZeroEn builds it in 3 days, then ¥5,000/month for hosting, updates, and analytics."
+    },
+    "eyebrow": "FREE LP APPLICATION",
+    "title": "Let's build your LP.",
+    "subtitle": "¥0 upfront. Built in 3 days. ¥5,000/month for hosting, updates, and monthly improvements. 6-month commitment.",
+    "form": {
+      "name": "Your name",
+      "namePlaceholder": "Yamada Taro",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "occupation": "Occupation",
+      "occupationPlaceholder": "Select your occupation",
+      "occupationCoach": "Coach",
+      "occupationTherapist": "Therapist",
+      "occupationCounselor": "Counselor",
+      "occupationOther": "Other",
+      "currentSite": "Current site URL (optional)",
+      "currentSitePlaceholder": "https://yoursite.com",
+      "challenge": "What's your biggest LP challenge?",
+      "challengePlaceholder": "e.g. Tried Peraichi but couldn't get inquiries. Want a real brand but don't know where to start...",
+      "consent": "I agree to ZeroEn's privacy policy and consent to being contacted about this application.",
+      "submit": "Apply now →",
+      "submitting": "Sending...",
+      "fieldRequired": "This field is required",
+      "emailInvalid": "Enter a valid email address"
+    },
+    "thankYou": {
+      "eyebrow": "APPLICATION RECEIVED",
+      "title": "We'll be in touch.",
+      "message": "Your application has been received. We review every application personally and will reply within 24 hours.",
+      "nextSteps": "Next steps",
+      "step1": "We review your application",
+      "step2": "You receive a reply within 24 hours",
+      "step3": "We confirm scope and kick off the build",
+      "step4": "Your LP is live within 3 days",
+      "cta": "Back to home"
+    }
   }
 }
