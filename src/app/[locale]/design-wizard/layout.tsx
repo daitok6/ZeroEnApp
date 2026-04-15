@@ -30,7 +30,7 @@ export default async function DesignWizardLayout({ children, params }: Props) {
 
       {/* Centered content */}
       <main className="flex-1 flex items-start justify-center px-4 py-8 sm:py-12">
-        <div className="w-full max-w-2xl">{children}</div>
+        <div className="w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl">{children}</div>
       </main>
     </div>
   );
