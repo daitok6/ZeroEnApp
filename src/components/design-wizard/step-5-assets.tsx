@@ -165,6 +165,17 @@ export function Step5Assets({
     });
   };
 
+  const handleSkip = () => {
+    if (anyUploading) return;
+    const supabase = createClient();
+    const toRemove = slots.filter(isPopulated).map((s) => s.path);
+    if (toRemove.length > 0) {
+      supabase.storage.from('brand-assets').remove(toRemove).catch(() => {});
+    }
+    setSlots([emptySlot(), emptySlot(), emptySlot()]);
+    onSubmit({ assets: [] });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting || uploading.some(Boolean)) return;
@@ -197,8 +208,13 @@ export function Step5Assets({
       <div>
         <p className="text-[#6B7280] text-xs font-mono leading-relaxed">
           {isJa
-            ? 'サイトに掲載したい画像（ロゴ、店舗・商品・チームの写真など）を最大3枚アップロードしてください。'
-            : 'Upload up to 3 images you want on your site — logos, business photos, product shots, team photos, etc.'}
+            ? 'サイトに掲載したい画像（店舗・商品・チームの写真など）を最大3枚アップロードしてください。'
+            : 'Upload up to 3 images you want on your site — business photos, product shots, team photos, etc.'}
+        </p>
+        <p className="text-[#374151] text-xs font-mono mt-1">
+          {isJa
+            ? '任意 — 後でダッシュボードから追加することもできます。'
+            : 'Optional — you can also add these later from your dashboard.'}
         </p>
       </div>
 
@@ -302,17 +318,27 @@ export function Step5Assets({
         >
           {isJa ? '戻る' : 'Back'}
         </button>
-        <button
-          type="submit"
-          disabled={isSubmitting || anyUploading}
-          className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono uppercase tracking-widest text-sm px-6 py-3 rounded hover:bg-[#00E87A]/90 active:bg-[#00C96A] active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          {isSubmitting
-            ? isJa ? '送信中...' : 'Submitting...'
-            : anyUploading
-            ? isJa ? 'アップロード中...' : 'Uploading...'
-            : isJa ? '送信する' : 'Submit'}
-        </button>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={handleSkip}
+            disabled={anyUploading}
+            className="border border-[#1F2937] text-[#9CA3AF] font-mono uppercase tracking-widest text-sm px-4 py-3 rounded hover:border-[#374151] hover:text-[#F4F4F2] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {isJa ? '後で追加' : 'Skip'}
+          </button>
+          <button
+            type="submit"
+            disabled={isSubmitting || anyUploading}
+            className="bg-[#00E87A] text-[#0D0D0D] font-bold font-mono uppercase tracking-widest text-sm px-6 py-3 rounded hover:bg-[#00E87A]/90 active:bg-[#00C96A] active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {isSubmitting
+              ? isJa ? '保存中...' : 'Saving...'
+              : anyUploading
+              ? isJa ? 'アップロード中...' : 'Uploading...'
+              : isJa ? '次へ' : 'Next'}
+          </button>
+        </div>
       </div>
     </form>
   );
