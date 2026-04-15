@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
+import { cookies, headers } from 'next/headers';
 import { WizardModal } from '@/components/design-wizard/wizard-modal';
 import { ProjectStatusCard } from '@/components/dashboard/project-status-card';
 import { PlanSummaryCard } from '@/components/dashboard/plan-summary-card';
@@ -57,6 +58,35 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     .single();
 
   const showWizard = profile?.onboarding_status !== 'complete';
+
+  // First-entry browser-language default: if the wizard will open and the
+  // user has no persisted locale choice, redirect to the locale matching
+  // their browser preference. LocaleSwitcher sets NEXT_LOCALE on click, so
+  // manual choice persists and isn't silently reverted.
+  if (showWizard) {
+    const cookieStore = await cookies();
+    if (!cookieStore.get('NEXT_LOCALE')?.value) {
+      const hdrs = await headers();
+      const acceptLang = hdrs.get('accept-language');
+      let bestEn = 0;
+      let bestJa = 0;
+      if (acceptLang) {
+        for (const part of acceptLang.split(',')) {
+          const [tag, qStr] = part.trim().split(';q=');
+          const q = qStr ? parseFloat(qStr) : 1;
+          const lower = tag.toLowerCase();
+          if (lower.startsWith('en')) bestEn = Math.max(bestEn, q);
+          else if (lower.startsWith('ja')) bestJa = Math.max(bestJa, q);
+        }
+      }
+      const detected: 'en' | 'ja' =
+        bestEn === 0 && bestJa === 0 ? 'ja' : bestEn > bestJa ? 'en' : 'ja';
+      if (detected !== locale) {
+        redirect(`/${detected}/dashboard`);
+      }
+    }
+  }
+
   const onboardingProgress = (profile?.onboarding_progress ?? {}) as Record<string, unknown>;
   const wizardInitialStep =
     typeof onboardingProgress.current_step === 'number' &&
