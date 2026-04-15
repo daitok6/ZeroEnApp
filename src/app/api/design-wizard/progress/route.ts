@@ -29,10 +29,10 @@ export async function POST(request: NextRequest) {
     typeof step !== 'number' ||
     !Number.isInteger(step) ||
     step < 1 ||
-    step > 4
+    step > 5
   ) {
     return NextResponse.json(
-      { error: 'step must be an integer between 1 and 4' },
+      { error: 'step must be an integer between 1 and 5' },
       { status: 400 },
     );
   }

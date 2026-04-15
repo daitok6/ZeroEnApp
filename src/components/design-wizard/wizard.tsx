@@ -7,6 +7,7 @@ import { Step1Business } from './step-1-business';
 import { Step2Brand } from './step-2-brand';
 import { Step3Goals } from './step-3-goals';
 import { Step4References } from './step-4-references';
+import { Step5Assets } from './step-5-assets';
 import type { DesignWizardFormData } from '@/lib/validations/design-wizard';
 
 interface DesignWizardProps {
@@ -16,8 +17,8 @@ interface DesignWizardProps {
   userId: string;
 }
 
-const STEP_TITLES_EN = ['Your Business', 'Brand Identity', 'Site Goals', 'Final Details'];
-const STEP_TITLES_JA = ['事業について', 'ブランド', 'サイトの目的', '最終確認'];
+const STEP_TITLES_EN = ['Your Business', 'Brand Identity', 'Site Goals', 'Final Details', 'Site Assets'];
+const STEP_TITLES_JA = ['事業について', 'ブランド', 'サイトの目的', '最終確認', '素材・画像'];
 
 export function DesignWizard({ initialStep, initialData, locale, userId }: DesignWizardProps) {
   const router = useRouter();
@@ -51,7 +52,7 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
       setFormData(merged);
       setError(null);
       await saveProgress(currentStep, stepData);
-      setCurrentStep((s) => Math.min(s + 1, 4));
+      setCurrentStep((s) => Math.min(s + 1, 5));
       if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setIsAdvancing(false);
@@ -115,11 +116,11 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
 
   return (
     <div className="space-y-6">
-      <ProgressBar currentStep={currentStep} totalSteps={4} />
+      <ProgressBar currentStep={currentStep} totalSteps={5} />
 
       <div>
         <p className="text-[#00E87A] text-xs font-mono uppercase tracking-widest mb-2">
-          {locale === 'ja' ? `ステップ ${currentStep} / 4` : `Step ${currentStep} of 4`}
+          {locale === 'ja' ? `ステップ ${currentStep} / 5` : `Step ${currentStep} of 5`}
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold font-heading text-[#F4F4F2]">
           {titles[currentStep - 1]}
@@ -152,8 +153,18 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
         {currentStep === 4 && (
           <Step4References
             initialValues={formData}
+            onSubmit={handleNext}
+            onBack={handleBack}
+            locale={locale}
+            isSubmitting={isAdvancing}
+          />
+        )}
+        {currentStep === 5 && (
+          <Step5Assets
+            initialValues={formData}
             onSubmit={handleSubmit}
             onBack={handleBack}
+            userId={userId}
             locale={locale}
             isSubmitting={isSubmitting}
           />

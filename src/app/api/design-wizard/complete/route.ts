@@ -5,9 +5,10 @@ import {
   step2Schema,
   step3Schema,
   step4Schema,
+  step5Schema,
 } from '@/lib/validations/design-wizard';
 
-const completeSchema = step1Schema.merge(step2Schema).merge(step3Schema).merge(step4Schema);
+const completeSchema = step1Schema.merge(step2Schema).merge(step3Schema).merge(step4Schema).merge(step5Schema);
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
@@ -48,6 +49,7 @@ export async function POST(request: NextRequest) {
     reference_urls,
     vibe_keywords,
     terms_accepted,
+    assets,
   } = parsed.data;
 
   // Ensure profile row exists (trigger may not have fired for this account)
@@ -81,6 +83,7 @@ export async function POST(request: NextRequest) {
       reference_urls: reference_urls ?? [],
       vibe_keywords: vibe_keywords ?? [],
       terms_accepted_at: terms_accepted ? new Date().toISOString() : null,
+      assets: assets ?? [],
     },
     { onConflict: 'profile_id' },
   );

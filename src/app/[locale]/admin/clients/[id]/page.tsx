@@ -300,6 +300,53 @@ export default async function AdminClientDetailPage({ params }: Props) {
               </div>
             </div>
 
+            {/* Site assets */}
+            {brand.assets.length > 0 && (
+              <div>
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <p className="text-[#6B7280] text-[10px] font-mono uppercase tracking-widest">
+                    {isJa ? '素材・画像' : 'Site assets'}
+                  </p>
+                  <a
+                    href={`/api/admin/clients/${brand.profileId}/assets-zip`}
+                    className="inline-flex items-center gap-1 text-[#6B7280] hover:text-[#F4F4F2] font-mono text-xs transition-colors border border-[#374151] hover:border-[#6B7280] px-3 py-1 rounded"
+                  >
+                    ↓ {isJa ? '一括ダウンロード (ZIP)' : 'Download all (ZIP)'}
+                  </a>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {brand.assets.map((asset, i) => (
+                    <div key={i} className="border border-[#374151] rounded-lg p-3 bg-[#0D0D0D] space-y-2">
+                      {asset.signedUrl && (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          src={asset.signedUrl}
+                          alt={asset.caption || `Asset ${i + 1}`}
+                          className="h-24 w-full object-contain rounded border border-[#1F2937] bg-[#131313] p-1"
+                        />
+                      )}
+                      {asset.caption && (
+                        <p className="text-[#9CA3AF] font-mono text-xs leading-snug">{asset.caption}</p>
+                      )}
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[#374151] font-mono text-[10px]">
+                          {(asset.size / 1024).toFixed(0)} KB
+                        </span>
+                        {asset.downloadUrl && (
+                          <a
+                            href={asset.downloadUrl}
+                            className="inline-flex items-center gap-1 text-[#6B7280] hover:text-[#F4F4F2] font-mono text-xs transition-colors"
+                          >
+                            ↓ {isJa ? 'ダウンロード' : 'Download'}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
           </div>
         )}
       </section>

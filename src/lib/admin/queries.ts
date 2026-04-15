@@ -251,6 +251,15 @@ export async function getClientList(supabase: SupabaseClient): Promise<ClientRow
 
 // ─── Client Brand ─────────────────────────────────────────────────────────────
 
+export interface ClientAsset {
+  path: string;
+  caption: string;
+  content_type: string;
+  size: number;
+  signedUrl: string | null;
+  downloadUrl: string | null;
+}
+
 export interface ClientBrand {
   profileId: string;
   businessName: string | null;
@@ -270,6 +279,7 @@ export interface ClientBrand {
   referenceUrls: string[];
   vibeKeywords: string[];
   termsAcceptedAt: string | null;
+  assets: ClientAsset[];
   createdAt: string;
   updatedAt: string;
 }
@@ -316,6 +326,27 @@ export async function getClientBrand(
     }
   }
 
+  // Generate signed URLs for each asset
+  const rawAssets: { path: string; caption: string; content_type: string; size: number }[] =
+    Array.isArray(data.assets) ? data.assets : [];
+
+  const assets: ClientAsset[] = await Promise.all(
+    rawAssets.map(async (a) => {
+      const [{ data: preview }, { data: download }] = await Promise.all([
+        supabase.storage.from('brand-assets').createSignedUrl(a.path, 3600),
+        supabase.storage.from('brand-assets').createSignedUrl(a.path, 3600, { download: true }),
+      ]);
+      return {
+        path: a.path,
+        caption: a.caption ?? '',
+        content_type: a.content_type,
+        size: a.size,
+        signedUrl: preview?.signedUrl ?? null,
+        downloadUrl: download?.signedUrl ?? null,
+      };
+    })
+  );
+
   return {
     profileId: data.profile_id,
     businessName: data.business_name,
@@ -335,6 +366,7 @@ export async function getClientBrand(
     referenceUrls: data.reference_urls ?? [],
     vibeKeywords: data.vibe_keywords ?? [],
     termsAcceptedAt: data.terms_accepted_at,
+    assets,
     createdAt: data.created_at,
     updatedAt: data.updated_at,
   };

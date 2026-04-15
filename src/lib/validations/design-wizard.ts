@@ -51,8 +51,23 @@ export const step4Schema = z.object({
   terms_accepted: z.literal(true, { error: 'errors.termsRequired' }),
 });
 
+// ─── Step 5 — Site assets ─────────────────────────────────────────────────────
+export const assetItemSchema = z.object({
+  path: z.string().min(1),
+  caption: z.string().max(280).default(''),
+  content_type: z.string().min(1),
+  size: z.number().int().positive(),
+});
+
+export type AssetItem = z.infer<typeof assetItemSchema>;
+
+export const step5Schema = z.object({
+  assets: z.array(assetItemSchema).max(3).default([]),
+});
+
 // ─── Combined type ────────────────────────────────────────────────────────────
 export type DesignWizardFormData = z.infer<typeof step1Schema> &
   z.infer<typeof step2Schema> &
   z.infer<typeof step3Schema> &
-  z.infer<typeof step4Schema>;
+  z.infer<typeof step4Schema> &
+  z.infer<typeof step5Schema>;
