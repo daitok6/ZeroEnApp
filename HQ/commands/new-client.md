@@ -75,10 +75,13 @@ Add entry to `HQ/crm/clients.json`:
 ### 6. Create Client CRM Directory
 ```bash
 mkdir -p HQ/crm/clients/<clientId>
+mkdir -p HQ/crm/clients/<clientId>/assets
 ```
 Create `HQ/crm/clients/<clientId>/profile.md` with the template from `client-manager` agent.
 Include a `Project UUID` field (fill in after step 7 creates the Supabase `projects` row).
 Create `HQ/crm/clients/<clientId>/revenue.md` with empty revenue log.
+
+**Asset folder naming:** When downloading logos, images, or files the client uploads, save them into `HQ/crm/clients/<clientId>/assets/`. Use the subfolder name format `{FounderName}_{AppName}` (e.g., `TanakaYuki_FoodLogApp/`) so the source is immediately clear in Finder. Create this subfolder the first time assets arrive.
 
 ### 7. Set Up Umami Analytics
 
