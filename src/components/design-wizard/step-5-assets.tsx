@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { step5Schema, type AssetItem, type DesignWizardFormData } from '@/lib/validations/design-wizard';
+import { compressPhoto } from '@/lib/images/compress';
 
 interface Step5Props {
   initialValues: Partial<DesignWizardFormData>;
@@ -16,7 +17,7 @@ interface Step5Props {
 
 const LABEL_CLASS = 'block text-[#F4F4F2] text-xs font-mono uppercase tracking-widest mb-2';
 const ERROR_CLASS = 'text-red-400 text-xs font-mono mt-1';
-const MAX_SIZE = 2 * 1024 * 1024; // 2 MB
+const MAX_SIZE = 15 * 1024 * 1024; // 15 MB
 const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/svg+xml', 'image/webp'];
 const MAX_SLOTS = 3;
 
@@ -51,6 +52,7 @@ export function Step5Assets({
   });
 
   const [uploading, setUploading] = useState<boolean[]>([false, false, false]);
+  const [compressing, setCompressing] = useState<boolean[]>([false, false, false]);
   const [uploadErrors, setUploadErrors] = useState<(string | null)[]>([null, null, null]);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -80,6 +82,9 @@ export function Step5Assets({
   const setUploading1 = (idx: number, val: boolean) =>
     setUploading((prev) => { const n = [...prev]; n[idx] = val; return n; });
 
+  const setCompressing1 = (idx: number, val: boolean) =>
+    setCompressing((prev) => { const n = [...prev]; n[idx] = val; return n; });
+
   const setUploadError1 = (idx: number, val: string | null) =>
     setUploadErrors((prev) => { const n = [...prev]; n[idx] = val; return n; });
 
@@ -96,8 +101,16 @@ export function Step5Assets({
       return;
     }
     if (file.size > MAX_SIZE) {
-      setUploadError1(idx, isJa ? '2MB以下にしてください' : 'File must be under 2MB');
+      setUploadError1(idx, isJa ? '15MB以下にしてください' : 'File must be under 15MB');
       return;
+    }
+
+    setCompressing1(idx, true);
+    let toUpload = file;
+    try {
+      toUpload = await compressPhoto(file);
+    } finally {
+      setCompressing1(idx, false);
     }
 
     setUploading1(idx, true);
@@ -114,7 +127,7 @@ export function Step5Assets({
 
       const { error: upErr } = await supabase.storage
         .from('brand-assets')
-        .upload(path, file, { upsert: false, contentType: file.type });
+        .upload(path, toUpload, { upsert: false, contentType: toUpload.type });
       if (upErr) throw upErr;
 
       const { data: signed, error: signErr } = await supabase.storage
@@ -127,8 +140,8 @@ export function Step5Assets({
         next[idx] = {
           ...next[idx],
           path,
-          content_type: file.type,
-          size: file.size,
+          content_type: toUpload.type,
+          size: toUpload.size,
           signed_url: signed.signedUrl,
         };
         return next;
@@ -200,7 +213,7 @@ export function Step5Assets({
     onSubmit(parsed.data);
   };
 
-  const anyUploading = uploading.some(Boolean);
+  const anyUploading = uploading.some(Boolean) || compressing.some(Boolean);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -286,12 +299,17 @@ export function Step5Assets({
                 type="file"
                 accept=".png,.jpg,.jpeg,.svg,.webp"
                 onChange={(e) => handleFile(idx, e)}
-                disabled={uploading[idx]}
+                disabled={uploading[idx] || compressing[idx]}
                 className="block w-full text-xs font-mono text-[#9CA3AF] file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-mono file:font-bold file:uppercase file:tracking-widest file:bg-[#00E87A] file:text-[#0D0D0D] hover:file:bg-[#00E87A]/90 file:cursor-pointer"
               />
               <p className="text-[#6B7280] text-xs font-mono">
-                {isJa ? 'PNG/JPG/SVG/WebP — 最大2MB' : 'PNG, JPG, SVG, WebP — max 2MB'}
+                {isJa ? 'PNG/JPG/SVG/WebP — 最大15MB（自動圧縮）' : 'PNG, JPG, SVG, WebP — max 15MB (auto-compressed)'}
               </p>
+              {compressing[idx] && (
+                <p className="text-[#00E87A] text-xs font-mono">
+                  {isJa ? '圧縮中...' : 'Compressing...'}
+                </p>
+              )}
               {uploading[idx] && (
                 <p className="text-[#00E87A] text-xs font-mono">
                   {isJa ? 'アップロード中...' : 'Uploading...'}
@@ -334,7 +352,9 @@ export function Step5Assets({
           >
             {isSubmitting
               ? isJa ? '保存中...' : 'Saving...'
-              : anyUploading
+              : compressing.some(Boolean)
+              ? isJa ? '圧縮中...' : 'Compressing...'
+              : uploading.some(Boolean)
               ? isJa ? 'アップロード中...' : 'Uploading...'
               : isJa ? '次へ' : 'Next'}
           </button>
