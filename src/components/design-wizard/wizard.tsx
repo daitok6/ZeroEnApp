@@ -76,11 +76,29 @@ export function DesignWizard({ initialStep, initialData, locale, userId }: Desig
         body: JSON.stringify(merged),
       });
       if (!res.ok) {
-        setError(
-          locale === 'ja'
-            ? '保存できませんでした。もう一度お試しください。'
-            : "We couldn't save your answers. Please try again.",
-        );
+        let body: { error?: string; issues?: { path: (string | number)[] }[] } = {};
+        try { body = await res.json(); } catch { /* ignore */ }
+        console.error('[design-wizard] submit failed', res.status, body);
+
+        if (res.status === 401) {
+          router.push(`/${locale}/login`);
+          return;
+        }
+
+        if (res.status === 422 && body.issues?.length) {
+          const fields = [...new Set(body.issues.map((i) => String(i.path[0] ?? '')).filter(Boolean))].join(', ');
+          setError(
+            locale === 'ja'
+              ? `入力内容を確認してください（${fields}）`
+              : `Please check your answers (${fields})`,
+          );
+        } else {
+          setError(
+            locale === 'ja'
+              ? '保存できませんでした。もう一度お試しください。'
+              : "We couldn't save your answers. Please try again.",
+          );
+        }
         setIsSubmitting(false);
         return;
       }
