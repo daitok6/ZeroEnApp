@@ -183,7 +183,6 @@ export default async function AdminClientDetailPage({ params }: Props) {
                       src={brand.logoUrl}
                       alt="Client logo"
                       className="h-16 w-auto object-contain rounded border border-[#374151] bg-[#0D0D0D] p-2"
-                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                     />
                   </div>
                 )}
