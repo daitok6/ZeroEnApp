@@ -1,0 +1,1357 @@
+{
+  "nav": {
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "cases": "Cases",
+    "about": "About",
+    "dashboard": "Day One",
+    "blog": "Blog",
+    "login": "Log In",
+    "apply": "Apply Free"
+  },
+  "home": {
+    "hero": {
+      "line1": "Free landing page. No upfront cost.",
+      "line2": "¥5,000/month. Hosting, updates, monthly improvements.",
+      "line3": "Ex-Hitachi, ex-Rakuten engineer. Live in 3 days.",
+      "subtitle": "6-month minimum. Cancel after.",
+      "cta": "Apply Free",
+      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "From idea to launch, we handle the tech."
+    },
+    "valueProp": {
+      "eyebrow": "Pricing",
+      "title": "Build is free.\n¥5,000/month keeps it running.",
+      "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
+      "basicTitle": "Basic",
+      "basicPrice": "¥5,000/mo",
+      "basicItems": [
+        "Landing page build (¥0 setup)",
+        "Vercel hosting included",
+        "1 small change per month",
+        "Monthly analytics PDF",
+        "6-month minimum"
+      ],
+      "premiumTitle": "Premium",
+      "premiumPrice": "¥10,000/mo",
+      "premiumItems": [
+        "Landing page build (¥0 setup)",
+        "Vercel hosting included",
+        "2 small or 1 medium change per month",
+        "Full-year dashboard + monthly PDF",
+        "Quarterly SEO & security audit",
+        "6-month minimum"
+      ],
+      "cta": "Apply Free",
+      "seePricingCta": "See plans →",
+      "minNote": "6-month minimum. Cancel anytime after."
+    },
+    "applySection": {
+      "title": "Ready to launch?",
+      "subtitle": "Free landing page. ¥5,000/month. Live in 3 days.",
+      "cta": "Apply Free →"
+    },
+    "whyZeroEn": {
+      "eyebrow": "Why ZeroEn",
+      "title": "Live in 3 days.\n¥5,000/month, forever.",
+      "subtitle": "Built by an ex-Hitachi, ex-Rakuten engineer using Next.js + Tailwind. Fitted to your brand — not a template.",
+      "pillars": [
+        {
+          "title": "No upfront cost",
+          "desc": "Landing page build is completely free. We recover the build cost through your monthly subscription. No retainers, no hourly billing."
+        },
+        {
+          "title": "Live in 3 days",
+          "desc": "If your content (copy + images) is ready, your LP ships in 3 days. WebMori launched in 3 days."
+        },
+        {
+          "title": "Build-and-run, not build-and-forget",
+          "desc": "Monthly updates, analytics, and change requests are included in the monthly fee. 6-month minimum, cancel anytime after."
+        }
+      ],
+      "urgency": "Now accepting new clients."
+    },
+    "trustSection": {
+      "eyebrow": "How it works",
+      "title": "Ex-Hitachi, ex-Rakuten.\nBuilt for your brand.",
+      "points": [
+        {
+          "title": "ZeroEn owns the code",
+          "desc": "Same model as Shopify or Squarespace. Your domain is yours. You license the live site via active subscription."
+        },
+        {
+          "title": "No surprise invoices",
+          "desc": "Every change request shows the price before you approve. Nothing outside monthly fee without written agreement."
+        },
+        {
+          "title": "Cancel safely after 6 months",
+          "desc": "After your minimum term, cancel anytime. Site is archived; code stays with ZeroEn."
+        }
+      ]
+    },
+    "techStack": {
+      "eyebrow": "The Stack",
+      "title": "Not a template.\nBuilt to your brand.",
+      "subtitle": "Next.js + Tailwind CSS + shadcn/ui — assembled around your brand tokens. Not a ペライチ clone.",
+      "terminalTitle": "zeroen — build-lp",
+      "lines": [
+        "$ zeroen --build-lp --stack=next+tailwind --days=3",
+        "> installing next@15 (App Router)...",
+        "> configuring tailwindcss + shadcn/ui...",
+        "> applying brand tokens...",
+        "> deploying to vercel (global edge)...",
+        "✓ LP live. 3 days."
+      ],
+      "tools": [
+        {
+          "name": "Next.js 15",
+          "tag": "Frontend",
+          "desc": "App Router, Server Components — fast, SEO-ready out of the box."
+        },
+        {
+          "name": "Tailwind CSS",
+          "tag": "Styling",
+          "desc": "Your brand colors, fonts, and spacing as design tokens. Consistent across every page."
+        },
+        {
+          "name": "Vercel",
+          "tag": "Hosting",
+          "desc": "Global edge deployment, Core Web Vitals monitoring. Included in monthly fee."
+        },
+        {
+          "name": "Stripe",
+          "tag": "Billing",
+          "desc": "Monthly subscriptions, invoices, and change request payments — all in your dashboard."
+        }
+      ]
+    },
+    "caseStudies": {
+      "eyebrow": "Case Studies",
+      "title": "Live sites we've built.",
+      "subtitle": "Real clients. Real landing pages. Real results.",
+      "comingSoon": "Coming soon",
+      "live": "Live",
+      "placeholders": [
+        {
+          "name": "WebMori",
+          "desc": "Security & SEO audit service — problems found before they happen.",
+          "meta": [
+            "Live in 3 days",
+            "Monthly audits · Tokyo",
+            "Premium plan"
+          ],
+          "url": "https://webmori.jp",
+          "screenshot": "/webmori-screenshot.png",
+          "label": "Read case study →"
+        },
+        {
+          "name": "Sato Career Coaching",
+          "desc": "LP for a business career coaching service supporting professionals in transition.",
+          "meta": [
+            "Built in 3 days",
+            "Demo site",
+            "Basic plan"
+          ],
+          "url": "",
+          "screenshot": "",
+          "label": "Sample site"
+        },
+        {
+          "name": "Kokoro no Mori Counseling",
+          "desc": "LP for a psychological counseling service focused on dialogue and support.",
+          "meta": [
+            "Built in 3 days",
+            "Demo site",
+            "Basic plan"
+          ],
+          "url": "",
+          "screenshot": "",
+          "label": "Sample site"
+        }
+      ]
+    },
+    "newsletterSection": {
+      "eyebrow": "Newsletter",
+      "title": "Get weekly build updates.",
+      "subtitle": "Real numbers, real clients, no fluff. Every Monday.",
+      "placeholder": "your@email.com",
+      "cta": "Subscribe",
+      "note": "No spam. Unsubscribe anytime."
+    },
+    "processEyebrow": "Process",
+    "dashboardShowcase": {
+      "eyebrow": "Client Dashboard",
+      "heading": "You're never in the dark.",
+      "subheading": "Log in any time to see your traffic, approve changes, and check invoices. No emails, no guessing.",
+      "bullets": [
+        {
+          "title": "See your traffic, every month",
+          "body": "Visitor trends, top pages, and performance scores — live chart and PDF delivered on the 1st."
+        },
+        {
+          "title": "No surprise invoices",
+          "body": "Every change request shows the price before you approve. You stay in control."
+        },
+        {
+          "title": "Billing, self-serve",
+          "body": "Invoices, receipts, plan status — all here. Upgrade or download receipts any time."
+        }
+      ],
+      "ctaLabel": "Explore the dashboard",
+      "ctaHref": "/en/live-from-day-one"
+    }
+  },
+  "dashboardPreview": {
+    "eyebrow": "Live from day one.",
+    "heading": "What you get when you sign up.",
+    "subheading": "A branded client portal — analytics, requests, billing, and messaging — all in one place.",
+    "views": [
+      {
+        "label": "Analytics",
+        "caption": "Monthly visitor trends, top pages, and Core Web Vitals — delivered as a PDF and available live."
+      },
+      {
+        "label": "Change Requests",
+        "caption": "Submit changes, see upfront pricing, and track status in real time. No surprises."
+      },
+      {
+        "label": "Invoices",
+        "caption": "Every invoice, receipt, and subscription status — self-serve, no back-and-forth."
+      },
+      {
+        "label": "Messages",
+        "caption": "Direct thread with your ZeroEn operator. Fast, async, documented."
+      }
+    ],
+    "preCtaHeading": "Your site is already waiting.",
+    "ctaLabel": "Apply Free",
+    "ctaHref": "/en/login"
+  },
+  "pricing": {
+    "meta": {
+      "title": "Pricing — ZeroEn",
+      "description": "Free landing page build. ¥5,000/month hosting, updates, and monthly improvements. Basic and Premium plans."
+    },
+    "eyebrow": "Pricing",
+    "title": "Free to build.\n¥5,000/month to run.",
+    "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
+    "basic": {
+      "name": "Basic",
+      "price": "¥5,000",
+      "period": "/mo",
+      "setup": "¥0 setup",
+      "items": [
+        "Landing page build (¥0 upfront)",
+        "Vercel hosting included",
+        "1 small change per month",
+        "Monthly analytics PDF (1 page)",
+        "Change SLA: ≤14 business days",
+        "6-month minimum"
+      ],
+      "cta": "Apply — Basic"
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "¥10,000",
+      "period": "/mo",
+      "setup": "¥0 setup",
+      "badge": "Recommended",
+      "items": [
+        "Landing page build (¥0 upfront)",
+        "Vercel hosting included",
+        "2 small or 1 medium change per month",
+        "Full-year dashboard + monthly PDF",
+        "Quarterly SEO & security audit",
+        "Priority SLA: ≤5 business days",
+        "1 copy refresh credit per quarter",
+        "6-month minimum"
+      ],
+      "cta": "Apply — Premium"
+    },
+    "minNote": "6-month minimum. Cancel anytime after.",
+    "changeTitle": "Per-request pricing",
+    "changeItems": [
+      { "size": "Small", "price": "¥4,000", "desc": "Text edits, image swaps, minor layout tweaks" },
+      { "size": "Medium", "price": "¥10,000", "desc": "New section, layout change, form update (Premium only)" },
+      { "size": "Large", "price": "¥25,000+", "desc": "New page, new feature, major redesign" }
+    ],
+    "faqTitle": "FAQ",
+    "faqs": [
+      {
+        "q": "Why is the build free?",
+        "a": "ZeroEn covers the build cost and recovers it through monthly subscription fees. We're here to break the industry's upfront-payment model."
+      },
+      {
+        "q": "Who owns the code?",
+        "a": "ZeroEn retains code ownership — same model as Shopify or Squarespace. Your domain is yours. You license the live site via active subscription."
+      },
+      {
+        "q": "Can I cancel?",
+        "a": "After the 6-month minimum, cancel anytime. The site is archived and the code stays with ZeroEn."
+      },
+      {
+        "q": "Really live in 3 days?",
+        "a": "For landing pages, yes. WebMori launched in 3 days. Your content (copy + images) must be ready at kickoff."
+      },
+      {
+        "q": "Is it a template?",
+        "a": "No. Built with Next.js, Tailwind, and shadcn/ui — assembled around your brand tokens from scratch."
+      },
+      {
+        "q": "Can I upgrade from Basic to Premium later?",
+        "a": "Yes — anytime. Upgrading starts a fresh 6-month Premium commitment, and your remaining Basic term rolls into it. Downgrading back to Basic is available once that 6 months completes."
+      },
+      {
+        "q": "Can Basic clients purchase medium changes one-off?",
+        "a": "No — medium changes are Premium-only. Basic clients who need a medium change can upgrade to Premium (which starts a fresh 6-month Premium commitment), or split the work into multiple small changes if feasible."
+      }
+    ]
+  },
+  "mockDashboard": {
+    "clientName": "Tanaka Akiko",
+    "clientPlan": "Basic · ¥5,000/mo",
+    "tabs": {
+      "analytics": "Analytics",
+      "requests": "Requests",
+      "invoices": "Invoices",
+      "messages": "Messages"
+    },
+    "analyticsMetrics": {
+      "visitors": "Visitors",
+      "pageViews": "Page Views",
+      "avgSession": "Avg Session",
+      "bounceRate": "Bounce Rate"
+    },
+    "analyticsValues": {
+      "visitors": "1,204",
+      "visitorsChange": "+12%",
+      "pageViews": "3,891",
+      "avgSession": "2m 14s",
+      "bounceRate": "38%"
+    },
+    "topPages": "Top Pages",
+    "requestStatuses": {
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "quoted": "Quoted"
+    },
+    "invoiceStatus": "Paid",
+    "messageFrom": "ZeroEn",
+    "messageTo": "Tanaka-san"
+  },
+  "apply": {
+    "title": "Apply to ZeroEn",
+    "subtitle": "Tell us about your idea. We'll build it for free.",
+    "step0": {
+      "title": "Before you share your idea",
+      "subtitle": "We take your trust seriously. Here's our commitment:",
+      "points": [
+        "We will not share, copy, or use your idea without written agreement",
+        "This is mutual — we're bound by the same terms",
+        "You can request deletion of all your data at any time",
+        "Rejected applications are wiped within 30 days"
+      ],
+      "linkText": "Read full confidentiality terms",
+      "checkboxLabel": "I've read and agree to the mutual confidentiality agreement",
+      "continueButton": "Continue to application →",
+      "ndaError": "You must agree to the confidentiality agreement",
+      "signatureLabel": "Type your full name to sign",
+      "signaturePlaceholder": "Your full name",
+      "signatureHelper": "This constitutes your electronic signature on the confidentiality agreement.",
+      "scrollHint": "↓ Scroll to read the full agreement",
+      "ndaPoints": [
+        "Both parties agree to keep each other's confidential information private.",
+        "Confidential information includes: application data, business plans, technical specs, financial projections, user research.",
+        "Neither party will share or use the other's confidential information without written consent.",
+        "This obligation survives termination and lasts 3 years (or indefinitely for personal data).",
+        "You may request deletion of your data at any time."
+      ]
+    },
+    "step1": {
+      "title": "Your Idea",
+      "ideaName": "What are you building?",
+      "ideaNamePlaceholder": "App name or project name",
+      "ideaDescription": "Describe your idea in detail",
+      "ideaDescriptionPlaceholder": "Tell us what your product does...",
+      "problemSolved": "What problem does it solve?",
+      "problemSolvedPlaceholder": "Explain the specific problem you are solving..."
+    },
+    "step2": {
+      "title": "Market",
+      "targetUsers": "Who are your target users?",
+      "targetUsersPlaceholder": "Who will use your product?",
+      "competitors": "Who are your competitors? (optional)",
+      "competitorsPlaceholder": "Existing solutions or competitors...",
+      "monetization": "How will you make money?",
+      "monetizationPlaceholder": "Subscription, transaction fees, advertising..."
+    },
+    "step3": {
+      "title": "About You",
+      "founderName": "Your name",
+      "founderNamePlaceholder": "John Smith",
+      "founderEmail": "Your email",
+      "founderBackground": "Your background",
+      "founderBackgroundPlaceholder": "Work history, skills, relevant experience...",
+      "commitment": "Time commitment",
+      "commitmentPlaceholder": "Select time commitment",
+      "commitmentFullTime": "Full-time",
+      "commitmentPartTime": "Part-time",
+      "commitmentSideProject": "Side project",
+      "linkedin": "LinkedIn URL (optional)"
+    },
+    "step4": {
+      "title": "Review & Submit",
+      "edit": "Edit",
+      "sectionIdea": "Idea",
+      "sectionMarket": "Market",
+      "sectionFounder": "Founder",
+      "fieldName": "Name",
+      "fieldDescription": "Description",
+      "fieldProblemSolved": "Problem solved",
+      "fieldTargetUsers": "Target users",
+      "fieldCompetitors": "Competitors",
+      "fieldMonetization": "Monetization plan",
+      "fieldBackground": "Background",
+      "fieldCommitment": "Commitment",
+      "fieldNoneSpecified": "None specified",
+      "fieldNotProvided": "Not provided",
+      "disclaimer": "By submitting, you agree to ZeroEn's terms and equity arrangement.",
+      "submitting": "Submitting...",
+      "submit": "Submit Application"
+    },
+    "wizard": {
+      "received": "Application received.",
+      "inTouch": "We'll be in touch within 3-5 business days.",
+      "somethingWentWrong": "Something went wrong. Please try again.",
+      "networkError": "Network error. Please try again."
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "Process",
+    "title": "How It Works",
+    "subtitle": "From idea to launch — nine steps, zero upfront cost.",
+    "steps": {
+      "discover": {
+        "name": "DISCOVER",
+        "desc": "We find you through our build-in-public content, Twitter/X posts, Instagram, and developer communities. Or you find us directly at zeroen.dev."
+      },
+      "apply": {
+        "name": "APPLY",
+        "desc": "Submit a detailed application on zeroen.dev. Tell us about your idea, target market, and background. Takes about 10 minutes.",
+        "badge": "Protected by our mutual NDA — signed before you share anything"
+      },
+      "score": {
+        "name": "SCORE",
+        "desc": "We score every application on 4 dimensions: Viability (is this a real problem?), Commitment (are you serious?), Feasibility (can we build it in MVP scope?), Market (is there real demand?). 15+ out of 20 to accept."
+      },
+      "onboard": {
+        "name": "ONBOARD",
+        "desc": "If accepted, you fill a detailed questionnaire and join a kickoff call. We lock the scope together. Scope is frozen at this point — no feature creep."
+      },
+      "build": {
+        "name": "BUILD",
+        "desc": "Development begins. We build your full-stack MVP using Next.js + Supabase. Regular updates in your founder dashboard."
+      },
+      "launch": {
+        "name": "LAUNCH",
+        "desc": "We deploy to Vercel. You get 30 days of free support post-launch. You run the staging review and give final sign-off."
+      },
+      "operate": {
+        "name": "OPERATE",
+        "desc": "After launch, ongoing hosting, monthly fixes, and analytics reporting keep your app running and growing."
+      },
+      "grow": {
+        "name": "GROW",
+        "desc": "New features beyond the original scope are available as add-ons, quoted upfront per request. Your revenue share kicks in."
+      },
+      "upsell": {
+        "name": "UPSELL",
+        "desc": "Monthly analytics surface opportunities. WebMori audit service available. We grow with you."
+      }
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Apply in 10 minutes. We respond within 3 business days.",
+      "button": "Apply Free"
+    }
+  },
+  "footer": {
+    "tagline": "Bring your idea to life.",
+    "product": {
+      "heading": "Product",
+      "howItWorks": "How It Works",
+      "applyFree": "Apply Free"
+    },
+    "company": {
+      "heading": "Company",
+      "blog": "Blog",
+      "about": "About ZeroEn",
+      "cases": "Case Studies",
+      "pricing": "Pricing"
+    },
+    "resources": {
+      "heading": "Resources",
+      "blog": "Blog",
+      "faq": "FAQ",
+      "comparison": "Peraichi vs STUDIO vs ZeroEn",
+      "whatsIncluded": "What ¥5,000/mo includes"
+    },
+    "newsletter": {
+      "heading": "Newsletter",
+      "description": "Stay in the loop.",
+      "title": "Stay in the loop.",
+      "placeholder": "your@email.com",
+      "cta": "Subscribe",
+      "join": "Join",
+      "subscribed": "Subscribed!"
+    },
+    "bottom": {
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "tokushoho": "Tokushoho",
+      "tagline": "Tokyo · AI-Powered CTO"
+    }
+  },
+  "terms": {
+    "eyebrow": "Terms",
+    "title": "The deal,\nin plain English.",
+    "subtitle": "Standard terms for every ZeroEn client. No surprises.",
+    "summary": {
+      "heading": "TL;DR",
+      "items": [
+        {
+          "label": "Platform fee",
+          "value": "$50/mo after your MVP launches. Covers hosting + 1 fix/mo."
+        },
+        {
+          "label": "Scope freeze",
+          "value": "MVP scope locked at kickoff. New features = per-request charge."
+        },
+        {
+          "label": "Kill switch",
+          "value": "90 days unpaid → agreement terminates. We keep the code."
+        },
+        {
+          "label": "IP",
+          "value": "ZeroEn retains code ownership. You license the live site via active subscription."
+        },
+        {
+          "label": "Liability",
+          "value": "ZeroEn's liability is capped at fees paid in the prior 12 months."
+        },
+        {
+          "label": "Portfolio rights",
+          "value": "We always retain the right to showcase this work."
+        }
+      ]
+    },
+    "full": {
+      "heading": "Full Terms",
+      "sections": [
+        {
+          "title": "1. Future Equity (Phase 2)",
+          "body": "Equity arrangements (SAFE notes, revenue share) are not part of Phase 1 agreements. ZeroEn currently operates as a subscription hosting service. Equity terms may be offered on select Phase 2 deals and will be documented in a separate, individually signed agreement at that time. Nothing in these terms grants or implies any equity interest."
+        },
+        {
+          "title": "2. Revenue Share (Phase 2)",
+          "body": "Revenue share arrangements are not active in Phase 1. If a revenue share is agreed for a specific client, it will be documented in a separate written agreement signed by both parties before it takes effect. These standard terms do not constitute a revenue share agreement."
+        },
+        {
+          "title": "3. Platform Fee",
+          "body": "After the MVP launches, a platform fee of USD $50 per month applies. This covers: hosting on ZeroEn's Vercel Pro account, one small fix or minor change per month (at ZeroEn's discretion), and a monthly analytics PDF report. The platform fee begins 30 days after launch. Payment is via Stripe subscription. The client's application remains live only while the platform fee is paid. ZeroEn's total liability under this agreement is limited to the platform fees paid by the client in the 12 months preceding any claim. ZeroEn provides the service \"as is\" and makes no warranties beyond uptime of the underlying Vercel infrastructure."
+        },
+        {
+          "title": "4. Scope Freeze",
+          "body": "The MVP scope is agreed and locked at the kickoff call. This scope is documented and signed by both parties. Any features, changes, or additions beyond the agreed scope are treated as per-request charges. ZeroEn is not obligated to build out-of-scope work. Per-request charges are quoted upfront and must be paid before work begins."
+        },
+        {
+          "title": "5. Per-Request Charges",
+          "body": "Work beyond the locked MVP scope is available as per-request charges: Small changes (1–4 hours) USD $50–100; Medium features (1–3 days) USD $200–500; Large builds (1–2 weeks) USD $500–2,000. All quotes are provided upfront. Work begins only after payment is received."
+        },
+        {
+          "title": "6. Kill Switch",
+          "body": "If the platform fee remains unpaid for 90 consecutive days, the agreement terminates automatically. Upon termination: the client's hosted application is taken offline, ZeroEn retains full rights to the codebase. ZeroEn will make reasonable efforts to notify the client before reaching the 90-day threshold."
+        },
+        {
+          "title": "7. Reversion Clause",
+          "body": "If the client does not launch their application within 6 months of the agreed build completion date, full code rights revert to ZeroEn. The client may request an extension in writing. Extensions are granted at ZeroEn's discretion."
+        },
+        {
+          "title": "8. IP Ownership",
+          "body": "ZeroEn retains full ownership of all code, designs, and assets created under this agreement. The client receives a non-exclusive license to use the live hosted application for as long as the platform fee is paid. This license is non-transferable and does not include access to or transfer of source code. ZeroEn always retains the right to use the work in its portfolio and marketing materials, including screenshots, case studies, and build logs."
+        },
+        {
+          "title": "9. Service Standards",
+          "body": "ZeroEn will make reasonable efforts to keep the client's application live and performant on Vercel's infrastructure. If the client is unresponsive for 6 or more consecutive months (no replies to communications, no active use of the service), ZeroEn may pause the service with 14 days written notice. This clause exists to ensure ZeroEn can manage its active client roster effectively."
+        },
+        {
+          "title": "10. Governing Law",
+          "body": "These terms are governed by the laws of Japan. Any disputes are resolved first through good-faith negotiation, then through the Tokyo District Court if necessary. ZeroEn and the client agree to resolve disputes without litigation where possible."
+        },
+        {
+          "title": "11. Confidentiality & Non-Disclosure",
+          "body": "Both ZeroEn and the client agree to keep each other's confidential information private. Confidential information includes: application data, business plans, technical specifications, financial projections, user research, and any other information shared during the application, onboarding, or build process.\n\nNeither party will share, copy, or use the other's confidential information without written consent. Standard exclusions apply: information that is publicly available, independently developed, or legally required to be disclosed is not covered by this clause.\n\nData deletion: any applicant — accepted or rejected — may request deletion of all their submitted data at any time. Rejected application data is automatically deleted within 30 days of the rejection decision. Requests can be sent to the operator directly.\n\nThis confidentiality obligation survives the termination of any agreement between ZeroEn and the client. Governing law for this clause follows Section 10."
+        }
+      ]
+    }
+  },
+  "blog": {
+    "readMore": "Read more →",
+    "categories": {
+      "all": "All",
+      "build-update": "Build Update",
+      "case-study": "Case Study",
+      "operator-log": "Operator Log",
+      "tutorial": "Tutorial"
+    }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "overview": "Overview",
+    "clients": "Clients",
+    "managedClients": "Add Client",
+    "applications": "Applications",
+    "requests": "Change Requests",
+    "messages": "Messages",
+    "documents": "Documents",
+    "audits": "Audits",
+    "totalClients": "Total Clients",
+    "activeProjects": "Active Projects",
+    "pendingApplications": "Pending Applications",
+    "monthlyRevenue": "Monthly Revenue",
+    "clientName": "Client",
+    "projectName": "Project",
+    "status": "Status",
+    "plan": "Plan",
+    "lastUpdated": "Last Updated",
+    "health": "Health",
+    "noClients": "No clients yet.",
+    "allConversations": "All Conversations",
+    "noConversations": "No conversations yet.",
+    "selectConversation": "Select a conversation",
+    "noRequests": "No requests",
+    "application": "Application",
+    "founder": "Founder",
+    "idea": "Idea",
+    "problemSolved": "Problem Solved",
+    "targetUsers": "Target Users",
+    "competitors": "Competitors",
+    "monetization": "Monetization Plan",
+    "background": "Background",
+    "commitment": "Commitment",
+    "viewProfile": "View profile",
+    "aiScore": "AI Score",
+    "recommendation": "Recommendation",
+    "notScoredYet": "Not scored yet.",
+    "scoring": "Scoring…",
+    "scoreWithAI": "Score with AI",
+    "rescoreWithAI": "Re-score with AI",
+    "approving": "Approving…",
+    "approve": "Approve",
+    "rejecting": "Rejecting…",
+    "reject": "Reject",
+    "projectNameLabel": "Project Name",
+    "siteUrl": "Site URL",
+    "githubRepo": "GitHub Repo URL",
+    "vercelProject": "Vercel Project URL",
+    "visibility": "Visibility",
+    "enableProject": "Enable Project",
+    "enableProjectWarning": "This will set project status to Launched and make it visible to the client.",
+    "saving": "Saving…",
+    "saveChanges": "Save Changes",
+    "failedToSave": "Failed to save changes",
+    "sendInvoice": "Send Invoice",
+    "amount": "Amount (USD)",
+    "amountHelper": "$0 = included in plan, no payment required",
+    "description": "Description",
+    "dueDate": "Due Date (optional)",
+    "invalidAmount": "Enter a valid amount",
+    "enterDescription": "Enter a description",
+    "sending": "Sending…",
+    "needsReview": "Needs Review",
+    "markReviewing": "Mark Reviewing",
+    "markInProgress": "Mark In Progress",
+    "markComplete": "Mark Complete",
+    "approveRequest": "Approve",
+    "approvingRequest": "Approving…",
+    "rejectRequest": "Reject",
+    "rejectingRequest": "Rejecting…",
+    "rejectReason": "Reason for rejection (required)",
+    "rejectReasonPlaceholder": "Explain what the client needs to change and resubmit...",
+    "confirmReject": "Confirm Reject",
+    "cancelAction": "Cancel",
+    "tierBadge": "Size",
+    "discussion": "Discussion",
+    "invoiceDeclined": "Invoice Declined",
+    "back": "Back",
+    "networkError": "Network error. Please try again.",
+    "scoringFailed": "Scoring failed",
+    "ideaViability": "Idea Viability",
+    "founderCommitment": "Founder Commitment",
+    "techFeasibility": "Tech Feasibility",
+    "marketPotential": "Market Potential",
+    "startChat": "Start chat",
+    "openChat": "Open chat",
+    "startingChat": "Starting…"
+  },
+  "plan": {
+    "wizardTitle": "Choose Your Plan",
+    "basicName": "Basic",
+    "premiumName": "Premium",
+    "basicPrice": "¥5,000/mo",
+    "premiumPrice": "¥10,000/mo",
+    "basicPriceUsd": "~$35/mo",
+    "premiumPriceUsd": "~$70/mo",
+    "mostPopular": "Most Popular",
+    "commitmentCheckbox": "I agree to the 6-month minimum commitment",
+    "subscribeButton": "Subscribe",
+    "processingButton": "Processing...",
+    "haveQuestions": "Have questions?",
+    "messageUs": "Message us",
+    "currentPlan": "Current Plan",
+    "changePlan": "Change Plan",
+    "commitmentStarted": "Started",
+    "commitmentEnds": "Minimum term ends",
+    "upgradeTo": "Upgrade to Premium",
+    "downgradeTo": "Downgrade to Basic",
+    "upgradeNote": "Upgrading will reset your 6-month commitment period",
+    "downgradeLockedUntil": "You can downgrade after",
+    "confirmUpgrade": "Confirm Upgrade",
+    "confirmDowngrade": "Confirm Downgrade",
+    "successMessage": "Your new plan takes effect immediately",
+    "subscriptionPending": "Setting up your subscription...",
+    "subscriptionTakingLong": "This is taking longer than expected. Please refresh the page or contact us via",
+    "subscriptionTakingLongLink": "Messages",
+    "subscribeToAccess": "Subscribe to access this feature",
+    "backToDashboard": "Back to Dashboard",
+    "planChangedSuccess": "Plan changed successfully",
+    "downgradeLocked": "Downgrade locked",
+    "anErrorOccurred": "An error occurred",
+    "unexpectedError": "An unexpected error occurred",
+    "downgradeRemovedFeatures": "Downgrading will remove Premium features including audits and full-year analytics",
+    "downgradeNote2": "You will be moved to the Basic plan features",
+    "downgradeLockedAfterDate": "You can downgrade after {date}",
+    "selectPlanSubtitle": "Select the plan that fits your project",
+    "yourWebsite": "Your Website",
+    "subscriptionWarning": "⚠ If a subscription is not set up within 14 days, your website will be taken offline.",
+    "selected": "Selected",
+    "commitmentCheckboxFull": "I agree to the 6-month minimum commitment. Early cancellation = remaining months at the current plan rate.",
+    "downgradeScheduled": "Downgrade scheduled",
+    "downgradeScheduledDesc": "Your plan will switch to Basic on {date}. Premium features remain active until then.",
+    "downgradeWillBeScheduled": "Downgrade will take effect on {date} (end of your commitment period)"
+  },
+  "common": {
+    "all": "All",
+    "back": "← Back",
+    "next": "Next →",
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close",
+    "view": "View",
+    "send": "Send",
+    "loading": "Loading...",
+    "submitting": "Submitting...",
+    "processing": "Processing...",
+    "error": "An error occurred",
+    "networkError": "Network error. Please try again.",
+    "somethingWentWrong": "Something went wrong",
+    "status": {
+      "pending": "Pending",
+      "onboarding": "Onboarding",
+      "building": "Building",
+      "launched": "Launched",
+      "operating": "Operating",
+      "paused": "Paused",
+      "terminated": "Terminated",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "reviewing": "Reviewing",
+      "quoted": "Quoted",
+      "approved": "Approved",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "submitted": "Submitted"
+    },
+    "plan": {
+      "basic": "Basic",
+      "premium": "Premium"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account preferences.",
+    "language": {
+      "title": "Language",
+      "subtitle": "Choose the display language for your dashboard.",
+      "saved": "Saved. Switching language..."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your ZeroEn dashboard.",
+      "continueWithGoogle": "Continue with Google",
+      "connecting": "connecting...",
+      "email": "Email",
+      "password": "Password",
+      "signIn": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Join ZeroEn and start building.",
+      "continueWithGoogle": "Continue with Google",
+      "connecting": "connecting...",
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign in"
+    },
+    "logout": "Log out"
+  },
+  "dashboard": {
+    "home": {
+      "welcome": "Welcome",
+      "getStarted": "Get started with ZeroEn",
+      "applyPrompt": "Your account is set up. The next step is to submit your application. Once reviewed and accepted, you'll get access to the full dashboard.",
+      "submitApplication": "Submit Application",
+      "shareYourIdea": "Share your idea",
+      "applicationStatus": "Application Status",
+      "checkStatus": "Check your status",
+      "title": "Dashboard",
+      "trackProgress": "Track your project progress",
+      "quickLinks": "Quick Links",
+      "messages": "Messages",
+      "chatWithTeam": "Chat with the team",
+      "documents": "Documents",
+      "signedAgreements": "Signed agreements",
+      "invoices": "Invoices",
+      "billingPayments": "Billing & payments",
+      "requests": "Change Requests",
+      "requestFeatures": "Request new features",
+      "analytics": "Analytics",
+      "audits": "Audits",
+      "auditsDesc": "Security & SEO reports"
+    },
+    "nav": {
+      "overview": "Overview",
+      "messages": "Messages",
+      "documents": "Documents",
+      "invoices": "Invoices",
+      "billing": "Billing",
+      "requests": "Change Requests",
+      "settings": "Settings",
+      "analytics": "Analytics",
+      "audits": "Audits",
+      "apply": "Apply",
+      "applicationStatus": "Application Status",
+      "onboarding": "Get Started",
+      "notifications": "Notifications",
+      "help": "Help",
+      "backToSite": "Back to site"
+    },
+    "projectStatus": {
+      "title": "Project",
+      "settingUp": "Project Being Set Up",
+      "settingUpDesc": "You're all set. Your project will appear here once it's been created.",
+      "viewSite": "View Live Site →",
+      "github": "GitHub →",
+      "vercel": "Vercel →",
+      "started": "Started:"
+    }
+  },
+  "requests": {
+    "title": "Requests",
+    "newRequest": "New Request",
+    "formTitle": "Title",
+    "formTitlePlaceholder": "Brief description of the change",
+    "formDescription": "Description",
+    "formDescriptionPlaceholder": "Describe the change in detail",
+    "formSize": "Estimated Size",
+    "formSizePlaceholder": "Select size",
+    "sizeSmall": "Small (¥4,000)",
+    "sizeMedium": "Medium (¥10,000)",
+    "sizeLarge": "Large (¥25,000+)",
+    "submitError": "Failed to submit. Please try again.",
+    "submitSuccess": "Request submitted!",
+    "submitButton": "Submit Request",
+    "submitting": "Submitting...",
+    "discussion": "Discussion",
+    "needsRequote": "Needs Re-quote",
+    "cancelRequest": "Cancel Request",
+    "cancelConfirm": "Cancel this request?",
+    "cancelDescription": "This will withdraw the request. You can always submit a new one later.",
+    "cancelReasonPlaceholder": "Optional: tell us why (helps us improve)",
+    "badgeUnread": "Unread change request activity",
+    "quotaIncluded": "Included in your plan",
+    "quotaOverage": "Overage — billed at ¥{price}",
+    "quotaLarge": "Always billed separately: ¥25,000+",
+    "quotaRemaining": "{remaining}/{capacity} monthly units remaining",
+    "mediumPremiumOnly": "Medium changes are Premium-only. Upgrade to Premium or split this into smaller changes."
+  },
+  "invoices": {
+    "title": "Invoices",
+    "invoice": "Invoice",
+    "free": "Free",
+    "includedInPlan": "Included in your plan",
+    "due": "Due:",
+    "approvedMessage": "✓ Approved. Work will begin shortly.",
+    "acceptAndPay": "Accept & Pay",
+    "accept": "Accept",
+    "discuss": "Discuss",
+    "decline": "Decline",
+    "declineConfirm": "Decline this invoice?",
+    "declineReason": "Reason (optional)",
+    "empty": "No invoices yet.",
+    "payError": "Something went wrong"
+  },
+  "billing": {
+    "title": "Billing & Plan",
+    "subtitle": "Manage your subscription",
+    "noSubscription": "No active subscription. Select a plan from your dashboard to get started.",
+    "hostingIncluded": "Hosting included",
+    "oneChangePerMonth": "1 small change/mo",
+    "pdfAnalytics": "Prior-month PDF analytics",
+    "twoChangesPerMonth": "2 small or 1 medium change/mo",
+    "fullYearAnalytics": "Full-year analytics dashboard",
+    "quarterlyAudits": "Quarterly security & SEO audits",
+    "prioritySLABasic": "Change SLA: ≤14 business days",
+    "prioritySLAPremium": "Priority change SLA: ≤5 business days",
+    "copyRefreshCredit": "1 copy refresh credit / quarter",
+    "commitmentPeriod": "Commitment Period",
+    "started": "Started:",
+    "minimumTermEnds": "Minimum term ends:",
+    "monthsRemaining": "{n} month(s) remaining in commitment",
+    "changePlan": "Change Plan",
+    "downgradeNote": "You can downgrade to the Basic plan once your 6-month commitment period has ended. Downgrading will remove Premium features including audits and full-year analytics.",
+    "upgradeNote": "Upgrade to Premium for more change requests, full analytics dashboard, and quarterly audits. Note: upgrading resets your 6-month commitment period.",
+    "upgradeDetail": "Upgrading starts a new 6-month commitment period. The price difference is prorated and applied immediately.",
+    "downgradeAvailableAfter": "Downgrading is available after {date}.",
+    "downgradeButton": "Downgrade to Basic",
+    "upgradeButton": "Upgrade to Premium",
+    "cancelSubscription": "Cancel Subscription",
+    "subscriptionCancelled": "Subscription cancelled",
+    "cancelledDesc": "You will have access until the end of your current billing period. After that, your website will be taken offline.",
+    "goBack": "Go back",
+    "confirmCancel": "Are you sure you want to cancel?",
+    "cancelWarning1": "Your website will be taken offline after the current billing period ends",
+    "cancelWarning2": "You can reactivate within 90 days by paying any outstanding balance",
+    "cancelWarning3": "After 90 days, your project data will be permanently deleted",
+    "earlyTerminationFee": "Early termination fee: {cost} ({n} remaining month(s) at current plan rate)",
+    "earlyTerminationChargeImmediate": "This amount will be charged immediately to your card on file",
+    "typedConfirmPrompt": "Type {word} to confirm cancellation",
+    "paymentFailed": "Payment failed",
+    "paymentFailedDesc": "Your card could not be charged for the early termination fee. Please pay the outstanding invoice to proceed with cancellation.",
+    "payInvoice": "Pay invoice →",
+    "scheduledDowngradeTitle": "Downgrade scheduled",
+    "scheduledDowngradeDesc": "Your plan will switch to Basic on {date}. You can undo this anytime before then.",
+    "cancelScheduledDowngrade": "Undo scheduled downgrade",
+    "downgradeScheduleNote": "Downgrading will take effect at the end of your commitment period on {date}.",
+    "confirmCancellation": "Confirm Cancellation",
+    "goBackButton": "Go Back",
+    "cancellationNote": "Cancelling will take your website offline after the current billing period.",
+    "commitmentPeriodNote": "You are within your commitment period. Early termination fee of {cost} applies.",
+    "currentPlanLabel": "Current Plan",
+    "cancelLink": "Cancel my subscription",
+    "pendingTitle": "Setting up your subscription...",
+    "pendingDesc": "Your subscription is being set up. This page will refresh automatically.",
+    "pendingTakingLong": "This is taking longer than expected",
+    "pendingTakingLongDesc": "If this is taking too long, please refresh the page or contact us via Messages.",
+    "pendingContactSupport": "Contact Support",
+    "subscribeToAccess": "Subscribe to access this feature",
+    "subscribeToAccessDesc": "Choose a plan and start your subscription to unlock this section.",
+    "choosePlan": "Choose a Plan"
+  },
+  "messages": {
+    "title": "Messages",
+    "empty": "No messages yet. Say hello!",
+    "placeholder": "Type a message... (Enter to send)",
+    "sendAria": "Send",
+    "seenJustNow": "Seen just now",
+    "seenMinutes": "Seen {n}m ago",
+    "seenHours": "Seen {n}h ago",
+    "seenDays": "Seen {n}d ago",
+    "you": "You",
+    "user": "User",
+    "loadError": "Failed to load messages",
+    "sendError": "Failed to send message"
+  },
+  "documents": {
+    "title": "Documents",
+    "empty": "No signed documents on file yet. Reach out if you need a copy of your agreements.",
+    "nda": "Mutual Confidentiality Agreement",
+    "partnership": "Partnership Agreement",
+    "signed": "Signed:",
+    "signedBadge": "Signed",
+    "view": "View",
+    "confidentialityTitle": "Confidentiality Commitments",
+    "confidentialityPoints": [
+      "We will not share, copy, or use your idea without written agreement",
+      "This is mutual — we're bound by the same terms",
+      "You can request deletion of all your data at any time",
+      "Rejected applications are wiped within 30 days"
+    ],
+    "electronicAcceptance": "Electronically accepted on {date}",
+    "partnershipTitle": "Key Partnership Terms",
+    "partnershipTerms": [
+      {
+        "label": "Platform Fee",
+        "value": "$50/mo after launch (hosting + 1 fix/mo)"
+      },
+      {
+        "label": "MVP Scope",
+        "value": "Locked at kickoff. Changes are charged separately."
+      },
+      {
+        "label": "IP Ownership",
+        "value": "ZeroEn retains code. You license the live site via subscription."
+      },
+      {
+        "label": "Liability Cap",
+        "value": "ZeroEn's liability capped at fees paid in prior 12 months."
+      },
+      {
+        "label": "Kill Switch",
+        "value": "90 days unpaid → agreement terminates, code rights to operator"
+      },
+      {
+        "label": "Reversion",
+        "value": "No launch within 6 months → code rights revert to operator"
+      },
+      {
+        "label": "Portfolio Rights",
+        "value": "Operator retains right to showcase this work at all times"
+      },
+      {
+        "label": "Governing Law",
+        "value": "Japan (Tokyo District Court)"
+      }
+    ],
+    "signature": "Signature",
+    "entity": "Entity",
+    "termsVersion": "Terms Version",
+    "signedAt": "Signed At",
+    "download": "Download"
+  },
+  "onboarding": {
+    "step0": {
+      "title": "You're in!",
+      "desc": "Your application has been approved. Welcome to ZeroEn — let's build something great together.",
+      "highlights": [
+        "We build your MVP for free",
+        "Deploy to production on Vercel",
+        "Monthly analytics reports delivered to you",
+        "We grow together when you succeed"
+      ],
+      "setupButton": "Set up your project →",
+      "timeEstimate": "Takes about 3 minutes"
+    },
+    "step1": {
+      "title": "Project Details",
+      "languageLabel": "Preferred Language / 言語設定",
+      "languageHelper": "You can change this later in Settings.",
+      "appName": "App Name",
+      "appNamePlaceholder": "Your project name",
+      "appDescription": "App Description",
+      "appDescriptionPlaceholder": "Describe in detail what your app does and who it serves...",
+      "targetLaunch": "Target Launch Date (optional)"
+    },
+    "step2": {
+      "title": "Technical Preferences",
+      "authMethod": "Authentication Method",
+      "authPlaceholder": "Select one",
+      "authEmailPassword": "Email + Password",
+      "authGoogle": "Google OAuth",
+      "authBoth": "Both",
+      "authOther": "Other",
+      "keyFeatures": "Key MVP Features",
+      "keyFeaturesPlaceholder": "Describe the core features you want in the MVP...",
+      "integrations": "Integrations Needed (optional)",
+      "integrationsPlaceholder": "e.g. Stripe, SendGrid, Google Maps...",
+      "designRefs": "Design References (optional)",
+      "designRefsPlaceholder": "URLs or names of apps you like the look of..."
+    },
+    "step3": {
+      "title": "Business & Legal",
+      "entityName": "Company / Entity Name (optional)",
+      "entityNamePlaceholder": "Your company name, or personal name",
+      "partnershipTitle": "Key Partnership Terms",
+      "terms": [
+        {
+          "label": "Platform Fee",
+          "value": "$50/mo after launch (hosting + 1 fix/mo)"
+        },
+        {
+          "label": "MVP Scope",
+          "value": "Locked at kickoff. Changes are charged separately."
+        },
+        {
+          "label": "IP Ownership",
+          "value": "ZeroEn retains code. You license the live site via subscription."
+        },
+        {
+          "label": "Liability Cap",
+          "value": "ZeroEn's liability capped at fees paid in prior 12 months."
+        },
+        {
+          "label": "Kill Switch",
+          "value": "90 days unpaid → agreement terminates, code rights to operator"
+        },
+        {
+          "label": "Reversion",
+          "value": "No launch within 6 months → code rights revert to operator"
+        },
+        {
+          "label": "Portfolio Rights",
+          "value": "Operator retains right to showcase this work at all times"
+        },
+        {
+          "label": "Governing Law",
+          "value": "Japan (Tokyo District Court)"
+        }
+      ],
+      "disclaimer": "These are the key terms of the standard ZeroEn partnership agreement (Terms v1.1). Your electronic acceptance constitutes a legally binding agreement.",
+      "signatureLabel": "Type Your Full Name to Sign *",
+      "signaturePlaceholder": "e.g. Jane Smith",
+      "signatureHelper": "This serves as your legal electronic signature.",
+      "checkboxLabel": "I have read, understood, and agree to the terms above. I acknowledge that this acceptance constitutes a legally binding electronic agreement.",
+      "completeFields": "Please complete all required fields"
+    },
+    "step4": {
+      "title": "Schedule Your Kickoff",
+      "desc": "Book your kickoff call below. You can reschedule anytime.",
+      "calFallback": "We'll send you a calendar link to book your kickoff call.",
+      "timezone": "Timezone",
+      "preferredChannel": "Preferred Channel",
+      "channelPlaceholder": "Select one",
+      "channelEmail": "Email",
+      "channelSlack": "Slack",
+      "channelDiscord": "Discord",
+      "channelWhatsApp": "WhatsApp",
+      "completeButton": "Complete Setup ✓"
+    },
+    "wizard": {
+      "viewApplication": "View your application",
+      "error": "Something went wrong. Please try again.",
+      "networkError": "Network error. Please try again."
+    },
+    "congratsModal": {
+      "loadingButton": "Loading...",
+      "setupButton": "Set up your project →",
+      "timeEstimate": "Takes about 3 minutes"
+    },
+    "resumeBanner": {
+      "title": "Welcome back",
+      "desc": "You're almost there — let's finish setting up your project so we can start building.",
+      "progress": "{stepsCompleted} of {totalSteps} steps complete",
+      "continueButton": "Continue setup →",
+      "loading": "Loading...",
+      "subtext": "Pick up right where you left off"
+    },
+    "applicationDrawer": {
+      "title": "Your Application",
+      "idea": "Idea",
+      "ideaName": "Idea Name",
+      "description": "Description",
+      "problemSolved": "Problem Solved",
+      "targetUsers": "Target Users",
+      "competitors": "Competitors",
+      "monetization": "Monetization",
+      "founder": "Founder",
+      "background": "Background",
+      "commitment": "Commitment",
+      "locale": "Language",
+      "aiEvaluation": "AI Evaluation",
+      "ideaViability": "Idea Viability",
+      "feasibility": "Feasibility",
+      "market": "Market",
+      "close": "Close"
+    }
+  },
+  "comments": {
+    "loading": "Loading…",
+    "loadError": "Failed to load comments",
+    "empty": "No comments yet",
+    "you": "You",
+    "user": "User",
+    "sendAria": "Send",
+    "placeholder": "Add a comment…",
+    "sendError": "Failed to send comment"
+  },
+  "privacy": {
+    "eyebrow": "Privacy",
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: April 11, 2026",
+    "sections": [
+      {
+        "title": "1. Who We Are",
+        "body": "ZeroEn (\"we\", \"us\", \"our\") is a web development and hosting service operated by a Canadian sole proprietorship. Our website is zeroen.dev. For privacy inquiries, contact: hello@zeroen.dev."
+      },
+      {
+        "title": "2. Data We Collect",
+        "body": "We collect the following information when you use our service:\n\n**Account data:** Name, email address, and password (managed via Supabase Auth). You may also sign in with Google or GitHub, in which case we receive your public profile information from that provider.\n\n**Project data:** Website preferences, content, and feedback you provide during onboarding and change requests.\n\n**Payment data:** Billing is processed by Stripe. We store your Stripe Customer ID to link payments to your account. We do not store full card numbers or CVV codes — these are handled entirely by Stripe.\n\n**Usage data:** Server logs, page views, and analytics collected by Vercel Analytics (anonymised, no cross-site tracking).\n\n**Communications:** Messages you send through the dashboard are stored to maintain your project history."
+      },
+      {
+        "title": "3. How We Use Your Data",
+        "body": "We use your data to:\n- Provide, maintain, and improve the ZeroEn service\n- Process subscription payments and issue invoices\n- Communicate about your project status, change requests, and billing\n- Send transactional emails (project updates, payment confirmations) via Resend\n- Comply with legal obligations"
+      },
+      {
+        "title": "4. Third-Party Services",
+        "body": "We share data with the following processors:\n\n**Supabase** (database and authentication) — supabase.com/privacy\n**Stripe** (payment processing) — stripe.com/privacy\n**Vercel** (hosting and analytics) — vercel.com/legal/privacy-policy\n**Resend** (transactional email) — resend.com/legal/privacy-policy\n**GitHub** (optional OAuth login) — docs.github.com/en/site-policy/privacy-policies/github-privacy-statement\n\nWe do not sell your data to any third party."
+      },
+      {
+        "title": "5. Data Retention",
+        "body": "We retain your account and project data for the duration of your subscription plus 90 days after termination, to allow for reactivation. Payment records are retained for 7 years as required by tax law. You may request deletion of your data at any time by emailing hello@zeroen.dev."
+      },
+      {
+        "title": "6. Your Rights",
+        "body": "Depending on your jurisdiction, you may have the right to:\n- Access the personal data we hold about you\n- Correct inaccurate data\n- Request deletion of your data\n- Object to or restrict processing\n- Receive your data in a portable format\n\nTo exercise any of these rights, email hello@zeroen.dev."
+      },
+      {
+        "title": "7. Cookies",
+        "body": "We use essential session cookies for authentication. We do not use advertising or tracking cookies. Vercel Analytics uses anonymised, cookie-free metrics."
+      },
+      {
+        "title": "8. Security",
+        "body": "Data is encrypted in transit (TLS) and at rest. Access to production systems is restricted to the operator. We follow security best practices including regular dependency audits."
+      },
+      {
+        "title": "9. Changes to This Policy",
+        "body": "We may update this policy from time to time. Material changes will be communicated via the dashboard. The current version is always available at zeroen.dev/privacy."
+      },
+      {
+        "title": "10. Contact",
+        "body": "For any privacy-related questions or requests: hello@zeroen.dev"
+      }
+    ]
+  },
+  "tokushoho": {
+    "eyebrow": "Legal Disclosure",
+    "title": "Specified Commercial\nTransactions Act",
+    "lastUpdated": "Last updated: April 15, 2026",
+    "sections": [
+      {
+        "title": "Seller",
+        "body": "Daito Kojima\nTrade name: ZeroEn"
+      },
+      {
+        "title": "Representative",
+        "body": "Daito Kojima"
+      },
+      {
+        "title": "Address",
+        "body": "Disclosed without delay upon request."
+      },
+      {
+        "title": "Phone",
+        "body": "080-7998-6969\nAvailable weekdays 10:00–18:00 JST. Email preferred."
+      },
+      {
+        "title": "Email",
+        "body": "hello@zeroen.dev"
+      },
+      {
+        "title": "Website",
+        "body": "https://zeroen.dev"
+      },
+      {
+        "title": "Pricing",
+        "body": "**Basic plan:** ¥5,000/month (tax included)\n**Premium plan:** ¥10,000/month (tax included)\n**Additional change requests:** ¥4,000 and up (varies by scope)\n\nSee the pricing page for full details."
+      },
+      {
+        "title": "Additional Fees",
+        "body": "None. Internet connection and data charges are the customer's responsibility."
+      },
+      {
+        "title": "Payment Method",
+        "body": "Credit card (Stripe)"
+      },
+      {
+        "title": "Payment Timing",
+        "body": "First charge is made at the time of sign-up. Subsequent charges are made automatically on the same date each month."
+      },
+      {
+        "title": "Service Delivery",
+        "body": "Service is provided following contract conclusion. Initial site launch is typically within 2 weeks."
+      },
+      {
+        "title": "Cancellation Policy",
+        "body": "Due to the nature of the subscription service, refunds are not provided as a general rule.\n\n**Minimum term:** 6 months. Early cancellation will result in the remaining months being charged in full.\n\nUpon cancellation, the site is archived. Source code ownership remains with ZeroEn."
+      },
+      {
+        "title": "System Requirements",
+        "body": "Latest version of a modern browser (Chrome / Safari / Edge / Firefox)"
+      }
+    ]
+  },
+  "startups": {
+    "eyebrow": "FOR STARTUPS",
+    "title": "Free MVP.\n10% Equity.",
+    "subtitle": "We build your product for free. In exchange, we take 10% equity.",
+    "badge": "Invite Only",
+    "what": {
+      "heading": "What ZeroEn builds",
+      "items": [
+        "Full-stack MVP (Next.js + Supabase)",
+        "AI agent automation",
+        "Vercel deployment",
+        "6-month operating support",
+        "Ex-Hitachi / ex-Rakuten engineering advisor"
+      ]
+    },
+    "ask": {
+      "heading": "What ZeroEn asks",
+      "items": [
+        "10% equity via SAFE note at incorporation",
+        "Proven founding team",
+        "Strong commitment to the product"
+      ]
+    },
+    "note": "This route is for startup founders. If you're a coach, consultant, or therapist, check out our LP plan instead.",
+    "lpCta": "See the LP plan →",
+    "applyHeading": "Apply"
+  },
+  "lpApply": {
+    "meta": {
+      "title": "Apply — Free LP Build | ZeroEn",
+      "description": "Apply for your free landing page. ZeroEn builds it in 3 days, then ¥5,000/month for hosting, updates, and analytics."
+    },
+    "eyebrow": "FREE LP APPLICATION",
+    "title": "Let's build your LP.",
+    "subtitle": "¥0 upfront. Built in 3 days. ¥5,000/month for hosting, updates, and monthly improvements. 6-month commitment.",
+    "form": {
+      "name": "Your name",
+      "namePlaceholder": "Yamada Taro",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "occupation": "Occupation",
+      "occupationPlaceholder": "Select your occupation",
+      "occupationCoach": "Coach",
+      "occupationTherapist": "Therapist",
+      "occupationCounselor": "Counselor",
+      "occupationOther": "Other",
+      "currentSite": "Current site URL (optional)",
+      "currentSitePlaceholder": "https://yoursite.com",
+      "challenge": "What's your biggest LP challenge?",
+      "challengePlaceholder": "e.g. Tried Peraichi but couldn't get inquiries. Want a real brand but don't know where to start...",
+      "consent": "I agree to ZeroEn's privacy policy and consent to being contacted about this application.",
+      "submit": "Apply now →",
+      "submitting": "Sending...",
+      "fieldRequired": "This field is required",
+      "emailInvalid": "Enter a valid email address"
+    },
+    "thankYou": {
+      "eyebrow": "APPLICATION RECEIVED",
+      "title": "We'll be in touch.",
+      "message": "Your application has been received. We review every application personally and will reply within 24 hours.",
+      "nextSteps": "Next steps",
+      "step1": "We review your application",
+      "step2": "You receive a reply within 24 hours",
+      "step3": "We confirm scope and kick off the build",
+      "step4": "Your LP is live within 3 days",
+      "cta": "Back to home"
+    }
+  }
+}

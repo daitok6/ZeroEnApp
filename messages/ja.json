@@ -1,0 +1,1357 @@
+{
+  "nav": {
+    "howItWorks": "仕組み",
+    "pricing": "料金",
+    "cases": "実績",
+    "about": "ZeroEnとは",
+    "dashboard": "Day One",
+    "blog": "ブログ",
+    "login": "ログイン",
+    "apply": "無料で申し込む"
+  },
+  "home": {
+    "hero": {
+      "line1": "前金0円。LPは無料で作ります。",
+      "line2": "月¥5,000で、制作・運用・毎月の改善まで。",
+      "line3": "元日立・元楽天エンジニアが、3日で公開します。",
+      "subtitle": "6ヶ月から。いつでも解約可。",
+      "cta": "無料で申し込む",
+      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
+    },
+    "howItWorks": {
+      "title": "仕組み",
+      "subtitle": "アイデアから、ローンチまで。"
+    },
+    "valueProp": {
+      "eyebrow": "料金プラン",
+      "title": "制作は無料。\n月¥5,000で、ずっと動き続ける。",
+      "subtitle": "ペライチは月¥1,465。ただし自分で作ります。フリーランス制作は¥50〜150kで納品のみ。ZeroEnは制作・運用・改善まで月¥5,000。",
+      "basicTitle": "Basic",
+      "basicPrice": "¥5,000/月",
+      "basicItems": [
+        "LP制作（初期費用¥0）",
+        "Vercelホスティング込み",
+        "月1回の小変更",
+        "月次アクセスレポートPDF",
+        "6ヶ月最低契約"
+      ],
+      "premiumTitle": "Premium",
+      "premiumPrice": "¥10,000/月",
+      "premiumItems": [
+        "LP制作（初期費用¥0）",
+        "Vercelホスティング込み",
+        "月2回の小変更または1回の中変更",
+        "年間ダッシュボード＋PDF",
+        "四半期SEO・セキュリティ監査",
+        "6ヶ月最低契約"
+      ],
+      "cta": "無料で申し込む",
+      "seePricingCta": "プラン詳細を見る →",
+      "minNote": "6ヶ月最低契約。以降いつでも解約可。"
+    },
+    "applySection": {
+      "title": "今すぐ始めませんか？",
+      "subtitle": "前金0円。月¥5,000から。あなた専用のLPを3日で公開します。",
+      "cta": "無料で申し込む →"
+    },
+    "whyZeroEn": {
+      "eyebrow": "ZeroEnとは",
+      "title": "3日で公開。\n月¥5,000で、ずっと運用。",
+      "subtitle": "元日立・元楽天エンジニアが、あなた専用のブランドをNext.js＋Tailwindで組みます。テンプレートの寄せ集めではありません。",
+      "pillars": [
+        {
+          "title": "前金0円",
+          "desc": "LP制作は完全無料。月¥5,000のサブスクリプションで制作費を回収するモデルです。前払い・時間単価の請求は一切なし。"
+        },
+        {
+          "title": "3日で本番公開",
+          "desc": "コンテンツ（文章・画像）が揃っていれば、LPなら3日で公開できます。WebMori様も3日で公開しました。"
+        },
+        {
+          "title": "作って終わりじゃない",
+          "desc": "毎月の改善・アクセス解析・変更依頼対応がすべて月額に含まれます。6ヶ月最低契約、以降いつでも解約可。"
+        }
+      ],
+      "urgency": "現在、新規クライアントを受付中です。"
+    },
+    "trustSection": {
+      "eyebrow": "安心して始める",
+      "title": "元日立・元楽天エンジニアが、\nあなた専用のLPを作ります。",
+      "points": [
+        {
+          "title": "コードはZeroEnが保有",
+          "desc": "Shopify・SquarespaceとJAPANESE同じSaaS構造。ドメインはあなたのもの。サブスクで公開中のサイトを使えます。"
+        },
+        {
+          "title": "サプライズ請求なし",
+          "desc": "変更依頼は承認前に料金を明示。月額以外の費用は事前合意なしに発生しません。"
+        },
+        {
+          "title": "解約後もデータは安全",
+          "desc": "6ヶ月後はいつでも解約可。解約後はサイトをアーカイブし、コードはZeroEnが保管します。"
+        }
+      ]
+    },
+    "techStack": {
+      "eyebrow": "使用技術",
+      "title": "テンプレートじゃない。\nあなたのブランドで組みます。",
+      "subtitle": "Next.js・Tailwind CSS・shadcn/ui — ブランドトークンに合わせてゼロから構築。ペライチの寄せ集めとは違います。",
+      "terminalTitle": "zeroen — build-lp",
+      "lines": [
+        "$ zeroen --build-lp --stack=next+tailwind --days=3",
+        "> next@15 をインストール中 (App Router)...",
+        "> tailwindcss + shadcn/ui を設定中...",
+        "> ブランドトークンを適用中...",
+        "> vercel にデプロイ中 (グローバルエッジ)...",
+        "✓ LP 公開完了。3日。"
+      ],
+      "tools": [
+        {
+          "name": "Next.js 15",
+          "tag": "フロントエンド",
+          "desc": "App Router・サーバーコンポーネント — 高速で、SEOに強い。"
+        },
+        {
+          "name": "Tailwind CSS",
+          "tag": "スタイリング",
+          "desc": "あなたのブランドカラー・フォント・余白をトークンで管理。デザインに一貫性が出ます。"
+        },
+        {
+          "name": "Vercel",
+          "tag": "ホスティング",
+          "desc": "グローバルエッジデプロイ・プレビューURL・Core Web Vitals計測。月額に込み。"
+        },
+        {
+          "name": "Stripe",
+          "tag": "決済",
+          "desc": "月額サブスクリプション・請求書・変更依頼の支払い。すべてダッシュボードで完結。"
+        }
+      ]
+    },
+    "caseStudies": {
+      "eyebrow": "制作実績",
+      "title": "公開済みのLP",
+      "subtitle": "本物のクライアント。本物のLP。本物の結果。",
+      "comingSoon": "近日公開",
+      "live": "公開中",
+      "placeholders": [
+        {
+          "name": "WebMori",
+          "desc": "問題が起きる前に発見する — セキュリティ・SEO監査サービス。",
+          "meta": [
+            "3日で公開",
+            "月次監査 · 東京",
+            "Premium プラン"
+          ],
+          "url": "https://webmori.jp",
+          "screenshot": "/webmori-screenshot.png",
+          "label": "事例を読む →"
+        },
+        {
+          "name": "佐藤キャリアコーチング",
+          "desc": "ビジネスパーソンのキャリア転換を支援するコーチングサービスのLP。",
+          "meta": [
+            "3日で制作",
+            "デモサイト",
+            "Basic プラン"
+          ],
+          "url": "",
+          "screenshot": "",
+          "label": "サンプルサイト"
+        },
+        {
+          "name": "こころの杜カウンセリング",
+          "desc": "心理カウンセラーによる対話型カウンセリングサービスのLP。",
+          "meta": [
+            "3日で制作",
+            "デモサイト",
+            "Basic プラン"
+          ],
+          "url": "",
+          "screenshot": "",
+          "label": "サンプルサイト"
+        }
+      ]
+    },
+    "newsletterSection": {
+      "eyebrow": "ニュースレター",
+      "title": "毎週の開発レポートをお届けします。",
+      "subtitle": "数字も、クライアントも、すべて本物。飾りなし。毎週月曜日配信。",
+      "placeholder": "your@email.com",
+      "cta": "登録",
+      "note": "迷惑メールは送りません。いつでも配信停止できます。"
+    },
+    "processEyebrow": "プロセス",
+    "dashboardShowcase": {
+      "eyebrow": "クライアントダッシュボード",
+      "heading": "もう「どうなってる？」は不要。",
+      "subheading": "いつでもログインして、アクセス数・変更依頼・請求書を確認。メールで問い合わせる必要はありません。",
+      "bullets": [
+        {
+          "title": "毎月のアクセスをひと目で",
+          "body": "訪問者・人気ページ・パフォーマンスを毎月1日にPDFとグラフでお届けします。"
+        },
+        {
+          "title": "サプライズ請求なし",
+          "body": "変更依頼は承認前に料金を明示。何をいくらで依頼するか、常に把握できます。"
+        },
+        {
+          "title": "請求はセルフサービス",
+          "body": "請求書・領収書・プラン変更 — すべてここで。問い合わせなしで完結します。"
+        }
+      ],
+      "ctaLabel": "ダッシュボードを見る",
+      "ctaHref": "/ja/live-from-day-one"
+    }
+  },
+  "dashboardPreview": {
+    "eyebrow": "開始日からすぐ使える",
+    "heading": "契約後に使えるもの、すべて。",
+    "subheading": "アナリティクス・変更依頼・請求・メッセージ — ブランド統一されたポータルに集約。",
+    "views": [
+      {
+        "label": "アナリティクス",
+        "caption": "月次訪問者トレンド・人気ページ・Core Web Vitals — PDFレポートとリアルタイム表示の両方で確認。"
+      },
+      {
+        "label": "変更依頼",
+        "caption": "変更申請・料金確認・進捗追跡がすべてダッシュボード上で完結。サプライズ請求なし。"
+      },
+      {
+        "label": "請求書",
+        "caption": "請求書・領収書・サブスクリプション状況 — セルフサービスで管理。"
+      },
+      {
+        "label": "メッセージ",
+        "caption": "ZeroEnオペレーターとの直接スレッド。迅速で記録に残る非同期コミュニケーション。"
+      }
+    ],
+    "preCtaHeading": "あなたのサイトは、もう始まっています。",
+    "ctaLabel": "無料で申し込む",
+    "ctaHref": "/ja/login"
+  },
+  "pricing": {
+    "meta": {
+      "title": "料金プラン — ZeroEn",
+      "description": "前金0円。月¥5,000で制作・運用・毎月の改善まで。Basic・Premiumプランの詳細。"
+    },
+    "eyebrow": "料金プラン",
+    "title": "前金0円。\n月¥5,000から。",
+    "subtitle": "ペライチは月¥1,465。ただし自分で作ります。フリーランス制作は¥50〜150kで納品のみ。ZeroEnは制作・運用・改善まで月¥5,000。",
+    "basic": {
+      "name": "Basic",
+      "price": "¥5,000",
+      "period": "月",
+      "setup": "初期費用¥0",
+      "items": [
+        "LP制作（初期費用¥0）",
+        "Vercelホスティング込み",
+        "月1回の小変更",
+        "月次アクセスレポートPDF（1ページ）",
+        "変更依頼SLA：14営業日以内",
+        "6ヶ月最低契約"
+      ],
+      "cta": "Basicで申し込む"
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "¥10,000",
+      "period": "月",
+      "setup": "初期費用¥0",
+      "badge": "おすすめ",
+      "items": [
+        "LP制作（初期費用¥0）",
+        "Vercelホスティング込み",
+        "月2回の小変更または1回の中変更",
+        "年間ダッシュボード＋月次PDF",
+        "四半期SEO・セキュリティ監査",
+        "優先対応SLA：5営業日以内",
+        "コピー刷新クレジット（四半期に1回）",
+        "6ヶ月最低契約"
+      ],
+      "cta": "Premiumで申し込む"
+    },
+    "minNote": "6ヶ月最低契約。以降いつでも解約可。",
+    "changeTitle": "スポット変更（都度料金）",
+    "changeItems": [
+      { "size": "S（小）", "price": "¥4,000", "desc": "テキスト修正・画像差し替えなど" },
+      { "size": "M（中）", "price": "¥10,000", "desc": "セクション追加・レイアウト変更など（プレミアム限定）" },
+      { "size": "L（大）", "price": "¥25,000〜", "desc": "新規ページ・機能追加など" }
+    ],
+    "faqTitle": "よくある質問",
+    "faqs": [
+      {
+        "q": "なぜ無料なんですか？",
+        "a": "制作費をZeroEnが負担し、月額で回収します。前金を払わせる業界構造を壊したいからです。"
+      },
+      {
+        "q": "コードは誰のものですか？",
+        "a": "ZeroEnが保有します。あなたは公開中のサイトをサブスクで使います。Shopify・Squarespace・ペライチと同じ構造です。ドメインはあなたのものです。"
+      },
+      {
+        "q": "途中でキャンセルできますか？",
+        "a": "6ヶ月の最低契約期間があります。以降はいつでも解約可能。解約後はサイトをアーカイブし、コードはZeroEnが保管します。"
+      },
+      {
+        "q": "本当に3日で公開できますか？",
+        "a": "LPなら可能。WebMori様も3日で公開しました。ただし、あなたが準備するコンテンツ（文章・画像）が揃っていることが条件です。"
+      },
+      {
+        "q": "テンプレートの寄せ集めになりませんか？",
+        "a": "いいえ。Next.js・Tailwind・shadcn/uiで、あなたのブランドトークンに合わせて組みます。"
+      },
+      {
+        "q": "BasicからPremiumに後で切り替えられますか？",
+        "a": "はい、いつでも可能です。アップグレードすると、その月から新たに6ヶ月のPremiumコミット期間が始まります（Basicの残り期間はここで巻き取られます）。Basicへのダウングレードは、その6ヶ月が満了したタイミングでご選択いただけます。"
+      },
+      {
+        "q": "Basicプランでミディアム変更を単発で依頼できますか？",
+        "a": "いいえ、ミディアム変更はPremiumプランのみの対応です。Basicプランの方がミディアム変更を依頼したい場合は、Premiumへのアップグレード（新たな6ヶ月のPremiumコミットが始まります）、またはスモール変更への分割をご検討ください。"
+      }
+    ]
+  },
+  "mockDashboard": {
+    "clientName": "田中 明子",
+    "clientPlan": "Basic · ¥5,000/月",
+    "tabs": {
+      "analytics": "アナリティクス",
+      "requests": "変更依頼",
+      "invoices": "請求書",
+      "messages": "メッセージ"
+    },
+    "analyticsMetrics": {
+      "visitors": "訪問者",
+      "pageViews": "ページビュー",
+      "avgSession": "平均滞在時間",
+      "bounceRate": "直帰率"
+    },
+    "analyticsValues": {
+      "visitors": "1,204",
+      "visitorsChange": "+12%",
+      "pageViews": "3,891",
+      "avgSession": "2分14秒",
+      "bounceRate": "38%"
+    },
+    "topPages": "人気ページ",
+    "requestStatuses": {
+      "completed": "完了",
+      "inProgress": "対応中",
+      "quoted": "見積済"
+    },
+    "invoiceStatus": "支払済",
+    "messageFrom": "ZeroEn",
+    "messageTo": "田中様"
+  },
+  "apply": {
+    "title": "ZeroEnに申し込む",
+    "subtitle": "アイデアを教えてください。無料で構築します。",
+    "step0": {
+      "title": "アイデアを共有する前に",
+      "subtitle": "あなたの信頼を大切にします。私たちの約束：",
+      "points": [
+        "書面による合意なしに、あなたのアイデアを共有・複製・使用しません",
+        "これは相互のものです — 私たちも同じ条件に縛られています",
+        "いつでも全データの削除を依頼できます",
+        "不採択の申し込みは30日以内に削除されます"
+      ],
+      "linkText": "秘密保持条項の全文を読む",
+      "checkboxLabel": "相互秘密保持契約を読み、同意しました",
+      "continueButton": "申し込みを続ける →",
+      "ndaError": "秘密保持契約に同意する必要があります",
+      "signatureLabel": "フルネームを入力して署名",
+      "signaturePlaceholder": "フルネーム",
+      "signatureHelper": "これは秘密保持契約に対するあなたの電子署名となります。",
+      "scrollHint": "↓ 下にスクロールして全文をお読みください",
+      "ndaPoints": [
+        "両者は、互いの秘密情報を非公開に保つことに同意します。",
+        "秘密情報には以下が含まれます：申込データ、ビジネスプラン、技術仕様、財務予測、ユーザーリサーチ。",
+        "いずれの当事者も、書面による同意なしに、相手方の秘密情報を共有または使用してはなりません。",
+        "この義務は契約終了後も存続し、一般情報は3年間、個人データは永続的に有効です。",
+        "いつでもデータ削除を請求できます。"
+      ]
+    },
+    "step1": {
+      "title": "あなたのアイデア",
+      "ideaName": "何を構築しますか？",
+      "ideaNamePlaceholder": "アプリ名やプロジェクト名",
+      "ideaDescription": "アイデアを詳しく説明してください",
+      "ideaDescriptionPlaceholder": "あなたのプロダクトが何をするか教えてください...",
+      "problemSolved": "どんな問題を解決しますか？",
+      "problemSolvedPlaceholder": "解決する具体的な問題を説明してください..."
+    },
+    "step2": {
+      "title": "市場",
+      "targetUsers": "ターゲットユーザーは誰ですか？",
+      "targetUsersPlaceholder": "どんな人がこのプロダクトを使いますか？",
+      "competitors": "競合他社は誰ですか？（任意）",
+      "competitorsPlaceholder": "既存のソリューションや競合他社...",
+      "monetization": "どうやって収益を上げますか？",
+      "monetizationPlaceholder": "サブスクリプション、手数料、広告など..."
+    },
+    "step3": {
+      "title": "あなたについて",
+      "founderName": "お名前",
+      "founderNamePlaceholder": "山田 太郎",
+      "founderEmail": "メールアドレス",
+      "founderBackground": "経歴・バックグラウンド",
+      "founderBackgroundPlaceholder": "職歴、スキル、関連する経験など...",
+      "commitment": "時間的なコミット",
+      "commitmentPlaceholder": "コミット時間を選択",
+      "commitmentFullTime": "フルタイム",
+      "commitmentPartTime": "パートタイム",
+      "commitmentSideProject": "サイドプロジェクト",
+      "linkedin": "LinkedIn URL（任意）"
+    },
+    "step4": {
+      "title": "確認・送信",
+      "edit": "編集",
+      "sectionIdea": "アイデア",
+      "sectionMarket": "市場",
+      "sectionFounder": "ファウンダー",
+      "fieldName": "名前",
+      "fieldDescription": "説明",
+      "fieldProblemSolved": "解決する問題",
+      "fieldTargetUsers": "ターゲットユーザー",
+      "fieldCompetitors": "競合他社",
+      "fieldMonetization": "収益化計画",
+      "fieldBackground": "バックグラウンド",
+      "fieldCommitment": "コミット",
+      "fieldNoneSpecified": "なし",
+      "fieldNotProvided": "なし",
+      "disclaimer": "申し込みを送信することで、ZeroEnの利用規約とエクイティ条件に同意します。",
+      "submitting": "送信中...",
+      "submit": "申し込みを送信"
+    },
+    "wizard": {
+      "received": "申し込みを受け取りました。",
+      "inTouch": "3〜5営業日以内にご連絡します。",
+      "somethingWentWrong": "エラーが発生しました。もう一度お試しください。",
+      "networkError": "ネットワークエラーが発生しました。もう一度お試しください。"
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "プロセス",
+    "title": "仕組み",
+    "subtitle": "アイデアからローンチまで — 9ステップ、初期費用ゼロ。",
+    "steps": {
+      "discover": {
+        "name": "DISCOVER",
+        "desc": "ビルドインパブリックのコンテンツ、Twitter/X、Instagram、開発者コミュニティを通じて私たちを見つけるか、zeroen.devから直接お問い合わせください。"
+      },
+      "apply": {
+        "name": "APPLY",
+        "desc": "zeroen.devで詳細な申し込みを送信してください。アイデア、ターゲット市場、バックグラウンドをお聞きします。所要時間は約10分です。",
+        "badge": "相互NDAにより保護 — 共有前に署名"
+      },
+      "score": {
+        "name": "SCORE",
+        "desc": "すべての申し込みを4つの観点でスコアリングします：実現性（本物の問題か？）、コミットメント（本気か？）、実行可能性（MVPスコープで構築できるか？）、市場（本当の需要があるか？）。20点中15点以上で採択。"
+      },
+      "onboard": {
+        "name": "ONBOARD",
+        "desc": "採択された場合、詳細なアンケートに回答し、キックオフコールに参加します。スコープをともに決定します。この時点でスコープは確定 — 機能追加なし。"
+      },
+      "build": {
+        "name": "BUILD",
+        "desc": "開発が始まります。Next.js + Supabaseを使ったフルスタックMVPを構築します。ファウンダーダッシュボードで定期的なアップデートを確認できます。"
+      },
+      "launch": {
+        "name": "LAUNCH",
+        "desc": "Vercelにデプロイします。ローンチ後30日間は無料サポートを提供します。ステージング環境でレビューし、最終サインオフをお願いします。"
+      },
+      "operate": {
+        "name": "OPERATE",
+        "desc": "ローンチ後、継続的なホスティング・月次修正・アナリティクスレポートでアプリの運営と成長をサポートします。"
+      },
+      "grow": {
+        "name": "GROW",
+        "desc": "元のスコープを超える新機能はアドオンとして事前見積もりで提供されます。レベニューシェアが開始されます。"
+      },
+      "upsell": {
+        "name": "UPSELL",
+        "desc": "月次アナリティクスが機会を発掘します。WebMori監査サービスも利用可能。ともに成長します。"
+      }
+    },
+    "cta": {
+      "title": "始める準備はできましたか？",
+      "subtitle": "10分で申し込み完了。3営業日以内に返信します。",
+      "button": "無料で申し込む"
+    }
+  },
+  "footer": {
+    "tagline": "アイデアを、形にする。",
+    "product": {
+      "heading": "プロダクト",
+      "howItWorks": "仕組み",
+      "applyFree": "申し込む"
+    },
+    "company": {
+      "heading": "会社",
+      "blog": "ブログ",
+      "about": "ZeroEnについて",
+      "cases": "制作実績",
+      "pricing": "料金"
+    },
+    "resources": {
+      "heading": "リソース",
+      "blog": "ブログ",
+      "faq": "よくある質問",
+      "comparison": "ペライチ・STUDIO比較",
+      "whatsIncluded": "月¥5,000に含まれるもの"
+    },
+    "newsletter": {
+      "heading": "ニュースレター",
+      "description": "毎週の開発レポートと最新情報をお届けします。",
+      "title": "最新情報をお届けします。",
+      "placeholder": "your@email.com",
+      "cta": "登録",
+      "join": "登録",
+      "subscribed": "登録しました！"
+    },
+    "bottom": {
+      "terms": "利用規約",
+      "privacy": "プライバシー",
+      "tokushoho": "特定商取引法",
+      "tagline": "東京 · AIパワードCTO"
+    }
+  },
+  "terms": {
+    "eyebrow": "利用規約",
+    "title": "わかりやすい\n契約内容。",
+    "subtitle": "全ZeroEnクライアントへの標準条件。驚きなし。",
+    "summary": {
+      "heading": "要約",
+      "items": [
+        {
+          "label": "プラットフォーム費用",
+          "value": "MVP立ち上げ後、月額$50。ホスティング + 月1回の修正含む。"
+        },
+        {
+          "label": "スコープ凍結",
+          "value": "MVPスコープはキックオフ時に確定。追加機能 = 都度課金。"
+        },
+        {
+          "label": "強制終了条項",
+          "value": "90日間未払い → 契約終了。コードはZeroEnが保持。"
+        },
+        {
+          "label": "IP",
+          "value": "ZeroEnがコード所有権を保持。クライアントはサブスクリプション継続中のみライセンスを受ける。"
+        },
+        {
+          "label": "責任制限",
+          "value": "ZeroEnの責任は過去12ヶ月に支払われた費用を上限とする。"
+        },
+        {
+          "label": "ポートフォリオ権利",
+          "value": "ZeroEnは常にこの作業を紹介する権利を保持。"
+        }
+      ]
+    },
+    "full": {
+      "heading": "完全な利用規約",
+      "sections": [
+        {
+          "title": "1. 将来のエクイティ（フェーズ2）",
+          "body": "エクイティの取り決め（SAFEノート、レベニューシェア）はフェーズ1の契約には含まれません。ZeroEnは現在、サブスクリプション型ホスティングサービスとして運営しています。エクイティ条件は一部のフェーズ2案件で提供される場合があり、その際は別途個別に署名された契約書に記載されます。本規約はいかなるエクイティ持分も付与または示唆するものではありません。"
+        },
+        {
+          "title": "2. レベニューシェア（フェーズ2）",
+          "body": "レベニューシェアの取り決めはフェーズ1では適用されません。特定のクライアントとレベニューシェアが合意された場合、発効前に両者が署名した別途の書面契約に記載されます。本標準規約はレベニューシェア契約を構成するものではありません。"
+        },
+        {
+          "title": "3. プラットフォーム費用",
+          "body": "MVP立ち上げ後、月額USD $50のプラットフォーム費用が発生します。内容: ZeroEnのVercel Proアカウントでのホスティング、月1回の軽微な修正、月次アナリティクスPDFレポート。費用はローンチ30日後から開始。Stripeサブスクリプションでのお支払い。プラットフォーム費用が支払われている間のみアプリは公開されます。本契約におけるZeroEnの総責任は、請求発生前12ヶ月にクライアントが支払ったプラットフォーム費用を上限とします。ZeroEnはVercelインフラの稼働率以外の保証を行いません。"
+        },
+        {
+          "title": "4. スコープ凍結",
+          "body": "MVPスコープはキックオフコールで合意・確定されます。合意されたスコープ以外の機能・変更・追加は都度課金として扱われます。"
+        },
+        {
+          "title": "5. 都度課金",
+          "body": "確定MVPスコープ外の作業: 小規模変更(1〜4時間) $50〜100; 中規模機能(1〜3日) $200〜500; 大規模ビルド(1〜2週間) $500〜2,000。全見積もりは事前提示。支払い後に作業開始。"
+        },
+        {
+          "title": "6. 強制終了条項",
+          "body": "プラットフォーム費用が90日連続して未払いの場合、契約は自動的に終了します。終了時: クライアントのアプリはオフライン、ZeroEnがコードの完全な権利を保持します。ZeroEnは90日の閾値に達する前にクライアントへ通知するよう合理的な努力を行います。"
+        },
+        {
+          "title": "7. 返還条項",
+          "body": "ビルド完了から6ヶ月以内にアプリが立ち上がらない場合、完全なコード権利はZeroEnに返還されます。"
+        },
+        {
+          "title": "8. IP所有権",
+          "body": "ZeroEnは本契約に基づき作成されたすべてのコード、デザイン、資産の完全な所有権を保持します。クライアントはプラットフォーム費用が支払われている間、ライブホストされたアプリケーションを使用する非独占的ライセンスを受けます。このライセンスは譲渡不可であり、ソースコードへのアクセスまたは移転は含まれません。ZeroEnは常にポートフォリオおよびマーケティング資料（スクリーンショット、ケーススタディ、ビルドログを含む）での使用権を保持します。"
+        },
+        {
+          "title": "9. サービス基準",
+          "body": "ZeroEnはVercelインフラ上でクライアントのアプリケーションを適切に維持するよう合理的な努力を行います。クライアントが6ヶ月以上連続して連絡に応答せずサービスを使用しない場合、ZeroEnは14日前の書面通知をもってサービスを一時停止できます。この条項はZeroEnが活動中のクライアント管理を効率的に行うためのものです。"
+        },
+        {
+          "title": "10. 準拠法",
+          "body": "本規約は日本法に準拠します。紛争は誠実な交渉により解決され、必要に応じて東京地方裁判所において解決されます。ZeroEnとクライアントは可能な限り訴訟なしに紛争を解決することに合意します。"
+        },
+        {
+          "title": "11. 秘密保持・機密保持義務",
+          "body": "ZeroEnおよびクライアントは、互いの機密情報を非公開に保つことに合意します。機密情報とは、申し込みデータ、事業計画、技術仕様、財務予測、ユーザー調査、および申し込み・オンボーディング・構築プロセス中に共有されたその他の情報を含みます。\n\nいずれの当事者も、相手方の書面による同意なしに、相手方の機密情報を共有・複製・使用しないものとします。\n\nデータ削除：採択・不採択を問わず、すべての申請者はいつでも提出済みデータの削除を請求できます。不採択の申し込みデータは不採択決定から30日以内に自動削除されます。"
+        }
+      ]
+    }
+  },
+  "blog": {
+    "readMore": "続きを読む →",
+    "categories": {
+      "all": "すべて",
+      "build-update": "ビルド更新",
+      "case-study": "ケーススタディ",
+      "operator-log": "オペレーターログ",
+      "tutorial": "チュートリアル"
+    }
+  },
+  "admin": {
+    "title": "管理ダッシュボード",
+    "overview": "概要",
+    "clients": "クライアント",
+    "managedClients": "クライアント追加",
+    "applications": "応募",
+    "requests": "変更依頼",
+    "messages": "メッセージ",
+    "documents": "書類",
+    "audits": "監査",
+    "totalClients": "クライアント数",
+    "activeProjects": "進行中プロジェクト",
+    "pendingApplications": "審査中応募",
+    "monthlyRevenue": "月間収益",
+    "clientName": "クライアント",
+    "projectName": "プロジェクト",
+    "status": "ステータス",
+    "plan": "プラン",
+    "lastUpdated": "最終更新",
+    "health": "ヘルス",
+    "noClients": "クライアントはまだいません。",
+    "allConversations": "全会話",
+    "noConversations": "まだ会話はありません。",
+    "selectConversation": "会話を選択してください",
+    "noRequests": "リクエストはありません",
+    "application": "応募内容",
+    "founder": "ファウンダー",
+    "idea": "アイデア",
+    "problemSolved": "解決する問題",
+    "targetUsers": "ターゲットユーザー",
+    "competitors": "競合",
+    "monetization": "収益モデル",
+    "background": "バックグラウンド",
+    "commitment": "コミット",
+    "viewProfile": "プロフィールを見る",
+    "aiScore": "AIスコア",
+    "recommendation": "推薦",
+    "notScoredYet": "まだスコアリングされていません。",
+    "scoring": "スコアリング中…",
+    "scoreWithAI": "AIでスコアリング",
+    "rescoreWithAI": "AIで再スコアリング",
+    "approving": "採択中…",
+    "approve": "採択",
+    "rejecting": "却下中…",
+    "reject": "却下",
+    "projectNameLabel": "プロジェクト名",
+    "siteUrl": "サイトURL",
+    "githubRepo": "GitHub リポジトリURL",
+    "vercelProject": "Vercel プロジェクトURL",
+    "visibility": "公開設定",
+    "enableProject": "プロジェクトを有効にする",
+    "enableProjectWarning": "プロジェクトのステータスを「ローンチ済み」に変更し、クライアントに表示されるようになります。",
+    "saving": "保存中…",
+    "saveChanges": "変更を保存",
+    "failedToSave": "変更の保存に失敗しました",
+    "sendInvoice": "請求書を送信",
+    "amount": "金額 (USD)",
+    "amountHelper": "$0 = 無料（プランに含む）",
+    "description": "説明",
+    "dueDate": "期日（任意）",
+    "invalidAmount": "有効な金額を入力してください",
+    "enterDescription": "説明を入力してください",
+    "sending": "送信中…",
+    "needsReview": "要確認",
+    "markReviewing": "確認中にする",
+    "markInProgress": "進行中にする",
+    "markComplete": "完了にする",
+    "approveRequest": "承認",
+    "approvingRequest": "承認中…",
+    "rejectRequest": "却下",
+    "rejectingRequest": "却下中…",
+    "rejectReason": "却下理由（必須）",
+    "rejectReasonPlaceholder": "クライアントが修正・再送信すべき内容を説明してください...",
+    "confirmReject": "却下を確定",
+    "cancelAction": "キャンセル",
+    "tierBadge": "規模",
+    "discussion": "コメント",
+    "invoiceDeclined": "請求書辞退",
+    "back": "戻る",
+    "networkError": "ネットワークエラーが発生しました。もう一度お試しください。",
+    "scoringFailed": "スコアリングに失敗しました",
+    "ideaViability": "アイデアの実現可能性",
+    "founderCommitment": "創業者のコミットメント",
+    "techFeasibility": "技術的実現可能性",
+    "marketPotential": "市場ポテンシャル",
+    "startChat": "チャットを開始",
+    "openChat": "チャットを開く",
+    "startingChat": "開始中…"
+  },
+  "plan": {
+    "wizardTitle": "プランを選択",
+    "basicName": "ベーシック",
+    "premiumName": "プレミアム",
+    "basicPrice": "¥5,000/月",
+    "premiumPrice": "¥10,000/月",
+    "basicPriceUsd": "~$35/月",
+    "premiumPriceUsd": "~$70/月",
+    "mostPopular": "人気No.1",
+    "commitmentCheckbox": "6ヶ月間の最低契約期間に同意します",
+    "subscribeButton": "申し込む",
+    "processingButton": "処理中...",
+    "haveQuestions": "ご質問は",
+    "messageUs": "メッセージ",
+    "currentPlan": "現在のプラン",
+    "changePlan": "プランを変更する",
+    "commitmentStarted": "開始日",
+    "commitmentEnds": "最低契約終了日",
+    "upgradeTo": "プレミアムにアップグレード",
+    "downgradeTo": "ベーシックにダウングレード",
+    "upgradeNote": "アップグレードすると6ヶ月のコミット期間がリセットされます",
+    "downgradeLockedUntil": "ダウングレード可能日",
+    "confirmUpgrade": "アップグレードを確定",
+    "confirmDowngrade": "ダウングレードを確定",
+    "successMessage": "新しいプランがすぐに適用されました",
+    "subscriptionPending": "サブスクリプションを設定中...",
+    "subscriptionTakingLong": "予想より時間がかかっています。ページを更新するか、メッセージ機能でご連絡ください",
+    "subscriptionTakingLongLink": "メッセージ",
+    "subscribeToAccess": "この機能を利用するにはプランへの登録が必要です",
+    "backToDashboard": "ダッシュボードに戻る",
+    "planChangedSuccess": "変更が完了しました",
+    "downgradeLocked": "ダウングレードはロックされています",
+    "anErrorOccurred": "エラーが発生しました",
+    "unexpectedError": "予期しないエラーが発生しました",
+    "downgradeRemovedFeatures": "ダウングレードするとPremiumの機能（監査、フルアナリティクス）が利用できなくなります",
+    "downgradeNote2": "Basicプランの機能に変更されます",
+    "downgradeLockedAfterDate": "{date}以降にダウングレード可能です",
+    "selectPlanSubtitle": "プロジェクトに合ったプランをお選びください",
+    "yourWebsite": "あなたのウェブサイト",
+    "subscriptionWarning": "⚠ サブスクリプションの登録が14日以内に完了しない場合、ウェブサイトは一時停止されます。",
+    "selected": "選択中",
+    "commitmentCheckboxFull": "6ヶ月間の最低利用期間に同意します。早期解約の場合は残月分（現在のプランの月額料金で計算）をお支払いいただきます。",
+    "downgradeScheduled": "ダウングレードが予約されました",
+    "downgradeScheduledDesc": "プランは{date}にベーシックに切り替わります。それまでの間はプレミアム機能をご利用いただけます。",
+    "downgradeWillBeScheduled": "ダウングレードはコミット期間終了日（{date}）に適用されます"
+  },
+  "common": {
+    "all": "すべて",
+    "back": "← 戻る",
+    "next": "次へ →",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "close": "閉じる",
+    "view": "詳細",
+    "send": "送信",
+    "loading": "読み込み中...",
+    "submitting": "送信中...",
+    "processing": "処理中...",
+    "error": "エラーが発生しました",
+    "networkError": "ネットワークエラーが発生しました。もう一度お試しください。",
+    "somethingWentWrong": "問題が発生しました",
+    "status": {
+      "pending": "審査中",
+      "onboarding": "オンボード中",
+      "building": "開発中",
+      "launched": "ローンチ済み",
+      "operating": "運用中",
+      "paused": "一時停止中",
+      "terminated": "終了",
+      "accepted": "採択済み",
+      "rejected": "却下",
+      "reviewing": "確認中",
+      "quoted": "見積済み",
+      "approved": "承認済み",
+      "inProgress": "進行中",
+      "completed": "完了",
+      "submitted": "送信済み"
+    },
+    "plan": {
+      "basic": "ベーシック",
+      "premium": "プレミアム"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "アカウントの設定を管理します。",
+    "language": {
+      "title": "言語設定",
+      "subtitle": "ダッシュボードの表示言語を選択してください。",
+      "saved": "保存しました。ページを切り替えます..."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "おかえりなさい",
+      "subtitle": "ZeroEnダッシュボードにサインインします。",
+      "continueWithGoogle": "Googleで続ける",
+      "connecting": "接続中...",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "signIn": "サインイン",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "signUp": "登録する"
+    },
+    "signup": {
+      "title": "アカウントを作成",
+      "subtitle": "ZeroEnに参加して、一緒に構築しましょう。",
+      "continueWithGoogle": "Googleで続ける",
+      "connecting": "接続中...",
+      "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+      "signIn": "サインイン"
+    },
+    "logout": "ログアウト"
+  },
+  "dashboard": {
+    "home": {
+      "welcome": "ようこそ",
+      "getStarted": "ZeroEnへようこそ",
+      "applyPrompt": "アカウントが作成されました。次は応募フォームの提出です。審査後、フルダッシュボードへのアクセスが付与されます。",
+      "submitApplication": "応募する",
+      "shareYourIdea": "アイデアを共有する",
+      "applicationStatus": "応募状況",
+      "checkStatus": "審査状況を確認",
+      "title": "ダッシュボード",
+      "trackProgress": "プロジェクトの状況を確認",
+      "quickLinks": "クイックリンク",
+      "messages": "メッセージ",
+      "chatWithTeam": "チームとチャット",
+      "documents": "書類",
+      "signedAgreements": "署名済み契約書",
+      "invoices": "請求書",
+      "billingPayments": "請求・支払い",
+      "requests": "変更依頼",
+      "requestFeatures": "機能追加リクエスト",
+      "analytics": "アナリティクス",
+      "audits": "監査",
+      "auditsDesc": "セキュリティ・SEOレポート"
+    },
+    "nav": {
+      "overview": "概要",
+      "messages": "メッセージ",
+      "documents": "書類",
+      "invoices": "請求書",
+      "billing": "お支払い",
+      "requests": "変更依頼",
+      "settings": "設定",
+      "analytics": "アナリティクス",
+      "audits": "監査",
+      "apply": "応募",
+      "applicationStatus": "応募状況",
+      "onboarding": "はじめましょう",
+      "notifications": "通知",
+      "help": "ヘルプ",
+      "backToSite": "サイトに戻る"
+    },
+    "projectStatus": {
+      "title": "プロジェクト",
+      "settingUp": "プロジェクト準備中",
+      "settingUpDesc": "オンボーディング完了。プロジェクトの準備ができたらここに表示されます。",
+      "viewSite": "サイトを見る →",
+      "github": "GitHub →",
+      "vercel": "Vercel →",
+      "started": "開始:"
+    }
+  },
+  "requests": {
+    "title": "リクエスト",
+    "newRequest": "新しいリクエスト",
+    "formTitle": "タイトル",
+    "formTitlePlaceholder": "変更内容を簡潔に",
+    "formDescription": "詳細",
+    "formDescriptionPlaceholder": "変更内容の詳細を記入してください",
+    "formSize": "規模",
+    "formSizePlaceholder": "規模を選択",
+    "sizeSmall": "スモール (¥4,000)",
+    "sizeMedium": "ミディアム (¥10,000)",
+    "sizeLarge": "ラージ (¥25,000+)",
+    "submitError": "送信に失敗しました。もう一度お試しください。",
+    "submitSuccess": "リクエストを送信しました！",
+    "submitButton": "リクエストを送信",
+    "submitting": "送信中...",
+    "discussion": "コメント",
+    "needsRequote": "再見積が必要",
+    "cancelRequest": "リクエストを取り下げ",
+    "cancelConfirm": "このリクエストを取り下げますか？",
+    "cancelDescription": "リクエストは取り下げられます。後で新しく送信することもできます。",
+    "cancelReasonPlaceholder": "任意：理由があればお知らせください",
+    "badgeUnread": "変更依頼の未読アクティビティ",
+    "quotaIncluded": "プランに含まれています",
+    "quotaOverage": "超過 — ¥{price} 請求されます",
+    "quotaLarge": "常に別途請求: ¥25,000〜",
+    "quotaRemaining": "今月の残り {remaining}/{capacity} ユニット",
+    "mediumPremiumOnly": "ミディアム変更はプレミアム限定です。プレミアムへのアップグレード、またはスモール変更への分割をご検討ください。"
+  },
+  "invoices": {
+    "title": "請求書",
+    "invoice": "請求書",
+    "free": "無料",
+    "includedInPlan": "プランに含まれています",
+    "due": "期日: ",
+    "approvedMessage": "✓ 承認されました。作業を開始します。",
+    "acceptAndPay": "承認して支払う",
+    "accept": "承認する",
+    "discuss": "相談する",
+    "decline": "断る",
+    "declineConfirm": "断りますか？",
+    "declineReason": "理由（任意）",
+    "empty": "請求書はまだありません。",
+    "payError": "エラーが発生しました"
+  },
+  "billing": {
+    "title": "お支払い・プラン管理",
+    "subtitle": "サブスクリプションの管理",
+    "noSubscription": "アクティブなサブスクリプションはありません。ダッシュボードからプランを選択してください。",
+    "hostingIncluded": "ホスティング込み",
+    "oneChangePerMonth": "月1回の変更（小）",
+    "pdfAnalytics": "前月PDFアナリティクス",
+    "twoChangesPerMonth": "月2回の変更（小）または1回の変更（中）",
+    "fullYearAnalytics": "年間アナリティクスダッシュボード",
+    "quarterlyAudits": "四半期ごとのセキュリティ・SEO監査",
+    "prioritySLABasic": "変更依頼SLA：14営業日以内",
+    "prioritySLAPremium": "変更依頼SLA：5営業日以内（優先対応）",
+    "copyRefreshCredit": "コピー刷新クレジット：四半期に1回",
+    "commitmentPeriod": "コミット期間",
+    "started": "開始: ",
+    "minimumTermEnds": "最短終了日: ",
+    "monthsRemaining": "残り約{n}ヶ月のコミット期間があります",
+    "changePlan": "プラン変更",
+    "downgradeNote": "Basicプランにダウングレードできます。ただし、6ヶ月のコミット期間が満了している必要があります。ダウングレードすると、監査やフルアナリティクスなどのPremium機能が利用できなくなります。",
+    "upgradeNote": "Premiumプランにアップグレードすると、より多くの変更リクエスト、フルアナリティクス、四半期ごとの監査が利用できます。アップグレードすると6ヶ月のコミット期間がリセットされます。",
+    "upgradeDetail": "アップグレードすると、新たに6ヶ月のコミット期間が開始されます。日割り計算で即座に適用されます。",
+    "downgradeAvailableAfter": "ダウングレードは{date}以降に可能です。",
+    "downgradeButton": "Basicにダウングレード",
+    "upgradeButton": "Premiumにアップグレード",
+    "cancelSubscription": "サブスクリプションの解約",
+    "subscriptionCancelled": "解約が完了しました",
+    "cancelledDesc": "現在の請求期間の終了までサービスをご利用いただけます。その後、ウェブサイトはオフラインになります。",
+    "goBack": "戻る",
+    "confirmCancel": "本当に解約しますか？",
+    "cancelWarning1": "現在の請求期間の終了後、ウェブサイトはオフラインになります",
+    "cancelWarning2": "90日以内であれば未払い分を支払うことで再開可能です",
+    "cancelWarning3": "90日を過ぎるとデータは削除されます",
+    "earlyTerminationFee": "早期解約料: {cost}（残り{n}ヶ月分、現在のプランの月額料金で計算）",
+    "earlyTerminationChargeImmediate": "この金額は登録済みのカードに即時請求されます",
+    "typedConfirmPrompt": "解約を確定するには「{word}」と入力してください",
+    "paymentFailed": "支払いに失敗しました",
+    "paymentFailedDesc": "早期解約料の請求に失敗しました。請求書をお支払いただいてから解約を進めてください。",
+    "payInvoice": "請求書を支払う →",
+    "scheduledDowngradeTitle": "ダウングレードが予約されました",
+    "scheduledDowngradeDesc": "プランは{date}にBasicに切り替わります。それまでの間はいつでもキャンセルできます。",
+    "cancelScheduledDowngrade": "ダウングレード予約をキャンセル",
+    "downgradeScheduleNote": "ダウングレードはコミット期間終了日（{date}）に適用されます。",
+    "confirmCancellation": "解約を確定する",
+    "goBackButton": "キャンセル",
+    "cancellationNote": "解約すると、現在の請求期間の終了後にウェブサイトがオフラインになります。",
+    "commitmentPeriodNote": "コミット期間内のため、早期解約料（{cost}）が発生します。",
+    "currentPlanLabel": "現在のプラン",
+    "cancelLink": "サブスクリプションを解約する",
+    "pendingTitle": "サブスクリプションを設定中...",
+    "pendingDesc": "サブスクリプションを設定しています。このページは自動的に更新されます。",
+    "pendingTakingLong": "設定に時間がかかっています",
+    "pendingTakingLongDesc": "ページを更新するか、メッセージでお問い合わせください。",
+    "pendingContactSupport": "サポートに連絡する",
+    "subscribeToAccess": "この機能を利用するにはプランへの登録が必要です",
+    "subscribeToAccessDesc": "プランを選択してサブスクリプションを開始してください。",
+    "choosePlan": "プランを選択する"
+  },
+  "messages": {
+    "title": "メッセージ",
+    "empty": "メッセージはまだありません",
+    "placeholder": "メッセージを入力... (Enter で送信)",
+    "sendAria": "送信",
+    "seenJustNow": "既読 たった今",
+    "seenMinutes": "既読 {n}分前",
+    "seenHours": "既読 {n}時間前",
+    "seenDays": "既読 {n}日前",
+    "you": "あなた",
+    "user": "匿名",
+    "loadError": "メッセージの読み込みに失敗しました",
+    "sendError": "送信に失敗しました"
+  },
+  "documents": {
+    "title": "書類",
+    "empty": "署名済みの書類はまだありません。契約書の控えが必要な場合はご連絡ください。",
+    "nda": "相互秘密保持契約",
+    "partnership": "パートナーシップ契約",
+    "signed": "署名日: ",
+    "signedBadge": "署名済み",
+    "view": "詳細",
+    "confidentialityTitle": "秘密保持の約束",
+    "confidentialityPoints": [
+      "書面による合意なしに、あなたのアイデアを共有・複製・使用しません",
+      "これは相互のものです — 私たちも同じ条件に縛られています",
+      "いつでも全データの削除を依頼できます",
+      "不採択の申し込みは30日以内に削除されます"
+    ],
+    "electronicAcceptance": "{date} に電子的に同意しました",
+    "partnershipTitle": "パートナーシップの主要条件",
+    "partnershipTerms": [
+      {
+        "label": "プラットフォーム料金",
+        "value": "ローンチ後 $50/月（ホスティング＋月1回の小修正）"
+      },
+      {
+        "label": "MVPスコープ",
+        "value": "キックオフ時に確定。変更は別途料金"
+      },
+      {
+        "label": "IP所有権",
+        "value": "ZeroEnがコードを保持。サブスクリプション継続中はライブサイトのライセンスを取得"
+      },
+      {
+        "label": "責任上限",
+        "value": "ZeroEnの責任は直近12ヶ月に支払ったプラットフォーム料金を上限とする"
+      },
+      {
+        "label": "強制終了条項",
+        "value": "90日未払いで契約終了、コードの権利はオペレーターへ"
+      },
+      {
+        "label": "権利復帰",
+        "value": "6ヶ月以内にローンチしない場合、コードの権利はオペレーターへ"
+      },
+      {
+        "label": "ポートフォリオ権",
+        "value": "オペレーターは常に本プロジェクトの作品を紹介する権利を保持"
+      },
+      {
+        "label": "準拠法",
+        "value": "日本法（東京地方裁判所）"
+      }
+    ],
+    "signature": "電子署名",
+    "entity": "会社・プロジェクト名",
+    "termsVersion": "条件バージョン",
+    "signedAt": "署名日時",
+    "download": "ダウンロード"
+  },
+  "onboarding": {
+    "step0": {
+      "title": "採択されました！",
+      "desc": "あなたのアプリケーションが承認されました。ZeroEnへようこそ。一緒にプロダクトを作りましょう。",
+      "highlights": [
+        "MVPを無料で構築します",
+        "Vercelにデプロイして本番環境を用意します",
+        "月次のアナリティクスレポートをお届けします",
+        "成功した時に一緒に成長します"
+      ],
+      "setupButton": "プロジェクトをセットアップする →",
+      "timeEstimate": "所要時間：約3分"
+    },
+    "step1": {
+      "title": "プロジェクトの詳細",
+      "languageLabel": "言語設定 / Preferred Language",
+      "languageHelper": "設定ページで後から変更できます。",
+      "appName": "アプリ名",
+      "appNamePlaceholder": "プロジェクト名",
+      "appDescription": "アプリの説明",
+      "appDescriptionPlaceholder": "あなたのアプリが何をするか詳しく教えてください...",
+      "targetLaunch": "目標ローンチ時期（任意）"
+    },
+    "step2": {
+      "title": "技術的な環境設定",
+      "authMethod": "認証方法",
+      "authPlaceholder": "選択してください",
+      "authEmailPassword": "メール＋パスワード",
+      "authGoogle": "Googleログイン",
+      "authBoth": "両方",
+      "authOther": "その他",
+      "keyFeatures": "MVPの主要機能",
+      "keyFeaturesPlaceholder": "MVPに含めたい主要機能を説明してください...",
+      "integrations": "必要な外部サービス（任意）",
+      "integrationsPlaceholder": "例：Stripe、SendGrid、Google Maps...",
+      "designRefs": "デザインの参考（任意）",
+      "designRefsPlaceholder": "URLや参考にしたいサービスの名前..."
+    },
+    "step3": {
+      "title": "ビジネス・契約条件",
+      "entityName": "会社・プロジェクト名（任意）",
+      "entityNamePlaceholder": "株式会社〇〇 または個人名",
+      "partnershipTitle": "パートナーシップの主要条件",
+      "terms": [
+        {
+          "label": "プラットフォーム料金",
+          "value": "ローンチ後 $50/月（ホスティング＋月1回の小修正）"
+        },
+        {
+          "label": "MVPスコープ",
+          "value": "キックオフ時に確定。変更は別途料金"
+        },
+        {
+          "label": "IP所有権",
+          "value": "ZeroEnがコードを保持。サブスクリプション継続中はライブサイトのライセンスを取得"
+        },
+        {
+          "label": "責任上限",
+          "value": "ZeroEnの責任は直近12ヶ月に支払ったプラットフォーム料金を上限とする"
+        },
+        {
+          "label": "強制終了条項",
+          "value": "90日未払いで契約終了、コードの権利はオペレーターへ"
+        },
+        {
+          "label": "権利復帰",
+          "value": "6ヶ月以内にローンチしない場合、コードの権利はオペレーターへ"
+        },
+        {
+          "label": "ポートフォリオ権",
+          "value": "オペレーターは常に本プロジェクトの作品を紹介する権利を保持"
+        },
+        {
+          "label": "準拠法",
+          "value": "日本法（東京地方裁判所）"
+        }
+      ],
+      "disclaimer": "本条件は、ZeroEnとの標準パートナーシップ契約（Terms v1.1）の主要項目です。電子的に同意することで、法的拘束力を持つ合意が成立します。",
+      "signatureLabel": "フルネームを入力して署名 *",
+      "signaturePlaceholder": "例: 山田 太郎",
+      "signatureHelper": "これが法的署名として機能します。",
+      "checkboxLabel": "上記の条件を読み、理解し、同意します。本同意は電子署名として法的拘束力を持つことを認識しています。",
+      "completeFields": "全ての必須項目を入力してください"
+    },
+    "step4": {
+      "title": "キックオフを設定する",
+      "desc": "キックオフコールを予約してください。スケジュールはいつでも変更できます。",
+      "calFallback": "カレンダーの予約は後ほどメールでご案内します。",
+      "timezone": "タイムゾーン",
+      "preferredChannel": "希望の連絡手段",
+      "channelPlaceholder": "選択してください",
+      "channelEmail": "メール",
+      "channelSlack": "Slack",
+      "channelDiscord": "Discord",
+      "channelWhatsApp": "WhatsApp",
+      "completeButton": "セットアップを完了する ✓"
+    },
+    "wizard": {
+      "viewApplication": "応募内容を確認する",
+      "error": "問題が発生しました。もう一度お試しください。",
+      "networkError": "ネットワークエラーが発生しました。もう一度お試しください。"
+    },
+    "congratsModal": {
+      "loadingButton": "準備中...",
+      "setupButton": "プロジェクトをセットアップする →",
+      "timeEstimate": "所要時間：約3分"
+    },
+    "resumeBanner": {
+      "title": "おかえりなさい",
+      "desc": "もう少しです。プロジェクトのセットアップを完了して、構築を始めましょう。",
+      "progress": "{stepsCompleted} / {totalSteps} ステップ完了",
+      "continueButton": "セットアップを続ける →",
+      "loading": "読み込み中...",
+      "subtext": "中断したところから再開できます"
+    },
+    "applicationDrawer": {
+      "title": "応募内容",
+      "idea": "アイデア",
+      "ideaName": "アイデア名",
+      "description": "説明",
+      "problemSolved": "解決する問題",
+      "targetUsers": "ターゲットユーザー",
+      "competitors": "競合",
+      "monetization": "収益モデル",
+      "founder": "ファウンダー",
+      "background": "バックグラウンド",
+      "commitment": "コミット",
+      "locale": "言語",
+      "aiEvaluation": "AI評価",
+      "ideaViability": "アイデア",
+      "feasibility": "実現性",
+      "market": "市場性",
+      "close": "閉じる"
+    }
+  },
+  "comments": {
+    "loading": "読み込み中…",
+    "loadError": "コメントの読み込みに失敗しました",
+    "empty": "コメントはまだありません",
+    "you": "あなた",
+    "user": "匿名",
+    "sendAria": "送信",
+    "placeholder": "コメントを入力…",
+    "sendError": "送信に失敗しました"
+  },
+  "privacy": {
+    "eyebrow": "プライバシー",
+    "title": "プライバシーポリシー",
+    "lastUpdated": "最終更新：2026年4月11日",
+    "sections": [
+      {
+        "title": "1. 運営者について",
+        "body": "ZeroEn（以下「当社」）は、カナダの個人事業主が運営するウェブ開発・ホスティングサービスです。ウェブサイト：zeroen.dev。プライバシーに関するお問い合わせ：hello@zeroen.dev"
+      },
+      {
+        "title": "2. 収集するデータ",
+        "body": "サービスご利用時に以下の情報を収集します。\n\n**アカウントデータ：** 氏名、メールアドレス、パスワード（Supabase Auth で管理）。GoogleまたはGitHubでログインする場合、当該プロバイダーから公開プロフィール情報を受け取ります。\n\n**プロジェクトデータ：** オンボーディングや変更リクエスト時にご提供いただいたウェブサイトの要望・コンテンツ・フィードバック。\n\n**支払いデータ：** 決済はStripeが処理します。当社はStripeカスタマーIDのみを保存します。カード番号やCVVはStripeが管理し、当社は保存しません。\n\n**利用データ：** Vercel Analytics が収集するサーバーログ・ページビュー・アクセス解析（匿名化済み、クロスサイトトラッキングなし）。\n\n**メッセージ：** ダッシュボード経由のメッセージは、プロジェクト履歴のために保存されます。"
+      },
+      {
+        "title": "3. データの利用目的",
+        "body": "収集したデータは以下の目的で使用します：\n- ZeroEnサービスの提供・維持・改善\n- サブスクリプション決済の処理および請求書の発行\n- プロジェクト状況・変更リクエスト・請求に関する連絡\n- Resend経由のトランザクションメール（プロジェクト更新・支払い確認）の送信\n- 法的義務の遵守"
+      },
+      {
+        "title": "4. 第三者サービス",
+        "body": "以下の処理業者とデータを共有します：\n\n**Supabase**（データベース・認証）— supabase.com/privacy\n**Stripe**（決済処理）— stripe.com/privacy\n**Vercel**（ホスティング・アナリティクス）— vercel.com/legal/privacy-policy\n**Resend**（トランザクションメール）— resend.com/legal/privacy-policy\n**GitHub**（任意のOAuthログイン）— docs.github.com\n\n第三者へのデータ販売は一切行いません。"
+      },
+      {
+        "title": "5. データ保持期間",
+        "body": "アカウントおよびプロジェクトデータは、サブスクリプション期間中および終了後90日間保持します（再有効化のため）。税法上の要件により、支払い記録は7年間保持します。データの削除を希望される場合は hello@zeroen.dev までご連絡ください。"
+      },
+      {
+        "title": "6. お客様の権利",
+        "body": "お客様は以下の権利を有する場合があります：\n- 当社が保持する個人データへのアクセス\n- 不正確なデータの訂正\n- データの削除要求\n- 処理への異議申し立てまたは制限\n- データのポータビリティ形式での受け取り\n\nこれらの権利を行使するには hello@zeroen.dev までご連絡ください。"
+      },
+      {
+        "title": "7. クッキー",
+        "body": "認証用の必須セッションクッキーを使用します。広告・トラッキングクッキーは使用しません。Vercel Analyticsは匿名化されたクッキーフリーの指標を使用します。"
+      },
+      {
+        "title": "8. セキュリティ",
+        "body": "データは転送時（TLS）および保存時に暗号化されます。本番環境へのアクセスは運営者に限定されています。定期的な依存関係の監査を含むセキュリティのベストプラクティスに従っています。"
+      },
+      {
+        "title": "9. ポリシーの変更",
+        "body": "本ポリシーは随時更新される場合があります。重要な変更はダッシュボード経由でお知らせします。最新版は常に zeroen.dev/privacy でご確認いただけます。"
+      },
+      {
+        "title": "10. お問い合わせ",
+        "body": "プライバシーに関するご質問・ご要望：hello@zeroen.dev"
+      }
+    ]
+  },
+  "tokushoho": {
+    "eyebrow": "特定商取引法",
+    "title": "特定商取引法に\nもとづく表記",
+    "lastUpdated": "最終更新：2026年4月15日",
+    "sections": [
+      {
+        "title": "販売事業者",
+        "body": "小島 大都（コジマ ダイト）\n屋号：ZeroEn"
+      },
+      {
+        "title": "運営統括責任者",
+        "body": "小島 大都"
+      },
+      {
+        "title": "所在地",
+        "body": "ご請求をいただいた場合、遅滞なく開示いたします。"
+      },
+      {
+        "title": "電話番号",
+        "body": "080-7998-6969\n受付時間：平日 10:00〜18:00 JST\nメールでのお問い合わせを推奨します。"
+      },
+      {
+        "title": "メールアドレス",
+        "body": "hello@zeroen.dev"
+      },
+      {
+        "title": "URL",
+        "body": "https://zeroen.dev"
+      },
+      {
+        "title": "販売価格",
+        "body": "**Basicプラン：** 月額 ¥5,000（税込）\n**Premiumプラン：** 月額 ¥10,000（税込）\n**追加変更リクエスト：** ¥4,000〜（内容により異なります）\n\n詳細は料金ページをご確認ください。"
+      },
+      {
+        "title": "商品代金以外の必要料金",
+        "body": "なし。ただし、インターネット接続料・通信費はお客様のご負担となります。"
+      },
+      {
+        "title": "支払方法",
+        "body": "クレジットカード決済（Stripe）"
+      },
+      {
+        "title": "支払時期",
+        "body": "お申し込み時に初回課金が行われます。以降、毎月同日に自動的に課金されます。"
+      },
+      {
+        "title": "役務の提供時期",
+        "body": "契約成立後、順次提供いたします。初回サイト公開は通常2週間以内を目安としています。"
+      },
+      {
+        "title": "返品・キャンセルについて",
+        "body": "役務（サブスクリプション）の性質上、原則として返品・返金には応じかねます。\n\n**最低契約期間：** 6ヶ月間。途中解約の場合、残期間分の月額料金を一括でご請求いたします。\n\n解約後、サイトはアーカイブされます。ソースコードの所有権はZeroEnに帰属します。"
+      },
+      {
+        "title": "動作環境",
+        "body": "モダンブラウザ最新版（Chrome / Safari / Edge / Firefox）"
+      }
+    ]
+  },
+  "startups": {
+    "eyebrow": "FOR STARTUPS",
+    "title": "Free MVP.\n10% Equity.",
+    "subtitle": "あなたのプロダクトを無料で構築します。代わりに、10%のエクイティをいただきます。",
+    "badge": "招待制 · Invite Only",
+    "what": {
+      "heading": "ZeroEnが提供するもの",
+      "items": [
+        "フルスタックMVP（Next.js + Supabase）",
+        "AIエージェントによる自動化",
+        "Vercelへのデプロイ",
+        "6ヶ月間の運用サポート",
+        "元日立・元楽天エンジニアによる技術顧問"
+      ]
+    },
+    "ask": {
+      "heading": "ZeroEnが求めるもの",
+      "items": [
+        "会社設立時にSAFEノートで10%エクイティ",
+        "実績のあるチーム",
+        "プロダクトへの強いコミットメント"
+      ]
+    },
+    "note": "このルートはスタートアップファウンダー向けです。個人事業主・コーチ・コンサルタントの方は、LPプランをご検討ください。",
+    "lpCta": "LPプランを見る →",
+    "applyHeading": "申し込み"
+  },
+  "lpApply": {
+    "meta": {
+      "title": "応募する — 無料LP制作 | ZeroEn",
+      "description": "ランディングページの無料制作に応募。3日で制作・公開。月¥5,000でホスティング・運用・毎月の改善まで。"
+    },
+    "eyebrow": "LP制作 無料応募",
+    "title": "LPを作りましょう。",
+    "subtitle": "前金0円。3日で公開。月¥5,000でホスティング・更新・毎月の改善まで。6ヶ月から。",
+    "form": {
+      "name": "お名前",
+      "namePlaceholder": "山田 太郎",
+      "email": "メールアドレス",
+      "emailPlaceholder": "you@example.com",
+      "occupation": "ご職業",
+      "occupationPlaceholder": "ご職業を選択してください",
+      "occupationCoach": "コーチ",
+      "occupationTherapist": "セラピスト",
+      "occupationCounselor": "カウンセラー",
+      "occupationOther": "その他",
+      "currentSite": "現在のサイトURL（任意）",
+      "currentSitePlaceholder": "https://yoursite.com",
+      "challenge": "LPで一番困っていること",
+      "challengePlaceholder": "例：ペライチで作ったけどお問い合わせが来ない。ブランドを伝えたいがどうすれば良いか分からない...",
+      "consent": "プライバシーポリシーに同意のうえ、本応募に関する連絡を受け取ることに同意します。",
+      "submit": "応募する →",
+      "submitting": "送信中...",
+      "fieldRequired": "必須項目です",
+      "emailInvalid": "有効なメールアドレスを入力してください"
+    },
+    "thankYou": {
+      "eyebrow": "応募を受け付けました",
+      "title": "ご連絡します。",
+      "message": "応募内容を受け取りました。すべての応募を個別に確認し、24時間以内にご連絡します。",
+      "nextSteps": "今後の流れ",
+      "step1": "応募内容を確認します",
+      "step2": "24時間以内にご返信します",
+      "step3": "スコープを確認してキックオフします",
+      "step4": "3日以内にLPが公開されます",
+      "cta": "ホームへ戻る"
+    }
+  }
+}

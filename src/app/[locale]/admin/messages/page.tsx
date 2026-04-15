@@ -1,0 +1,75 @@
+import { createClient } from '@/lib/supabase/server';
+import { getProjectsWithLatestMessage } from '@/lib/admin/queries';
+import { getUnreadCounts } from '@/lib/messages/unread';
+import { AdminMessagesClient } from '@/components/admin/admin-messages-client';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Messages — ZeroEn Admin',
+  robots: { index: false, follow: false },
+};
+
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ projectId?: string }>;
+};
+
+interface Message {
+  id: string;
+  content: string;
+  created_at: string;
+  sender_id: string;
+  sender?: { full_name: string | null; avatar_url: string | null; role: string };
+}
+
+export default async function AdminMessagesPage({ params, searchParams }: Props) {
+  const { locale } = await params;
+  const { projectId: requestedProjectId } = await searchParams;
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  const projects = await getProjectsWithLatestMessage(supabase);
+
+  // Per-project unread counts (admin perspective)
+  const projectIds = projects.map((p) => p.id);
+  const unreadCounts = user
+    ? await getUnreadCounts(supabase, user.id, projectIds)
+    : {};
+
+  // Prefer the requested projectId (from ?projectId= param), else fall back to first project
+  const targetProject = requestedProjectId
+    ? (projects.find((p) => p.id === requestedProjectId) ?? projects[0] ?? null)
+    : (projects[0] ?? null);
+
+  const initialMessages: Message[] = targetProject
+    ? ((await supabase
+        .from('messages')
+        .select('*, sender:profiles(full_name, avatar_url, role)')
+        .eq('project_id', targetProject.id)
+        .order('created_at', { ascending: true })
+        .limit(50)).data ?? []) as Message[]
+    : [];
+
+  return (
+    <div className="flex flex-col h-full">
+      <div className="mb-4 shrink-0">
+        <h1 className="text-xl font-bold font-heading text-[#F4F4F2]">
+          {locale === 'ja' ? 'メッセージ' : 'Messages'}
+        </h1>
+        <p className="text-[#6B7280] text-xs font-mono mt-1">
+          {locale === 'ja' ? '全クライアントの会話' : 'All client conversations'}
+        </p>
+      </div>
+
+      <AdminMessagesClient
+        projects={projects}
+        initialMessages={initialMessages}
+        initialProjectId={targetProject?.id ?? null}
+        userId={user?.id ?? ''}
+        locale={locale}
+        initialUnreadCounts={unreadCounts}
+      />
+    </div>
+  );
+}

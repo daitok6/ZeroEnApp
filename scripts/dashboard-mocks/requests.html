@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>Change Requests — ZeroEn Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'IBM Plex Mono', monospace; background: #0D0D0D; color: #F4F4F2; display: flex; height: 900px; width: 1440px; overflow: hidden; }
+  h1, h2, .heading { font-family: 'Syne', sans-serif; }
+
+  /* Sidebar */
+  .sidebar { width: 224px; flex-shrink: 0; background: #0D0D0D; border-right: 1px solid #1F2937; display: flex; flex-direction: column; padding: 24px 0; }
+  .sidebar-logo { padding: 0 20px 28px; display: flex; align-items: center; gap: 8px; }
+  .logo-mark { width: 28px; height: 28px; background: #00E87A; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; color: #0D0D0D; font-size: 13px; }
+  .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; color: #F4F4F2; }
+  .nav-section-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #4B5563; padding: 0 20px 8px; margin-top: 8px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 12px; color: #6B7280; cursor: pointer; border-left: 2px solid transparent; position: relative; }
+  .nav-item.active { color: #F4F4F2; border-left-color: #00E87A; background: rgba(0,232,122,0.05); }
+  .nav-icon { width: 15px; height: 15px; opacity: 0.7; }
+  .nav-item.active .nav-icon { opacity: 1; }
+  .badge { background: #00E87A; color: #0D0D0D; font-size: 9px; font-weight: 700; border-radius: 999px; padding: 1px 5px; min-width: 16px; text-align: center; margin-left: auto; }
+  .sidebar-bottom { margin-top: auto; padding: 16px 20px 0; border-top: 1px solid #1F2937; }
+  .user-pill { display: flex; align-items: center; gap: 10px; }
+  .user-avatar { width: 28px; height: 28px; border-radius: 50%; background: #1F2937; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #9CA3AF; font-family: 'Syne', sans-serif; font-weight: 700; }
+  .user-name { color: #F4F4F2; font-size: 11px; font-weight: 500; }
+  .user-plan { color: #6B7280; font-size: 10px; }
+
+  /* Main */
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .topbar { height: 56px; border-bottom: 1px solid #1F2937; display: flex; align-items: center; padding: 0 28px; background: #0D0D0D; gap: 12px; }
+  .topbar-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: #F4F4F2; }
+  .topbar-sep { color: #374151; }
+  .topbar-page { font-size: 12px; color: #6B7280; }
+  .content { flex: 1; overflow-y: auto; padding: 28px 32px; }
+  .page-header { margin-bottom: 20px; }
+  .page-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: #F4F4F2; }
+  .page-subtitle { font-size: 12px; color: #6B7280; margin-top: 4px; }
+
+  /* New request form card */
+  .form-card { background: #111827; border: 1px solid #1F2937; border-radius: 10px; padding: 18px 20px; margin-bottom: 28px; }
+  .form-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .form-card-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: #F4F4F2; }
+  .catalogue-btn { font-size: 10px; color: #00E87A; border: 1px solid rgba(0,232,122,0.3); padding: 4px 10px; border-radius: 5px; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; }
+  .form-textarea { width: 100%; background: #0D0D0D; border: 1px solid #374151; border-radius: 6px; padding: 11px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #6B7280; resize: none; height: 72px; }
+  .form-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+  .form-hint { font-size: 10px; color: #4B5563; }
+  .submit-btn { background: #00E87A; color: #0D0D0D; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 18px; border-radius: 5px; cursor: pointer; border: none; }
+
+  /* Section label */
+  .section-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B7280; margin-bottom: 12px; }
+
+  /* Request cards */
+  .request-list { display: flex; flex-direction: column; gap: 10px; }
+  .request-card { background: #111827; border: 1px solid #1F2937; border-radius: 10px; padding: 16px 18px; }
+  .request-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .request-card-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: #F4F4F2; margin-bottom: 4px; }
+  .request-card-desc { font-size: 11px; color: #6B7280; line-height: 1.5; }
+  .request-badges { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-top: 2px; }
+  .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; padding: 3px 9px; border-radius: 999px; font-weight: 500; letter-spacing: 0.04em; }
+  .pill-status-open      { background: rgba(59,130,246,0.12); color: #60A5FA; border: 1px solid rgba(59,130,246,0.25); }
+  .pill-status-progress  { background: rgba(251,191,36,0.10); color: #FBBF24; border: 1px solid rgba(251,191,36,0.25); }
+  .pill-status-completed { background: rgba(0,232,122,0.10); color: #00E87A; border: 1px solid rgba(0,232,122,0.25); }
+  .pill-status-reviewing { background: rgba(167,139,250,0.10); color: #A78BFA; border: 1px solid rgba(167,139,250,0.25); }
+  .pill-size-small  { background: rgba(156,163,175,0.08); color: #9CA3AF; border: 1px solid #374151; }
+  .pill-size-medium { background: rgba(251,191,36,0.08); color: #FBBF24; border: 1px solid rgba(251,191,36,0.2); }
+  .pill-size-large  { background: rgba(239,68,68,0.08);  color: #F87171; border: 1px solid rgba(239,68,68,0.2); }
+  .request-card-footer { display: flex; align-items: center; gap: 16px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #1F2937; }
+  .meta-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #4B5563; }
+  .meta-green { color: #00E87A; }
+  .meta-price { font-size: 11px; color: #9CA3AF; margin-left: auto; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">Z</div>
+    <span class="logo-text">ZeroEn</span>
+  </div>
+  <div class="nav-section-label">Dashboard</div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+    Overview
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1,12 5,7 9,9 15,3"/><polyline points="11,3 15,3 15,7"/></svg>
+    Analytics
+  </div>
+  <div class="nav-item active">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8"/><line x1="8" y1="8" x2="10.5" y2="10.5"/></svg>
+    Change Requests
+    <span class="badge">2</span>
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><line x1="1.5" y1="7" x2="14.5" y2="7"/></svg>
+    Invoices
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10.5a2 2 0 01-2 2H4l-2.5 2V4a2 2 0 012-2h8.5a2 2 0 012 2z"/></svg>
+    Messages
+    <span class="badge">1</span>
+  </div>
+  <div class="nav-section-label" style="margin-top:16px">Account</div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+    Settings
+  </div>
+  <div class="sidebar-bottom">
+    <div class="user-pill">
+      <div class="user-avatar">TK</div>
+      <div>
+        <div class="user-name">Taka</div>
+        <div class="user-plan">Premium Plan</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <span class="topbar-title">ZeroEn</span>
+    <span class="topbar-sep">/</span>
+    <span class="topbar-page">Change Requests</span>
+  </div>
+  <div class="content">
+    <div class="page-header">
+      <h1 class="page-title">Change Requests</h1>
+      <p class="page-subtitle">Request new features beyond your original scope</p>
+    </div>
+
+    <!-- New request form -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <span class="form-card-title">New Request</span>
+        <span class="catalogue-btn">View Change Catalogue</span>
+      </div>
+      <textarea class="form-textarea" placeholder="Describe what you'd like changed or added to your site..."></textarea>
+      <div class="form-footer">
+        <span class="form-hint">Small ¥4,000 · Medium ¥10,000 · Large ¥25,000+</span>
+        <button class="submit-btn">Submit Request</button>
+      </div>
+    </div>
+
+    <!-- Past requests -->
+    <div class="section-label">Past Requests</div>
+    <div class="request-list">
+
+      <!-- Card 1 — In Progress -->
+      <div class="request-card">
+        <div class="request-card-top">
+          <div>
+            <div class="request-card-title">Add testimonials section to homepage</div>
+            <div class="request-card-desc">Include 3–4 client testimonials with photos and star ratings below the hero section.</div>
+          </div>
+          <div class="request-badges">
+            <span class="pill pill-status-progress">In Progress</span>
+            <span class="pill pill-size-medium">Medium</span>
+          </div>
+        </div>
+        <div class="request-card-footer">
+          <div class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10.5a2 2 0 01-2 2H4l-2.5 2V4a2 2 0 012-2h8.5a2 2 0 012 2z"/></svg>
+            3 comments
+          </div>
+          <div class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8"/></svg>
+            Apr 10, 2026
+          </div>
+          <div class="meta-item meta-green">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><line x1="1.5" y1="7" x2="14.5" y2="7"/></svg>
+            Invoice pending
+          </div>
+          <span class="meta-price">¥10,000</span>
+        </div>
+      </div>
+
+      <!-- Card 2 — Completed -->
+      <div class="request-card">
+        <div class="request-card-top">
+          <div>
+            <div class="request-card-title">Update hero copy and CTA button color</div>
+            <div class="request-card-desc">Change the headline to "Build for less. Launch faster." and use brand green for the primary CTA.</div>
+          </div>
+          <div class="request-badges">
+            <span class="pill pill-status-completed">Completed</span>
+            <span class="pill pill-size-small">Small</span>
+          </div>
+        </div>
+        <div class="request-card-footer">
+          <div class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10.5a2 2 0 01-2 2H4l-2.5 2V4a2 2 0 012-2h8.5a2 2 0 012 2z"/></svg>
+            1 comment
+          </div>
+          <div class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8"/></svg>
+            Mar 22, 2026
+          </div>
+          <div class="meta-item" style="color:#00E87A">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,9 6,13 14,4"/></svg>
+            Paid
+          </div>
+          <span class="meta-price">¥4,000</span>
+        </div>
+      </div>
+
+      <!-- Card 3 — Reviewing -->
+      <div class="request-card">
+        <div class="request-card-top">
+          <div>
+            <div class="request-card-title">Build a restaurant booking widget</div>
+            <div class="request-card-desc">Integrate a date/time picker with availability calendar and confirmation email flow for table reservations.</div>
+          </div>
+          <div class="request-badges">
+            <span class="pill pill-status-reviewing">Reviewing</span>
+            <span class="pill pill-size-large">Large</span>
+          </div>
+        </div>
+        <div class="request-card-footer">
+          <div class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10.5a2 2 0 01-2 2H4l-2.5 2V4a2 2 0 012-2h8.5a2 2 0 012 2z"/></svg>
+            5 comments
+          </div>
+          <div class="meta-item">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8"/></svg>
+            Apr 12, 2026
+          </div>
+          <span class="meta-price">¥35,000</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>Invoices — ZeroEn Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'IBM Plex Mono', monospace; background: #0D0D0D; color: #F4F4F2; display: flex; height: 900px; width: 1440px; overflow: hidden; }
+  h1 { font-family: 'Syne', sans-serif; }
+
+  .sidebar { width: 224px; flex-shrink: 0; background: #0D0D0D; border-right: 1px solid #1F2937; display: flex; flex-direction: column; padding: 24px 0; }
+  .sidebar-logo { padding: 0 20px 28px; display: flex; align-items: center; gap: 8px; }
+  .logo-mark { width: 28px; height: 28px; background: #00E87A; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; color: #0D0D0D; font-size: 13px; }
+  .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; color: #F4F4F2; }
+  .nav-section-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #4B5563; padding: 0 20px 8px; margin-top: 8px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 12px; color: #6B7280; cursor: pointer; border-left: 2px solid transparent; }
+  .nav-item.active { color: #F4F4F2; border-left-color: #00E87A; background: rgba(0,232,122,0.05); }
+  .nav-icon { width: 15px; height: 15px; opacity: 0.7; }
+  .nav-item.active .nav-icon { opacity: 1; }
+  .badge { background: #00E87A; color: #0D0D0D; font-size: 9px; font-weight: 700; border-radius: 999px; padding: 1px 5px; min-width: 16px; text-align: center; margin-left: auto; }
+  .sidebar-bottom { margin-top: auto; padding: 16px 20px 0; border-top: 1px solid #1F2937; }
+  .user-pill { display: flex; align-items: center; gap: 10px; }
+  .user-avatar { width: 28px; height: 28px; border-radius: 50%; background: #1F2937; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #9CA3AF; font-family: 'Syne', sans-serif; font-weight: 700; }
+  .user-name { color: #F4F4F2; font-size: 11px; font-weight: 500; }
+  .user-plan { color: #6B7280; font-size: 10px; }
+
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .topbar { height: 56px; border-bottom: 1px solid #1F2937; display: flex; align-items: center; padding: 0 28px; background: #0D0D0D; gap: 12px; }
+  .topbar-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: #F4F4F2; }
+  .topbar-sep { color: #374151; }
+  .topbar-page { font-size: 12px; color: #6B7280; }
+  .content { flex: 1; overflow-y: auto; padding: 28px 32px; }
+  .page-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: #F4F4F2; margin-bottom: 4px; }
+  .page-subtitle { font-size: 12px; color: #6B7280; margin-bottom: 20px; }
+
+  /* Outstanding balance banner */
+  .balance-banner { background: rgba(251,191,36,0.05); border: 1px solid rgba(251,191,36,0.3); border-radius: 10px; padding: 16px 22px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+  .balance-left { display: flex; align-items: center; gap: 14px; }
+  .balance-icon { color: #FBBF24; }
+  .balance-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #FBBF24; margin-bottom: 4px; }
+  .balance-amount { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: #F4F4F2; }
+  .pay-btn { background: #FBBF24; color: #0D0D0D; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 18px; border-radius: 5px; cursor: pointer; border: none; }
+
+  /* Invoice list */
+  .invoice-header { display: grid; grid-template-columns: 1fr auto auto 110px 80px; gap: 0; background: #0D0D0D; border: 1px solid #1F2937; border-bottom: none; border-radius: 10px 10px 0 0; padding: 10px 18px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #4B5563; }
+  .invoice-header > *:not(:first-child) { text-align: right; }
+  .invoice-list { border: 1px solid #1F2937; border-radius: 0 0 10px 10px; overflow: hidden; }
+  .invoice-row { display: grid; grid-template-columns: 1fr auto auto 110px 80px; gap: 0; align-items: center; padding: 14px 18px; border-bottom: 1px solid #1F2937; background: #111827; }
+  .invoice-row:last-child { border-bottom: none; }
+  .invoice-row:hover { background: rgba(255,255,255,0.02); }
+  .inv-desc { font-size: 12px; color: #F4F4F2; }
+  .inv-num { font-size: 10px; color: #4B5563; margin-top: 2px; }
+  .inv-date { font-size: 11px; color: #6B7280; text-align: right; }
+  .inv-type { display: inline-flex; align-items: center; font-size: 10px; color: #6B7280; border: 1px solid #374151; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .inv-amount { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: #F4F4F2; text-align: right; }
+  .inv-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+  .status-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+  .status-paid     { background: rgba(0,232,122,0.10); color: #00E87A; border: 1px solid rgba(0,232,122,0.25); }
+  .status-pending  { background: rgba(251,191,36,0.10); color: #FBBF24; border: 1px solid rgba(251,191,36,0.25); }
+  .status-overdue  { background: rgba(239,68,68,0.10);  color: #F87171; border: 1px solid rgba(239,68,68,0.25); }
+  .action-icon { color: #4B5563; cursor: pointer; }
+  .action-icon:hover { color: #9CA3AF; }
+  .type-col { text-align: right; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">Z</div>
+    <span class="logo-text">ZeroEn</span>
+  </div>
+  <div class="nav-section-label">Dashboard</div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+    Overview
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1,12 5,7 9,9 15,3"/><polyline points="11,3 15,3 15,7"/></svg>
+    Analytics
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8"/><line x1="8" y1="8" x2="10.5" y2="10.5"/></svg>
+    Change Requests
+    <span class="badge">2</span>
+  </div>
+  <div class="nav-item active">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><line x1="1.5" y1="7" x2="14.5" y2="7"/></svg>
+    Invoices
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10.5a2 2 0 01-2 2H4l-2.5 2V4a2 2 0 012-2h8.5a2 2 0 012 2z"/></svg>
+    Messages
+    <span class="badge">1</span>
+  </div>
+  <div class="nav-section-label" style="margin-top:16px">Account</div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+    Settings
+  </div>
+  <div class="sidebar-bottom">
+    <div class="user-pill">
+      <div class="user-avatar">TK</div>
+      <div>
+        <div class="user-name">Taka</div>
+        <div class="user-plan">Premium Plan</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <span class="topbar-title">ZeroEn</span>
+    <span class="topbar-sep">/</span>
+    <span class="topbar-page">Invoices</span>
+  </div>
+  <div class="content">
+    <h1 class="page-title">Invoices</h1>
+    <p class="page-subtitle">Billing and payment history</p>
+
+    <!-- Outstanding balance -->
+    <div class="balance-banner">
+      <div class="balance-left">
+        <svg class="balance-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div>
+          <div class="balance-label">Outstanding Balance</div>
+          <div class="balance-amount">¥10,000</div>
+        </div>
+      </div>
+      <button class="pay-btn">Pay Now</button>
+    </div>
+
+    <!-- Header row -->
+    <div class="invoice-header">
+      <span>Description</span>
+      <span>Date</span>
+      <span>Type</span>
+      <span>Amount</span>
+      <span>Actions</span>
+    </div>
+
+    <!-- Invoice rows -->
+    <div class="invoice-list">
+
+      <!-- Pending / change request -->
+      <div class="invoice-row">
+        <div>
+          <div class="inv-desc">Add testimonials section to homepage</div>
+          <div class="inv-num">#INV-005</div>
+        </div>
+        <div class="inv-date">Apr 10, 2026</div>
+        <div class="type-col"><span class="inv-type">One-time</span></div>
+        <div class="inv-amount" style="text-align:right">¥10,000</div>
+        <div class="inv-actions">
+          <span class="status-pill status-pending">
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8"/></svg>
+            Pending
+          </span>
+        </div>
+      </div>
+
+      <!-- Paid / subscription -->
+      <div class="invoice-row">
+        <div>
+          <div class="inv-desc">Monthly subscription — April 2026</div>
+          <div class="inv-num">#INV-004</div>
+        </div>
+        <div class="inv-date">Apr 1, 2026</div>
+        <div class="type-col"><span class="inv-type">Subscription</span></div>
+        <div class="inv-amount" style="text-align:right">¥10,000</div>
+        <div class="inv-actions">
+          <span class="status-pill status-paid">
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,9 6,13 14,4"/></svg>
+            Paid
+          </span>
+          <svg class="action-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V6l-4-4z"/></svg>
+        </div>
+      </div>
+
+      <!-- Overdue / subscription -->
+      <div class="invoice-row">
+        <div>
+          <div class="inv-desc">Monthly subscription — March 2026</div>
+          <div class="inv-num">#INV-003</div>
+        </div>
+        <div class="inv-date">Mar 1, 2026</div>
+        <div class="type-col"><span class="inv-type">Subscription</span></div>
+        <div class="inv-amount" style="text-align:right">¥10,000</div>
+        <div class="inv-actions">
+          <span class="status-pill status-overdue">
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="10"/><line x1="8" y1="12" x2="8.01" y2="12"/></svg>
+            Overdue
+          </span>
+          <svg class="action-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V6l-4-4z"/></svg>
+        </div>
+      </div>
+
+      <!-- Paid / change request -->
+      <div class="invoice-row">
+        <div>
+          <div class="inv-desc">Update hero copy and CTA button color</div>
+          <div class="inv-num">#INV-002</div>
+        </div>
+        <div class="inv-date">Mar 22, 2026</div>
+        <div class="type-col"><span class="inv-type">One-time</span></div>
+        <div class="inv-amount" style="text-align:right">¥4,000</div>
+        <div class="inv-actions">
+          <span class="status-pill status-paid">
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,9 6,13 14,4"/></svg>
+            Paid
+          </span>
+          <svg class="action-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V6l-4-4z"/></svg>
+        </div>
+      </div>
+
+      <!-- Paid / subscription -->
+      <div class="invoice-row">
+        <div>
+          <div class="inv-desc">Monthly subscription — February 2026</div>
+          <div class="inv-num">#INV-001</div>
+        </div>
+        <div class="inv-date">Feb 1, 2026</div>
+        <div class="type-col"><span class="inv-type">Subscription</span></div>
+        <div class="inv-amount" style="text-align:right">¥10,000</div>
+        <div class="inv-actions">
+          <span class="status-pill status-paid">
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,9 6,13 14,4"/></svg>
+            Paid
+          </span>
+          <svg class="action-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V6l-4-4z"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

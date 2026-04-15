@@ -1,0 +1,24 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/message-digest",
+      "schedule": "*/30 * * * *"
+    },
+    {
+      "path": "/api/cron/morning-digest",
+      "schedule": "0 23 * * *"
+    },
+    {
+      "path": "/api/cron/generate-daily",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/analytics",
+      "schedule": "0 18 1 * *"
+    },
+    {
+      "path": "/api/cron/copy-refresh-reset",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
