@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { CheckCircle2, ExternalLink } from 'lucide-react';
+import { CheckCircle2, ExternalLink, MessageSquare } from 'lucide-react';
 
 interface PlanWizardProps {
   projectId: string;
@@ -106,6 +106,47 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
         </div>
       )}
 
+      {/* Tweak CTA — shown right under site URL */}
+      {siteUrl && (
+        <div className="border border-[#374151] rounded-lg p-4 bg-[#111827]">
+          <p className="text-[#F4F4F2] text-sm font-heading font-bold mb-1">
+            {t('tweaksCtaHeadline')}
+          </p>
+          <p className="text-[#9CA3AF] text-xs font-mono leading-relaxed mb-3">
+            {t('tweaksCtaBody')}
+          </p>
+          <Link
+            href={`/${locale}/dashboard/messages`}
+            className="inline-flex items-center gap-2 border border-[#00E87A] text-[#00E87A] text-xs font-mono font-bold uppercase tracking-widest px-4 py-2 rounded hover:bg-[#00E87A]/10 transition-colors"
+          >
+            <MessageSquare size={13} />
+            {t('tweaksCtaButton')}
+          </Link>
+        </div>
+      )}
+
+      {/* Why monthly explainer */}
+      <div className="border border-[#374151] rounded-lg p-4 bg-[#111827]">
+        <p className="text-[#F4F4F2] text-sm font-heading font-bold mb-1">
+          {t('whyMonthlyTitle')}
+        </p>
+        <p className="text-[#9CA3AF] text-xs font-mono leading-relaxed mb-3">
+          {t('whyMonthlyIntro')}
+        </p>
+        <ul className="space-y-2">
+          {[
+            t('whyMonthlyHosting'),
+            t('whyMonthlyCare'),
+            t('whyMonthlyChanges'),
+          ].map((item) => (
+            <li key={item} className="flex items-start gap-2">
+              <CheckCircle2 size={13} className="mt-0.5 shrink-0 text-[#00E87A]" />
+              <span className="text-[#9CA3AF] text-xs font-mono leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       {/* Payment deadline warning */}
       <div className="border border-[#F59E0B]/20 rounded-lg p-4 bg-[#F59E0B]/5">
         <p className="text-[#F59E0B] text-xs font-mono leading-relaxed">
@@ -156,6 +197,39 @@ export function PlanWizard({ projectId, locale, siteUrl }: PlanWizardProps) {
                   </li>
                 ))}
               </ul>
+
+              {/* Premium value stack */}
+              {tier === 'premium' && (
+                <div className="mt-4 pt-4 border-t border-[#374151]/60">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-[#F4F4F2] text-xs font-mono font-bold uppercase tracking-widest">
+                      {t('premiumValueTitle')}
+                    </p>
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest bg-[#00E87A]/10 text-[#00E87A] border border-[#00E87A]/30 px-2 py-0.5 rounded-full whitespace-nowrap">
+                      {t('premiumSavingsBadge')}
+                    </span>
+                  </div>
+                  <ul className="space-y-1.5 mb-3">
+                    {[
+                      t('premiumValueChanges'),
+                      t('premiumValueSecAudit'),
+                      t('premiumValueSeoAudit'),
+                      t('premiumValuePriority'),
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span className="text-[#00E87A] text-xs font-mono shrink-0 mt-0.5">→</span>
+                        <span className="text-[#6B7280] text-[11px] font-mono leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-[#00E87A] text-xs font-mono font-bold leading-relaxed">
+                    {t('premiumValueTotal')}
+                  </p>
+                  <p className="text-[#6B7280] text-[11px] font-mono leading-relaxed mt-1">
+                    {t('premiumValueBenchmark')}
+                  </p>
+                </div>
+              )}
 
               {/* Selected indicator */}
               {isSelected && (
