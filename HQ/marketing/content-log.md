@@ -38,6 +38,12 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 
 ---
 
+## 2026-04-15 — X JP post #1
+
+- `HQ/marketing/posts/2026-04-15-x-jp-coach-lp-poll.md` — NEW: poll tweet + 4 options. Status: draft, awaiting operator review. Scheduled: 21:00 JST.
+
+---
+
 - [2026-04-09 10:51] created: `docs/avatar-export.html`
 - [2026-04-09 10:58] created: `docs/banner-a.html`
 - [2026-04-09 10:58] created: `docs/banner-b.html`
@@ -2438,3 +2444,76 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-15 18:39] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
 - [2026-04-15 18:52] edited: `HQ/platform/src/components/design-wizard/wizard-modal.tsx`
 - [2026-04-15 18:53] created: `HQ/marketing/social-cadence-research.md`
+- [2026-04-15 18:58] created: `HQ/marketing/plan/social-schedule.md`
+- [2026-04-15 19:00] edited: `HQ/platform/src/components/shared/progress-bar.tsx`
+- [2026-04-15 19:12] edited: `HQ/platform/src/components/design-wizard/step-2-brand.tsx`
+- [2026-04-15 19:13] edited: `HQ/platform/src/components/design-wizard/step-2-brand.tsx`
+- [2026-04-15 19:13] edited: `HQ/platform/src/components/design-wizard/step-2-brand.tsx`
+- [2026-04-15 19:13] edited: `HQ/platform/src/components/design-wizard/step-2-brand.tsx`
+- [2026-04-15 19:15] created: `HQ/marketing/zeroen-social.ics`
+- [2026-04-15 19:24] created: `HQ/marketing/zeroen-instagram.ics`
+- [2026-04-15 19:27] edited: `HQ/platform/src/lib/validations/design-wizard.ts`
+- [2026-04-15 19:27] edited: `HQ/platform/src/components/design-wizard/step-4-references.tsx`
+- [2026-04-15 19:27] edited: `HQ/platform/src/components/design-wizard/step-4-references.tsx`
+- [2026-04-15 19:27] edited: `HQ/platform/src/components/design-wizard/step-4-references.tsx`
+- [2026-04-15 19:27] edited: `HQ/platform/src/components/design-wizard/step-4-references.tsx`
+- [2026-04-15 19:27] edited: `HQ/platform/src/components/design-wizard/step-4-references.tsx`
+- [2026-04-15 19:27] edited: `HQ/platform/src/components/design-wizard/step-4-references.tsx`
+- [2026-04-15 19:28] edited: `HQ/platform/src/components/design-wizard/step-4-references.tsx`
+- [2026-04-15 19:29] created: `HQ/marketing/posts/2026-04-15-x-jp-coach-lp-poll.md`
+- [2026-04-15 19:35] edited: `HQ/marketing/posts/2026-04-15-x-jp-coach-lp-poll.md`
+- [2026-04-15 19:39] edited: `HQ/marketing/posts/2026-04-15-x-jp-coach-lp-poll.md`
+- [2026-04-15 19:39] edited: `HQ/marketing/plan/social-schedule.md`
+- [2026-04-15 19:57] created: `HQ/crm/leads.csv`
+- [2026-04-15 19:57] created: `HQ/marketing/cold-email/proof/webmori.md`
+- [2026-04-15 19:58] created: `HQ/marketing/cold-email/playbook.md`
+- [2026-04-15 19:58] created: `HQ/marketing/cold-email/templates/1-observe.md`
+- [2026-04-15 19:58] created: `HQ/marketing/cold-email/templates/2-insight.md`
+- [2026-04-15 19:59] created: `HQ/marketing/cold-email/templates/3-proof.md`
+- [2026-04-15 19:59] created: `HQ/marketing/cold-email/templates/4-breakup.md`
+- [2026-04-15 20:00] edited: `HQ/marketing/plan/roadmap.md`
+- [2026-04-15 20:01] edited: `HQ/platform/src/components/design-wizard/wizard.tsx`
+- [2026-04-15 20:01] edited: `HQ/platform/src/components/design-wizard/wizard.tsx`
+- [2026-04-15 20:01] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:01] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:01] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:01] edited: `HQ/platform/src/components/design-wizard/step-2-brand.tsx`
+- [2026-04-15 20:01] edited: `HQ/platform/src/components/design-wizard/step-2-brand.tsx`
+- [2026-04-15 20:02] edited: `HQ/platform/src/components/design-wizard/step-2-brand.tsx`
+- [2026-04-15 20:02] edited: `HQ/platform/src/components/design-wizard/step-2-brand.tsx`
+- [2026-04-15 20:07] created: `HQ/crm/leads.csv`
+- [2026-04-15 20:23] created: `HQ/crm/leads-batch2.csv`
+- [2026-04-15 20:26] created: `HQ/crm/leads.csv`
+- [2026-04-15 20:48] created: `HQ/marketing/cold-email/drafts/lead-006-step1.md`
+- [2026-04-15 20:48] created: `HQ/marketing/cold-email/drafts/lead-007-step1.md`
+- [2026-04-15 20:48] created: `HQ/marketing/cold-email/drafts/lead-008-step1.md`
+- [2026-04-15 20:48] created: `HQ/marketing/cold-email/drafts/lead-009-step1.md`
+- [2026-04-15 20:49] created: `HQ/marketing/cold-email/drafts/lead-012-step1.md`
+- [2026-04-15 20:49] created: `HQ/marketing/cold-email/drafts/lead-015-step1.md`
+- [2026-04-15 20:49] created: `HQ/marketing/cold-email/drafts/lead-005-step1.md`
+- [2026-04-15 20:49] created: `HQ/marketing/cold-email/drafts/lead-010-step1.md`
+- [2026-04-15 20:49] created: `HQ/marketing/cold-email/drafts/lead-011-step1.md`
+- [2026-04-15 20:49] created: `HQ/marketing/cold-email/drafts/lead-013-step1.md`
+- [2026-04-15 20:49] created: `HQ/marketing/cold-email/drafts/lead-014-step1.md`
+- [2026-04-15 20:54] created: `HQ/platform/src/lib/images/compress.ts`
+- [2026-04-15 20:54] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:54] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:54] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:54] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:55] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:55] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:55] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:55] edited: `HQ/platform/src/components/design-wizard/step-5-assets.tsx`
+- [2026-04-15 20:55] created: `HQ/platform/supabase/migrations/0048_brand_assets_bucket_size.sql`
+- [2026-04-15 21:19] edited: `HQ/crm/leads.csv`
+- [2026-04-15 21:24] edited: `HQ/commands/new-client.md`
+- [2026-04-15 21:27] created: `HQ/crm/leads-batch3.csv`
+- [2026-04-15 21:30] edited: `tsconfig.json`
+- [2026-04-15 21:30] edited: `HQ/crm/leads.csv`
+- [2026-04-15 21:31] created: `HQ/marketing/cold-email/drafts/lead-016-step1.md`
+- [2026-04-15 21:31] created: `HQ/marketing/cold-email/drafts/lead-017-step1.md`
+- [2026-04-15 21:31] created: `HQ/marketing/cold-email/drafts/lead-019-step1.md`
+- [2026-04-15 21:32] created: `HQ/marketing/cold-email/drafts/lead-022-step1.md`
+- [2026-04-15 21:32] created: `HQ/marketing/cold-email/drafts/lead-023-step1.md`
+- [2026-04-15 21:32] created: `HQ/marketing/cold-email/drafts/lead-025-step1.md`
+- [2026-04-15 21:39] edited: `src/components/dashboard/nav-items.ts`

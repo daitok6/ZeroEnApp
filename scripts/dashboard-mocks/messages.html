@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>Messages — ZeroEn Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'IBM Plex Mono', monospace; background: #0D0D0D; color: #F4F4F2; display: flex; height: 900px; width: 1440px; overflow: hidden; }
+
+  .sidebar { width: 224px; flex-shrink: 0; background: #0D0D0D; border-right: 1px solid #1F2937; display: flex; flex-direction: column; padding: 24px 0; }
+  .sidebar-logo { padding: 0 20px 28px; display: flex; align-items: center; gap: 8px; }
+  .logo-mark { width: 28px; height: 28px; background: #00E87A; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; color: #0D0D0D; font-size: 13px; }
+  .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; color: #F4F4F2; }
+  .nav-section-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #4B5563; padding: 0 20px 8px; margin-top: 8px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 12px; color: #6B7280; cursor: pointer; border-left: 2px solid transparent; }
+  .nav-item.active { color: #F4F4F2; border-left-color: #00E87A; background: rgba(0,232,122,0.05); }
+  .nav-icon { width: 15px; height: 15px; opacity: 0.7; }
+  .nav-item.active .nav-icon { opacity: 1; }
+  .badge { background: #00E87A; color: #0D0D0D; font-size: 9px; font-weight: 700; border-radius: 999px; padding: 1px 5px; min-width: 16px; text-align: center; margin-left: auto; }
+  .sidebar-bottom { margin-top: auto; padding: 16px 20px 0; border-top: 1px solid #1F2937; }
+  .user-pill { display: flex; align-items: center; gap: 10px; }
+  .user-avatar-sm { width: 28px; height: 28px; border-radius: 50%; background: #1F2937; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #9CA3AF; font-family: 'Syne', sans-serif; font-weight: 700; }
+  .user-name { color: #F4F4F2; font-size: 11px; font-weight: 500; }
+  .user-plan { color: #6B7280; font-size: 10px; }
+
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .topbar { height: 56px; border-bottom: 1px solid #1F2937; display: flex; align-items: center; padding: 0 28px; background: #0D0D0D; gap: 12px; }
+  .topbar-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: #F4F4F2; }
+  .topbar-sep { color: #374151; }
+  .topbar-page { font-size: 12px; color: #6B7280; }
+
+  /* Chat area */
+  .chat-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* Thread header */
+  .thread-header { padding: 16px 28px; border-bottom: 1px solid #1F2937; display: flex; align-items: center; justify-content: space-between; }
+  .thread-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: #F4F4F2; }
+  .thread-subtitle { font-size: 11px; color: #6B7280; margin-top: 2px; }
+  .thread-badge { background: rgba(0,232,122,0.1); border: 1px solid rgba(0,232,122,0.25); color: #00E87A; font-size: 10px; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.08em; }
+
+  /* Message thread */
+  .message-thread { flex: 1; overflow-y: auto; padding: 24px 28px; display: flex; flex-direction: column; gap: 20px; }
+
+  .message-row { display: flex; gap: 12px; align-items: flex-start; }
+  .message-row.client { flex-direction: row-reverse; }
+
+  .avatar { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px; }
+  .avatar-admin  { background: #1F2937; color: #00E87A; border: 1px solid rgba(0,232,122,0.3); }
+  .avatar-client { background: #00E87A; color: #0D0D0D; }
+
+  .message-body { max-width: 520px; }
+  .message-row.client .message-body { align-items: flex-end; display: flex; flex-direction: column; }
+
+  .message-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .message-row.client .message-meta { flex-direction: row-reverse; }
+  .sender-name { font-size: 11px; font-weight: 600; color: #9CA3AF; }
+  .sender-role { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #4B5563; }
+  .message-time { font-size: 10px; color: #374151; }
+
+  .bubble { background: #111827; border: 1px solid #1F2937; border-radius: 12px; padding: 12px 16px; font-size: 12px; color: #D1D5DB; line-height: 1.65; }
+  .bubble.client { background: rgba(0,232,122,0.08); border-color: rgba(0,232,122,0.2); color: #F4F4F2; }
+
+  .seen-indicator { font-size: 10px; color: #4B5563; display: flex; align-items: center; gap: 4px; margin-top: 4px; }
+
+  /* Composer */
+  .composer { padding: 16px 28px; border-top: 1px solid #1F2937; background: #0D0D0D; }
+  .composer-inner { display: flex; align-items: flex-end; gap: 10px; background: #111827; border: 1px solid #374151; border-radius: 10px; padding: 10px 14px; }
+  .composer-input { flex: 1; background: none; border: none; outline: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #F4F4F2; resize: none; height: 38px; line-height: 1.5; }
+  .composer-input::placeholder { color: #4B5563; }
+  .send-btn { background: #00E87A; color: #0D0D0D; border: none; border-radius: 6px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">Z</div>
+    <span class="logo-text">ZeroEn</span>
+  </div>
+  <div class="nav-section-label">Dashboard</div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+    Overview
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1,12 5,7 9,9 15,3"/><polyline points="11,3 15,3 15,7"/></svg>
+    Analytics
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8"/><line x1="8" y1="8" x2="10.5" y2="10.5"/></svg>
+    Change Requests
+    <span class="badge">2</span>
+  </div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><line x1="1.5" y1="7" x2="14.5" y2="7"/></svg>
+    Invoices
+  </div>
+  <div class="nav-item active">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10.5a2 2 0 01-2 2H4l-2.5 2V4a2 2 0 012-2h8.5a2 2 0 012 2z"/></svg>
+    Messages
+    <span class="badge">1</span>
+  </div>
+  <div class="nav-section-label" style="margin-top:16px">Account</div>
+  <div class="nav-item">
+    <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+    Settings
+  </div>
+  <div class="sidebar-bottom">
+    <div class="user-pill">
+      <div class="user-avatar-sm">TK</div>
+      <div>
+        <div class="user-name">Taka</div>
+        <div class="user-plan">Premium Plan</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <span class="topbar-title">ZeroEn</span>
+    <span class="topbar-sep">/</span>
+    <span class="topbar-page">Messages</span>
+  </div>
+
+  <div class="chat-area">
+    <div class="thread-header">
+      <div>
+        <div class="thread-title">Messages</div>
+        <div class="thread-subtitle">Taka's Restaurant — zeroen.dev project</div>
+      </div>
+      <span class="thread-badge">Active</span>
+    </div>
+
+    <div class="message-thread">
+
+      <!-- Admin message 1 -->
+      <div class="message-row">
+        <div class="avatar avatar-admin">Y</div>
+        <div class="message-body">
+          <div class="message-meta">
+            <span class="sender-name">Yuki</span>
+            <span class="sender-role">ZeroEn Team</span>
+            <span class="message-time">Apr 8 · 10:24</span>
+          </div>
+          <div class="bubble">
+            Hi Taka! Your site is live at taka-restaurant.zeroen.dev — take a look and let me know if you'd like any tweaks. I've also set up Google Analytics so you'll start seeing data in the dashboard within 24–48 hours.
+          </div>
+        </div>
+      </div>
+
+      <!-- Client reply -->
+      <div class="message-row client">
+        <div class="avatar avatar-client">T</div>
+        <div class="message-body">
+          <div class="message-meta">
+            <span class="sender-name">Taka</span>
+            <span class="message-time">Apr 8 · 11:05</span>
+          </div>
+          <div class="bubble client">
+            Looks amazing! I love the color scheme. One thing — could we make the menu section a bit easier to scan? The text feels a little dense right now.
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin reply 2 -->
+      <div class="message-row">
+        <div class="avatar avatar-admin">Y</div>
+        <div class="message-body">
+          <div class="message-meta">
+            <span class="sender-name">Yuki</span>
+            <span class="sender-role">ZeroEn Team</span>
+            <span class="message-time">Apr 8 · 14:30</span>
+          </div>
+          <div class="bubble">
+            Great feedback — I'll add more whitespace and group the menu items by category with subtle dividers. That should make scanning much easier. I'll have an update ready by tomorrow morning.
+          </div>
+        </div>
+      </div>
+
+      <!-- Client reply 2 -->
+      <div class="message-row client">
+        <div class="avatar avatar-client">T</div>
+        <div class="message-body">
+          <div class="message-meta">
+            <span class="sender-name">Taka</span>
+            <span class="message-time">Apr 9 · 9:12</span>
+          </div>
+          <div class="bubble client">
+            Perfect, thanks! Also — is it possible to add a Google Maps embed near the bottom? We get a lot of questions about parking.
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin reply 3 (latest, with seen) -->
+      <div class="message-row">
+        <div class="avatar avatar-admin">Y</div>
+        <div class="message-body">
+          <div class="message-meta">
+            <span class="sender-name">Yuki</span>
+            <span class="sender-role">ZeroEn Team</span>
+            <span class="message-time">Apr 9 · 10:45</span>
+          </div>
+          <div class="bubble">
+            Yes, absolutely! The menu update is deployed and the Maps embed is now live as well — I added a parking note right below it. Check it out and let me know what you think!
+          </div>
+          <div class="seen-indicator">
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,9 5,13 15,3"/></svg>
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:-6px"><polyline points="1,9 5,13 15,3"/></svg>
+            Seen
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Composer -->
+    <div class="composer">
+      <div class="composer-inner">
+        <textarea class="composer-input" placeholder="Send a message..."></textarea>
+        <button class="send-btn">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="14" y1="2" x2="7" y2="9"/><polyline points="14,2 9,14 7,9 2,7 14,2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
