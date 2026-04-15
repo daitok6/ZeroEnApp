@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, ClipboardList, Send, Rocket, Inbox, CreditCard, Settings, BarChart3, ShieldCheck, Bell } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, FileText, Receipt, PlusCircle, Users, Rocket, Inbox, CreditCard, Settings, BarChart3, ShieldCheck, Bell } from 'lucide-react';
 
 export const navItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/dashboard' },
@@ -34,8 +34,7 @@ export function getLockedKeys(project: { client_visible: boolean; plan_tier: str
 }
 
 export const pendingNavItems = [
-  { key: 'apply', icon: Send, labelEn: 'Apply', labelJa: '応募', path: '/dashboard/apply' },
-  { key: 'applicationStatus', icon: ClipboardList, labelEn: 'Application Status', labelJa: '応募状況', path: '/dashboard/application-status' },
+  { key: 'overview', icon: LayoutDashboard, labelEn: 'Get Started', labelJa: 'はじめる', path: '/dashboard' },
 ] as const;
 
 export const onboardingNavItems = [
@@ -45,7 +44,6 @@ export const onboardingNavItems = [
 export const adminNavItems = [
   { key: 'overview', icon: LayoutDashboard, labelEn: 'Overview', labelJa: '概要', path: '/admin' },
   { key: 'clients', icon: Users, labelEn: 'Clients', labelJa: 'クライアント', path: '/admin/clients' },
-{ key: 'applications', icon: ClipboardList, labelEn: 'Applications', labelJa: '応募', path: '/admin/applications' },
   { key: 'requests', icon: Inbox, labelEn: 'Change Requests', labelJa: '変更依頼', path: '/admin/requests' },
   { key: 'messages', icon: MessageSquare, labelEn: 'Messages', labelJa: 'メッセージ', path: '/admin/messages' },
   { key: 'documents', icon: FileText, labelEn: 'Documents', labelJa: '書類', path: '/admin/documents' },
