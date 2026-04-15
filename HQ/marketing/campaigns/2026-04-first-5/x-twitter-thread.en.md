@@ -83,9 +83,8 @@ If the economics don't make sense to you on first read, this isn't the right ser
 ```
 Apply / DM:
 
-Coconala (JP): https://coconala.com/services/4169857
+Apply: https://zeroen.dev
 Background (Note, JP): https://note.com/zeroen_dev/n/n2d8f1bb2247a
-Portfolio: https://zeroen.dev
 
 DMs open. I'll reply in EN or JP.
 ```

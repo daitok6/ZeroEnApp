@@ -7,8 +7,19 @@
       "repo": "",
       "vercel": "",
       "supabase": ""
+    },
+    {
+      "clientId": "fujiseni-lancers",
+      "status": "lancers-compe",
+      "created": "2026-04-15",
+      "lancers_listing": "5525919",
+      "client_name": "ダスキン富士せんい / 株式会社富士せんい",
+      "repo": "daitok6/fujiseni-lancers-dem",
+      "vercel": "https://design-src.vercel.app",
+      "supabase": "",
+      "notes": "Lancers コンペ entry — TOP page design. Deliverable: .ai + .psd + Vercel preview. Not a paying client yet."
     }
   ],
   "schema_version": "1.0",
-  "last_updated": "2026-04-08"
+  "last_updated": "2026-04-14"
 }
