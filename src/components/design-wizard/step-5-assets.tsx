@@ -45,7 +45,7 @@ export function Step5Assets({
   // Restore from saved progress — regenerate signed URLs on mount
   const [slots, setSlots] = useState<AssetSlot[]>(() => {
     const saved = (initialValues.assets ?? []) as AssetItem[];
-    const filled = saved.slice(0, MAX_SLOTS).map((a) => ({ ...a, signed_url: null }));
+    const filled = saved.slice(0, MAX_SLOTS).map((a): AssetSlot => ({ ...a, signed_url: null }));
     while (filled.length < MAX_SLOTS) filled.push(emptySlot());
     return filled;
   });
