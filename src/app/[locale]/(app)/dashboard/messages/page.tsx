@@ -1,4 +1,4 @@
-import { requireApproved } from '@/lib/auth/require-approved';
+import { getDashboardSession } from '@/lib/dashboard/session';
 import { MessageThread } from '@/components/dashboard/message-thread';
 import { createClient as createAdminClient } from '@supabase/supabase-js';
 import type { Metadata } from 'next';
@@ -12,16 +12,11 @@ type Props = { params: Promise<{ locale: string }> };
 
 export default async function MessagesPage({ params }: Props) {
   const { locale } = await params;
-  const { user, supabase } = await requireApproved(locale);
+  const { user, project: sessionProject, supabase } = await getDashboardSession(locale);
 
-  // Get user's project
-  let { data: project } = await supabase
-    .from('projects')
-    .select('id, name')
-    .eq('client_id', user.id)
-    .maybeSingle();
+  // Use cached project; auto-create if this is a brand-new pending user with no row yet
+  let project: { id: string; name: string | null } | null = sessionProject;
 
-  // Auto-create a project row so messaging is always available
   if (!project) {
     const adminSupabase = createAdminClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,

@@ -1,4 +1,4 @@
-import { requireApproved } from '@/lib/auth/require-approved';
+import { getDashboardSession } from '@/lib/dashboard/session';
 import { CheckCircle, Clock, AlertCircle, XCircle, Receipt, FileText, ExternalLink } from 'lucide-react';
 import { PayButton } from '@/components/dashboard/pay-button';
 import { EmptyState } from '@/components/dashboard/empty-state';
@@ -51,7 +51,7 @@ const STATUS_CONFIG = {
 
 export default async function InvoicesPage({ params }: Props) {
   const { locale } = await params;
-  const { user, supabase } = await requireApproved(locale);
+  const { user, supabase } = await getDashboardSession(locale);
 
   const invoices =
     (

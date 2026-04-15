@@ -1,5 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
+import { getDashboardSession } from '@/lib/dashboard/session';
 import Link from 'next/link';
 import { ShieldCheck, Search, Download, Lock } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -22,26 +21,13 @@ function formatDate(iso: string, locale: string): string {
 export default async function DashboardAuditsPage({ params }: Props) {
   const { locale } = await params;
   const isJa = locale === 'ja';
-  const supabase = await createClient();
+  const { project, supabase } = await getDashboardSession(locale);
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect(`/${locale}/login`);
-
-  // Project + audits in parallel
-  const [{ data: project }, { data: audits }] = await Promise.all([
-    supabase
-      .from('projects')
-      .select('id, plan_tier')
-      .eq('client_id', user.id)
-      .single(),
-    // RLS: only returns rows if the user is a Premium client on the owning project.
-    supabase
-      .from('audits')
-      .select('id, kind, period, file_name, delivered_at, created_at')
-      .order('created_at', { ascending: false }),
-  ]);
+  // RLS: only returns rows if the user is a Premium client on the owning project.
+  const { data: audits } = await supabase
+    .from('audits')
+    .select('id, kind, period, file_name, delivered_at, created_at')
+    .order('created_at', { ascending: false });
 
   const isPremium = project?.plan_tier === 'premium';
 

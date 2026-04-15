@@ -1,15 +1,11 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
-import { IBM_Plex_Mono, Syne, Murecho, DM_Sans, DM_Mono } from 'next/font/google';
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { IBM_Plex_Mono, Syne, Murecho, DM_Sans } from 'next/font/google';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 import { routing } from '@/i18n/routing';
-import { MarketingShell } from '@/components/layout/marketing-shell';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import { GoogleAds } from '@/components/analytics/google-ads';
-import { UtmCapture } from '@/components/analytics/utm-capture';
 import '../globals.css';
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -28,7 +24,7 @@ const syne = Syne({
 
 const murecho = Murecho({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  weight: ['400', '700'],
   variable: '--font-jp',
   display: 'swap',
 });
@@ -37,13 +33,6 @@ const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '600', '700'],
   variable: '--font-logo',
-  display: 'swap',
-});
-
-const dmMono = DM_Mono({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-dm-mono',
   display: 'swap',
 });
 
@@ -73,23 +62,17 @@ export default async function LocaleLayout({ children, params }: Props) {
     notFound();
   }
 
-  const messages = await getMessages();
-
   return (
     <html
       lang={locale}
-      className={`${ibmPlexMono.variable} ${syne.variable} ${murecho.variable} ${dmSans.variable} ${dmMono.variable}`}
+      className={`${ibmPlexMono.variable} ${syne.variable} ${murecho.variable} ${dmSans.variable}`}
     >
       <body className={locale === 'ja' ? 'font-jp' : 'font-mono'}>
-        <NextIntlClientProvider messages={messages}>
-          <Suspense>
-            <UtmCapture />
-          </Suspense>
-          <MarketingShell locale={locale}>{children}</MarketingShell>
-        </NextIntlClientProvider>
+        {children}
         <GoogleAnalytics />
         <GoogleAds />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

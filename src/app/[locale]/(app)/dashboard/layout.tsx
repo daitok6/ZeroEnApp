@@ -1,5 +1,6 @@
-import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { Sidebar } from '@/components/dashboard/sidebar';
 import { BottomNav } from '@/components/dashboard/bottom-nav';
 import { DashboardTopbar } from '@/components/dashboard/topbar';
@@ -10,27 +11,36 @@ import { getUnreadCounts } from '@/lib/messages/unread';
 import { getUnreadRequestCounts } from '@/lib/requests/unread';
 import { getUnreadNotificationCount } from '@/lib/notifications/unread';
 import { getLockedKeys } from '@/components/dashboard/nav-items';
+import { getDashboardSession } from '@/lib/dashboard/session';
 
 type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
 
+// Message keys used by dashboard client components (sidebar, bottom-nav, etc.)
+const DASH_MSG_KEYS = [
+  'admin', 'plan', 'common', 'settings', 'auth', 'dashboard',
+  'requests', 'invoices', 'billing', 'messages', 'documents',
+  'onboarding', 'comments',
+] as const;
+
 export default async function DashboardLayout({ children, params }: Props) {
   const { locale } = await params;
 
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const [{ user, profile, project, supabase }, allMessages] = await Promise.all([
+    getDashboardSession(locale),
+    getMessages(),
+  ]);
+
+  // Only pass the dashboard-relevant keys (~40% of the full bundle)
+  const messages = Object.fromEntries(
+    DASH_MSG_KEYS.filter((k) => k in allMessages).map((k) => [k, allMessages[k]])
+  );
 
   if (!user) {
     redirect(`/${locale}/login`);
   }
-
-  // Fetch profile + project in parallel — both only need user.id
-  const [{ data: profile }, { data: project }] = await Promise.all([
-    supabase.from('profiles').select('status, onboarding_status').eq('id', user.id).single(),
-    supabase.from('projects').select('id, client_visible, plan_tier').eq('client_id', user.id).single(),
-  ]);
 
   const navType = profile?.status === 'client'
     ? 'client'
@@ -42,7 +52,6 @@ export default async function DashboardLayout({ children, params }: Props) {
     ? (locale === 'ja' ? 'オンボーディング' : 'Onboarding')
     : (locale === 'ja' ? 'ファウンダーダッシュボード' : 'Founder Dashboard');
 
-  // Fetch unread counts now that we have the project id
   let initialCounts: Record<string, number> = {};
   let projectIds: string[] = [];
   let lockedKeys: Set<string> = new Set();
@@ -54,26 +63,27 @@ export default async function DashboardLayout({ children, params }: Props) {
     if (project) {
       projectIds = [project.id];
 
-      const [msgCounts, { data: clientRequests }] = await Promise.all([
+      // All three badge sources fetched in a single parallel round-trip
+      const [msgCounts, { data: clientRequests }, notifCount] = await Promise.all([
         getUnreadCounts(supabase, user.id, projectIds),
         supabase.from('change_requests').select('id').eq('client_id', user.id),
+        getUnreadNotificationCount(supabase, user.id),
       ]);
 
       initialCounts = msgCounts;
       requestIds = (clientRequests ?? []).map((r: { id: string }) => r.id);
-      const [{ byRequest }, notifCount] = await Promise.all([
-        getUnreadRequestCounts(supabase, user.id, requestIds),
-        getUnreadNotificationCount(supabase, user.id),
-      ]);
-      initialByRequest = byRequest;
       initialNotificationCount = notifCount;
+
+      if (requestIds.length > 0) {
+        const { byRequest } = await getUnreadRequestCounts(supabase, user.id, requestIds);
+        initialByRequest = byRequest;
+      }
 
       lockedKeys = getLockedKeys({
         client_visible: project.client_visible ?? false,
         plan_tier: project.plan_tier ?? null,
       });
     } else {
-      // No project row yet — lock everything except overview/messages/settings
       lockedKeys = getLockedKeys(null);
     }
   }
@@ -102,6 +112,7 @@ export default async function DashboardLayout({ children, params }: Props) {
   ) : undefined;
 
   return (
+    <NextIntlClientProvider messages={messages}>
     <div className="h-screen bg-[#0D0D0D] flex flex-col md:flex-row font-logo">
       <Sidebar locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} requestsBadge={requestsBadge} notificationsBadge={notificationsBadge} lockedKeys={lockedKeys} />
 
@@ -115,5 +126,6 @@ export default async function DashboardLayout({ children, params }: Props) {
 
       <BottomNav locale={locale} navType={navType} basePath="/dashboard" messagesBadge={messagesBadge} requestsBadge={requestsBadge} notificationsBadge={notificationsBadge} lockedKeys={lockedKeys} />
     </div>
+    </NextIntlClientProvider>
   );
 }

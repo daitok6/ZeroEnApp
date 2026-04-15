@@ -1,8 +1,8 @@
-import { requireApproved } from '@/lib/auth/require-approved';
+import { getDashboardSession } from '@/lib/dashboard/session';
 import { SubscriptionRequired } from '@/components/dashboard/subscription-required';
 import { EmptyState } from '@/components/dashboard/empty-state';
 import { AnalyticsSummaryCard } from '@/components/dashboard/analytics-summary-card';
-import { AnalyticsChart } from '@/components/dashboard/analytics-chart';
+import { AnalyticsChart } from '@/components/dashboard/analytics-chart-lazy';
 import { FileText } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -25,14 +25,8 @@ interface Snapshot {
 
 export default async function AnalyticsPage({ params }: Props) {
   const { locale } = await params;
-  const { user, supabase } = await requireApproved(locale);
+  const { project, supabase } = await getDashboardSession(locale);
   const isJa = locale === 'ja';
-
-  const { data: project } = await supabase
-    .from('projects')
-    .select('id, client_visible, plan_tier')
-    .eq('client_id', user.id)
-    .single();
 
   if (project && project.client_visible && !project.plan_tier) {
     return <SubscriptionRequired locale={locale} />;

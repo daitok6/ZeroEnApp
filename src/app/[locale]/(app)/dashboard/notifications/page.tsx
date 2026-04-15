@@ -1,4 +1,4 @@
-import { requireApproved } from '@/lib/auth/require-approved';
+import { getDashboardSession } from '@/lib/dashboard/session';
 import { NotificationsFeed, type NotificationRow } from '@/components/dashboard/notifications-feed';
 import { Bell } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -12,7 +12,7 @@ type Props = { params: Promise<{ locale: string }> };
 
 export default async function NotificationsPage({ params }: Props) {
   const { locale } = await params;
-  const { user, supabase } = await requireApproved(locale);
+  const { user, supabase } = await getDashboardSession(locale);
 
   const { data } = await supabase
     .from('notifications')
