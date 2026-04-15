@@ -212,8 +212,11 @@ export function Step2Brand({
         .from('brand-assets')
         .upload(path, file, { upsert: true, contentType: file.type });
       if (upErr) throw upErr;
-      const { data: pub } = supabase.storage.from('brand-assets').getPublicUrl(path);
-      setState((s) => ({ ...s, logo_url: pub.publicUrl }));
+      const { data: signed, error: signErr } = await supabase.storage
+        .from('brand-assets')
+        .createSignedUrl(path, 3600); // 1-hour expiry — enough for the wizard session
+      if (signErr) throw signErr;
+      setState((s) => ({ ...s, logo_url: signed.signedUrl }));
     } catch {
       setUploadError(
         locale === 'ja'
