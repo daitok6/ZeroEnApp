@@ -1,107 +1,35 @@
 # CLAUDE.md — ZeroEn
-### The ONE TRUTH for Claude Code in this repository
-**Last updated:** 2026-04-11
+**The ONE TRUTH for Claude Code in this repo.** Last updated: 2026-04-18
+
+ZeroEn = solo AI-powered technical co-founder service. Free Next.js landing pages in exchange for recurring Stripe subscriptions (¥5,000/¥10,000/mo), equity, and rev share. HQ lives here; client projects live under `Clients/` (gitignored, each client = own public repo). Domain: `zeroen.dev`. Full plan: `PRD.md`.
 
 ---
 
-## What This Repository Is
+## Core Rules
 
-This is the **Claude Code operating system for ZeroEn** — a solo, AI-powered technical co-founder service. Build free homepages and landing pages in exchange for recurring hosting subscriptions, with equity and revenue share on select deals.
-
-This repo (`daitok6/ZeroEn`, private) contains the HQ (agents, skills, commands, hooks, marketing, CRM) and hosts client projects under `Clients/` (each client has their own public repo, gitignored from this repo).
-
-**Domain:** `zeroen.dev` — all platform links, social bios, and client-facing URLs use this domain.
-
-The full business plan is in `PRD.md`. The channel post-mortem (Coconala abandoned 2026-04-14) is in `HQ/crm/coconala-playbook.md`.
-
-**You are the build engine, business ops, and marketing team. Your job:**
-1. Build free landing pages/homepages for clients using Next.js (Phase 1 — no Supabase needed)
-2. Deploy client sites on the operator's Vercel account
-3. Generate monthly analytics report PDFs per client
-4. Run marketing automation — build-in-public content, SEO, outreach
-5. Manage client lifecycle — onboarding, scoring, tracking, billing (intake via zeroen.dev + recurring via Stripe)
-6. Maintain quality gates — automated testing, validation, client UAT
+1. Every command requires a `clientId`. No exceptions.
+2. Client code lives in `Clients/<clientId>/`. HQ code lives in `HQ/`. Never mix.
+3. **Phase 1 only:** landing pages, no Supabase. Phase 2 opens at 15+ clients.
+4. All sites deploy on the operator's Vercel account.
+5. Scope locked at kickoff. Anything beyond = per-request charge (`HQ/crm/change-catalogue.md`).
+6. Never expose secrets. Redact keys/tokens/credentials in all outputs.
+7. Operator reviews everything before client delivery. Never auto-send.
+8. All social posts: reviewed by `mktg-copy` + `mktg-strategy` before operator sees them.
+9. Quality gates must pass before production deploy (`HQ/docs/quality-gates.md`).
+10. ZeroEn retains code ownership. Client licenses the live site via active sub. On cancel: archive, keep code.
+11. All intake via zeroen.dev. Recurring billing via Stripe.
+12. 6-month minimum commitment. Early cancel = pay remaining months.
 
 ---
 
-## Core Rules (Always Follow)
+## Brand Kit (always apply)
 
-1. **Every command requires a `clientId`.** No agent or command runs without knowing which client it operates on.
-2. **Client code lives in `Clients/<clientId>/`.** Never mix client code into HQ.
-3. **HQ code lives in `HQ/`.** Business logic, agents, templates, marketing — all in HQ.
-4. **Phase 1: Landing pages only — no Supabase needed.** Phase 2 (dynamic sites) comes after 15+ clients.
-5. **All sites deploy on the operator's Vercel account.** The operator controls hosting infrastructure.
-6. **Scope is locked at kickoff.** The scope agreed during onboarding is the scope. Anything beyond = per-request charge (see `HQ/crm/change-catalogue.md`).
-7. **Never expose client secrets.** Redact API keys, tokens, and credentials in all outputs.
-8. **Operator reviews everything before client delivery.** Never auto-send anything to clients.
-9. **All social posts go through the marketing team.** Every post draft must be reviewed by `mktg-copy` (voice + copy) and `mktg-strategy` (strategic fit) before the operator sees it. No exceptions.
-10. **Quality gates must pass before production deploy.** Linting, type checking, and tests must pass.
-11. **ZeroEn retains code ownership.** Client licenses the live site via active subscription. Code is never transferred to the client — on cancellation the site is archived and ZeroEn keeps the code.
-12. **All intake flows through zeroen.dev.** Other channels (X, note, Lancers, MENTA, TimeTicket) are evaluated per-platform ToS before listing. All recurring subscription fees (¥5,000/¥10,000/mo) are billed through Stripe via zeroen.dev.
-13. **All clients require a 6-month minimum subscription commitment.** Early cancellation = client pays the remaining months on the commitment. Site is archived, code is retained by ZeroEn.
+- Primary accent: `#00E87A` (Electric Green) · Background: `#0D0D0D` · Text: `#F4F4F2`
+- Fonts: Syne (headings) · IBM Plex Mono (body/UI) · Murecho (JP) · DM Sans (logo wordmark only)
+- Tokens: `HQ/brand/tokens.css` · `HQ/brand/tokens.json` · Full spec: `HQ/brand/brand-kit.md`
+- Logos: `docs/logo-dark.svg`, `docs/logo-full.svg`, `docs/logo-icon.svg`
 
----
-
-## Revenue Model
-
-### Subscription Tiers (All Clients — Stripe via zeroen.dev)
-
-| | Basic | Premium |
-|---|---|---|
-| Monthly fee | ¥5,000 | ¥10,000 |
-| Hosting (Vercel) | Included | Included |
-| Monthly changes | 1 small | 2 small OR 1 medium |
-| Medium changes (a-la-carte) | — (upgrade required) | Available |
-| Analytics | Prior-month PDF (1 page) | Full-year dashboard |
-| Security audit (WebMori) | — | Quarterly |
-| SEO audit (WebMori) | — | Quarterly |
-| Copy refresh credit | — | 1 headline/CTA rewrite/quarter |
-| Change request SLA | ≤14 business days | ≤5 business days (priority) |
-
-All recurring billing goes through Stripe via zeroen.dev.
-
-### Additional Revenue
-
-| Stream | Amount | Details |
-|--------|--------|---------|
-| Free Build | $0 to client | All builds are free. ZeroEn retains code and monetizes via subscription. |
-| Per-Request | ¥4,000-25,000+ | Small (¥4,000), Medium (¥10,000 — Premium only), Large (¥25,000+). See `HQ/crm/change-catalogue.md` |
-| A-la-carte audits | ¥15,000 each | Security or SEO audit for Basic-tier clients |
-| Equity | 10% | SAFE note (converts on incorporation) + profit-sharing fallback |
-| Revenue Share | ~10% | Percentage of app revenue, flexible per deal |
-
-### Upgrade / Downgrade
-
-- **Upgrade (Basic → Premium):** Allowed anytime. Triggers a fresh 6-month Premium commitment (replaces remaining Basic term).
-- **Downgrade (Premium → Basic):** Only after the 6-month Premium commitment completes. No exceptions mid-term.
-
-Full pricing details: `HQ/crm/change-catalogue.md`
-
----
-
-## Brand Kit
-
-**All agents must apply the ZeroEn brand consistently.** The brand kit is the source of truth for every visual and copy decision.
-
-| Asset | Path |
-|---|---|
-| Brand kit (full spec) | `HQ/brand/brand-kit.md` |
-| CSS design tokens | `HQ/brand/tokens.css` |
-| JSON design tokens | `HQ/brand/tokens.json` |
-| Logo — dark bg | `docs/logo-dark.svg` |
-| Logo — light bg | `docs/logo-full.svg` |
-| Logo — icon only | `docs/logo-icon.svg` |
-
-**Key values (commit these to memory):**
-- Primary accent: `#00E87A` (Electric Green)
-- Background: `#0D0D0D`
-- Text: `#F4F4F2`
-- Font (headings): Syne
-- Font (body/UI): IBM Plex Mono
-- Font (JP): Murecho
-- Font (logo wordmark only): DM Sans
-
-When building any UI — website, client app, email, PDF — import `HQ/brand/tokens.css` and follow `HQ/brand/brand-kit.md`. Never invent colors or fonts.
+Never invent colors or fonts. Import `HQ/brand/tokens.css` for any UI.
 
 ---
 
@@ -109,190 +37,59 @@ When building any UI — website, client app, email, PDF — import `HQ/brand/to
 
 ```
 ZeroEn/
-├── .gitignore              ← Contains "Clients/"
-├── CLAUDE.md               ← This file
-├── PRD.md                  ← Full business plan
-├── docs/                   ← Brand assets (logos, specs)
-│   ├── logo-dark.svg       ← Primary logo (dark backgrounds)
-│   ├── logo-full.svg       ← Logo (light backgrounds)
-│   └── logo-icon.svg       ← Icon only (favicon, avatar)
-├── HQ/                     ← Private, tracked in repo
-│   ├── agents/             ← All agent definitions
-│   ├── brand/              ← Brand kit, CSS tokens, JSON tokens
-│   ├── commands/           ← /new-client, /report, /deploy, /status
-│   ├── skills/             ← Reusable build patterns
-│   ├── templates/          ← Next.js landing page starter template
-│   ├── platform/           ← ZeroEn website + client dashboard
-│   ├── marketing/          ← Marketing ops, content, SEO, outreach
-│   ├── crm/                ← Client registry, scoring, contracts
-│   │   ├── clients.json    ← Master client registry
-│   │   ├── coconala-playbook.md  ← Coconala post-mortem (channel abandoned 2026-04-14)
-│   │   └── change-catalogue.md   ← Change size definitions & pricing
-│   └── scripts/            ← Utility scripts (clone-all.sh, etc.)
-├── Clients/                ← NOT tracked (gitignored)
-│   ├── <clientId>/         ← Each client = own public repo
-│   └── ...
+├── CLAUDE.md, PRD.md
+├── docs/                   ← Brand assets (logos)
+├── HQ/                     ← Tracked
+│   ├── agents/ brand/ commands/ skills/ templates/ platform/ marketing/
+│   ├── crm/                ← clients.json, change-catalogue.md, coconala-playbook.md
+│   ├── docs/               ← On-demand reference docs (read when relevant)
+│   └── scripts/            ← clone-all.sh
+└── Clients/                ← Gitignored, each clientId = own public repo
 ```
 
 ---
 
-## Tech Stack (Client Sites)
+## Tech Stack (Phase 1 — Current)
 
-### Phase 1 — Landing Pages (Current)
+Next.js (App Router) · React · Tailwind · shadcn/ui · Vercel hosting (operator's Pro) · GitHub auto-deploy · Lucide icons · external forms (Formspree/Google Forms). Pure static/SSG. No Supabase.
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js (App Router) |
-| UI | React, Tailwind CSS, shadcn/ui |
-| Hosting | Vercel (operator's Pro account) |
-| Deployment | GitHub → Vercel auto-deploy |
-| Forms | External service (Formspree, Google Forms, etc.) |
-| Icons | Lucide React |
-
-No Supabase needed for landing pages. Pure static/SSG.
-
-### Phase 2 — Dynamic Sites (After 15+ Clients)
-
-| Layer | Technology |
-|-------|-----------|
-| Backend/DB | Supabase (Auth, Database, Storage) — free tier per client |
-| Validation | Zod |
-| + everything from Phase 1 |
+Phase 2 details: `HQ/docs/phase-2-stack.md` (do not use until 15-client gate).
 
 ---
 
-## Client Lifecycle
-
-### All Clients (zeroen.dev + marketplace channels)
-
-```
-1. DISCOVER  → zeroen.dev, build-in-public content, referrals
-2. APPLY     → Application form on zeroen.dev
-3. SCORE     → Viability + Commitment + Feasibility + Market (15+/20 to accept)
-4. ONBOARD   → Questionnaire → scope locked → 6-month commitment → Stripe billing setup
-5. BUILD     → /new-client <clientId> → landing page or dynamic site
-6. LAUNCH    → Deploy to Vercel → Stripe subscription starts (¥5,000 or ¥10,000/mo)
-7. OPERATE   → Monthly analytics PDF → included changes
-8. GROW      → Per-request charges via Stripe invoice → rev share active
-9. UPSELL    → Analytics surface issues → WebMori audit service
-```
-
----
-
-## Commands (All Require clientId)
+## Commands (all require `clientId`)
 
 | Command | Purpose |
-|---------|---------|
-| `/new-client <clientId>` | Clone template, set up CLAUDE.md, register in CRM (no Supabase in Phase 1) |
-| `/report <clientId>` | Playwright scrapes Vercel analytics → generate PDF report |
-| `/deploy <clientId>` | Run quality gates → deploy to production |
-| `/status <clientId>` | Show project status, last deploy, next report date, plan tier, billing status |
-
----
-
-## Agents
-
-### Business Operations
-| Agent | Purpose |
-|-------|---------|
-| `client-manager` | Client lifecycle: onboarding, profiles, health monitoring, billing |
-| `client-scorer` | Score applications: viability, commitment, feasibility, market |
-| `ops-scheduler` | Schedule audits, reports, reminders, billing cycles |
-| `finance-tracker` | Track revenue streams: platform fees, per-request, rev share, equity |
-| `sales-advisor` | Marketing strategy, outreach messaging, competitive positioning |
-| `sales-closer` | Handle qualified leads, craft proposals, close equity deals |
-
-### Marketing Team
-| Agent | Purpose |
-|-------|---------|
-| `mktg-strategy` | Marketing brain — ideas, psychology, customer research, positioning |
-| `mktg-seo` | SEO optimization for ZeroEn website and content |
-| `mktg-copy` | Build-in-public content, case studies, social media copy |
-| `mktg-cro` | Conversion optimization for application form and website |
-| `mktg-paid` | Paid advertising strategy and campaign management |
-| `mktg-growth` | Growth tactics, referral program, community building |
-| `mktg-gtm` | Go-to-market strategy, launch playbooks, positioning |
-
-### Development
-| Agent | Purpose |
-|-------|---------|
-| `web-developer` | Full-stack implementation — Next.js + Supabase client apps |
-| `web-designer` | UI/UX design specs using component libraries |
-| `web-qa` | Testing, QA, and validation before deploy |
-| `code-reviewer` | Code review for quality, security, and maintainability |
-
----
-
-## Quality Gates
-
-Adapted from SiteAudit's wave-based pipeline:
-
-1. **Pre-deploy checks** — `npm run lint && npm run build && npm test`
-2. **Code review** — `code-reviewer` agent scans changes
-3. **Staging deploy** — Preview deployment on Vercel for client UAT
-4. **Production promote** — Only after client approval on staging
-
----
-
-## Monthly Analytics Report Pipeline
-
-```
-1. Playwright → navigate to Vercel Analytics for <clientId>
-2. Scrape: visitors, page views, top pages, performance scores
-3. Claude Code → format into branded PDF
-4. Deliver to client via dashboard/email
-```
-
----
-
-## Contract Terms (Standard)
-
-| Clause | Detail |
-|--------|--------|
-| Code ownership | ZeroEn retains all code rights permanently. No code buyout option. Client licenses the live site via active subscription. |
-| 6-month minimum | All clients commit to 6 months. Early cancel = client pays the remaining months on commitment. Site is archived. |
-| Scope freeze | Scope locked at kickoff. Changes = per-request charge per catalogue. |
-| Non-payment | 14 days grace → site paused → 44 days → archived. Reactivation within 90 days by paying arrears. |
-| Equity | 10% via SAFE note + profit-sharing fallback (select deals) |
-| Revenue share | ~10%, flexible per deal |
-| Portfolio rights | Operator always retains right to showcase the work |
-| Anti-dilution | Minimum equity floor if client raises funding |
-| Domain | Client-owned. ZeroEn manages DNS only. |
-
----
-
-## Git Strategy
-
-- **ZeroEn repo** (private) — HQ, agents, commands, skills, templates, marketing, CRM
-- **Clients/** — gitignored. Each `<clientId>/` is its own standalone public repo
-- **Client registry** — two sources with different roles:
-  - `HQ/crm/clients.json` — HQ-side infra registry (clientId, repo URL, vercel project, supabase URL). Consumed by shell scripts (`clone-all.sh`) and agents for file/repo operations.
-  - `HQ/platform/` Supabase — platform-side truth for paying client data (subscriptions, invoices, change requests, dashboard state).
-- **Restore script** — `HQ/scripts/clone-all.sh` re-clones all client repos on new machine (reads `clients.json`)
-
----
-
-## Key References
-
-| Document | Path | Purpose |
-|----------|------|---------|
-| Coconala post-mortem | `HQ/crm/coconala-playbook.md` | Why Coconala was abandoned (2026-04-14); do not re-open without reading this |
-| Change catalogue | `HQ/crm/change-catalogue.md` | Change size definitions, a-la-carte pricing |
-| Client profiles | `HQ/crm/clients/<clientId>/profile.md` | Per-client data, billing, status |
-| Client registry (HQ infra) | `HQ/crm/clients.json` | Repo/Vercel/Supabase URLs per clientId — used by scripts |
-| Client data (platform) | Supabase (`HQ/platform/`) | Paying client records, subscriptions, invoices — authoritative for billing |
-| PRD | `PRD.md` | Full business plan |
+|---|---|
+| `/new-client <clientId>` | Clone template, set up CLAUDE.md, register in CRM |
+| `/report <clientId>` | Scrape Vercel analytics → branded PDF |
+| `/deploy <clientId>` | Quality gates → production |
+| `/status <clientId>` | Status, last deploy, next report, plan tier, billing |
 
 ---
 
 ## Anti-Patterns
 
-- Never run a command without a `clientId`
-- Never commit client code to the ZeroEn private repo
-- Never deploy without quality gates passing
-- Never auto-send anything to clients without operator review
-- Never modify a client's scope without documenting it and updating pricing
-- Never store secrets in client repos — use environment variables
-- Never build dynamic sites (auth, database) in Phase 1 — landing pages only
-- Never accept a client without confirming the 6-month commitment in writing
-- Never quote change sizes without referencing `HQ/crm/change-catalogue.md`
+- No command without `clientId` · No client code in ZeroEn repo · No deploy without gates · No auto-send to clients · No scope change without pricing update · No secrets in client repos · No Phase 2 work in Phase 1 · No client onboarded without written 6-month commitment · No change quote without referencing `HQ/crm/change-catalogue.md`
+
+---
+
+## On-Demand References (read when relevant)
+
+| Topic | File |
+|---|---|
+| Pricing, tiers, upgrades, revenue streams | `HQ/docs/revenue-model.md` |
+| Change pricing & sizing | `HQ/crm/change-catalogue.md` |
+| Client lifecycle (9-step flow) | `HQ/docs/client-lifecycle.md` |
+| Agents catalogue (business, mktg, dev) | `HQ/docs/agents-catalogue.md` |
+| Quality gates pipeline | `HQ/docs/quality-gates.md` |
+| Monthly report pipeline | `HQ/docs/report-pipeline.md` |
+| Contract terms (standard clauses) | `HQ/docs/contract-terms.md` |
+| Git strategy (platform remote, clone-all) | `HQ/docs/git-strategy.md` |
+| Phase 2 tech stack | `HQ/docs/phase-2-stack.md` |
+| Coconala post-mortem (channel abandoned) | `HQ/crm/coconala-playbook.md` |
+| Client registry (infra) | `HQ/crm/clients.json` |
+| Client data (platform, paying) | Supabase via `HQ/platform/` |
+| Full business plan | `PRD.md` |
+
+**Efficiency:** For research >20 lines of output, prefer `mcp__plugin_context-mode_context-mode__ctx_batch_execute` over raw Bash/Read.
