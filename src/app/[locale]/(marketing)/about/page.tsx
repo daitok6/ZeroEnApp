@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (locale === 'ja') {
     return buildMetadata({
-      title: 'ZeroEnについて — 元日立・元楽天エンジニアが月¥5,000でLP制作を始めた理由',
+      title: 'ZeroEnについて — 元日立・元楽天エンジニアが月¥10,000でLP制作を始めた理由',
       description: '元日立製作所・元楽天のWebエンジニア、大都がZeroEnを作った背景。「1ページのLPに数十万円」という相場への違和感から生まれたサービスです。',
       path: '/about',
       locale,
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
   }
   return buildMetadata({
-    title: 'About ZeroEn — Why an Ex-Hitachi, Ex-Rakuten Engineer Charges ¥5,000/mo',
+    title: 'About ZeroEn — Why an Ex-Hitachi, Ex-Rakuten Engineer Charges ¥10,000/mo',
     description: 'The story behind ZeroEn. Ex-Hitachi, ex-Rakuten web engineer Daito built this after seeing solo operators quoted ¥200,000+ for a single landing page.',
     path: '/about',
     locale,
@@ -89,8 +89,8 @@ export default async function AboutPage({ params }: Props) {
               </p>
               <p>
                 {ja
-                  ? 'そこで2026年4月、ZeroEnを始めました。初期費用ゼロ。月¥5,000のホスティング費用の中に、制作・運用・毎月の改善をすべて含めます。月額モデルにしたのは、納品して終わりではなく、一緒にサイトを育てていきたいからです。'
-                  : 'So in April 2026 I started ZeroEn. Zero upfront. ¥5,000/month covers building, hosting, and monthly improvements. The subscription model exists because I don\'t want to deliver and disappear — I want to grow the site alongside the business.'}
+                  ? 'そこで2026年4月、ZeroEnを始めました。初期費用ゼロ。月¥10,000のホスティング費用の中に、制作・運用・毎月の改善をすべて含めます。月額モデルにしたのは、納品して終わりではなく、一緒にサイトを育てていきたいからです。'
+                  : 'So in April 2026 I started ZeroEn. Zero upfront. ¥10,000/month covers building, hosting, and monthly improvements. The subscription model exists because I don\'t want to deliver and disappear — I want to grow the site alongside the business.'}
               </p>
             </div>
           </ScrollReveal>
@@ -142,8 +142,8 @@ export default async function AboutPage({ params }: Props) {
               </p>
               <p className="text-[#9CA3AF] font-mono text-sm leading-relaxed mb-3">
                 {ja
-                  ? 'なぜ月¥5,000という金額にしたのか、制作費をこちら側で負担する仕組みの理由、最初のクライアントをどうやって探したか——Noteにまとめて書きました。'
-                  : 'Why ¥5,000/month, how the upfront-free model works, how I found the first clients — written up in full on Note (Japanese).'}
+                  ? 'なぜ月¥10,000という金額にしたのか、制作費をこちら側で負担する仕組みの理由、最初のクライアントをどうやって探したか——Noteにまとめて書きました。'
+                  : 'Why ¥10,000/month, how the upfront-free model works, how I found the first clients — written up in full on Note (Japanese).'}
               </p>
               <a
                 href="https://note.com/zeroen_dev/n/n2d8f1bb2247a"
@@ -168,8 +168,8 @@ export default async function AboutPage({ params }: Props) {
           </h2>
           <p className="text-[#6B7280] font-mono text-sm mb-8 max-w-md mx-auto">
             {ja
-              ? '初期費用ゼロ。月¥5,000から。あなたのビジネスに合ったLPを3日で届けます。'
-              : 'Zero upfront. From ¥5,000/month. Your LP delivered in 3 days.'}
+              ? '初期費用ゼロ。月¥10,000から。あなたのビジネスに合ったLPを3日で届けます。'
+              : 'Zero upfront. From ¥10,000/month. Your LP delivered in 3 days.'}
           </p>
           <Link
             href={`/${locale}/login`}

@@ -67,12 +67,12 @@ Deploy the ZeroEn marketing site and client dashboard to Vercel at `zeroen.dev`.
 
    **Basic Plan:**
    - Name: `ZeroEn Basic`
-   - Pricing: **¥5,000 / month recurring** — currency: JPY, amount: `5000` (JPY is zero-decimal)
+   - Pricing: **¥10,000 / month recurring** — currency: JPY, amount: `10000` (JPY is zero-decimal)
    - Note the **Price ID** → this is `STRIPE_BASIC_PRICE_ID`
 
    **Premium Plan:**
    - Name: `ZeroEn Premium`
-   - Pricing: **¥10,000 / month recurring** — currency: JPY, amount: `10000`
+   - Pricing: **¥20,000 / month recurring** — currency: JPY, amount: `20000`
    - Note the **Price ID** → this is `STRIPE_PREMIUM_PRICE_ID`
 
 2. Create a webhook endpoint:
@@ -124,8 +124,8 @@ NEXT_PUBLIC_SITE_URL=https://zeroen.dev
 STRIPE_SECRET_KEY=                    # sk_live_... (Developers → API keys)
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=   # pk_live_... (Developers → API keys)
 STRIPE_WEBHOOK_SECRET=                # whsec_... (Developers → Webhooks → signing secret)
-STRIPE_BASIC_PRICE_ID=               # price_... (ZeroEn Basic ¥5,000/mo JPY price ID)
-STRIPE_PREMIUM_PRICE_ID=             # price_... (ZeroEn Premium ¥10,000/mo JPY price ID)
+STRIPE_BASIC_PRICE_ID=               # price_... (ZeroEn Basic ¥10,000/mo JPY price ID)
+STRIPE_PREMIUM_PRICE_ID=             # price_... (ZeroEn Premium ¥20,000/mo JPY price ID)
 
 # Resend
 RESEND_API_KEY=                       # re_... (Resend → API Keys)

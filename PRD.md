@@ -14,7 +14,7 @@ A solo technical co-founder service. Build MVPs with ¥0 upfront for founders in
 | Stream | Amount | When it pays |
 |--------|--------|-------------|
 | **No-Upfront MVP Build** | ¥0 upfront to client | You invest time, earn equity + rev share + monthly subscription |
-| **Monthly Subscription** | ¥10,000-20,000/mo | Hosting + changes + analytics. Two tiers: Basic and Growth. Legacy ¥5k SKU exists for grandfathered clients only. See `HQ/crm/change-catalogue.md` |
+| **Monthly Subscription** | ¥10,000-20,000/mo | Hosting + changes + analytics. Two tiers: Basic and Growth. See `HQ/crm/change-catalogue.md` |
 | **10% Equity** | SAFE + profit-sharing | Long-term: converts when client incorporates, or profit-sharing if they don't |
 | **~10% Revenue Share** | % of app revenue | Ongoing passive income, negotiated per deal |
 | **Per-Request Charges** | ¥4,000-25,000+ | Small, Medium, Large. See `HQ/crm/change-catalogue.md` |

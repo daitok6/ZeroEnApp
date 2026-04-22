@@ -39,11 +39,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://zeroen.dev'),
   title: {
-    default: 'ZeroEn — 前金0円。月¥5,000で、LP制作・運用・毎月の改善まで。',
+    default: 'ZeroEn — 前金0円。月¥10,000で、LP制作・運用・毎月の改善まで。',
     template: '%s | ZeroEn',
   },
   description:
-    '元日立・元楽天エンジニアが、コーチ・コンサルタント・セラピストのランディングページを無料で制作。月¥5,000のサブスクリプションでホスティング・運用・毎月の改善まで。3日で公開。',
+    '元日立・元楽天エンジニアが、コーチ・コンサルタント・セラピストのランディングページを無料で制作。月¥10,000のサブスクリプションでホスティング・運用・毎月の改善まで。3日で公開。',
 };
 
 export function generateStaticParams() {

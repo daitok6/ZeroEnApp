@@ -88,7 +88,7 @@ The template ships working defaults for all of these, but every one needs per-cl
 ## 8. Billing & Contract
 
 - [ ] 6-month commitment confirmed in writing
-- [ ] Stripe subscription created via zeroen.dev checkout (recurring ¥5,000 or ¥10,000/mo)
+- [ ] Stripe subscription created via zeroen.dev checkout (recurring ¥10,000 or ¥20,000/mo)
 - [ ] First invoice paid OR first billing cycle scheduled post-launch (per `admin-manual.md §2.5`)
 - [ ] Coconala intake fee received (¥500) if applicable
 - [ ] Partnership Agreement signed → row exists in `signed_documents` for client's `user_id` with `document_type = 'partnership_agreement'`

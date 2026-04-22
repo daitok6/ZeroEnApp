@@ -142,13 +142,13 @@ export const helpArticles: HelpArticle[] = [
         headingJa: 'プランに含まれる変更枠',
         bodyEn:
           'Your monthly subscription includes a free change allowance:\n\n' +
-          '- Basic (¥5,000/mo) — 1 small change per month\n' +
-          '- Premium (¥10,000/mo) — 2 small changes OR 1 medium change per month\n\n' +
+          '- Basic (¥10,000/mo) — 1 small change per month\n' +
+          '- Premium (¥20,000/mo) — 2 small changes OR 1 medium change per month\n\n' +
           'Unused allowances do not carry over to the next month.',
         bodyJa:
           '月額サブスクリプションには無料の変更枠が含まれています：\n\n' +
-          '- Basic（¥5,000/月）— 毎月1件のSmall変更\n' +
-          '- Premium（¥10,000/月）— 毎月2件のSmall変更 または 1件のMedium変更\n\n' +
+          '- Basic（¥10,000/月）— 毎月1件のSmall変更\n' +
+          '- Premium（¥20,000/月）— 毎月2件のSmall変更 または 1件のMedium変更\n\n' +
           '未使用の枠は翌月に繰り越されません。',
       },
       {
@@ -349,9 +349,9 @@ export const helpArticles: HelpArticle[] = [
         headingEn: 'How is billing handled?',
         headingJa: '請求はどのように行われますか？',
         bodyEn:
-          'Your monthly subscription is billed directly through ZeroEn via Stripe on zeroen.dev. All recurring fees (¥5,000 or ¥10,000/month) are charged to the card on file on the same day each month.',
+          'Your monthly subscription is billed directly through ZeroEn via Stripe on zeroen.dev. All recurring fees (¥10,000 or ¥20,000/month) are charged to the card on file on the same day each month.',
         bodyJa:
-          '月額サブスクリプションは、zeroen.dev上のStripe経由でZeroEnから直接請求されます。継続的な費用（月¥5,000または¥10,000）は、毎月同じ日にご登録のカードに請求されます。',
+          '月額サブスクリプションは、zeroen.dev上のStripe経由でZeroEnから直接請求されます。継続的な費用（月¥10,000または¥20,000）は、毎月同じ日にご登録のカードに請求されます。',
       },
       {
         headingEn: 'How quickly do you respond to messages?',

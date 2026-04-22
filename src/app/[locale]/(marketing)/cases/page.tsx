@@ -12,20 +12,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (locale === 'ja') {
     return buildMetadata({
       title: '制作実績 — ZeroEn',
-      description: 'ZeroEnが制作したランディングページの一覧。コーチ・コンサルタント・セラピスト向けLP。前金0円、月¥5,000から。',
+      description: 'ZeroEnが制作したランディングページの一覧。コーチ・コンサルタント・セラピスト向けLP。前金0円、月¥10,000から。',
       path: '/cases',
       locale,
       ogTitle: 'ZeroEn 制作実績',
-      ogSubtitle: '前金0円。月¥5,000から。',
+      ogSubtitle: '前金0円。月¥10,000から。',
     });
   }
   return buildMetadata({
     title: 'Case Studies — ZeroEn',
-    description: 'Landing pages built by ZeroEn for coaches, consultants, and therapists. No upfront cost, ¥5,000/month.',
+    description: 'Landing pages built by ZeroEn for coaches, consultants, and therapists. No upfront cost, ¥10,000/month.',
     path: '/cases',
     locale,
     ogTitle: 'ZeroEn Case Studies',
-    ogSubtitle: 'Free LP. ¥5,000/month.',
+    ogSubtitle: 'Free LP. ¥10,000/month.',
   });
 }
 

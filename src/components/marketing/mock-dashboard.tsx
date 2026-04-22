@@ -48,9 +48,9 @@ const REQUESTS = [
 ];
 
 const INVOICES = [
-  { period: 'April 2026', amount: '¥5,000', status: 'paid', date: 'Apr 1' },
-  { period: 'March 2026', amount: '¥5,000', status: 'paid', date: 'Mar 1' },
-  { period: 'February 2026', amount: '¥5,000', status: 'paid', date: 'Feb 1' },
+  { period: 'April 2026', amount: '¥10,000', status: 'paid', date: 'Apr 1' },
+  { period: 'March 2026', amount: '¥10,000', status: 'paid', date: 'Mar 1' },
+  { period: 'February 2026', amount: '¥10,000', status: 'paid', date: 'Feb 1' },
 ];
 
 const MESSAGES = [
@@ -338,7 +338,7 @@ export function MockDashboard() {
               </span>
               <div className="min-w-0">
                 <p className="text-[#F4F4F2] font-mono text-[10px] font-bold leading-none truncate">Takahashi Dental</p>
-                <p className="text-[#4B5563] font-mono text-[9px] mt-0.5">Basic · ¥5,000/mo</p>
+                <p className="text-[#4B5563] font-mono text-[9px] mt-0.5">Basic · ¥10,000/mo</p>
               </div>
             </div>
           </div>

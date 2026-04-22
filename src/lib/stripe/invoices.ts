@@ -2,7 +2,7 @@ import { stripe } from '@/lib/stripe/client';
 
 export interface CreateInvoiceOptions {
   customerId: string;
-  amountCents: number; // JPY: integer yen (¥5,000 = 5000). USD: cents.
+  amountCents: number; // JPY: integer yen (¥10,000 = 10000). USD: cents.
   currency: string;
   description: string;
   daysUntilDue?: number | null;
@@ -22,7 +22,7 @@ export interface FinalizedInvoice {
  * Create, add a line item to, and finalize a Stripe Invoice.
  * Returns the finalized invoice details for storage.
  *
- * Note: JPY is zero-decimal — pass ¥5,000 as amountCents=5000, not 500000.
+ * Note: JPY is zero-decimal — pass ¥10,000 as amountCents=10000, not 1000000.
  */
 export async function createAndFinalizeInvoice(
   options: CreateInvoiceOptions

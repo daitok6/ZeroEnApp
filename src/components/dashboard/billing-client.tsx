@@ -26,8 +26,8 @@ interface BillingClientProps {
 
 const planPrice = (tier: 'basic' | 'premium', locale: string) =>
   locale === 'ja'
-    ? tier === 'premium' ? '¥10,000/月' : '¥5,000/月'
-    : tier === 'premium' ? '¥10,000/mo' : '¥5,000/mo';
+    ? tier === 'premium' ? '¥20,000/月' : '¥10,000/月'
+    : tier === 'premium' ? '¥20,000/mo' : '¥10,000/mo';
 
 export function BillingClient({
   planTier,

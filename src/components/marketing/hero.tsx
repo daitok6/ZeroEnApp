@@ -108,8 +108,8 @@ export function Hero({ texts, subtitle, ctaText, terminalCommand, locale }: Hero
             className="text-[#374151] font-mono text-xs hover:text-[#6B7280] transition-colors duration-150"
           >
             {locale === 'ja'
-              ? '元日立・元楽天が月¥5,000でLP制作を始める理由 →'
-              : 'Why an ex-Hitachi, ex-Rakuten engineer charges ¥5,000/mo →'}
+              ? '元日立・元楽天が月¥10,000でLP制作を始める理由 →'
+              : 'Why an ex-Hitachi, ex-Rakuten engineer charges ¥10,000/mo →'}
           </a>
         </motion.div>
       </div>

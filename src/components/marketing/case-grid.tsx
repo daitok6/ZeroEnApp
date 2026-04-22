@@ -153,7 +153,7 @@ function CaseCard({ item, locale }: { item: CaseItem; locale: string }): JSX.Ele
           </span>
           <span className="text-[#374151]">→</span>
           <span className="text-[#00E87A]">
-            {ja ? 'ZeroEn 無料制作 + ¥5,000/月' : 'ZeroEn free build + ¥5,000/mo'}
+            {ja ? 'ZeroEn 無料制作 + ¥10,000/月' : 'ZeroEn free build + ¥10,000/mo'}
           </span>
         </div>
 

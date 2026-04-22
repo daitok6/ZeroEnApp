@@ -4,23 +4,21 @@
 
 ## Subscription Tiers (All Clients — Stripe via zeroen.dev)
 
-| | Basic | Growth | Legacy (hidden) |
-|---|---|---|---|
-| Monthly fee | ¥10,000 | ¥20,000 | ¥5,000 |
-| Hosting (Vercel) | Included | Included | Included |
-| Monthly changes | 1 small | 2 small OR 1 medium | 1 small |
-| Analytics | Full-year dashboard | Full-year dashboard + CRO insights | Prior-month PDF (1 page) |
-| Security audit (WebMori) | — | Quarterly | — |
-| SEO audit (WebMori) | — | Quarterly | — |
-| Copy refresh credit | 1 headline/CTA rewrite/quarter | 1 headline/CTA rewrite/month | — |
-| Google Business Profile optimization | — | Quarterly | — |
-| CRO variant | — | Quarterly | — |
-| Change request SLA | ≤7 business days | ≤3 business days (priority) | ≤14 business days |
-| Status | **Public** | **Public** | **Hidden — grandfathered clients only (e.g., WebMori). Not offered to new prospects. Not shown on zeroen.dev.** |
+| | Basic | Growth |
+|---|---|---|
+| Monthly fee | ¥10,000 | ¥20,000 |
+| Hosting (Vercel) | Included | Included |
+| Monthly changes | 1 small | 2 small OR 1 medium |
+| Analytics | Full-year dashboard | Full-year dashboard + CRO insights |
+| Security audit (WebMori) | — | Quarterly |
+| SEO audit (WebMori) | — | Quarterly |
+| Copy refresh credit | 1 headline/CTA rewrite/quarter | 1 headline/CTA rewrite/month |
+| Google Business Profile optimization | — | Quarterly |
+| CRO variant | — | Quarterly |
+| Change request SLA | ≤7 business days | ≤3 business days (priority) |
+| Status | **Public** | **Public** |
 
 All recurring billing goes through Stripe via zeroen.dev.
-
-Legacy ¥5k SKU retained in Stripe backend only. Do not quote this tier to new clients.
 
 ## Additional Revenue Streams
 

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     path: '/pricing',
     locale,
     ogTitle: 'ZeroEn',
-    ogSubtitle: locale === 'ja' ? '前金0円。月¥5,000から。' : 'Free LP. ¥5,000/month.',
+    ogSubtitle: locale === 'ja' ? '前金0円。月¥10,000から。' : 'Free LP. ¥10,000/month.',
   });
 }
 
@@ -248,7 +248,7 @@ export default async function PricingPage({ params }: Props) {
           </ScrollReveal>
           <InlineCallout
             eyebrow={locale === 'ja' ? 'プラン選びに迷ったら' : 'Unsure which plan?'}
-            title={locale === 'ja' ? '月¥5,000に含まれること・含まれないことを全部読む' : 'Read exactly what ¥5,000/mo includes'}
+            title={locale === 'ja' ? '月¥10,000に含まれること・含まれないことを全部読む' : 'Read exactly what ¥10,000/mo includes'}
             href={locale === 'ja' ? '/blog/whats-included-5000' : '/en/blog/whats-included-5000'}
           />
           <StaggerChildren className="space-y-6 mt-8" staggerDelay={0.06}>

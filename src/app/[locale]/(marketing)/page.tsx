@@ -24,23 +24,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (locale === 'ja') {
     return buildMetadata({
-      title: 'ZeroEn — 前金0円。LP制作・運用・毎月の改善まで月¥5,000。',
+      title: 'ZeroEn — 前金0円。LP制作・運用・毎月の改善まで月¥10,000。',
       description:
-        '元日立・元楽天エンジニアが、コーチ・コンサルタント・セラピストのLP（ランディングページ）を無料で制作。月¥5,000のサブスクリプションでホスティング・運用・毎月の改善まで提供します。',
+        '元日立・元楽天エンジニアが、コーチ・コンサルタント・セラピストのLP（ランディングページ）を無料で制作。月¥10,000のサブスクリプションでホスティング・運用・毎月の改善まで提供します。',
       path: '',
       locale,
       ogTitle: 'ZeroEn',
-      ogSubtitle: '前金0円。月¥5,000で、制作・運用・毎月の改善まで。',
+      ogSubtitle: '前金0円。月¥10,000で、制作・運用・毎月の改善まで。',
     });
   }
   return buildMetadata({
-    title: 'ZeroEn — Free Landing Page. ¥5,000/month Hosting + Updates.',
+    title: 'ZeroEn — Free Landing Page. ¥10,000/month Hosting + Updates.',
     description:
-      'Ex-Hitachi, ex-Rakuten engineer builds your landing page for free. ¥5,000/month covers hosting, monthly updates, and improvements. Live in 3 days.',
+      'Ex-Hitachi, ex-Rakuten engineer builds your landing page for free. ¥10,000/month covers hosting, monthly updates, and improvements. Live in 3 days.',
     path: '',
     locale,
     ogTitle: 'ZeroEn',
-    ogSubtitle: 'Free LP. ¥5,000/month. Live in 3 days.',
+    ogSubtitle: 'Free LP. ¥10,000/month. Live in 3 days.',
   });
 }
 
@@ -64,16 +64,16 @@ const serviceJsonLd = {
   name: 'ZeroEn LP制作・運用サービス',
   provider: { '@type': 'Organization', name: 'ZeroEn', url: 'https://zeroen.dev' },
   description:
-    '元日立・元楽天エンジニアによるLP（ランディングページ）制作・運用サービス。初期費用¥0、月¥5,000から。Next.js・Tailwind CSS・Vercelで3日公開。コーチ・コンサルタント・セラピスト向け。',
+    '元日立・元楽天エンジニアによるLP（ランディングページ）制作・運用サービス。初期費用¥0、月¥10,000から。Next.js・Tailwind CSS・Vercelで3日公開。コーチ・コンサルタント・セラピスト向け。',
   areaServed: 'JP',
   serviceType: 'Web Design',
   offers: {
     '@type': 'Offer',
-    price: '5000',
+    price: '10000',
     priceCurrency: 'JPY',
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
-      price: '5000',
+      price: '10000',
       priceCurrency: 'JPY',
       unitCode: 'MON',
     },

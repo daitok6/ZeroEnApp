@@ -46,7 +46,7 @@ function buildOptions(locale: string): Option[] {
     {
       id: 'zeroen',
       name: 'ZeroEn',
-      price: ja ? '月¥5,000〜' : '¥5,000/mo+',
+      price: ja ? '月¥10,000〜' : '¥10,000/mo+',
       priceNote: ja ? '前金¥0' : '¥0 upfront',
       features: [
         { text: ja ? '制作はすべておまかせ' : 'We build everything for you', positive: true },

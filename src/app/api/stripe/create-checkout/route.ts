@@ -104,12 +104,12 @@ export async function POST(request: NextRequest) {
           metadata: subscriptionMeta,
         });
       } else {
-        // Fallback: inline JPY price_data (zero-decimal: ¥5,000 = 5000, ¥10,000 = 10000)
+        // Fallback: inline JPY price_data (zero-decimal: ¥10,000 = 10000, ¥20,000 = 20000)
         const tierName = planTier === 'premium' ? 'ZeroEn Premium' : 'ZeroEn Basic';
         const tierDesc = planTier === 'premium'
           ? 'Monthly hosting, 2 small changes OR 1 medium, full-year analytics, quarterly audits'
           : 'Monthly hosting, 1 small change/mo, analytics PDF';
-        const unitAmount = planTier === 'premium' ? 10000 : 5000;
+        const unitAmount = planTier === 'premium' ? 20000 : 10000;
 
         session = await stripe.checkout.sessions.create({
           customer: customerId,
