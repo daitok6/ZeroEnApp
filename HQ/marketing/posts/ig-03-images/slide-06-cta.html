@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1080px; height: 1080px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+  }
+  .top-bar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 5px; background: #00E87A;
+  }
+  .inner {
+    width: 920px;
+    display: flex; flex-direction: column;
+    align-items: center; text-align: center;
+  }
+  .divider {
+    width: 280px; height: 1px; background: #222;
+    margin-bottom: 48px;
+  }
+  .main {
+    font-family: 'Murecho', sans-serif; font-weight: 700;
+    font-size: 40px; line-height: 1.5; color: #F4F4F2;
+    letter-spacing: -0.5px; margin-bottom: 40px;
+  }
+  .sub {
+    font-family: 'Murecho', sans-serif; font-weight: 500;
+    font-size: 22px; line-height: 1.9; color: #888;
+    margin-bottom: 56px;
+  }
+  .divider-bottom {
+    width: 280px; height: 1px; background: #222;
+    margin-bottom: 48px;
+  }
+  .url {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 56px; color: #00E87A; letter-spacing: -1.5px;
+  }
+  .handle {
+    position: absolute; bottom: 48px; right: 80px;
+    font-size: 12px; color: #444; letter-spacing: 0.05em;
+  }
+  .slide-num {
+    position: absolute; bottom: 48px; left: 80px;
+    font-size: 11px; color: #333; letter-spacing: 0.15em;
+  }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="inner">
+  <div class="divider"></div>
+  <div class="main">まず、サイトを見てみてください。</div>
+  <div class="sub">
+    申し込みは、<br>
+    納得してからで大丈夫です。
+  </div>
+  <div class="divider-bottom"></div>
+  <div class="url">zeroen.dev</div>
+</div>
+<div class="slide-num">06 / 06</div>
+<div class="handle">@zeroen.dev</div>
+</body>
+</html>

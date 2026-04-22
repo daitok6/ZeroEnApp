@@ -5,7 +5,7 @@
 **ZeroEn** — "Zero" + Engineer/Entrepreneur/Yen
 *"From zero to launch."*
 
-A solo, AI-powered technical co-founder service. Build free MVPs for founders in exchange for equity, revenue share, and recurring hosting fees. Powered by Claude Code.
+A solo technical co-founder service. Build MVPs with ¥0 upfront for founders in exchange for equity, revenue share, and recurring subscriptions.
 
 ---
 
@@ -13,16 +13,18 @@ A solo, AI-powered technical co-founder service. Build free MVPs for founders in
 
 | Stream | Amount | When it pays |
 |--------|--------|-------------|
-| **Free MVP Build** | $0 to client | You invest time, earn equity + rev share |
-| **Monthly Subscription** | ¥5,000-10,000/mo | Hosting + changes + analytics. Two tiers: Basic and Premium. See `HQ/crm/change-catalogue.md` |
+| **No-Upfront MVP Build** | ¥0 upfront to client | You invest time, earn equity + rev share + monthly subscription |
+| **Monthly Subscription** | ¥10,000-20,000/mo | Hosting + changes + analytics. Two tiers: Basic and Growth. Legacy ¥5k SKU exists for grandfathered clients only. See `HQ/crm/change-catalogue.md` |
 | **10% Equity** | SAFE + profit-sharing | Long-term: converts when client incorporates, or profit-sharing if they don't |
 | **~10% Revenue Share** | % of app revenue | Ongoing passive income, negotiated per deal |
 | **Per-Request Charges** | ¥4,000-25,000+ | Small, Medium, Large. See `HQ/crm/change-catalogue.md` |
+| **Code Buyout** | ¥300,000+ | Optional after 6-month commitment. Grants perpetual license. Terminates subscription. |
 
 **Revenue target:** $3,000-5,000/mo (long-term)
 **Interim target:** $1,000-1,500/mo by November 2026 (Malaysia move)
-**Path to interim target:** 15-20 clients via zeroen.dev, X/note/Lancers/MENTA discovery channels.
-**Path to long-term target:** 40-60 clients across multiple channels. zeroen.dev as primary; marketplace channels (Lancers, MENTA, CrowdWorks) for Japan market reach.
+**At ¥10k floor, interim target reached with ~15 clients; long-term target with ~30 clients.**
+**Path to interim target:** 15 clients via zeroen.dev + cold email.
+**Path to long-term target:** 30 clients. zeroen.dev as primary; cold email as secondary acquisition channel.
 
 ---
 
@@ -52,9 +54,9 @@ A solo, AI-powered technical co-founder service. Build free MVPs for founders in
 2. APPLY        → Detailed application form (idea, target users, competitors, monetization, founder background)
 3. SCORE        → Score: viability (1-5), commitment (1-5), feasibility (1-5), market (1-5). Accept 15+/20
 4. ONBOARD      → Structured questionnaire → focused kickoff call → scope locked
-5. BUILD        → Free MVP on Next.js + Supabase, deployed on your Vercel
-6. LAUNCH       → 30 days free launch support (bugs, deployment issues, tweaks)
-7. OPERATE      → $50/mo platform fee begins. Monthly analytics report. 1 free small fix/mo.
+5. BUILD        → ¥0 upfront MVP on Next.js + Supabase, deployed on your Vercel
+6. LAUNCH       → 30 days launch support (bugs, deployment issues, tweaks)
+7. OPERATE      → ¥10,000-20,000/mo subscription begins (Basic or Growth). Monthly analytics report. Included changes per plan.
 8. GROW         → Per-request charges for new features. Rev share kicks in as app earns.
 9. UPSELL       → Analytics reports surface issues → natural pipeline to WebMori audit service
 ```
@@ -63,7 +65,7 @@ A solo, AI-powered technical co-founder service. Build free MVPs for founders in
 
 ## Deliverables
 
-### What's FREE (the MVP build):
+### What's ¥0 upfront (the MVP build):
 
 **Phase 1 — Landing pages only:**
 - Homepage or landing page (single-page or up to 3-5 pages)
@@ -78,10 +80,10 @@ A solo, AI-powered technical co-founder service. Build free MVPs for founders in
 - Connected to client's Supabase (free tier)
 - Subscription-only — no upfront build fee; recurring revenue via monthly plan
 
-### What's included in $50/mo:
+### What's included in the monthly subscription:
 - Hosting on your Vercel account
-- 1 small fix per month
-- Monthly analytics report PDF (automated via Playwright + Claude Code scraping Vercel analytics)
+- Included monthly changes per plan (see `HQ/docs/revenue-model.md`)
+- Monthly analytics report
 
 ### What costs extra:
 - Additional features/changes (tiered per-request pricing)
@@ -116,7 +118,7 @@ A solo, AI-powered technical co-founder service. Build free MVPs for founders in
 |--------|--------|
 | **Equity** | 10% via SAFE note (converts on incorporation) + profit-sharing fallback |
 | **Revenue share** | ~10%, flexible per deal |
-| **IP ownership** | Shared — proportional to equity stake |
+| **IP ownership** | ZeroEn retains code. Client licenses the live site via active subscription. Optional buyout (¥300,000+) available after 6-month commitment. |
 | **Scope freeze** | MVP scope locked at kickoff. Changes = paid per-request. |
 | **Kill switch** | 90 days unpaid → agreement terminates, you retain full code rights |
 | **Reversion clause** | Client doesn't launch in 6 months → full code rights revert to you |
@@ -195,8 +197,8 @@ Adapted from SiteAudit's wave-based pipeline:
 
 ### Strategic Pipeline
 ```
-ZeroEn (build free apps)
-    → $50/mo hosting clients
+ZeroEn (build ¥0 upfront apps)
+    → ¥10,000-20,000/mo subscription clients
         → Monthly analytics reports surface issues
             → Natural upsell to WebMori audit service (¥19,800-99,000/mo)
 ```
@@ -240,10 +242,10 @@ ZeroEn feeds WebMori. Two businesses, one pipeline. Kept as separate brands.
 | Equity = $0 | Platform fees + per-request = real income. Equity is bonus. |
 | Scope creep | Locked scope. Changes = paid. No exceptions. |
 | Client stops paying | 14-day grace → site paused → 44 days → archived. |
-| Burnout | Template everything. All builds are free but scope is strictly locked. |
-| Client copies code | ZeroEn owns code permanently. No buyout option. Site is archived on cancellation; ZeroEn retains the code. |
-| Revenue too slow | zeroen.dev (primary) + JP marketplace channels (Lancers, MENTA, CrowdWorks — ToS reviewed per platform). Direct billing avoids commission. |
-| Free build exploitation | 6-month minimum commitment. Early cancellation = pay remaining months on commitment. |
+| Burnout | Template everything. All builds are ¥0 upfront but scope is strictly locked. |
+| Client copies code | ZeroEn owns code by default. Paid buyout (¥300,000+) available post-6-month commitment as a structured exit, not a freebie. |
+| Revenue too slow | zeroen.dev (primary) + cold email + zeroen.dev organic. Marketplace channels abandoned post-Coconala takedown (2026-04). |
+| ¥0 upfront exploitation | 6-month minimum commitment. Early cancellation = pay remaining months on commitment. |
 | Supabase limits | Client pays for Supabase Pro upgrade if usage exceeds free tier. Stated in terms. |
 
 ---
@@ -253,10 +255,10 @@ ZeroEn feeds WebMori. Two businesses, one pipeline. Kept as separate brands.
 1. ~~Set up ZeroEn Claude Code project (CLAUDE.md, agents, commands, template)~~ ✅
 2. ~~NotebookLM research on Claude Code best practices~~ ✅
 3. Build application form + scoring system
-4. Create SAFE + profit-sharing contract template (include 6-month minimum; no code buyout — ZeroEn retains code permanently)
+4. Create SAFE + profit-sharing contract template (include 6-month minimum; code buyout available post-commitment at ¥300,000+, documented as optional clause)
 5. Create Next.js + Supabase starter template
-6. **Launch zeroen.dev application form** — first 5 priority slots, free build
-7. Land first 5 clients via zeroen.dev / X / note / Lancers
+6. **Launch zeroen.dev application form** — first 5 priority slots, ¥0 upfront build
+7. Land first 5 clients via zeroen.dev / cold email / X / note
 8. **Build zeroen.dev by Jul 31** — application form, Stripe billing, portfolio
 9. Start build-in-public content
 10. **Form Wyoming LLC by Sep 15**

@@ -8,13 +8,13 @@ Standard definitions and pricing for all client change requests. This document i
 
 | Size | Time Estimate | A-La-Carte Price | Included In | A-La-Carte Available To |
 |------|---------------|-------------------|-------------|--------------------------|
-| **Small** | ~30 min | ¥4,000 | Basic: 1/mo, Premium: 2/mo | All clients |
-| **Medium** | 1–3 hours | ¥10,000 | Premium: 1/mo (replaces 2 small) | **Premium only** |
+| **Small** | ~30 min | ¥4,000 | Basic: 1/mo, Growth: 2/mo | All clients |
+| **Medium** | 1–3 hours | ¥10,000 | Growth: 1/mo (replaces 2 small) | **Growth only** |
 | **Large** | Half day+ | ¥25,000+ | Not included — always billed separately | All clients |
 
 Unused monthly changes **do not roll over** to the next month.
 
-> **Medium change gate:** Basic clients cannot purchase medium changes à la carte. If a Basic client requests a medium change, the only paths are: (1) upgrade to Premium (triggers a fresh 6-month Premium commitment), or (2) split the work into multiple small changes if feasible. State this clearly when scoping the request.
+> **Medium change gate:** Basic clients cannot purchase medium changes à la carte. If a Basic client requests a medium change, the only paths are: (1) upgrade to Growth (triggers a fresh 6-month Growth commitment), or (2) split the work into multiple small changes if feasible. State this clearly when scoping the request.
 
 ---
 
@@ -72,9 +72,9 @@ Unused monthly changes **do not roll over** to the next month.
 
 ---
 
-## Quarterly Audits (Premium Only)
+## Quarterly Audits (Growth Only)
 
-Premium clients receive two audits per quarter at no additional cost:
+Growth clients receive two audits per quarter at no additional cost:
 
 ### Security Audit (WebMori)
 - Dependency vulnerability scan

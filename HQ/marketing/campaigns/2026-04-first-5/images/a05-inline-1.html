@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 800px; height: 450px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wrap { width: 720px; }
+  .label {
+    font-size: 11px; letter-spacing: 0.16em; color: #777;
+    text-transform: uppercase; margin-bottom: 24px; text-align: center;
+  }
+  .table { display: flex; gap: 0; }
+  .col { flex: 1; }
+  .col-head {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 15px; padding: 10px 20px; text-align: center;
+    border-radius: 4px 4px 0 0;
+  }
+  .col-head.before { background: #1A1A1A; color: #999; }
+  .col-head.after { background: #00E87A; color: #0D0D0D; }
+  .rows { border: 1px solid #222; border-top: none; }
+  .rows.after { border-color: #00E87A44; }
+  .row {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 18px; border-bottom: 1px solid #1E1E1E;
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 13px; color: #AAA; line-height: 1.5;
+  }
+  .rows.after .row { color: #E0E0E0; border-color: #1A2A1A; }
+  .row:last-child { border-bottom: none; }
+  .icon { font-size: 15px; margin-top: 1px; }
+  .divider-col {
+    width: 40px; display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 18px; color: #555;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="label">PC基準の設計 vs モバイルファースト</div>
+  <div class="table">
+    <div class="col">
+      <div class="col-head before">PC基準（よくある）</div>
+      <div class="rows">
+        <div class="row"><span class="icon">✗</span> PCで完成 → スマホで確認</div>
+        <div class="row"><span class="icon">✗</span> 横2列がスマホで重なる</div>
+        <div class="row"><span class="icon">✗</span> 文字が小さすぎて読めない</div>
+        <div class="row"><span class="icon">✗</span> ボタンが端に切れる</div>
+        <div class="row"><span class="icon">✗</span> 修正が積み重なり管理難</div>
+      </div>
+    </div>
+    <div class="divider-col">→</div>
+    <div class="col">
+      <div class="col-head after">モバイルファースト</div>
+      <div class="rows after">
+        <div class="row"><span class="icon" style="color:#00E87A">✓</span> スマホで完成 → PCへ拡張</div>
+        <div class="row"><span class="icon" style="color:#00E87A">✓</span> 1列縦積みで崩れゼロ</div>
+        <div class="row"><span class="icon" style="color:#00E87A">✓</span> 16px以上を基準に設計</div>
+        <div class="row"><span class="icon" style="color:#00E87A">✓</span> タップしやすい44px以上</div>
+        <div class="row"><span class="icon" style="color:#00E87A">✓</span> コードが一貫して管理しやすい</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1080px; height: 1080px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    padding: 0 80px;
+    overflow: hidden; position: relative;
+  }
+  .top-bar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 5px; background: #333;
+  }
+  .inner {
+    width: 920px;
+    display: flex; flex-direction: column;
+    align-items: flex-start;
+  }
+  .heading {
+    font-family: 'Murecho', sans-serif; font-weight: 500;
+    font-size: 24px; line-height: 1.5; color: #888;
+    letter-spacing: 0.02em; margin-bottom: 36px;
+  }
+  .divider {
+    width: 100%; height: 1px; background: #1A1A1A;
+    margin-bottom: 40px;
+  }
+  .terms {
+    font-family: 'Murecho', sans-serif; font-weight: 600;
+    font-size: 30px; line-height: 2.0; color: #F4F4F2;
+    letter-spacing: -0.5px; margin-bottom: 40px;
+  }
+  .closer {
+    font-family: 'Murecho', sans-serif; font-weight: 500;
+    font-size: 18px; line-height: 1.85; color: #666;
+  }
+  .slide-num {
+    position: absolute; bottom: 48px; left: 80px;
+    font-size: 11px; color: #333; letter-spacing: 0.15em;
+  }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="inner">
+  <div class="heading">先に言っておきます。</div>
+  <div class="divider"></div>
+  <div class="terms">
+    コードの所有権は ZeroEn。<br>
+    最低6ヶ月の継続が前提。<br>
+    解約したサイトはアーカイブされます。
+  </div>
+  <div class="divider"></div>
+  <div class="closer">
+    この条件で問題ない方にだけ、<br>
+    申し込んでいただきたいです。
+  </div>
+</div>
+<div class="slide-num">05 / 06</div>
+</body>
+</html>

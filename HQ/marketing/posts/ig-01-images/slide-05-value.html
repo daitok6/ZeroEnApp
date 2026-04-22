@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1080px; height: 1080px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    padding: 0 80px;
+    overflow: hidden; position: relative;
+  }
+  .top-bar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 5px; background: #00E87A;
+  }
+  .pains {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 40px;
+  }
+  .pain-item {
+    font-family: 'Murecho', sans-serif; font-weight: 500;
+    font-size: 26px; color: #555;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .pain-item::before {
+    content: '×';
+    color: #444; font-size: 18px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .resolve {
+    font-family: 'Murecho', sans-serif; font-weight: 700;
+    font-size: 56px; line-height: 1.2; color: #00E87A;
+    margin-bottom: 36px; letter-spacing: -1px;
+  }
+  .divider {
+    width: 100%; height: 1px; background: #1A1A1A;
+    margin-bottom: 40px;
+  }
+  .solutions {
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .sol-item {
+    display: flex; align-items: center; gap: 20px;
+  }
+  .sol-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #00E87A18; border: 1px solid #00E87A44;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #00E87A; flex-shrink: 0;
+  }
+  .sol-text {
+    font-family: 'Murecho', sans-serif; font-weight: 700;
+    font-size: 22px; color: #F4F4F2;
+  }
+  .handle {
+    position: absolute; bottom: 48px; right: 80px;
+    font-size: 12px; color: #444;
+  }
+  .slide-num {
+    position: absolute; bottom: 48px; left: 80px;
+    font-size: 11px; color: #333; letter-spacing: 0.15em;
+  }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="pains">
+  <div class="pain-item">スマホの崩れ</div>
+  <div class="pain-item">テンプレート感</div>
+  <div class="pain-item">刺さらないコピー</div>
+</div>
+<div class="resolve">3つまとめて、<br>直します。</div>
+<div class="divider"></div>
+<div class="solutions">
+  <div class="sol-item">
+    <div class="sol-icon">✓</div>
+    <div class="sol-text">スマホ基準の設計</div>
+  </div>
+  <div class="sol-item">
+    <div class="sol-icon">✓</div>
+    <div class="sol-text">あなたに合わせたデザイン</div>
+  </div>
+  <div class="sol-item">
+    <div class="sol-icon">✓</div>
+    <div class="sol-text">"自分に言われてる"と感じるコピー</div>
+  </div>
+</div>
+<div class="slide-num">05 / 06</div>
+<div class="handle">@zeroen.dev</div>
+</body>
+</html>

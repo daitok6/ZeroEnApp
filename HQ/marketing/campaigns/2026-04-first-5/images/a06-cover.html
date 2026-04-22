@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .accent-line {
+    position: absolute; left: 48px; top: 80px; bottom: 80px;
+    width: 2px; background: #00E87A;
+  }
+  .wrap { width: 1080px; display: flex; gap: 72px; align-items: center; position: relative; }
+  .left { flex: 1; }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em; color: #00E87A;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .title {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif; font-weight: 700;
+    font-size: 54px; line-height: 1.2; color: #F4F4F2;
+    letter-spacing: -0.01em; margin-bottom: 20px;
+  }
+  .title span { color: #00E87A; }
+  .subtitle {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif; font-weight: 500;
+    font-size: 22px; line-height: 1.5; color: #AAA;
+  }
+  .right {
+    width: 360px; display: flex; flex-direction: column; gap: 10px;
+    align-items: stretch;
+  }
+  .card {
+    background: #111; border: 1px solid #222;
+    border-radius: 6px; padding: 14px 22px;
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    font-size: 16px; color: #AAA;
+    text-align: center; letter-spacing: 0.02em;
+  }
+  .card.old { color: #777; }
+  .card.zeroen {
+    border-color: #00E87A44;
+    background: #00E87A11;
+    color: #00E87A;
+  }
+  .arrow {
+    text-align: center; font-size: 14px; color: #333;
+    line-height: 1;
+  }
+  .arrow.final { color: #00E87A66; }
+  .footer {
+    position: absolute; bottom: 32px; right: 56px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: #555; letter-spacing: 0.08em;
+  }
+  .footer span { color: #00E87A; }
+</style>
+</head>
+<body>
+<div class="accent-line"></div>
+<div class="wrap">
+  <div class="left">
+    <div class="eyebrow">PERAICHI / MIGRATION GUIDE</div>
+    <div class="title">ペライチを<br><span>解約する前に</span></div>
+    <div class="subtitle">乗り換え先の選び方ガイド</div>
+  </div>
+  <div class="right">
+    <div class="card old">ペライチ</div>
+    <div class="arrow">↓</div>
+    <div class="card">STUDIO</div>
+    <div class="arrow">↓</div>
+    <div class="card">Wix</div>
+    <div class="arrow">↓</div>
+    <div class="card">WordPress</div>
+    <div class="arrow final">↓</div>
+    <div class="card zeroen">ZeroEn</div>
+  </div>
+</div>
+<div class="footer">ZeroEn / <span>zeroen.dev</span></div>
+</body>
+</html>

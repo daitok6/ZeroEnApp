@@ -1,7 +1,7 @@
 # CLAUDE.md — ZeroEn
-**The ONE TRUTH for Claude Code in this repo.** Last updated: 2026-04-18
+**The ONE TRUTH for Claude Code in this repo.** Last updated: 2026-04-21
 
-ZeroEn = solo AI-powered technical co-founder service. Free Next.js landing pages in exchange for recurring Stripe subscriptions (¥5,000/¥10,000/mo), equity, and rev share. HQ lives here; client projects live under `Clients/` (gitignored, each client = own public repo). Domain: `zeroen.dev`. Full plan: `PRD.md`.
+ZeroEn = solo technical co-founder service. Custom Next.js landing pages with ¥0 upfront, funded by recurring Stripe subscriptions (¥10,000/¥20,000/mo), equity, and rev share. HQ lives here; client projects live under `Clients/` (gitignored, each client = own public repo). Domain: `zeroen.dev`. Full plan: `PRD.md`.
 
 ---
 

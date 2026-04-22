@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wrap { width: 1100px; display: flex; gap: 64px; align-items: center; position: relative; }
+  .left { flex: 1; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; color: #00E87A;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 54px; line-height: 1.15; color: #F4F4F2;
+    letter-spacing: -1px; margin-bottom: 28px;
+  }
+  .title span { color: #00E87A; }
+  .subtitle {
+    font-size: 14px; color: #888; line-height: 1.7;
+  }
+  .right { width: 380px; display: flex; flex-direction: column; gap: 16px; }
+  .diagram {
+    background: #111; border: 1px solid #222;
+    border-radius: 6px; padding: 24px 20px;
+  }
+  .diag-label {
+    font-size: 10px; letter-spacing: 0.16em; color: #888;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .diag-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .diag-row:last-child { margin-bottom: 0; }
+  .badge {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    font-size: 11px; padding: 3px 8px; border-radius: 3px;
+    min-width: 60px; text-align: center;
+  }
+  .badge.bad { background: #1A1A1A; color: #555; border: 1px solid #2A2A2A; }
+  .badge.good { background: #00E87A22; color: #00E87A; border: 1px solid #00E87A44; }
+  .diag-text {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 13px; color: #AAA; line-height: 1.4;
+  }
+  .diag-text.good { color: #E0E0E0; }
+  .arrow {
+    text-align: center; font-size: 18px; color: #333; margin: 4px 0;
+  }
+  .footer {
+    position: absolute; bottom: 28px; right: 48px;
+    font-size: 11px; color: #444;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="left">
+    <div class="eyebrow">LP スマホ対応</div>
+    <div class="title">スマホでLPが<br><span>崩れる</span>一番<br>多い原因</div>
+    <div class="subtitle">
+      ペライチ・STUDIO・Wixユーザーが<br>
+      知っておくべき「設計の順番」の話。
+    </div>
+  </div>
+  <div class="right">
+    <div class="diagram">
+      <div class="diag-label">よくある設計の順番</div>
+      <div class="diag-row">
+        <div class="badge bad">PC</div>
+        <div class="diag-text">1,440px で作り込む</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="diag-row">
+        <div class="badge bad">スマホ</div>
+        <div class="diag-text">縮小 → 崩れる</div>
+      </div>
+    </div>
+    <div class="diagram">
+      <div class="diag-label">モバイルファーストの順番</div>
+      <div class="diag-row">
+        <div class="badge good">スマホ</div>
+        <div class="diag-text good">390px で完成させる</div>
+      </div>
+      <div class="arrow" style="color:#00E87A44">↓</div>
+      <div class="diag-row">
+        <div class="badge good">PC</div>
+        <div class="diag-text good">広げるだけ → 崩れない</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">zeroen.dev</div>
+</body>
+</html>

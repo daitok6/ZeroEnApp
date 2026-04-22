@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>X JP #5 — This Week / W16</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 675px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wrap {
+    width: 1056px; display: flex; gap: 56px; align-items: center;
+    position: relative;
+  }
+  .left { flex: 0 0 620px; }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    font-size: 11px; letter-spacing: 0.18em; color: #00E87A;
+    text-transform: uppercase; margin-bottom: 28px;
+  }
+  .quote {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif; font-weight: 700;
+    font-size: 52px; line-height: 1.38; color: #F4F4F2;
+    letter-spacing: -0.5px;
+  }
+  .quote .line1 {
+    display: inline-block; position: relative;
+    padding-bottom: 6px;
+  }
+  .quote .line1::after {
+    content: ''; position: absolute; left: 0; bottom: 0;
+    width: 56px; height: 2px; background: #00E87A;
+  }
+  .sub {
+    margin-top: 32px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px; color: #888; line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+  .right { flex: 0 0 380px; }
+  .diagram {
+    background: #111; border: 1px solid #1E1E1E;
+    border-radius: 6px; padding: 28px 24px;
+  }
+  .diag-label {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    font-size: 10px; letter-spacing: 0.18em; color: #888;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .node {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 14px; border-radius: 4px;
+    border: 1px solid #222; background: #0D0D0D;
+  }
+  .node.upstream { border-color: #00E87A44; background: #00E87A08; }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #333; flex: 0 0 8px;
+  }
+  .node.upstream .dot { background: #00E87A; box-shadow: 0 0 0 3px #00E87A22; }
+  .node-body { flex: 1; }
+  .node-key {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    font-size: 10px; letter-spacing: 0.14em; color: #666;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .node.upstream .node-key { color: #00E87A; }
+  .node-text {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif; font-weight: 500;
+    font-size: 14px; color: #AAA; line-height: 1.4;
+  }
+  .node.upstream .node-text { color: #E0E0E0; }
+  .arrow {
+    text-align: center; font-size: 16px; color: #2A2A2A;
+    margin: 6px 0; letter-spacing: 0.4em;
+  }
+  .footer {
+    position: absolute; bottom: -52px; right: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: #444; letter-spacing: 0.14em;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="left">
+    <div class="eyebrow">THIS WEEK / W16 · 2026</div>
+    <div class="quote">
+      <span class="line1">今週の学び。</span><br>
+      集客の悩みは、<br>
+      LPの前に起きている。
+    </div>
+    <div class="sub">
+      Solo entrepreneurs' bottleneck<br>
+      is upstream — before the page exists.
+    </div>
+  </div>
+  <div class="right">
+    <div class="diagram">
+      <div class="diag-label">Where the pain lives</div>
+      <div class="node upstream">
+        <div class="dot"></div>
+        <div class="node-body">
+          <div class="node-key">UPSTREAM · 前</div>
+          <div class="node-text">誰に · どこから · 何を</div>
+        </div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="node">
+        <div class="dot"></div>
+        <div class="node-body">
+          <div class="node-key">DOWNSTREAM</div>
+          <div class="node-text">LP（器）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">zeroen.dev</div>
+</div>
+</body>
+</html>

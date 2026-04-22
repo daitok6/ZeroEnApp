@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;600&family=Murecho:wght@500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 800px; height: 450px;
+    background: #0D0D0D;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #F4F4F2;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .wrap { width: 720px; }
+  .title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 20px; color: #F4F4F2; margin-bottom: 28px; text-align: center;
+  }
+  .title span { color: #00E87A; }
+  .list { display: flex; flex-direction: column; gap: 10px; }
+  .item {
+    display: flex; align-items: center; gap: 16px;
+    background: #111; border: 1px solid #222;
+    border-left: 4px solid #00E87A;
+    padding: 10px 20px; border-radius: 4px;
+  }
+  .num {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+    font-size: 18px; color: #00E87A; min-width: 28px;
+    letter-spacing: -0.02em;
+  }
+  .text {
+    font-family: 'Murecho', 'Hiragino Sans', sans-serif;
+    font-size: 13px; color: #E0E0E0; line-height: 1.4;
+  }
+  .sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: #777; margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="title">スマホ表示の<span>5つの確認ポイント</span></div>
+  <div class="list">
+    <div class="item">
+      <div class="num">01</div>
+      <div><div class="text">文字と画像が重なっていないか</div><div class="sub">特に hero セクションとテキストオーバーレイ</div></div>
+    </div>
+    <div class="item">
+      <div class="num">02</div>
+      <div><div class="text">テキストが読みやすいサイズか</div><div class="sub">本文は 16px 以上が目安</div></div>
+    </div>
+    <div class="item">
+      <div class="num">03</div>
+      <div><div class="text">ボタンが押しやすい位置・大きさか</div><div class="sub">タップ領域 44×44px 以上が推奨</div></div>
+    </div>
+    <div class="item">
+      <div class="num">04</div>
+      <div><div class="text">左右にはみ出している要素がないか</div><div class="sub">横スクロールが発生していると離脱率が上がる</div></div>
+    </div>
+    <div class="item">
+      <div class="num">05</div>
+      <div><div class="text">実機（iPhone/Android）で確認したか</div><div class="sub">Chrome DevTools より実機の方が正確</div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

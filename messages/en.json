@@ -7,15 +7,16 @@
     "dashboard": "Day One",
     "blog": "Blog",
     "login": "Log In",
-    "apply": "Apply Free"
+    "apply": "Apply — ¥0 Upfront"
   },
   "home": {
     "hero": {
-      "line1": "Free landing page. No upfront cost.",
-      "line2": "¥5,000/month. Hosting, updates, monthly improvements.",
+      "line1": "¥0 upfront. A landing page that gets you inquiries in 3 days.",
+      "line2": "¥10,000/month. Build, hosting, and monthly improvements.",
       "line3": "Ex-Hitachi, ex-Rakuten engineer. Live in 3 days.",
       "subtitle": "6-month minimum. Cancel after.",
-      "cta": "Apply Free",
+      "cta": "Apply — ¥0 Upfront",
+      "urgencyNote": "2 spots open per month",
       "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
     },
     "howItWorks": {
@@ -24,44 +25,49 @@
     },
     "valueProp": {
       "eyebrow": "Pricing",
-      "title": "Build is free.\n¥5,000/month keeps it running.",
-      "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
+      "title": "¥0 upfront.\n¥10,000/month keeps it running.",
+      "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates from ¥10,000/mo.",
       "basicTitle": "Basic",
-      "basicPrice": "¥5,000/mo",
+      "basicPrice": "¥10,000/mo",
       "basicItems": [
-        "Landing page build (¥0 setup)",
+        "Landing page build (¥0 upfront)",
         "Vercel hosting included",
         "1 small change per month",
-        "Monthly analytics PDF",
+        "Full-year dashboard + monthly PDF",
+        "1 copy refresh credit per quarter",
         "6-month minimum"
       ],
-      "premiumTitle": "Premium",
-      "premiumPrice": "¥10,000/mo",
+      "premiumTitle": "Growth",
+      "premiumPrice": "¥20,000/mo",
       "premiumItems": [
-        "Landing page build (¥0 setup)",
+        "Landing page build (¥0 upfront)",
         "Vercel hosting included",
         "2 small or 1 medium change per month",
-        "Full-year dashboard + monthly PDF",
+        "Full-year dashboard + CRO insights",
         "Quarterly SEO & security audit",
+        "Google Business Profile optimisation (quarterly)",
+        "CRO improvement variant (quarterly)",
+        "Monthly copy refresh credit",
+        "Priority SLA: ≤3 business days",
         "6-month minimum"
       ],
-      "cta": "Apply Free",
+      "cta": "Apply — ¥0 Upfront",
       "seePricingCta": "See plans →",
       "minNote": "6-month minimum. Cancel anytime after."
     },
     "applySection": {
       "title": "Ready to launch?",
-      "subtitle": "Free landing page. ¥5,000/month. Live in 3 days.",
-      "cta": "Apply Free →"
+      "subtitle": "¥0 upfront. ¥10,000/month. Live in 3 days.",
+      "cta": "Apply — ¥0 Upfront →"
     },
     "whyZeroEn": {
       "eyebrow": "Why ZeroEn",
-      "title": "Live in 3 days.\n¥5,000/month, forever.",
+      "title": "Live in 3 days.\n¥10,000/month, ongoing.",
       "subtitle": "Built by an ex-Hitachi, ex-Rakuten engineer using Next.js + Tailwind. Fitted to your brand — not a template.",
       "pillars": [
         {
           "title": "No upfront cost",
-          "desc": "Landing page build is completely free. We recover the build cost through your monthly subscription. No retainers, no hourly billing."
+          "desc": "Landing page build is ¥0 upfront. We recover the build cost through your monthly subscription. No retainers, no hourly billing."
         },
         {
           "title": "Live in 3 days",
@@ -69,10 +75,10 @@
         },
         {
           "title": "Build-and-run, not build-and-forget",
-          "desc": "Monthly updates, analytics, and change requests are included in the monthly fee. 6-month minimum, cancel anytime after."
+          "desc": "Monthly analytics, SLA-backed support, and transparent change pricing. 6-month minimum, cancel anytime after."
         }
       ],
-      "urgency": "Now accepting new clients."
+      "urgency": "2 spots open per month. Check availability now."
     },
     "trustSection": {
       "eyebrow": "How it works",
@@ -80,7 +86,7 @@
       "points": [
         {
           "title": "ZeroEn owns the code",
-          "desc": "Same model as Shopify or Squarespace. Your domain is yours. You license the live site via active subscription."
+          "desc": "Same model as Shopify or Squarespace. Your site runs on your brand, your domain is yours. After 6 months, a paid code buyout option (¥300,000+) is also available."
         },
         {
           "title": "No surprise invoices",
@@ -131,7 +137,7 @@
     "caseStudies": {
       "eyebrow": "Case Studies",
       "title": "Live sites we've built.",
-      "subtitle": "Real clients. Real landing pages. Real results.",
+      "subtitle": "Real clients, real landing pages. More case studies coming soon.",
       "comingSoon": "Coming soon",
       "live": "Live",
       "placeholders": [
@@ -141,35 +147,11 @@
           "meta": [
             "Live in 3 days",
             "Monthly audits · Tokyo",
-            "Premium plan"
+            "Basic plan"
           ],
           "url": "https://webmori.jp",
           "screenshot": "/webmori-screenshot.png",
           "label": "Read case study →"
-        },
-        {
-          "name": "Sato Career Coaching",
-          "desc": "LP for a business career coaching service supporting professionals in transition.",
-          "meta": [
-            "Built in 3 days",
-            "Demo site",
-            "Basic plan"
-          ],
-          "url": "",
-          "screenshot": "",
-          "label": "Sample site"
-        },
-        {
-          "name": "Kokoro no Mori Counseling",
-          "desc": "LP for a psychological counseling service focused on dialogue and support.",
-          "meta": [
-            "Built in 3 days",
-            "Demo site",
-            "Basic plan"
-          ],
-          "url": "",
-          "screenshot": "",
-          "label": "Sample site"
         }
       ]
     },
@@ -227,66 +209,69 @@
       }
     ],
     "preCtaHeading": "Your site is already waiting.",
-    "ctaLabel": "Apply Free",
+    "ctaLabel": "Apply — ¥0 Upfront",
     "ctaHref": "/en/login"
   },
   "pricing": {
     "meta": {
       "title": "Pricing — ZeroEn",
-      "description": "Free landing page build. ¥5,000/month hosting, updates, and monthly improvements. Basic and Premium plans."
+      "description": "¥0 upfront landing page build. From ¥10,000/month — hosting, updates, and monthly improvements. Basic and Growth plans."
     },
     "eyebrow": "Pricing",
-    "title": "Free to build.\n¥5,000/month to run.",
-    "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates for ¥5,000/mo.",
+    "title": "¥0 upfront.\n¥10,000/month to run.",
+    "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates from ¥10,000/mo.",
     "basic": {
       "name": "Basic",
-      "price": "¥5,000",
+      "price": "¥10,000",
       "period": "/mo",
-      "setup": "¥0 setup",
+      "setup": "¥0 upfront",
       "items": [
         "Landing page build (¥0 upfront)",
         "Vercel hosting included",
         "1 small change per month",
-        "Monthly analytics PDF (1 page)",
-        "Change SLA: ≤14 business days",
+        "Full-year dashboard + monthly PDF",
+        "1 copy refresh credit per quarter",
+        "Change SLA: ≤7 business days",
         "6-month minimum"
       ],
       "cta": "Apply — Basic"
     },
     "premium": {
-      "name": "Premium",
-      "price": "¥10,000",
+      "name": "Growth",
+      "price": "¥20,000",
       "period": "/mo",
-      "setup": "¥0 setup",
+      "setup": "¥0 upfront",
       "badge": "Recommended",
       "items": [
         "Landing page build (¥0 upfront)",
         "Vercel hosting included",
         "2 small or 1 medium change per month",
-        "Full-year dashboard + monthly PDF",
+        "Full-year dashboard + CRO insights",
         "Quarterly SEO & security audit",
-        "Priority SLA: ≤5 business days",
-        "1 copy refresh credit per quarter",
+        "Google Business Profile optimisation (quarterly)",
+        "CRO improvement variant (quarterly)",
+        "Monthly copy refresh credit",
+        "Priority SLA: ≤3 business days",
         "6-month minimum"
       ],
-      "cta": "Apply — Premium"
+      "cta": "Apply — Growth"
     },
     "minNote": "6-month minimum. Cancel anytime after.",
     "changeTitle": "Per-request pricing",
     "changeItems": [
       { "size": "Small", "price": "¥4,000", "desc": "Text edits, image swaps, minor layout tweaks" },
-      { "size": "Medium", "price": "¥10,000", "desc": "New section, layout change, form update (Premium only)" },
+      { "size": "Medium", "price": "¥10,000", "desc": "New section, layout change, form update (Growth only)" },
       { "size": "Large", "price": "¥25,000+", "desc": "New page, new feature, major redesign" }
     ],
     "faqTitle": "FAQ",
     "faqs": [
       {
-        "q": "Why is the build free?",
+        "q": "Why is there no upfront cost?",
         "a": "ZeroEn covers the build cost and recovers it through monthly subscription fees. We're here to break the industry's upfront-payment model."
       },
       {
         "q": "Who owns the code?",
-        "a": "ZeroEn retains code ownership — same model as Shopify or Squarespace. Your domain is yours. You license the live site via active subscription."
+        "a": "ZeroEn retains code ownership — same model as Shopify or Squarespace. Your domain is yours. You license the live site via active subscription. After the 6-month minimum, a paid code buyout option (¥300,000+) is also available."
       },
       {
         "q": "Can I cancel?",
@@ -301,18 +286,18 @@
         "a": "No. Built with Next.js, Tailwind, and shadcn/ui — assembled around your brand tokens from scratch."
       },
       {
-        "q": "Can I upgrade from Basic to Premium later?",
-        "a": "Yes — anytime. Upgrading starts a fresh 6-month Premium commitment, and your remaining Basic term rolls into it. Downgrading back to Basic is available once that 6 months completes."
+        "q": "Can I upgrade from Basic to Growth later?",
+        "a": "Yes — anytime. Upgrading starts a fresh 6-month Growth commitment, and your remaining Basic term rolls into it. Downgrading back to Basic is available once that 6 months completes."
       },
       {
         "q": "Can Basic clients purchase medium changes one-off?",
-        "a": "No — medium changes are Premium-only. Basic clients who need a medium change can upgrade to Premium (which starts a fresh 6-month Premium commitment), or split the work into multiple small changes if feasible."
+        "a": "No — medium changes are Growth-only. Basic clients who need a medium change can upgrade to Growth (which starts a fresh 6-month Growth commitment), or split the work into multiple small changes if feasible."
       }
     ]
   },
   "mockDashboard": {
     "clientName": "Tanaka Akiko",
-    "clientPlan": "Basic · ¥5,000/mo",
+    "clientPlan": "Basic · ¥10,000/mo",
     "tabs": {
       "analytics": "Analytics",
       "requests": "Requests",
@@ -344,7 +329,7 @@
   },
   "apply": {
     "title": "Apply to ZeroEn",
-    "subtitle": "Tell us about your idea. We'll build it for free.",
+    "subtitle": "Tell us about your idea. We'll build it with ¥0 upfront.",
     "step0": {
       "title": "Before you share your idea",
       "subtitle": "We take your trust seriously. Here's our commitment:",
@@ -457,7 +442,7 @@
       },
       "launch": {
         "name": "LAUNCH",
-        "desc": "We deploy to Vercel. You get 30 days of free support post-launch. You run the staging review and give final sign-off."
+        "desc": "We deploy to Vercel. 30 days of post-launch support included. You run the staging review and give final sign-off."
       },
       "operate": {
         "name": "OPERATE",
@@ -475,7 +460,7 @@
     "cta": {
       "title": "Ready to get started?",
       "subtitle": "Apply in 10 minutes. We respond within 3 business days.",
-      "button": "Apply Free"
+      "button": "Apply — ¥0 Upfront"
     }
   },
   "footer": {
@@ -483,7 +468,7 @@
     "product": {
       "heading": "Product",
       "howItWorks": "How It Works",
-      "applyFree": "Apply Free"
+      "applyFree": "Apply — ¥0 Upfront"
     },
     "company": {
       "heading": "Company",
@@ -497,7 +482,7 @@
       "blog": "Blog",
       "faq": "FAQ",
       "comparison": "Peraichi vs STUDIO vs ZeroEn",
-      "whatsIncluded": "What ¥5,000/mo includes"
+      "whatsIncluded": "What ¥10,000/mo includes"
     },
     "newsletter": {
       "heading": "Newsletter",
@@ -512,7 +497,7 @@
       "terms": "Terms",
       "privacy": "Privacy",
       "tokushoho": "Tokushoho",
-      "tagline": "Tokyo · AI-Powered CTO"
+      "tagline": "Tokyo · Ex-Hitachi/Rakuten Engineer"
     }
   },
   "terms": {
@@ -524,7 +509,7 @@
       "items": [
         {
           "label": "Platform fee",
-          "value": "$50/mo after your MVP launches. Covers hosting + 1 fix/mo."
+          "value": "¥10,000+/mo after your MVP launches. Covers hosting, changes, and analytics."
         },
         {
           "label": "Scope freeze",
@@ -561,7 +546,7 @@
         },
         {
           "title": "3. Platform Fee",
-          "body": "After the MVP launches, a platform fee of USD $50 per month applies. This covers: hosting on ZeroEn's Vercel Pro account, one small fix or minor change per month (at ZeroEn's discretion), and a monthly analytics PDF report. The platform fee begins 30 days after launch. Payment is via Stripe subscription. The client's application remains live only while the platform fee is paid. ZeroEn's total liability under this agreement is limited to the platform fees paid by the client in the 12 months preceding any claim. ZeroEn provides the service \"as is\" and makes no warranties beyond uptime of the underlying Vercel infrastructure."
+          "body": "After the MVP launches, a monthly subscription fee of ¥10,000+ applies (Basic or Growth plan). This covers: hosting on ZeroEn's Vercel Pro account, included monthly changes per plan, and a monthly analytics report. The subscription begins 30 days after launch. Payment is via Stripe. The client's application remains live only while the subscription is active. ZeroEn's total liability under this agreement is limited to the fees paid by the client in the 12 months preceding any claim. ZeroEn provides the service \"as is\" and makes no warranties beyond uptime of the underlying Vercel infrastructure."
         },
         {
           "title": "4. Scope Freeze",
@@ -569,7 +554,7 @@
         },
         {
           "title": "5. Per-Request Charges",
-          "body": "Work beyond the locked MVP scope is available as per-request charges: Small changes (1–4 hours) USD $50–100; Medium features (1–3 days) USD $200–500; Large builds (1–2 weeks) USD $500–2,000. All quotes are provided upfront. Work begins only after payment is received."
+          "body": "Work beyond the locked MVP scope is available as per-request charges: Small changes (~30 min) ¥4,000; Medium changes (1–3 hours) ¥10,000 (Growth plan only); Large builds (half day+) ¥25,000+. All quotes are provided upfront. Work begins only after payment is received."
         },
         {
           "title": "6. Kill Switch",
@@ -643,12 +628,12 @@
     "background": "Background",
     "commitment": "Commitment",
     "viewProfile": "View profile",
-    "aiScore": "AI Score",
+    "aiScore": "Score",
     "recommendation": "Recommendation",
     "notScoredYet": "Not scored yet.",
     "scoring": "Scoring…",
-    "scoreWithAI": "Score with AI",
-    "rescoreWithAI": "Re-score with AI",
+    "scoreWithAI": "Score",
+    "rescoreWithAI": "Re-score",
     "approving": "Approving…",
     "approve": "Approve",
     "rejecting": "Rejecting…",
@@ -700,11 +685,11 @@
   "plan": {
     "wizardTitle": "Choose Your Plan",
     "basicName": "Basic",
-    "premiumName": "Premium",
-    "basicPrice": "¥5,000/mo",
-    "premiumPrice": "¥10,000/mo",
-    "basicPriceUsd": "~$35/mo",
-    "premiumPriceUsd": "~$70/mo",
+    "premiumName": "Growth",
+    "basicPrice": "¥10,000/mo",
+    "premiumPrice": "¥20,000/mo",
+    "basicPriceUsd": "~$70/mo",
+    "premiumPriceUsd": "~$140/mo",
     "mostPopular": "Most Popular",
     "commitmentCheckbox": "I agree to the 6-month minimum commitment",
     "subscribeButton": "Subscribe",
@@ -715,7 +700,7 @@
     "changePlan": "Change Plan",
     "commitmentStarted": "Started",
     "commitmentEnds": "Minimum term ends",
-    "upgradeTo": "Upgrade to Premium",
+    "upgradeTo": "Upgrade to Growth",
     "downgradeTo": "Downgrade to Basic",
     "upgradeNote": "Upgrading will reset your 6-month commitment period",
     "downgradeLockedUntil": "You can downgrade after",
@@ -731,7 +716,7 @@
     "downgradeLocked": "Downgrade locked",
     "anErrorOccurred": "An error occurred",
     "unexpectedError": "An unexpected error occurred",
-    "downgradeRemovedFeatures": "Downgrading will remove Premium features including audits and full-year analytics",
+    "downgradeRemovedFeatures": "Downgrading will remove Growth features including audits and full-year analytics",
     "downgradeNote2": "You will be moved to the Basic plan features",
     "downgradeLockedAfterDate": "You can downgrade after {date}",
     "selectPlanSubtitle": "Select the plan that fits your project",
@@ -740,7 +725,7 @@
     "selected": "Selected",
     "commitmentCheckboxFull": "I agree to the 6-month minimum commitment. Early cancellation = remaining months at the current plan rate.",
     "downgradeScheduled": "Downgrade scheduled",
-    "downgradeScheduledDesc": "Your plan will switch to Basic on {date}. Premium features remain active until then.",
+    "downgradeScheduledDesc": "Your plan will switch to Basic on {date}. Growth features remain active until then.",
     "downgradeWillBeScheduled": "Downgrade will take effect on {date} (end of your commitment period)",
     "tweaksCtaHeadline": "Love it? Want tweaks?",
     "tweaksCtaBody": "Message me for design changes before you subscribe — I'll iterate until you're happy.",
@@ -750,12 +735,12 @@
     "whyMonthlyHosting": "Hosting, uptime & SSL — your site stays live 24/7 on Vercel's edge network",
     "whyMonthlyCare": "Ongoing care — bug fixes, dependency updates, security patches",
     "whyMonthlyChanges": "Included changes — so your site keeps evolving, not rotting",
-    "premiumFeatureChanges": "2 small changes/mo — ¥10,000 à-la-carte value",
-    "premiumFeatureAudits": "Quarterly security + SEO audits — ¥20,000 value",
+    "premiumFeatureChanges": "2 small changes/mo — ¥8,000 à-la-carte value",
+    "premiumFeatureAudits": "Quarterly security + SEO audits — ¥30,000 value",
     "premiumFeatureFindings": "Audit findings fixes — up to ¥50,000/qtr, included",
-    "premiumFeaturePriority": "Priority SLA + copy refresh credit — included",
-    "premiumValueTotal": "~¥30,000+/mo à-la-carte value, for ¥10,000/mo",
-    "premiumValueBenchmark": "Typical freelance or agency retainers for equivalent care: ¥30,000–50,000/mo.",
+    "premiumFeaturePriority": "Priority SLA (≤3 biz days) + monthly copy refresh — included",
+    "premiumValueTotal": "~¥40,000+/mo à-la-carte value, for ¥20,000/mo",
+    "premiumValueBenchmark": "Typical freelance or agency retainers for equivalent care: ¥50,000–100,000/mo.",
     "premiumSavingsBadge": "Save ~¥20,000+/mo"
   },
   "common": {
@@ -904,7 +889,7 @@
     "quotaOverage": "Overage — billed at ¥{price}",
     "quotaLarge": "Always billed separately: ¥25,000+",
     "quotaRemaining": "{remaining}/{capacity} monthly units remaining",
-    "mediumPremiumOnly": "Medium changes are Premium-only. Upgrade to Premium or split this into smaller changes."
+    "mediumPremiumOnly": "Medium changes are Growth-only. Upgrade to Growth or split this into smaller changes."
   },
   "invoices": {
     "title": "Invoices",
@@ -940,12 +925,12 @@
     "minimumTermEnds": "Minimum term ends:",
     "monthsRemaining": "{n} month(s) remaining in commitment",
     "changePlan": "Change Plan",
-    "downgradeNote": "You can downgrade to the Basic plan once your 6-month commitment period has ended. Downgrading will remove Premium features including audits and full-year analytics.",
-    "upgradeNote": "Upgrade to Premium for more change requests, full analytics dashboard, and quarterly audits. Note: upgrading resets your 6-month commitment period.",
+    "downgradeNote": "You can downgrade to the Basic plan once your 6-month commitment period has ended. Downgrading will remove Growth features including audits and full-year analytics.",
+    "upgradeNote": "Upgrade to Growth for more change requests, full analytics dashboard, and quarterly audits. Note: upgrading resets your 6-month commitment period.",
     "upgradeDetail": "Upgrading starts a new 6-month commitment period. The price difference is prorated and applied immediately.",
     "downgradeAvailableAfter": "Downgrading is available after {date}.",
     "downgradeButton": "Downgrade to Basic",
-    "upgradeButton": "Upgrade to Premium",
+    "upgradeButton": "Upgrade to Growth",
     "cancelSubscription": "Cancel Subscription",
     "subscriptionCancelled": "Subscription cancelled",
     "cancelledDesc": "You will have access until the end of your current billing period. After that, your website will be taken offline.",
@@ -1013,7 +998,7 @@
     "partnershipTerms": [
       {
         "label": "Platform Fee",
-        "value": "$50/mo after launch (hosting + 1 fix/mo)"
+        "value": "¥10,000+/mo after launch (hosting + changes + analytics)"
       },
       {
         "label": "MVP Scope",
@@ -1055,7 +1040,7 @@
       "title": "You're in!",
       "desc": "Your application has been approved. Welcome to ZeroEn — let's build something great together.",
       "highlights": [
-        "We build your MVP for free",
+        "We build your MVP with ¥0 upfront",
         "Deploy to production on Vercel",
         "Monthly analytics reports delivered to you",
         "We grow together when you succeed"
@@ -1096,7 +1081,7 @@
       "terms": [
         {
           "label": "Platform Fee",
-          "value": "$50/mo after launch (hosting + 1 fix/mo)"
+          "value": "¥10,000+/mo after launch (hosting + changes + analytics)"
         },
         {
           "label": "MVP Scope",
@@ -1178,7 +1163,7 @@
       "background": "Background",
       "commitment": "Commitment",
       "locale": "Language",
-      "aiEvaluation": "AI Evaluation",
+      "aiEvaluation": "Evaluation",
       "ideaViability": "Idea Viability",
       "feasibility": "Feasibility",
       "market": "Market",
@@ -1273,7 +1258,7 @@
       },
       {
         "title": "Pricing",
-        "body": "**Basic plan:** ¥5,000/month (tax included)\n**Premium plan:** ¥10,000/month (tax included)\n**Additional change requests:** ¥4,000 and up (varies by scope)\n\nSee the pricing page for full details."
+        "body": "**Basic plan:** ¥10,000/month (tax included)\n**Growth plan:** ¥20,000/month (tax included)\n**Additional change requests:** ¥4,000 and up (varies by scope)\n\nSee the pricing page for full details."
       },
       {
         "title": "Additional Fees",
@@ -1303,14 +1288,14 @@
   },
   "startups": {
     "eyebrow": "FOR STARTUPS",
-    "title": "Free MVP.\n10% Equity.",
-    "subtitle": "We build your product for free. In exchange, we take 10% equity.",
+    "title": "¥0 Upfront MVP.\n10% Equity.",
+    "subtitle": "We build your product with ¥0 upfront. In exchange, we take 10% equity.",
     "badge": "Invite Only",
     "what": {
       "heading": "What ZeroEn builds",
       "items": [
         "Full-stack MVP (Next.js + Supabase)",
-        "AI agent automation",
+        "Streamlined build process",
         "Vercel deployment",
         "6-month operating support",
         "Ex-Hitachi / ex-Rakuten engineering advisor"
@@ -1330,12 +1315,12 @@
   },
   "lpApply": {
     "meta": {
-      "title": "Apply — Free LP Build | ZeroEn",
-      "description": "Apply for your free landing page. ZeroEn builds it in 3 days, then ¥5,000/month for hosting, updates, and analytics."
+      "title": "Apply — ¥0 Upfront LP Build | ZeroEn",
+      "description": "Apply for your landing page. ZeroEn builds it in 3 days, then ¥10,000+/month for hosting, updates, and analytics."
     },
-    "eyebrow": "FREE LP APPLICATION",
+    "eyebrow": "LP APPLICATION",
     "title": "Let's build your LP.",
-    "subtitle": "¥0 upfront. Built in 3 days. ¥5,000/month for hosting, updates, and monthly improvements. 6-month commitment.",
+    "subtitle": "¥0 upfront. Built in 3 days. ¥10,000+/month for hosting, updates, and monthly improvements. 6-month commitment.",
     "form": {
       "name": "Your name",
       "namePlaceholder": "Yamada Taro",

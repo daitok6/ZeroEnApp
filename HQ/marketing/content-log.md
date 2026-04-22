@@ -4,6 +4,43 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 
 ---
 
+## 2026-04-21 — Note article a06 drafted
+
+- `HQ/marketing/campaigns/2026-04-first-5/articles/note-a06-peraichi-migration-guide.ja.md` — DRAFT v2: 「ペライチを解約する前に知っておきたい — 乗り換え先の選び方ガイド」(~2,500字). Drafted by mktg-copy (`marketing-skills:copywriting`). Reviewed by mktg-strategy (APPROVE WITH MINOR EDITS — applied: swapped Squarespace→ペライチ残留 bullet to match comparison image; added loss-aversion beat in 5-step closing). Awaiting operator review before publish.
+- `HQ/marketing/campaigns/2026-04-first-5/images/a06-cover.{html,png}` — 1200×630 OGP cover (title stack + 5-service flow column).
+- `HQ/marketing/campaigns/2026-04-first-5/images/a06-inline-1.{html,png}` — 1200×900 5-service comparison table (ペライチ/STUDIO/Wix/WordPress/ZeroEn × 6 rows).
+- `HQ/marketing/campaigns/2026-04-first-5/images/a06-inline-2.{html,png}` — 1200×900 5-step migration flow with caution box.
+
+---
+
+## 2026-04-21 — X JP #5 drafted
+
+- `HQ/marketing/posts/2026-04-21-x-jp-weekly-learning-05.md` — DRAFT: single-tweet insight post 「今週の学び：集客の悩みはLPの前に起きている」. Reviewed by mktg-copy (v1 → v2 revised), mktg-strategy (REVISE → hinge added), web-designer. Awaiting operator review.
+- `HQ/marketing/posts/images/x-jp-05/card.html` + `card.png` — 1200×675 editorial card (Murecho quote + upstream→downstream diagram, #00E87A accent).
+
+---
+
+## 2026-04-16 — IG carousel #2 drafted
+
+- `HQ/marketing/posts/2026-04-17-ig-02-service-intro.md` — DRAFT: 「制作費0円のLP——なぜそれが成立するのか」7-slide carousel. Reviewed by mktg-copy (APPROVE WITH MINOR EDITS — applied), mktg-strategy (APPROVE). Awaiting operator review.
+
+---
+
+## 2026-04-16 — IG carousel #1 drafted
+
+- `HQ/marketing/posts/2026-04-16-ig-01-coach-lp-reasons.md` — POSTED 2026-04-16: 「コーチのLPが集客できない3つの理由」6-slide carousel. Reviewed by mktg-copy, mktg-strategy, web-designer, web-qa. Operator approved and posted manually.
+
+---
+
+## 2026-04-16 — Note article a05 published
+
+- `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md` — PUBLISHED: 「スマホでLPが崩れる一番多い原因」. Reviewed by mktg-copy, mktg-strategy, web-designer before publish.
+- `HQ/marketing/campaigns/2026-04-first-5/images/a05-cover.png` — cover image (1200×630px)
+- `HQ/marketing/campaigns/2026-04-first-5/images/a05-inline-1.png` — PC基準 vs モバイルファースト comparison
+- `HQ/marketing/campaigns/2026-04-first-5/images/a05-inline-2.png` — スマホ表示5つの確認ポイント checklist
+
+---
+
 ## 2026-04-14 — 4-Sprint marketing overhaul
 
 ### Sprint 1: Landing/Pricing Split
@@ -2517,3 +2554,380 @@ Run `/content` to have the `content-capture` agent review this log and draft soc
 - [2026-04-15 21:32] created: `HQ/marketing/cold-email/drafts/lead-023-step1.md`
 - [2026-04-15 21:32] created: `HQ/marketing/cold-email/drafts/lead-025-step1.md`
 - [2026-04-15 21:39] edited: `src/components/dashboard/nav-items.ts`
+- [2026-04-15 21:45] edited: `CLAUDE.md`
+- [2026-04-15 22:03] edited: `package.json`
+- [2026-04-15 22:04] edited: `package.json`
+- [2026-04-15 22:04] created: `src/lib/dashboard/session.ts`
+- [2026-04-15 22:04] created: `src/components/dashboard/analytics-chart-lazy.tsx`
+- [2026-04-15 22:04] edited: `src/app/[locale]/dashboard/analytics/page.tsx`
+- [2026-04-15 22:05] created: `src/app/[locale]/(marketing)/layout.tsx`
+- [2026-04-15 22:05] created: `src/app/[locale]/(app)/layout.tsx`
+- [2026-04-15 22:05] created: `src/app/[locale]/layout.tsx`
+- [2026-04-15 22:06] created: `src/app/[locale]/(app)/dashboard/layout.tsx`
+- [2026-04-15 22:07] edited: `src/app/[locale]/(app)/dashboard/layout.tsx`
+- [2026-04-15 22:08] edited: `src/app/[locale]/(app)/dashboard/layout.tsx`
+- [2026-04-15 22:08] edited: `src/app/[locale]/(app)/dashboard/layout.tsx`
+- [2026-04-15 22:08] edited: `src/app/[locale]/(app)/dashboard/layout.tsx`
+- [2026-04-15 22:08] edited: `src/lib/dashboard/session.ts`
+- [2026-04-15 22:08] edited: `src/lib/dashboard/session.ts`
+- [2026-04-15 22:10] created: `src/app/[locale]/(app)/dashboard/page.tsx`
+- [2026-04-15 22:10] edited: `src/app/[locale]/(app)/dashboard/requests/page.tsx`
+- [2026-04-15 22:11] edited: `src/app/[locale]/(app)/dashboard/requests/page.tsx`
+- [2026-04-15 22:11] edited: `src/app/[locale]/(app)/dashboard/analytics/page.tsx`
+- [2026-04-15 22:11] edited: `src/app/[locale]/(app)/dashboard/analytics/page.tsx`
+- [2026-04-15 22:11] edited: `src/app/[locale]/(app)/dashboard/messages/page.tsx`
+- [2026-04-15 22:11] edited: `src/app/[locale]/(app)/dashboard/messages/page.tsx`
+- [2026-04-15 22:12] edited: `src/app/[locale]/(app)/dashboard/settings/page.tsx`
+- [2026-04-15 22:12] edited: `src/app/[locale]/(app)/dashboard/settings/page.tsx`
+- [2026-04-15 22:12] edited: `src/app/[locale]/(app)/dashboard/invoices/page.tsx`
+- [2026-04-15 22:12] edited: `src/app/[locale]/(app)/dashboard/invoices/page.tsx`
+- [2026-04-15 22:12] edited: `src/app/[locale]/(app)/dashboard/documents/page.tsx`
+- [2026-04-15 22:13] edited: `src/app/[locale]/(app)/dashboard/documents/page.tsx`
+- [2026-04-15 22:13] edited: `src/app/[locale]/(app)/dashboard/notifications/page.tsx`
+- [2026-04-15 22:13] edited: `src/app/[locale]/(app)/dashboard/notifications/page.tsx`
+- [2026-04-15 22:13] edited: `src/app/[locale]/(app)/dashboard/billing/page.tsx`
+- [2026-04-15 22:13] edited: `src/app/[locale]/(app)/dashboard/billing/page.tsx`
+- [2026-04-15 22:13] edited: `src/app/[locale]/(app)/dashboard/audits/page.tsx`
+- [2026-04-15 22:13] edited: `src/app/[locale]/(app)/dashboard/audits/page.tsx`
+- [2026-04-15 22:14] edited: `src/app/[locale]/(app)/dashboard/page.tsx`
+- [2026-04-15 22:15] edited: `src/app/[locale]/layout.tsx`
+- [2026-04-15 22:15] edited: `src/components/dashboard/analytics-chart-lazy.tsx`
+- [2026-04-15 22:16] edited: `tsconfig.json`
+- [2026-04-15 22:16] created: `src/app/[locale]/(auth)/layout.tsx`
+- [2026-04-15 23:03] edited: `src/app/[locale]/(app)/admin/layout.tsx`
+- [2026-04-15 23:03] edited: `src/app/[locale]/(app)/admin/layout.tsx`
+- [2026-04-15 23:03] edited: `src/app/[locale]/(app)/admin/layout.tsx`
+- [2026-04-15 23:21] edited: `messages/en.json`
+- [2026-04-15 23:22] edited: `messages/ja.json`
+- [2026-04-15 23:22] edited: `src/components/dashboard/plan-wizard.tsx`
+- [2026-04-15 23:22] edited: `src/components/dashboard/plan-wizard.tsx`
+- [2026-04-15 23:22] edited: `src/components/dashboard/plan-wizard.tsx`
+- [2026-04-15 23:30] edited: `messages/en.json`
+- [2026-04-15 23:30] edited: `messages/ja.json`
+- [2026-04-15 23:30] edited: `src/components/dashboard/plan-wizard.tsx`
+- [2026-04-16 00:22] edited: `src/components/dashboard/plan-wizard.tsx`
+- [2026-04-16 00:22] edited: `src/components/dashboard/plan-wizard.tsx`
+- [2026-04-16 00:22] edited: `messages/en.json`
+- [2026-04-16 00:23] edited: `messages/ja.json`
+- [2026-04-16 09:12] edited: `HQ/marketing/cold-email/drafts/lead-016-step1.md`
+- [2026-04-16 09:12] edited: `HQ/marketing/cold-email/drafts/lead-017-step1.md`
+- [2026-04-16 09:13] edited: `HQ/marketing/cold-email/drafts/lead-019-step1.md`
+- [2026-04-16 09:13] edited: `HQ/marketing/cold-email/drafts/lead-022-step1.md`
+- [2026-04-16 09:13] created: `HQ/marketing/cold-email/drafts/lead-023-step1.md`
+- [2026-04-16 09:14] edited: `HQ/marketing/cold-email/drafts/lead-025-step1.md`
+- [2026-04-16 09:42] edited: `HQ/crm/leads.csv`
+- [2026-04-16 09:45] created: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md`
+- [2026-04-16 09:47] created: `HQ/marketing/campaigns/2026-04-first-5/images/a05-inline-1.html`
+- [2026-04-16 09:47] created: `HQ/marketing/campaigns/2026-04-first-5/images/a05-inline-2.html`
+- [2026-04-16 09:47] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md`
+- [2026-04-16 09:47] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md`
+- [2026-04-16 09:50] created: `HQ/marketing/campaigns/2026-04-first-5/images/a05-cover.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/images/a05-cover.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/images/a05-cover.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/images/a05-cover.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/images/a05-cover.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/images/a05-inline-1.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/images/a05-inline-1.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/images/a05-inline-1.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/images/a05-inline-2.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/images/a05-inline-2.html`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md`
+- [2026-04-16 09:54] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md`
+- [2026-04-16 09:59] created: `HQ/crm/leads-batch4.csv`
+- [2026-04-16 10:01] edited: `HQ/crm/leads.csv`
+- [2026-04-16 10:01] created: `HQ/marketing/cold-email/drafts/lead-030-step1.md`
+- [2026-04-16 10:01] created: `HQ/marketing/cold-email/drafts/lead-031-step1.md`
+- [2026-04-16 10:14] created: `Clients/lancers-bousai-01/package.json`
+- [2026-04-16 10:14] created: `Clients/lancers-bousai-01/next.config.ts`
+- [2026-04-16 10:15] created: `Clients/lancers-bousai-01/tsconfig.json`
+- [2026-04-16 10:15] created: `Clients/lancers-bousai-01/postcss.config.mjs`
+- [2026-04-16 10:15] created: `Clients/lancers-bousai-01/.gitignore`
+- [2026-04-16 10:15] created: `Clients/lancers-bousai-01/app/globals.css`
+- [2026-04-16 10:15] created: `Clients/lancers-bousai-01/app/layout.tsx`
+- [2026-04-16 10:15] created: `Clients/lancers-bousai-01/app/page.tsx`
+- [2026-04-16 10:16] created: `Clients/lancers-bousai-01/app/_sections/Header.tsx`
+- [2026-04-16 10:16] created: `Clients/lancers-bousai-01/app/_sections/Hero.tsx`
+- [2026-04-16 10:17] created: `Clients/lancers-bousai-01/app/_sections/About.tsx`
+- [2026-04-16 10:17] created: `Clients/lancers-bousai-01/app/_sections/Services.tsx`
+- [2026-04-16 10:17] created: `Clients/lancers-bousai-01/app/_sections/Strengths.tsx`
+- [2026-04-16 10:18] created: `Clients/lancers-bousai-01/app/_sections/Works.tsx`
+- [2026-04-16 10:18] created: `Clients/lancers-bousai-01/app/_sections/CompanyInfo.tsx`
+- [2026-04-16 10:18] created: `Clients/lancers-bousai-01/app/_sections/CtaBand.tsx`
+- [2026-04-16 10:19] created: `Clients/lancers-bousai-01/app/_sections/Footer.tsx`
+- [2026-04-16 10:19] created: `Clients/lancers-bousai-01/eslint.config.mjs`
+- [2026-04-16 10:22] edited: `Clients/lancers-bousai-01/next.config.ts`
+- [2026-04-16 10:23] created: `Clients/lancers-bousai-01/deliverables/README.md`
+- [2026-04-16 10:31] edited: `Clients/lancers-bousai-01/app/_sections/Hero.tsx`
+- [2026-04-16 10:31] edited: `Clients/lancers-bousai-01/app/_sections/Strengths.tsx`
+- [2026-04-16 11:21] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a05-mobile-lp-broken.ja.md`
+- [2026-04-16 11:23] edited: `HQ/marketing/cold-email/drafts/lead-005-step1.md`
+- [2026-04-16 11:23] edited: `HQ/marketing/cold-email/drafts/lead-006-step1.md`
+- [2026-04-16 11:23] edited: `HQ/marketing/cold-email/drafts/lead-007-step1.md`
+- [2026-04-16 11:23] edited: `HQ/marketing/cold-email/drafts/lead-008-step1.md`
+- [2026-04-16 11:23] edited: `HQ/marketing/cold-email/drafts/lead-009-step1.md`
+- [2026-04-16 11:23] edited: `HQ/marketing/cold-email/drafts/lead-010-step1.md`
+- [2026-04-16 11:23] edited: `HQ/marketing/cold-email/drafts/lead-011-step1.md`
+- [2026-04-16 11:23] edited: `HQ/marketing/cold-email/drafts/lead-012-step1.md`
+- [2026-04-16 11:24] edited: `HQ/marketing/cold-email/drafts/lead-013-step1.md`
+- [2026-04-16 11:24] edited: `HQ/marketing/cold-email/drafts/lead-014-step1.md`
+- [2026-04-16 11:24] edited: `HQ/marketing/cold-email/drafts/lead-015-step1.md`
+- [2026-04-16 11:24] edited: `HQ/marketing/cold-email/drafts/lead-016-step1.md`
+- [2026-04-16 11:24] edited: `HQ/marketing/cold-email/drafts/lead-017-step1.md`
+- [2026-04-16 11:24] edited: `HQ/marketing/cold-email/drafts/lead-019-step1.md`
+- [2026-04-16 11:25] edited: `HQ/marketing/cold-email/drafts/lead-022-step1.md`
+- [2026-04-16 11:25] edited: `HQ/marketing/cold-email/drafts/lead-023-step1.md`
+- [2026-04-16 11:25] edited: `HQ/marketing/cold-email/drafts/lead-023-step1.md`
+- [2026-04-16 11:25] edited: `HQ/marketing/cold-email/drafts/lead-025-step1.md`
+- [2026-04-16 11:25] edited: `HQ/marketing/cold-email/drafts/lead-030-step1.md`
+- [2026-04-16 11:25] edited: `HQ/marketing/cold-email/drafts/lead-031-step1.md`
+- [2026-04-16 13:14] edited: `HQ/crm/leads.csv`
+- [2026-04-16 13:19] edited: `HQ/crm/leads.csv`
+- [2026-04-16 13:23] created: `HQ/crm/leads-batch5.csv`
+- [2026-04-16 13:23] created: `HQ/crm/leads-batch7.csv`
+- [2026-04-16 13:25] edited: `HQ/crm/leads.csv`
+- [2026-04-16 13:26] created: `HQ/crm/leads-batch8.csv`
+- [2026-04-16 13:26] edited: `HQ/crm/leads.csv`
+- [2026-04-16 13:27] edited: `HQ/crm/leads.csv`
+- [2026-04-16 13:28] created: `HQ/crm/leads-batch6.csv`
+- [2026-04-16 13:28] created: `HQ/marketing/cold-email/drafts/lead-040-step1.md`
+- [2026-04-16 13:28] created: `HQ/marketing/cold-email/drafts/lead-069-step1.md`
+- [2026-04-16 13:28] created: `HQ/marketing/cold-email/drafts/lead-070-step1.md`
+- [2026-04-16 13:29] created: `HQ/marketing/cold-email/drafts/lead-071-step1.md`
+- [2026-04-16 13:29] created: `HQ/marketing/cold-email/drafts/lead-073-step1.md`
+- [2026-04-16 13:29] created: `HQ/marketing/cold-email/drafts/lead-079-step1.md`
+- [2026-04-16 13:29] created: `HQ/marketing/cold-email/drafts/lead-080-step1.md`
+- [2026-04-16 13:30] edited: `HQ/crm/leads.csv`
+- [2026-04-16 13:32] created: `HQ/marketing/cold-email/drafts/lead-054-step1.md`
+- [2026-04-16 13:41] created: `HQ/crm/leads-batch10.csv`
+- [2026-04-16 13:41] created: `HQ/crm/leads-batch9.csv`
+- [2026-04-16 13:42] created: `HQ/crm/leads-batch12.csv`
+- [2026-04-16 13:43] created: `HQ/crm/leads-batch11.csv`
+- [2026-04-16 13:45] created: `HQ/crm/leads-batch10.csv`
+- [2026-04-16 13:46] edited: `HQ/crm/leads-batch10.csv`
+- [2026-04-16 14:08] created: `HQ/marketing/cold-email/drafts/lead-115-step1.md`
+- [2026-04-16 14:10] edited: `HQ/crm/leads.csv`
+- [2026-04-16 14:32] created: `HQ/crm/leads-batch15.csv`
+- [2026-04-16 14:32] created: `HQ/crm/leads-batch13.csv`
+- [2026-04-16 14:33] created: `HQ/crm/leads-batch16.csv`
+- [2026-04-16 14:38] edited: `HQ/crm/leads.csv`
+- [2026-04-16 14:42] created: `HQ/marketing/cold-email/drafts/lead-150-step1.md`
+- [2026-04-16 14:42] created: `HQ/marketing/cold-email/drafts/lead-154-step1.md`
+- [2026-04-16 14:42] created: `HQ/marketing/cold-email/drafts/lead-167-step1.md`
+- [2026-04-16 14:42] created: `HQ/marketing/cold-email/drafts/lead-181-step1.md`
+- [2026-04-16 14:43] created: `HQ/marketing/cold-email/drafts/lead-195-step1.md`
+- [2026-04-16 16:02] edited: `HQ/marketing/cold-email/drafts/lead-150-step1.md`
+- [2026-04-16 16:02] edited: `HQ/marketing/cold-email/drafts/lead-154-step1.md`
+- [2026-04-16 16:02] edited: `HQ/marketing/cold-email/drafts/lead-167-step1.md`
+- [2026-04-16 16:02] edited: `HQ/marketing/cold-email/drafts/lead-181-step1.md`
+- [2026-04-16 16:11] created: `HQ/marketing/posts/2026-04-16-ig-01-coach-lp-reasons.md`
+- [2026-04-16 16:15] created: `HQ/crm/leads-batch18.csv`
+- [2026-04-16 16:15] created: `HQ/crm/leads-batch19.csv`
+## 2026-04-16 — X JP thread #3
+
+- `HQ/marketing/posts/2026-04-16-x-jp-thread-zeroen-why.md` — NEW: 5-tweet thread. Topic: なぜエンジニアがコーチのLPを月¥5,000で作るのか — ZeroEn始動の話. Status: draft — pending mktg-copy + mktg-strategy review. Scheduled: 21:00 JST.
+- [2026-04-16 16:17] created: `HQ/marketing/posts/2026-04-16-x-jp-thread-zeroen-why.md`
+- [2026-04-16 16:17] edited: `HQ/marketing/posts/2026-04-16-ig-01-coach-lp-reasons.md`
+- [2026-04-16 16:17] edited: `HQ/marketing/posts/2026-04-16-ig-01-coach-lp-reasons.md`
+- [2026-04-16 16:18] edited: `HQ/marketing/posts/2026-04-16-ig-01-coach-lp-reasons.md`
+- [2026-04-16 16:18] edited: `HQ/marketing/posts/2026-04-16-ig-01-coach-lp-reasons.md`
+- [2026-04-16 16:18] edited: `HQ/marketing/posts/2026-04-16-ig-01-coach-lp-reasons.md`
+- [2026-04-16 16:19] created: `HQ/crm/leads-batch20.csv`
+- [2026-04-16 16:20] created: `HQ/marketing/posts/ig-01-images/slide-01-cover.html`
+- [2026-04-16 16:20] created: `HQ/marketing/posts/ig-01-images/slide-02-mobile.html`
+- [2026-04-16 16:21] created: `HQ/marketing/posts/ig-01-images/slide-03-template.html`
+- [2026-04-16 16:21] created: `HQ/marketing/posts/ig-01-images/slide-04-copy.html`
+- [2026-04-16 16:21] created: `HQ/marketing/posts/ig-01-images/slide-05-value.html`
+- [2026-04-16 16:21] created: `HQ/crm/leads-batch17.csv`
+- [2026-04-16 16:21] created: `HQ/marketing/posts/ig-01-images/slide-06-cta.html`
+- [2026-04-16 16:23] edited: `HQ/marketing/posts/2026-04-16-x-jp-thread-zeroen-why.md`
+- [2026-04-16 16:23] edited: `HQ/marketing/posts/2026-04-16-x-jp-thread-zeroen-why.md`
+- [2026-04-16 16:23] edited: `HQ/marketing/posts/2026-04-16-x-jp-thread-zeroen-why.md`
+- [2026-04-16 16:24] created: `HQ/crm/leads-batch17.csv`
+- [2026-04-16 16:24] edited: `HQ/crm/leads-batch17.csv`
+- [2026-04-16 16:24] edited: `HQ/crm/leads-batch17.csv`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-01-cover.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-02-mobile.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-03-template.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-05-value.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-01-cover.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-01-cover.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-01-cover.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-02-mobile.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-02-mobile.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-03-template.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-04-copy.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-04-copy.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-05-value.html`
+- [2026-04-16 16:33] edited: `HQ/marketing/posts/ig-01-images/slide-06-cta.html`
+- [2026-04-16 16:34] edited: `HQ/marketing/posts/ig-01-images/slide-06-cta.html`
+- [2026-04-16 16:34] edited: `HQ/marketing/posts/ig-01-images/slide-06-cta.html`
+- [2026-04-16 16:34] edited: `HQ/marketing/posts/ig-01-images/slide-06-cta.html`
+- [2026-04-16 16:41] edited: `HQ/marketing/posts/2026-04-16-ig-01-coach-lp-reasons.md`
+- [2026-04-16 16:42] created: `HQ/marketing/cold-email/drafts/lead-210-step1.md`
+- [2026-04-16 16:43] created: `HQ/marketing/cold-email/drafts/lead-226-step1.md`
+- [2026-04-16 16:43] created: `HQ/marketing/cold-email/drafts/lead-231-step1.md`
+- [2026-04-16 16:43] created: `HQ/marketing/cold-email/drafts/lead-245-step1.md`
+- [2026-04-16 16:57] edited: `HQ/marketing/cold-email/drafts/lead-210-step1.md`
+- [2026-04-16 16:57] edited: `HQ/marketing/cold-email/drafts/lead-245-step1.md`
+- [2026-04-16 21:21] edited: `HQ/marketing/posts/2026-04-16-x-jp-thread-zeroen-why.md`
+- [2026-04-18 19:11] created: `HQ/marketing/posts/2026-04-18-x-jp-weekly-recap-01.md`
+- [2026-04-18 19:14] created: `HQ/crm/leads-batch22.csv`
+- [2026-04-18 19:15] created: `HQ/crm/leads-batch21.csv`
+- [2026-04-18 19:15] created: `HQ/crm/leads-batch24.csv`
+- [2026-04-18 19:15] edited: `HQ/crm/leads-batch21.csv`
+- [2026-04-18 19:15] edited: `HQ/crm/leads-batch21.csv`
+- [2026-04-18 19:15] edited: `HQ/crm/leads-batch21.csv`
+- [2026-04-18 19:16] edited: `HQ/crm/leads-batch21.csv`
+- [2026-04-18 19:16] created: `HQ/crm/leads-batch24.csv`
+- [2026-04-18 19:17] created: `HQ/marketing/posts/2026-04-17-ig-02-service-intro.md`
+- [2026-04-18 19:17] created: `HQ/crm/leads-batch21.csv`
+- [2026-04-18 19:17] created: `HQ/crm/leads-batch23.csv`
+- [2026-04-18 19:17] edited: `HQ/crm/leads-batch24.csv`
+- [2026-04-18 19:18] edited: `HQ/crm/leads-batch23.csv`
+- [2026-04-18 19:18] edited: `HQ/crm/leads-batch23.csv`
+- [2026-04-18 19:18] edited: `HQ/crm/leads-batch24.csv`
+- [2026-04-18 19:20] created: `HQ/marketing/cold-email/drafts/lead-270-step1.md`
+- [2026-04-18 19:20] created: `HQ/marketing/cold-email/drafts/lead-316-step1.md`
+- [2026-04-18 19:20] created: `HQ/marketing/posts/images/ig-02/slide-01.html`
+- [2026-04-18 19:20] created: `HQ/marketing/posts/images/ig-02/slide-02.html`
+- [2026-04-18 19:21] created: `HQ/marketing/posts/images/ig-02/slide-03.html`
+- [2026-04-18 19:21] created: `HQ/marketing/posts/images/ig-02/slide-04.html`
+- [2026-04-18 19:21] created: `HQ/marketing/posts/images/ig-02/slide-05.html`
+- [2026-04-18 19:21] created: `HQ/marketing/posts/images/ig-02/slide-06.html`
+- [2026-04-18 19:22] created: `HQ/marketing/posts/images/ig-02/slide-07.html`
+- [2026-04-18 19:24] edited: `HQ/marketing/posts/images/ig-02/slide-03.html`
+- [2026-04-18 22:56] created: `HQ/docs/revenue-model.md`
+- [2026-04-18 22:56] created: `HQ/docs/client-lifecycle.md`
+- [2026-04-18 22:56] created: `HQ/docs/agents-catalogue.md`
+- [2026-04-18 22:56] created: `HQ/docs/quality-gates.md`
+- [2026-04-18 22:56] created: `HQ/docs/report-pipeline.md`
+- [2026-04-18 22:56] created: `HQ/docs/contract-terms.md`
+- [2026-04-18 22:56] created: `HQ/docs/git-strategy.md`
+- [2026-04-18 22:56] created: `HQ/docs/phase-2-stack.md`
+- [2026-04-18 22:57] created: `CLAUDE.md`
+- [2026-04-21 11:05] created: `/Users/Daito/Desktop/lancers-plastic-corp/index.html`
+- [2026-04-21 11:09] edited: `/Users/Daito/Desktop/lancers-plastic-corp/index.html`
+- [2026-04-21 11:14] edited: `/Users/Daito/Desktop/lancers-plastic-corp/index.html`
+- [2026-04-21 11:14] edited: `/Users/Daito/Desktop/lancers-plastic-corp/index.html`
+- [2026-04-21 11:14] edited: `/Users/Daito/Desktop/lancers-plastic-corp/index.html`
+- [2026-04-21 11:21] created: `/Users/Daito/Desktop/lancers-plastic-corp/提案メッセージ.md`
+- [2026-04-21 11:24] created: `HQ/marketing/posts/images/x-jp-05/card.html`
+- [2026-04-21 11:25] created: `HQ/marketing/posts/2026-04-21-x-jp-weekly-learning-05.md`
+- [2026-04-21 11:36] created: `HQ/marketing/posts/2026-04-21-ig-03-launch.md`
+
+- [2026-04-21 12:00] created: `HQ/marketing/posts/2026-04-21-ig-03-launch.md`
+- [2026-04-21 11:38] created: `HQ/marketing/posts/ig-03-images/slide-01-cover.html`
+- [2026-04-21 11:38] created: `HQ/marketing/posts/ig-03-images/slide-02-why.html`
+- [2026-04-21 11:38] created: `HQ/marketing/posts/ig-03-images/slide-03-price.html`
+- [2026-04-21 11:38] created: `HQ/marketing/posts/ig-03-images/slide-04-fit.html`
+- [2026-04-21 11:38] created: `HQ/marketing/posts/ig-03-images/slide-05-honest.html`
+- [2026-04-21 11:38] created: `HQ/marketing/posts/ig-03-images/slide-06-cta.html`
+- [2026-04-21 11:54] created: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a06-peraichi-migration-guide.ja.md`
+- [2026-04-21 11:55] created: `HQ/marketing/campaigns/2026-04-first-5/images/a06-cover.html`
+- [2026-04-21 11:55] created: `HQ/marketing/campaigns/2026-04-first-5/images/a06-inline-1.html`
+- [2026-04-21 11:56] created: `HQ/marketing/campaigns/2026-04-first-5/images/a06-inline-2.html`
+- [2026-04-21 12:04] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a06-peraichi-migration-guide.ja.md`
+- [2026-04-21 12:05] edited: `HQ/marketing/campaigns/2026-04-first-5/articles/note-a06-peraichi-migration-guide.ja.md`
+- [2026-04-21 12:23] created: `HQ/marketing/posts/2026-04-21-x-jp-mrr-week-1.md`
+- [2026-04-21 12:24] created: `HQ/marketing/posts/images/x-jp-06/card.html`
+- [2026-04-21 17:44] edited: `messages/ja.json`
+- [2026-04-21 17:44] edited: `messages/ja.json`
+- [2026-04-21 17:44] edited: `messages/ja.json`
+- [2026-04-21 17:44] edited: `messages/ja.json`
+- [2026-04-21 17:44] edited: `messages/ja.json`
+- [2026-04-21 17:45] edited: `messages/ja.json`
+- [2026-04-21 17:45] edited: `messages/ja.json`
+- [2026-04-21 17:45] edited: `messages/ja.json`
+- [2026-04-21 17:45] edited: `messages/ja.json`
+- [2026-04-21 17:45] edited: `messages/ja.json`
+- [2026-04-21 17:46] edited: `messages/ja.json`
+- [2026-04-21 17:46] edited: `messages/ja.json`
+- [2026-04-21 17:46] edited: `messages/ja.json`
+- [2026-04-21 17:46] edited: `messages/ja.json`
+- [2026-04-21 17:46] edited: `messages/ja.json`
+- [2026-04-21 17:46] edited: `messages/ja.json`
+- [2026-04-21 17:46] edited: `messages/ja.json`
+- [2026-04-21 17:46] edited: `messages/ja.json`
+- [2026-04-21 17:47] edited: `messages/ja.json`
+- [2026-04-21 17:47] edited: `messages/ja.json`
+- [2026-04-21 17:47] edited: `messages/ja.json`
+- [2026-04-21 17:47] edited: `messages/ja.json`
+- [2026-04-21 17:47] edited: `messages/ja.json`
+- [2026-04-21 17:47] edited: `messages/ja.json`
+- [2026-04-21 17:47] edited: `messages/ja.json`
+- [2026-04-21 17:47] edited: `messages/ja.json`
+- [2026-04-21 17:47] edited: `messages/ja.json`
+- [2026-04-21 17:48] edited: `messages/ja.json`
+- [2026-04-21 17:48] edited: `messages/ja.json`
+- [2026-04-21 17:48] edited: `messages/ja.json`
+- [2026-04-21 17:48] edited: `messages/ja.json`
+- [2026-04-21 17:48] edited: `messages/ja.json`
+- [2026-04-21 17:48] edited: `messages/ja.json`
+- [2026-04-21 17:48] edited: `messages/ja.json`
+- [2026-04-21 17:49] edited: `messages/ja.json`
+- [2026-04-21 17:49] edited: `messages/ja.json`
+- [2026-04-21 17:49] edited: `messages/ja.json`
+- [2026-04-21 17:49] edited: `messages/ja.json`
+- [2026-04-21 17:50] edited: `messages/ja.json`
+- [2026-04-21 17:50] edited: `messages/ja.json`
+- [2026-04-21 17:50] edited: `messages/ja.json`
+- [2026-04-21 17:51] edited: `messages/en.json`
+- [2026-04-21 17:51] edited: `messages/en.json`
+- [2026-04-21 17:51] edited: `messages/en.json`
+- [2026-04-21 17:51] edited: `messages/en.json`
+- [2026-04-21 17:51] edited: `messages/en.json`
+- [2026-04-21 17:51] edited: `messages/en.json`
+- [2026-04-21 17:52] edited: `messages/en.json`
+- [2026-04-21 17:52] edited: `messages/en.json`
+- [2026-04-21 17:52] edited: `messages/en.json`
+- [2026-04-21 17:52] edited: `messages/en.json`
+- [2026-04-21 17:52] edited: `messages/en.json`
+- [2026-04-21 17:53] edited: `messages/en.json`
+- [2026-04-21 17:53] edited: `messages/en.json`
+- [2026-04-21 17:53] edited: `messages/en.json`
+- [2026-04-21 17:53] edited: `messages/en.json`
+- [2026-04-21 17:53] edited: `messages/en.json`
+- [2026-04-21 17:53] edited: `messages/en.json`
+- [2026-04-21 17:56] edited: `messages/en.json`
+- [2026-04-21 17:56] edited: `messages/en.json`
+- [2026-04-21 17:56] edited: `messages/en.json`
+- [2026-04-21 17:56] edited: `messages/en.json`
+- [2026-04-21 17:56] edited: `messages/en.json`
+- [2026-04-21 17:56] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:57] edited: `messages/en.json`
+- [2026-04-21 17:58] edited: `messages/en.json`
+- [2026-04-21 17:58] edited: `messages/en.json`
+- [2026-04-21 17:58] edited: `messages/en.json`
+- [2026-04-21 17:58] edited: `messages/en.json`
+- [2026-04-21 17:59] edited: `messages/en.json`
+- [2026-04-21 17:59] created: `HQ/docs/revenue-model.md`
+- [2026-04-21 17:59] edited: `HQ/crm/change-catalogue.md`
+- [2026-04-21 17:59] edited: `HQ/crm/change-catalogue.md`
+- [2026-04-21 18:00] edited: `HQ/crm/change-catalogue.md`
+- [2026-04-21 18:00] edited: `HQ/crm/change-catalogue.md`
+- [2026-04-21 18:00] edited: `CLAUDE.md`
+- [2026-04-21 18:00] edited: `PRD.md`
+- [2026-04-21 18:00] edited: `PRD.md`
+- [2026-04-21 18:00] edited: `PRD.md`
+- [2026-04-21 18:00] edited: `PRD.md`
+- [2026-04-21 18:00] edited: `PRD.md`
+- [2026-04-21 18:01] edited: `PRD.md`
+- [2026-04-21 18:01] edited: `PRD.md`
+- [2026-04-21 18:01] edited: `PRD.md`
+- [2026-04-21 18:01] edited: `PRD.md`
+- [2026-04-22 11:52] created: `HQ/lancers/corporate-top.html`
+- [2026-04-22 11:54] edited: `HQ/lancers/corporate-top.html`
+- [2026-04-22 11:54] edited: `HQ/lancers/corporate-top.html`
+- [2026-04-22 12:02] created: `HQ/lancers/submission-message.md`
