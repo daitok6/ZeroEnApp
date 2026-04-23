@@ -3,72 +3,62 @@
 import { useState } from 'react';
 import {
   LayoutDashboard,
-  BarChart3,
   MessageSquare,
+  FileText,
   Receipt,
   PlusCircle,
+  ShieldCheck,
   Settings,
-  TrendingUp,
-  Eye,
-  Clock,
-  ArrowUpRight,
-  ArrowDownRight,
+  Lock,
+  CheckCircle2,
+  Circle,
+  ArrowRight,
 } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type Tab = 'analytics' | 'requests' | 'invoices' | 'messages';
+type Tab = 'overview' | 'messages' | 'documents' | 'invoices' | 'requests';
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
-
-const VISITORS: { month: string; v: number }[] = [
-  { month: 'Jan', v: 823 },
-  { month: 'Feb', v: 910 },
-  { month: 'Mar', v: 1045 },
-  { month: 'Apr', v: 1102 },
-  { month: 'May', v: 1189 },
-  { month: 'Jun', v: 1204 },
-];
-
-const CW = 300;
-const CH = 56;
-const MIN_V = 823;
-const MAX_V = 1204;
-const RANGE = MAX_V - MIN_V;
-const X_STEP = CW / (VISITORS.length - 1);
-const toX = (i: number) => i * X_STEP;
-const toY = (v: number) => CH - ((v - MIN_V) / RANGE) * CH;
-const PTS = VISITORS.map((d, i) => `${toX(i)},${toY(d.v)}`).join(' ');
-const FILL = `M ${VISITORS.map((d, i) => `${toX(i)},${toY(d.v)}`).join(' L ')} L ${CW},${CH} L 0,${CH} Z`;
-
-const REQUESTS = [
-  { title: 'Update hero section copy', status: 'completed', amount: '¥4,000', date: 'Apr 2' },
-  { title: 'Add Instagram feed to footer', status: 'in_progress', amount: '¥10,000', date: 'Apr 8' },
-  { title: 'Add contact form to /contact', status: 'quoted', amount: '¥4,000', date: 'Apr 11' },
-];
-
-const INVOICES = [
-  { period: 'April 2026', amount: '¥10,000', status: 'paid', date: 'Apr 1' },
-  { period: 'March 2026', amount: '¥10,000', status: 'paid', date: 'Mar 1' },
-  { period: 'February 2026', amount: '¥10,000', status: 'paid', date: 'Feb 1' },
-];
 
 const MESSAGES = [
   {
     from: 'zeroen',
-    text: 'Your April analytics report is ready. Visitors up 12% from March.',
-    time: 'Apr 10, 9:02',
+    text: 'Milestone 2 is live on preview. Please review and approve when ready.',
+    time: 'Apr 20, 10:14',
   },
   {
     from: 'client',
-    text: 'Thanks! Can you also update the hero section copy?',
-    time: 'Apr 10, 11:35',
+    text: 'Looks great — one small thing: can we adjust the hero padding on mobile?',
+    time: 'Apr 20, 14:32',
   },
   {
     from: 'zeroen',
-    text: "On it — logged as a change request (Small, ¥4,000). Approve when ready.",
-    time: 'Apr 11, 8:47',
+    text: "Done — pushed. Mobile hero padding now matches the design spec exactly.",
+    time: 'Apr 21, 9:03',
   },
+];
+
+const DOCUMENTS = [
+  { name: 'ZeroEn Growth Proposal — Kenji Capital', type: 'PDF', date: 'Mar 28' },
+  { name: 'Fixed-Price Contract — Growth Tier', type: 'PDF', date: 'Apr 1' },
+];
+
+const INVOICES = [
+  { label: 'Milestone 1 — Kickoff & Scoping', amount: '¥220,000', status: 'paid', date: 'Apr 3' },
+  { label: 'Milestone 2 — Design & Build', amount: '¥440,000', status: 'paid', date: 'Apr 15' },
+  { label: 'Milestone 3 — Shipping & Handoff', amount: '¥220,000', status: 'pending', date: 'Apr 28' },
+];
+
+const REQUESTS = [
+  { title: 'Mobile hero padding adjustment', status: 'completed', amount: 'Included', date: 'Apr 21' },
+  { title: 'Add /team page with bios', status: 'quoted', amount: '¥45,000', date: 'Apr 22' },
+];
+
+const MILESTONES = [
+  { label: 'Scoped & Agreed', done: true },
+  { label: 'Design & Build', done: true },
+  { label: 'Shipping & Handoff', done: false, active: true },
 ];
 
 // ─── Badge ────────────────────────────────────────────────────────────────────
@@ -77,7 +67,7 @@ const BADGE: Record<string, { bg: string; text: string; label: string }> = {
   completed:  { bg: 'bg-[#6B7280]/20 border border-[#6B7280]/30', text: 'text-[#9CA3AF]', label: 'Completed' },
   in_progress:{ bg: 'bg-[#00E87A]/10 border border-[#00E87A]/30', text: 'text-[#00E87A]',  label: 'In Progress' },
   quoted:     { bg: 'bg-orange-400/10 border border-orange-400/30', text: 'text-orange-400', label: 'Quoted' },
-  submitted:  { bg: 'bg-blue-400/10 border border-blue-400/30',   text: 'text-blue-400',   label: 'Submitted' },
+  pending:    { bg: 'bg-orange-400/10 border border-orange-400/30', text: 'text-orange-400', label: 'Pending' },
   paid:       { bg: 'bg-[#00E87A]/10 border border-[#00E87A]/30', text: 'text-[#00E87A]',  label: 'Paid' },
 };
 
@@ -91,113 +81,154 @@ function Badge({ status }: { status: string }) {
   );
 }
 
-// ─── Metric card ──────────────────────────────────────────────────────────────
+// ─── Overview tab ─────────────────────────────────────────────────────────────
 
-function MetricCard({
-  icon, label, value, delta, up,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  delta: string;
-  up: boolean;
-}) {
+function OverviewTab({ onNav }: { onNav: (t: Tab) => void }) {
   return (
-    <div className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg p-3">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-[#6B7280]">{icon}</span>
-        <span className={`font-mono text-[10px] flex items-center gap-0.5 ${up ? 'text-[#00E87A]' : 'text-red-400'}`}>
-          {up
-            ? <ArrowUpRight className="w-2.5 h-2.5" aria-hidden />
-            : <ArrowDownRight className="w-2.5 h-2.5" aria-hidden />}
-          {delta}
-        </span>
+    <div className="p-4 space-y-4">
+
+      {/* Plan summary */}
+      <div className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg p-4">
+        <p className="text-[#9CA3AF] font-mono text-[10px] uppercase tracking-wider mb-3">Plan Summary</p>
+        <div className="flex items-center gap-2 mb-1">
+          <span className="bg-[#00E87A]/10 border border-[#00E87A]/30 text-[#00E87A] font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">
+            Growth
+          </span>
+        </div>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-2 mt-3">
+          {[
+            ['Project', '¥880,000'],
+            ['Retainer', '¥35,000/mo'],
+            ['Delivered', 'Apr 18, 2026'],
+            ['Status', 'Active'],
+          ].map(([label, value]) => (
+            <div key={label}>
+              <p className="text-[#4B5563] font-mono text-[9px] uppercase tracking-wider">{label}</p>
+              <p className="text-[#F4F4F2] font-mono text-xs font-bold mt-0.5">{value}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      <p className="text-[#F4F4F2] font-mono font-bold text-base leading-none">{value}</p>
-      <p className="text-[#6B7280] font-mono text-[10px] mt-1.5">{label}</p>
+
+      {/* Project milestones */}
+      <div className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg p-4">
+        <p className="text-[#9CA3AF] font-mono text-[10px] uppercase tracking-wider mb-3">Project Status</p>
+        <div className="space-y-2.5">
+          {MILESTONES.map((m) => (
+            <div key={m.label} className="flex items-center gap-2.5">
+              {m.done
+                ? <CheckCircle2 className="w-3.5 h-3.5 text-[#00E87A] flex-shrink-0" aria-hidden />
+                : <Circle className={`w-3.5 h-3.5 flex-shrink-0 ${m.active ? 'text-[#00E87A]' : 'text-[#374151]'}`} aria-hidden />
+              }
+              <span className={`font-mono text-xs ${m.done || m.active ? 'text-[#F4F4F2]' : 'text-[#4B5563]'}`}>
+                {m.label}
+              </span>
+              {m.active && (
+                <span className="ml-auto bg-[#00E87A]/10 border border-[#00E87A]/30 text-[#00E87A] font-mono text-[9px] px-1.5 py-0.5 rounded">
+                  Active
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Quick-link tiles */}
+      <div className="grid grid-cols-2 gap-3">
+        <button
+          onClick={() => onNav('messages')}
+          className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg p-3 text-left hover:border-[#00E87A]/40 transition-colors duration-150 group"
+        >
+          <MessageSquare className="w-3.5 h-3.5 text-[#6B7280] group-hover:text-[#00E87A] mb-2 transition-colors" aria-hidden />
+          <p className="text-[#F4F4F2] font-mono text-xs font-bold leading-none">Messages</p>
+          <p className="text-[#00E87A] font-mono text-[10px] mt-1.5">3 unread</p>
+        </button>
+        <button
+          onClick={() => onNav('invoices')}
+          className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg p-3 text-left hover:border-[#00E87A]/40 transition-colors duration-150 group"
+        >
+          <Receipt className="w-3.5 h-3.5 text-[#6B7280] group-hover:text-[#00E87A] mb-2 transition-colors" aria-hidden />
+          <p className="text-[#F4F4F2] font-mono text-xs font-bold leading-none">Invoices</p>
+          <p className="text-orange-400 font-mono text-[10px] mt-1.5">1 pending</p>
+        </button>
+      </div>
+
     </div>
   );
 }
 
-// ─── Analytics tab ────────────────────────────────────────────────────────────
+// ─── Messages tab ─────────────────────────────────────────────────────────────
 
-function AnalyticsTab() {
+function MessagesTab() {
   return (
-    <div className="p-4 space-y-4">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <MetricCard icon={<BarChart3 className="w-3.5 h-3.5" aria-hidden />} label="Visitors"    value="1,204" delta="+12%" up />
-        <MetricCard icon={<Eye       className="w-3.5 h-3.5" aria-hidden />} label="Page Views"  value="3,819" delta="+8%"  up />
-        <MetricCard icon={<Clock     className="w-3.5 h-3.5" aria-hidden />} label="Avg Session" value="2m 14s" delta="+14s" up />
-        <MetricCard icon={<TrendingUp className="w-3.5 h-3.5" aria-hidden />} label="Bounce Rate" value="61%" delta="-3%" up={false} />
-      </div>
-
-      <div className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg p-4">
-        <div className="flex items-center justify-between mb-3">
-          <p className="text-[#9CA3AF] font-mono text-[10px] uppercase tracking-wider">6-Month Trend</p>
-          <p className="text-[#6B7280] font-mono text-[10px]">Visitors</p>
-        </div>
-        <svg
-          viewBox={`0 0 ${CW} ${CH + 16}`}
-          className="w-full"
-          preserveAspectRatio="none"
-          aria-label="Visitor trend over 6 months, showing growth from 823 in January to 1,204 in June"
-          role="img"
-        >
-          <defs>
-            <linearGradient id="mkd-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stopColor="#00E87A" stopOpacity="0.18" />
-              <stop offset="100%" stopColor="#00E87A" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path d={FILL} fill="url(#mkd-fill)" />
-          <polyline
-            points={PTS}
-            fill="none"
-            stroke="#00E87A"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          {VISITORS.map((d, i) => (
-            <circle key={i} cx={toX(i)} cy={toY(d.v)} r="2.5" fill="#00E87A" />
-          ))}
-          {VISITORS.map((d, i) => (
-            <text
-              key={i}
-              x={toX(i)}
-              y={CH + 13}
-              textAnchor="middle"
-              fontSize="8"
-              fill="#4B5563"
-              fontFamily="monospace"
+    <div className="p-4 space-y-3">
+      {MESSAGES.map((msg, i) => {
+        const isZE = msg.from === 'zeroen';
+        return (
+          <div key={i} className={`flex gap-2.5 ${isZE ? '' : 'flex-row-reverse'}`}>
+            <span
+              className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-mono text-[9px] font-bold ${
+                isZE ? 'bg-[#00E87A] text-[#0D0D0D]' : 'bg-[#1F2937] text-[#9CA3AF] border border-[#374151]'
+              }`}
+              aria-hidden
             >
-              {d.month}
-            </text>
-          ))}
-        </svg>
-      </div>
-
-      <div className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg overflow-hidden">
-        <div className="px-4 py-2.5 border-b border-[#1F2937]">
-          <p className="text-[#9CA3AF] font-mono text-[10px] uppercase tracking-wider">Top Pages</p>
-        </div>
-        {[
-          { path: '/home',    views: '1,604', pct: '42%' },
-          { path: '/about',   views: '879',   pct: '23%' },
-          { path: '/contact', views: '687',   pct: '18%' },
-        ].map((row) => (
-          <div
-            key={row.path}
-            className="flex items-center justify-between px-4 py-2 border-b border-[#1F2937]/50 last:border-0"
-          >
-            <span className="font-mono text-xs text-[#9CA3AF]">{row.path}</span>
-            <div className="flex items-center gap-4">
-              <span className="font-mono text-[10px] text-[#6B7280]">{row.views} views</span>
-              <span className="font-mono text-[10px] text-[#00E87A] w-8 text-right">{row.pct}</span>
+              {isZE ? 'ZE' : 'KK'}
+            </span>
+            <div className={`max-w-[78%] flex flex-col ${isZE ? 'items-start' : 'items-end'}`}>
+              <div
+                className={`px-3 py-2 rounded-lg font-mono text-xs leading-relaxed ${
+                  isZE ? 'bg-[#1F2937] text-[#F4F4F2]' : 'bg-[#00E87A]/10 border border-[#00E87A]/20 text-[#F4F4F2]'
+                }`}
+              >
+                {msg.text}
+              </div>
+              <p className="text-[#4B5563] font-mono text-[9px] mt-1">{msg.time}</p>
             </div>
           </div>
-        ))}
-      </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── Documents tab ────────────────────────────────────────────────────────────
+
+function DocumentsTab() {
+  return (
+    <div className="p-4 space-y-3">
+      {DOCUMENTS.map((doc) => (
+        <div key={doc.name} className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg p-3.5 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <FileText className="w-3.5 h-3.5 text-[#6B7280] flex-shrink-0" aria-hidden />
+            <p className="text-[#F4F4F2] font-mono text-xs truncate">{doc.name}</p>
+          </div>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <span className="text-[#4B5563] font-mono text-[9px]">{doc.date}</span>
+            <ArrowRight className="w-3 h-3 text-[#374151]" aria-hidden />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── Invoices tab ─────────────────────────────────────────────────────────────
+
+function InvoicesTab() {
+  return (
+    <div className="p-4 space-y-3">
+      {INVOICES.map((inv) => (
+        <div key={inv.label} className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg p-3.5">
+          <div className="flex items-start justify-between gap-3 mb-2">
+            <p className="text-[#F4F4F2] font-mono text-xs font-bold leading-snug">{inv.label}</p>
+            <Badge status={inv.status} />
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="text-[#9CA3AF] font-mono text-xs font-bold">{inv.amount}</span>
+            <span className="text-[#4B5563] font-mono text-[10px]">{inv.date}</span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -223,94 +254,38 @@ function RequestsTab() {
   );
 }
 
-// ─── Invoices tab ─────────────────────────────────────────────────────────────
-
-function InvoicesTab() {
-  return (
-    <div className="p-4">
-      <div className="bg-[#0D0D0D] border border-[#1F2937] rounded-lg overflow-hidden">
-        <div className="hidden md:grid grid-cols-4 px-4 py-2.5 border-b border-[#1F2937]">
-          {['Period', 'Amount', 'Status', 'Date'].map((h) => (
-            <p key={h} className="text-[#6B7280] font-mono text-[10px] uppercase tracking-wider">{h}</p>
-          ))}
-        </div>
-        {INVOICES.map((inv) => (
-          <div
-            key={inv.period}
-            className="grid grid-cols-2 md:grid-cols-4 items-center px-4 py-3 border-b border-[#1F2937]/50 last:border-0"
-          >
-            <p className="text-[#F4F4F2] font-mono text-xs">{inv.period}</p>
-            <p className="text-[#9CA3AF] font-mono text-xs font-bold text-right md:text-left">{inv.amount}</p>
-            <div className="col-span-2 md:col-span-1 mt-2 md:mt-0">
-              <Badge status={inv.status} />
-            </div>
-            <p className="hidden md:block text-[#6B7280] font-mono text-[10px]">{inv.date}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── Messages tab ─────────────────────────────────────────────────────────────
-
-function MessagesTab() {
-  return (
-    <div className="p-4 space-y-3">
-      {MESSAGES.map((msg, i) => {
-        const isZE = msg.from === 'zeroen';
-        return (
-          <div key={i} className={`flex gap-2.5 ${isZE ? '' : 'flex-row-reverse'}`}>
-            <span
-              className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-mono text-[9px] font-bold ${
-                isZE
-                  ? 'bg-[#00E87A] text-[#0D0D0D]'
-                  : 'bg-[#1F2937] text-[#9CA3AF] border border-[#374151]'
-              }`}
-              aria-hidden
-            >
-              {isZE ? 'ZE' : 'TD'}
-            </span>
-            <div className={`max-w-[78%] flex flex-col ${isZE ? 'items-start' : 'items-end'}`}>
-              <div
-                className={`px-3 py-2 rounded-lg font-mono text-xs leading-relaxed ${
-                  isZE
-                    ? 'bg-[#1F2937] text-[#F4F4F2]'
-                    : 'bg-[#00E87A]/10 border border-[#00E87A]/20 text-[#F4F4F2]'
-                }`}
-              >
-                {msg.text}
-              </div>
-              <p className="text-[#4B5563] font-mono text-[9px] mt-1">{msg.time}</p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
 // ─── Sidebar nav ──────────────────────────────────────────────────────────────
 
-const NAV: { id: Tab | null; label: string; Icon: React.ElementType }[] = [
-  { id: null,        label: 'Overview',  Icon: LayoutDashboard },
-  { id: 'analytics', label: 'Analytics', Icon: BarChart3 },
-  { id: 'messages',  label: 'Messages',  Icon: MessageSquare },
-  { id: 'invoices',  label: 'Invoices',  Icon: Receipt },
-  { id: 'requests',  label: 'Requests',  Icon: PlusCircle },
+type NavEntry = { id: Tab | null; label: string; Icon: React.ElementType; locked?: boolean };
+
+const NAV: NavEntry[] = [
+  { id: 'overview',  label: 'Overview',        Icon: LayoutDashboard },
+  { id: 'messages',  label: 'Messages',         Icon: MessageSquare },
+  { id: 'documents', label: 'Documents',        Icon: FileText },
+  { id: 'invoices',  label: 'Invoices',         Icon: Receipt },
+  { id: 'requests',  label: 'Change Requests',  Icon: PlusCircle },
+  { id: null,        label: 'Audits',           Icon: ShieldCheck, locked: true },
 ];
 
 const MOBILE_TABS: { id: Tab; label: string }[] = [
-  { id: 'analytics', label: 'Analytics' },
-  { id: 'requests',  label: 'Requests'  },
-  { id: 'invoices',  label: 'Invoices'  },
+  { id: 'overview',  label: 'Overview'  },
   { id: 'messages',  label: 'Messages'  },
+  { id: 'invoices',  label: 'Invoices'  },
+  { id: 'requests',  label: 'Requests'  },
 ];
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 
 export function MockDashboard() {
-  const [tab, setTab] = useState<Tab>('analytics');
+  const [tab, setTab] = useState<Tab>('overview');
+
+  const tabLabel: Record<Tab, string> = {
+    overview:  'Overview',
+    messages:  'Messages',
+    documents: 'Documents',
+    invoices:  'Invoices',
+    requests:  'Change Requests',
+  };
 
   return (
     <div className="rounded-xl overflow-hidden border border-[#1F2937] bg-[#111827] shadow-[0_0_60px_rgba(0,232,122,0.10)]">
@@ -334,34 +309,36 @@ export function MockDashboard() {
           <div className="px-4 py-3 border-b border-[#1F2937]">
             <div className="flex items-center gap-2">
               <span className="w-6 h-6 rounded bg-[#00E87A]/10 border border-[#00E87A]/30 flex items-center justify-center flex-shrink-0">
-                <span className="text-[#00E87A] font-mono text-[8px] font-bold">TD</span>
+                <span className="text-[#00E87A] font-mono text-[8px] font-bold">KK</span>
               </span>
               <div className="min-w-0">
-                <p className="text-[#F4F4F2] font-mono text-[10px] font-bold leading-none truncate">Takahashi Dental</p>
-                <p className="text-[#4B5563] font-mono text-[9px] mt-0.5">Basic · ¥10,000/mo</p>
+                <p className="text-[#F4F4F2] font-mono text-[10px] font-bold leading-none truncate">Kenji Capital</p>
+                <p className="text-[#4B5563] font-mono text-[9px] mt-0.5">Growth · ¥35k/mo</p>
               </div>
             </div>
           </div>
 
           {/* Nav items */}
           <nav className="flex-1 px-2 py-3 space-y-0.5" aria-label="Dashboard navigation">
-            {NAV.map(({ id, label, Icon }) => {
-              const active = id === tab;
+            {NAV.map(({ id, label, Icon, locked }) => {
+              const active = id !== null && id === tab;
               return (
                 <button
                   key={label}
-                  onClick={() => id && setTab(id)}
+                  onClick={() => id && !locked && setTab(id)}
                   aria-current={active ? 'page' : undefined}
+                  disabled={locked}
                   className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-left transition-colors duration-150 ${
-                    active
+                    locked
+                      ? 'text-[#374151] cursor-default'
+                      : active
                       ? 'bg-[#00E87A]/10 text-[#00E87A]'
-                      : id
-                      ? 'text-[#6B7280] hover:text-[#9CA3AF] hover:bg-[#1F2937]/60 cursor-pointer'
-                      : 'text-[#4B5563] cursor-default'
+                      : 'text-[#6B7280] hover:text-[#9CA3AF] hover:bg-[#1F2937]/60 cursor-pointer'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5 flex-shrink-0" aria-hidden />
-                  <span className="font-mono text-xs">{label}</span>
+                  <span className="font-mono text-xs flex-1 truncate">{label}</span>
+                  {locked && <Lock className="w-2.5 h-2.5 flex-shrink-0 text-[#374151]" aria-hidden />}
                 </button>
               );
             })}
@@ -380,10 +357,10 @@ export function MockDashboard() {
 
           {/* Topbar */}
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1F2937] bg-[#080808]">
-            <p className="text-[#F4F4F2] font-mono text-xs font-bold capitalize">{tab}</p>
+            <p className="text-[#F4F4F2] font-mono text-xs font-bold">{tabLabel[tab]}</p>
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00E87A]" aria-hidden />
-              <span className="text-[#6B7280] font-mono text-[10px]">takahashi-dental.zeroen.dev</span>
+              <span className="text-[#6B7280] font-mono text-[10px]">Kenji Tanaka</span>
             </div>
           </div>
 
@@ -408,10 +385,11 @@ export function MockDashboard() {
 
           {/* Content */}
           <div className="flex-1 overflow-auto">
-            {tab === 'analytics' && <AnalyticsTab />}
-            {tab === 'requests'  && <RequestsTab />}
-            {tab === 'invoices'  && <InvoicesTab />}
+            {tab === 'overview'  && <OverviewTab onNav={setTab} />}
             {tab === 'messages'  && <MessagesTab />}
+            {tab === 'documents' && <DocumentsTab />}
+            {tab === 'invoices'  && <InvoicesTab />}
+            {tab === 'requests'  && <RequestsTab />}
           </div>
 
         </div>
