@@ -117,8 +117,8 @@
       }
     ],
     "preCtaHeading": "Your site is already waiting.",
-    "ctaLabel": "Apply — ¥0 Upfront",
-    "ctaHref": "/en/login"
+    "ctaLabel": "Book a scoping call →",
+    "ctaHref": "/scoping-call"
   },
   "pricing": {
     "meta": {
@@ -472,20 +472,20 @@
       "heading": "TL;DR",
       "items": [
         {
-          "label": "Platform fee",
-          "value": "¥10,000+/mo after your MVP launches. Covers hosting, changes, and analytics."
+          "label": "Milestone billing",
+          "value": "Payments tied to delivery milestones. No subscription required."
         },
         {
           "label": "Scope freeze",
           "value": "MVP scope locked at kickoff. New features = per-request charge."
         },
         {
-          "label": "Kill switch",
-          "value": "90 days unpaid → agreement terminates. We keep the code."
+          "label": "Service continuity",
+          "value": "Code ownership transfers to client on final payment."
         },
         {
-          "label": "IP",
-          "value": "ZeroEn retains code ownership. You license the live site via active subscription."
+          "label": "IP ownership",
+          "value": "Full code ownership transfers to client on final milestone payment."
         },
         {
           "label": "Liability",
@@ -501,32 +501,32 @@
       "heading": "Full Terms",
       "sections": [
         {
-          "title": "1. Future Equity (Phase 2)",
-          "body": "Equity arrangements (SAFE notes, revenue share) are not part of Phase 1 agreements. ZeroEn currently operates as a subscription hosting service. Equity terms may be offered on select Phase 2 deals and will be documented in a separate, individually signed agreement at that time. Nothing in these terms grants or implies any equity interest."
+          "title": "1. No Equity",
+          "body": "ZeroEn does not take equity, SAFE notes, or ownership stakes in client businesses under any circumstance. Engagements are fixed-price only. Nothing in these terms grants or implies any equity interest."
         },
         {
-          "title": "2. Revenue Share (Phase 2)",
-          "body": "Revenue share arrangements are not active in Phase 1. If a revenue share is agreed for a specific client, it will be documented in a separate written agreement signed by both parties before it takes effect. These standard terms do not constitute a revenue share agreement."
+          "title": "2. No Revenue Share",
+          "body": "ZeroEn does not take revenue share, profit share, or any ongoing claim on client revenue. All compensation is project-based at the agreed fixed price. These terms do not constitute a revenue share agreement."
         },
         {
-          "title": "3. Platform Fee",
-          "body": "After the MVP launches, a monthly subscription fee of ¥10,000+ applies (Basic or Growth plan). This covers: hosting on ZeroEn's Vercel Pro account, included monthly changes per plan, and a monthly analytics report. The subscription begins 30 days after launch. Payment is via Stripe. The client's application remains live only while the subscription is active. ZeroEn's total liability under this agreement is limited to the fees paid by the client in the 12 months preceding any claim. ZeroEn provides the service \"as is\" and makes no warranties beyond uptime of the underlying Vercel infrastructure."
+          "title": "3. Milestone Payments",
+          "body": "Payment is structured as milestones tied to agreed deliverables per the Statement of Work. Milestone amounts and schedules are agreed at kickoff and documented in the SOW. No subscription or recurring fee is required to keep your product live — you own it outright upon final payment."
         },
         {
           "title": "4. Scope Freeze",
           "body": "The MVP scope is agreed and locked at the kickoff call. This scope is documented and signed by both parties. Any features, changes, or additions beyond the agreed scope are treated as per-request charges. ZeroEn is not obligated to build out-of-scope work. Per-request charges are quoted upfront and must be paid before work begins."
         },
         {
-          "title": "5. Per-Request Charges",
-          "body": "Work beyond the locked MVP scope is available as per-request charges: Small changes (~30 min) ¥4,000; Medium changes (1–3 hours) ¥10,000 (Growth plan only); Large builds (half day+) ¥25,000+. All quotes are provided upfront. Work begins only after payment is received."
+          "title": "5. Out-of-Scope Work",
+          "body": "Work beyond the locked project scope is available at ¥15,000/hr. All out-of-scope requests receive an upfront time estimate and must be approved in writing before work begins. Payment is due on completion."
         },
         {
-          "title": "6. Kill Switch",
-          "body": "If the platform fee remains unpaid for 90 consecutive days, the agreement terminates automatically. Upon termination: the client's hosted application is taken offline, ZeroEn retains full rights to the codebase. ZeroEn will make reasonable efforts to notify the client before reaching the 90-day threshold."
+          "title": "6. Service Continuity",
+          "body": "**TODO-REVIEW (operator sign-off required before production):** Update service continuity terms for fixed-price milestone model. The previous subscription non-payment clause no longer applies. Define: what happens if a milestone payment is not received within X days of invoice; client remedies; ZeroEn obligations during dispute resolution."
         },
         {
-          "title": "7. Reversion Clause",
-          "body": "If the client does not launch their application within 6 months of the agreed build completion date, full code rights revert to ZeroEn. The client may request an extension in writing. Extensions are granted at ZeroEn's discretion."
+          "title": "7. Project Delivery Timeline",
+          "body": "**TODO-REVIEW (operator sign-off required before production):** Update project delivery terms. Under the new model, code ownership transfers fully to client on final milestone payment. Define: consequences of project abandonment by either party; timeline extension process; partial delivery terms."
         },
         {
           "title": "8. IP Ownership",

@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (locale === 'ja') {
     return buildMetadata({
       title: '利用規約 — ZeroEn',
-      description: 'ZeroEnの標準契約条件。エクイティ、プラットフォーム費用、スコープ、強制終了条項の詳細。',
+      description: 'ZeroEnの標準契約条件。固定価格、マイルストーン請求、スコープ、コード所有権の詳細。',
       path: '/terms',
       locale,
       ogTitle: '利用規約',
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   return buildMetadata({
     title: 'Terms — ZeroEn',
-    description: "ZeroEn's standard contract terms. Equity, platform fee, scope freeze, kill switch — explained plainly.",
+    description: "ZeroEn's standard contract terms. Fixed price, milestone billing, scope freeze, code ownership — explained plainly.",
     path: '/terms',
     locale,
     ogTitle: 'Terms',

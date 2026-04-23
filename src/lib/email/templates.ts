@@ -404,13 +404,11 @@ export function agreementConfirmationEmail(data: {
               <td style="padding: 16px 20px;">
                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                   ${[
-                    ['Equity', '10% via SAFE note (converts on incorporation)'],
-                    ['Revenue Share', '~10% of app revenue (flexible per deal)'],
-                    ['Platform Fee', '$50/mo after launch (hosting + 1 fix/mo)'],
-                    ['MVP Scope', 'Locked at kickoff. Changes are charged separately.'],
-                    ['IP Ownership', 'Shared — proportional to equity stake'],
-                    ['Kill Switch', '90 days unpaid → agreement terminates, code rights to operator'],
-                    ['Reversion', 'No launch within 6 months → code rights revert to operator'],
+                    ['Pricing', 'Fixed price — agreed at kickoff. No equity, no revenue share.'],
+                    ['Milestones', 'Payment tied to delivery milestones per SOW.'],
+                    ['Scope', 'Locked at kickoff. Out-of-scope work charged at ¥15,000/hr.'],
+                    ['IP Ownership', 'Full code ownership transfers to client on final payment.'],
+                    ['Retainer', 'Optional. 30-day notice to cancel. Not required.'],
                     ['Portfolio Rights', 'Operator retains right to showcase this work at all times'],
                   ].map(([k, v]) => `<tr><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #00E87A; font-size: 11px; padding: 5px 0; width: 140px; vertical-align: top;">${k}</td><td style="font-family: 'IBM Plex Mono', 'Courier New', monospace; color: #6B7280; font-size: 11px; padding: 5px 0; line-height: 1.55;">${v}</td></tr>`).join('')}
                 </table>

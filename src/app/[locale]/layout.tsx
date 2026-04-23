@@ -39,11 +39,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://zeroen.dev'),
   title: {
-    default: 'ZeroEn — 前金0円。月¥10,000で、LP制作・運用・毎月の改善まで。',
+    default: 'ZeroEn — Bilingual SaaS Studio, Tokyo',
     template: '%s | ZeroEn',
   },
   description:
-    '元日立・元楽天エンジニアが、コーチ・コンサルタント・セラピストのランディングページを無料で制作。月¥10,000のサブスクリプションでホスティング・運用・毎月の改善まで。3日で公開。',
+    'Production-grade bilingual Next.js + Supabase + Stripe products for funded founders and serious businesses in Tokyo. Fixed price. No equity. Shipped in weeks.',
 };
 
 export function generateStaticParams() {

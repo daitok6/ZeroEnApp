@@ -67,8 +67,8 @@ export async function POST(request: NextRequest) {
             <div style="font-family: 'IBM Plex Mono', monospace; background: #0D0D0D; color: #F4F4F2; padding: 40px; max-width: 600px;">
               <h1 style="color: #00E87A; font-size: 24px; margin-bottom: 16px;">ZeroEn</h1>
               <p style="color: #9CA3AF; font-size: 14px; line-height: 1.6;">You're on the list.</p>
-              <p style="color: #F4F4F2; font-size: 14px; line-height: 1.6;">We'll send updates on our builds, founder stories, and lessons from shipping MVPs for equity.</p>
-              <p style="color: #6B7280; font-size: 12px; margin-top: 32px;">ZeroEn — Bring your idea to life.</p>
+              <p style="color: #F4F4F2; font-size: 14px; line-height: 1.6;">We'll send updates on our builds, architecture decisions, and lessons from shipping bilingual products in Tokyo.</p>
+              <p style="color: #6B7280; font-size: 12px; margin-top: 32px;">ZeroEn — Bilingual SaaS Studio, Tokyo.</p>
             </div>
           `;
 
