@@ -39,6 +39,7 @@ export default async function ApplyPage({ params }: Props) {
       blurb: t('form.blurb'),
       blurbPlaceholder: t('form.blurbPlaceholder'),
       consent: t('form.consent'),
+      privacyPolicyLabel: t('form.privacyPolicyLabel'),
       submit: t('form.submit'),
       submitting: t('form.submitting'),
       fieldRequired: t('form.fieldRequired'),

@@ -71,7 +71,7 @@ export default async function HowItWorksPage({ params }: Props) {
               {steps.map((step, index) => (
                 <ScrollReveal key={step.number} direction="up" delay={index * 0.07}>
                   <div className="relative flex gap-8 pb-14 last:pb-0">
-                    <div className="relative z-10 flex-shrink-0 w-22 flex flex-col items-center">
+                    <div className="relative z-10 flex-shrink-0 w-20 flex flex-col items-center">
                       <div className="w-10 h-10 rounded-full border border-[#00E87A]/40 bg-[#0D0D0D] flex items-center justify-center shadow-[0_0_12px_rgba(0,232,122,0.3)]">
                         <span className="text-[#00E87A] font-mono text-xs font-bold">
                           {step.number}

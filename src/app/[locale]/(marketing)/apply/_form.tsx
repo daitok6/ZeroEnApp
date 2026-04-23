@@ -15,6 +15,7 @@ type Messages = {
     blurb: string;
     blurbPlaceholder: string;
     consent: string;
+    privacyPolicyLabel: string;
     submit: string;
     submitting: string;
     fieldRequired: string;
@@ -220,7 +221,7 @@ export function ApplyForm({ locale, messages }: Props) {
         <label htmlFor="apply-consent" className="text-[#6B7280] font-mono text-xs leading-relaxed cursor-pointer">
           {t.consent}{' '}
           <a href={`/${locale}/privacy`} className="text-[#00E87A] hover:underline" target="_blank" rel="noopener noreferrer">
-            Privacy Policy
+            {t.privacyPolicyLabel}
           </a>
         </label>
       </div>

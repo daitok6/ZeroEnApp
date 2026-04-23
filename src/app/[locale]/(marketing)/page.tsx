@@ -113,8 +113,14 @@ export default async function HomePage({ params }: Props) {
                 {t('hero.ctaSecondary')}
               </Link>
             </div>
-            <p className="text-[#374151] font-mono text-xs mt-6">
+            <p className="text-[#6B7280] font-mono text-xs mt-3">
+              {t('hero.ctaNote')}
+            </p>
+            <p className="text-[#374151] font-mono text-xs mt-4">
               {t('hero.urgencyNote')}
+            </p>
+            <p className="text-[#6B7280] font-mono text-xs mt-2">
+              {t('hero.credential')}
             </p>
           </ScrollReveal>
         </div>

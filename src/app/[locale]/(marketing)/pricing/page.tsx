@@ -29,6 +29,7 @@ export default async function PricingPage({ params }: Props) {
   const growthItems = t.raw('growth.items') as string[];
   const mvpItems = t.raw('mvp.items') as string[];
   const anchorRows = t.raw('anchor.rows') as { label: string; value: string; timeline: string }[];
+  const anchorColumns = t.raw('anchor.columns') as string[];
   const faqs = t.raw('faqs') as { q: string; a: string }[];
 
   const scopingCallHref = locale === 'ja' ? '/ja/scoping-call' : '/scoping-call';
@@ -63,6 +64,21 @@ export default async function PricingPage({ params }: Props) {
             <p className="text-[#6B7280] font-mono text-sm max-w-2xl mx-auto leading-relaxed">
               {t('subtitle')}
             </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Pre-anchor callout */}
+      <section className="pb-4 px-4">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal direction="up">
+            <div className="bg-[#111827] border border-[#374151] rounded-lg px-6 py-4 text-center mb-8">
+              <p className="text-[#9CA3AF] font-mono text-sm">
+                {locale === 'ja'
+                  ? '日本の制作会社は同等のスコープで¥500万〜¥1,000万。ZeroEn Growthは¥88万、3〜4週間で納品。'
+                  : 'Japanese agencies quote ¥5–10M for equivalent scope. ZeroEn Growth is ¥880k, delivered in 3–4 weeks.'}
+              </p>
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -192,13 +208,13 @@ export default async function PricingPage({ params }: Props) {
               <thead>
                 <tr className="border-b border-[#374151]">
                   <th className="text-left text-[#6B7280] text-xs uppercase tracking-widest pb-3 pr-6">
-                    {locale === 'ja' ? '選択肢' : 'Option'}
+                    {anchorColumns[0]}
                   </th>
                   <th className="text-right text-[#6B7280] text-xs uppercase tracking-widest pb-3 pr-6">
-                    {locale === 'ja' ? '費用' : 'Cost'}
+                    {anchorColumns[1]}
                   </th>
                   <th className="text-right text-[#6B7280] text-xs uppercase tracking-widest pb-3">
-                    {locale === 'ja' ? '期間' : 'Timeline'}
+                    {anchorColumns[2]}
                   </th>
                 </tr>
               </thead>

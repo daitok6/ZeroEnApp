@@ -58,6 +58,12 @@ export function Header() {
               {t('cases')}
             </Link>
             <Link
+              href={`/${locale}/startups`}
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+            >
+              {t('startups')}
+            </Link>
+            <Link
               href={`/${locale}/live-from-day-one`}
               className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
             >
@@ -84,10 +90,10 @@ export function Header() {
           {!isAppScreen && (
             <>
               <Link
-                href={`/${locale}/login`}
+                href={`/${locale}/book-a-call`}
                 className="bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:bg-[#00E87A]/90 transition-colors uppercase"
               >
-                {t('apply')}
+                {t('bookCall')}
               </Link>
               <Link
                 href={`/${locale}/login`}
@@ -136,6 +142,13 @@ export function Header() {
             {t('cases')}
           </Link>
           <Link
+            href={`/${locale}/startups`}
+            className="flex items-center min-h-[44px] text-[#F4F4F2] text-sm font-mono"
+            onClick={() => setMobileOpen(false)}
+          >
+            {t('startups')}
+          </Link>
+          <Link
             href={`/${locale}/live-from-day-one`}
             className="flex items-center min-h-[44px] text-[#F4F4F2] text-sm font-mono"
             onClick={() => setMobileOpen(false)}
@@ -165,11 +178,11 @@ export function Header() {
             {t('login')}
           </Link>
           <Link
-            href={`/${locale}/login`}
+            href={`/${locale}/book-a-call`}
             className="flex items-center justify-center min-h-[44px] bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-3 rounded tracking-widest text-center uppercase mt-2"
             onClick={() => setMobileOpen(false)}
           >
-            {t('apply')}
+            {t('bookCall')}
           </Link>
         </div>
       )}

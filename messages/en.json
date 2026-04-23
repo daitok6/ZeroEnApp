@@ -13,11 +13,13 @@
   "home": {
     "hero": {
       "eyebrow": "Bilingual SaaS, shipped.",
-      "headline": "Production-grade bilingual web products for funded founders and serious businesses in Tokyo.",
-      "subheadline": "Fixed price. No equity. Shipped in weeks.",
+      "headline": "Fixed price. No equity. Bilingual from day one.",
+      "subheadline": "Production-grade Next.js + Supabase + Stripe for funded founders in Tokyo — shipped in weeks, not months.",
       "cta": "Book a scoping call",
       "ctaSecondary": "See the pricing",
-      "urgencyNote": "2–3 active projects at once. Check availability."
+      "urgencyNote": "2–3 active projects at once. Check availability.",
+      "ctaNote": "30 minutes. Proposal in 48 hours.",
+      "credential": "Built by a Hitachi + Rakuten-trained engineer."
     },
     "icpPillars": {
       "eyebrow": "Who we build for",
@@ -29,7 +31,7 @@
         },
         {
           "title": "Companies entering Japan",
-          "desc": "Your HQ approved the Japan launch budget. You need a bilingual site and someone who understands JP legal requirements — before the launch date."
+          "desc": "Your HQ approved the Japan budget. You need a bilingual site, JP invoice format, and tokushoho compliance before the launch date — not a six-month agency engagement."
         },
         {
           "title": "Japanese startups going global",
@@ -58,7 +60,7 @@
     "caseStudies": {
       "eyebrow": "Built by ZeroEn",
       "title": "Live products. Real architecture decisions.",
-      "subtitle": "Not mockups. These are production deployments we own and operate.",
+      "subtitle": "We build for ourselves at the same standard we build for clients. Both run in production.",
       "live": "Live",
       "comingSoon": "First client",
       "viewCaseStudy": "Read case study →",
@@ -205,6 +207,11 @@
           "value": "¥380k",
           "timeline": "2 weeks"
         }
+      ],
+      "columns": [
+        "Option",
+        "Cost",
+        "Timeline"
       ]
     },
     "retainerTitle": "Monthly retainers (optional)",
@@ -216,6 +223,14 @@
     },
     "faqTitle": "FAQ",
     "faqs": [
+      {
+        "q": "Why not just use a Japanese agency?",
+        "a": "Japanese agencies are built for large coordinated projects with multiple stakeholders — ¥5–10M budgets and 4–6 month timelines reflect that overhead. If you just closed a round and need a production-grade bilingual product live in weeks, the agency model is the wrong structure. ZeroEn is one engineer, fixed scope, fixed price — optimized for the exact window between funding and launch."
+      },
+      {
+        "q": "What happens if we want changes after delivery?",
+        "a": "Out-of-scope changes are billed at ¥15,000/hr. Every request gets an upfront time estimate before any work begins. If you anticipate ongoing changes, the optional monthly retainer (¥15,000–¥150,000/mo depending on tier) covers a defined hours block each month."
+      },
       {
         "q": "What's included in the fixed price?",
         "a": "Everything in the tier's feature list. Scope is locked at kickoff. Any work beyond the locked scope is quoted at ¥15,000/hr before work starts — you approve before we bill."
@@ -519,14 +534,6 @@
         {
           "title": "5. Out-of-Scope Work",
           "body": "Work beyond the locked project scope is available at ¥15,000/hr. All out-of-scope requests receive an upfront time estimate and must be approved in writing before work begins. Payment is due on completion."
-        },
-        {
-          "title": "6. Service Continuity",
-          "body": "**TODO-REVIEW (operator sign-off required before production):** Update service continuity terms for fixed-price milestone model. The previous subscription non-payment clause no longer applies. Define: what happens if a milestone payment is not received within X days of invoice; client remedies; ZeroEn obligations during dispute resolution."
-        },
-        {
-          "title": "7. Project Delivery Timeline",
-          "body": "**TODO-REVIEW (operator sign-off required before production):** Update project delivery terms. Under the new model, code ownership transfers fully to client on final milestone payment. Define: consequences of project abandonment by either party; timeline extension process; partial delivery terms."
         },
         {
           "title": "8. IP Ownership",
@@ -1222,7 +1229,7 @@
       },
       {
         "title": "Pricing",
-        "body": "**Starter:** ¥380,000 (tax included) — one-time build fee\n**Growth:** ¥880,000 (tax included) — one-time build fee\n**MVP / SaaS Build:** ¥1,500,000 and up (tax included) — one-time build fee\n\n**Optional monthly retainer:**\nStarter: ¥15,000/month · Growth: ¥35,000/month · MVP: ¥80,000–¥150,000/month\n\n**Out-of-scope work:** ¥15,000/hour (quoted before work begins)\n\n⚠️ TODO-REVIEW: Confirm pricing figures and tax treatment with operator before publishing."
+        "body": "**Starter:** ¥380,000 (tax included) — one-time build fee\n**Growth:** ¥880,000 (tax included) — one-time build fee\n**MVP / SaaS Build:** ¥1,500,000 and up (tax included) — one-time build fee\n\n**Optional monthly retainer:**\nStarter: ¥15,000/month · Growth: ¥35,000/month · MVP: ¥80,000–¥150,000/month\n\n**Out-of-scope work:** ¥15,000/hour (quoted before work begins)"
       },
       {
         "title": "Additional Fees",
@@ -1242,7 +1249,7 @@
       },
       {
         "title": "Cancellation Policy",
-        "body": "**Milestone refund policy:**\nKickoff milestone (first payment): 50% refund if cancelled before work begins, non-refundable after work begins.\nSubsequent milestones: non-refundable once the relevant milestone deliverable has been approved.\nFinal milestone: non-refundable.\n\n**Retainer cancellation:** 30 days written notice required. No minimum term.\n\n**Code ownership:** Transfers to client upon final milestone payment.\n\n⚠️ TODO-REVIEW: Confirm refund and cancellation terms with operator before publishing."
+        "body": "**Milestone refund policy:**\nKickoff milestone (first payment): 50% refund if cancelled before work begins, non-refundable after work begins.\nSubsequent milestones: non-refundable once the relevant milestone deliverable has been approved.\nFinal milestone: non-refundable.\n\n**Retainer cancellation:** 30 days written notice required. No minimum term.\n\n**Code ownership:** Transfers to client upon final milestone payment."
       },
       {
         "title": "System Requirements",
@@ -1339,7 +1346,8 @@
       "submit": "Request a call →",
       "submitting": "Sending...",
       "fieldRequired": "This field is required",
-      "emailInvalid": "Enter a valid email address"
+      "emailInvalid": "Enter a valid email address",
+      "privacyPolicyLabel": "Privacy Policy"
     },
     "thankYou": {
       "eyebrow": "REQUEST RECEIVED",
