@@ -3,17 +3,17 @@
     "howItWorks": "サービスの流れ",
     "pricing": "料金",
     "cases": "事例",
-    "startups": "スタートアップ向け",
-    "about": "ZeroEnについて",
+    "startups": "ファウンダー向け",
+    "about": "会社紹介",
     "dashboard": "ダッシュボード",
     "blog": "ブログ",
     "login": "ログイン",
-    "bookCall": "スコーピングコールを予約"
+    "bookCall": "無料相談を予約"
   },
   "home": {
     "hero": {
       "eyebrow": "バイリンガルSaaS、確実に納品。",
-      "headline": "アイデアから、課金ユーザーへ。",
+      "headline": "アイデアを、プロダクトに。",
       "subheadline": "固定価格・エクイティ不要。Next.js + Supabase + Stripe の本番グレード開発を、数ヶ月ではなく数週間で納品。",
       "cta": "スコーピングコールを予約",
       "ctaSecondary": "料金を確認する",

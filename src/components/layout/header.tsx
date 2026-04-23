@@ -41,43 +41,43 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-8">
             <Link
               href={`/${locale}/how-it-works`}
-              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono whitespace-nowrap"
             >
               {t('howItWorks')}
             </Link>
             <Link
               href={`/${locale}/pricing`}
-              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono whitespace-nowrap"
             >
               {t('pricing')}
             </Link>
             <Link
               href={`/${locale}/cases`}
-              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono whitespace-nowrap"
             >
               {t('cases')}
             </Link>
             <Link
               href={`/${locale}/startups`}
-              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono whitespace-nowrap"
             >
               {t('startups')}
             </Link>
             <Link
               href={`/${locale}/live-from-day-one`}
-              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono whitespace-nowrap"
             >
               {t('dashboard')}
             </Link>
             <Link
               href={`/${locale}/blog`}
-              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono whitespace-nowrap"
             >
               {t('blog')}
             </Link>
             <Link
               href={`/${locale}/about`}
-              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono"
+              className="text-[#9CA3AF] hover:text-[#F4F4F2] text-sm transition-colors font-mono whitespace-nowrap"
             >
               {t('about')}
             </Link>
@@ -91,13 +91,13 @@ export function Header() {
             <>
               <Link
                 href={`/${locale}/book-a-call`}
-                className="bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:bg-[#00E87A]/90 transition-colors uppercase"
+                className="bg-[#00E87A] text-[#0D0D0D] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:bg-[#00E87A]/90 transition-colors uppercase whitespace-nowrap"
               >
                 {t('bookCall')}
               </Link>
               <Link
                 href={`/${locale}/login`}
-                className="border border-[#F4F4F2]/30 text-[#F4F4F2] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:border-[#F4F4F2] hover:bg-[#F4F4F2]/5 transition-colors uppercase"
+                className="border border-[#F4F4F2]/30 text-[#F4F4F2] text-xs font-heading font-bold px-4 py-2 rounded tracking-widest hover:border-[#F4F4F2] hover:bg-[#F4F4F2]/5 transition-colors uppercase whitespace-nowrap"
               >
                 {t('login')}
               </Link>
