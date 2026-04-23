@@ -1,5 +1,7 @@
 # ZeroEn JP Keyword & SEO Demand Research
 
+> **⚠️ legacy_icp — 2026-04-23.** Research conducted under the old ¥5k/¥10k subscription model targeting coaches/therapists/Peraichi users. Retained for historical reference. Do not use as keyword targets — see `HQ/agents/mktg-seo.md` for current keyword strategy.
+
 **Compiled:** 2026-04-14
 **Target:** ¥300k/mo MRR by 2026-07-14
 **Scope:** Japan-focused LP / HP services, ¥5-10k/mo Stripe subscriptions

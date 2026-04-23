@@ -1,6 +1,6 @@
 ---
 name: mktg-seo
-description: SEO agent for ZeroEn. Optimizes website content, blog posts, and landing pages for search. Targets keywords around free app development, equity-for-development, and technical co-founder services.
+description: SEO agent for ZeroEn. Optimizes website content, blog posts, and landing pages for search. Targets keywords around bilingual SaaS development, Japan market entry, and funded founder web products in Tokyo.
 tools: ["Read", "Grep", "Glob", "Bash", "Write", "Edit", "WebSearch", "WebFetch"]
 model: sonnet
 ---
@@ -22,18 +22,27 @@ You optimize ZeroEn's web presence for organic search traffic.
 ## Target Keywords
 
 ### Primary
-- "free app development"
-- "equity for development"
-- "technical co-founder service"
-- "build my app idea"
-- "MVP development free"
+- "bilingual SaaS development Tokyo"
+- "bilingual web development Japan"
+- "Japan market entry website"
+- "MVP development Tokyo"
+- "Next.js Supabase Stripe developer Japan"
 
 ### Long-tail
-- "someone to build my app for equity"
-- "free MVP builder for startups"
-- "get an app built for free"
-- "developer takes equity instead of payment"
-- "technical co-founder for non-technical founder"
+- "bilingual landing page for funded startup Tokyo"
+- "web development for foreign company Japan"
+- "Japanese English bilingual web product"
+- "build MVP for funded founder Tokyo"
+- "bilingual recruiting agency website Japan"
+- "tokushoho compliance bilingual website"
+- "Japan market entry bilingual SaaS"
+- "Next.js bilingual i18n routing Japanese English"
+
+### Content SEO (Qiita / Zenn / note targets)
+- "Next.js 多言語対応" (bilingual Next.js)
+- "Supabase Stripe SaaS 構築"
+- "バイリンガル LP 外資系スタートアップ"
+- "特定商取引法 Next.js 実装"
 
 ## Context
 

@@ -1,6 +1,184 @@
 # ZeroEn — Product Requirements Document
 
+**Last updated: 2026-04-23 (Phase 1 repositioning)**
+
+---
+
 ## The Business
+
+**ZeroEn** — bilingual product studio. We ship production-grade Next.js + Supabase + Stripe SaaS for funded founders and serious businesses in Tokyo. Fixed price. No equity. No revenue share. Delivered in weeks.
+
+**Positioning:** "Zero friction from idea to shipped product."
+**Tagline (EN):** "Bilingual SaaS, shipped."
+**Tagline (JA):** 「バイリンガルSaaS、確実に出荷。」
+
+---
+
+## Revenue Model
+
+| Stream | Amount | When it pays |
+|--------|--------|-------------|
+| **Starter Site (one-time)** | ¥380,000 | On kickoff (50%) + delivery (50%) |
+| **Growth Site (one-time)** | ¥880,000 | 40% kickoff / 30% staging / 30% delivery |
+| **MVP / SaaS Build (one-time)** | ¥1,500,000–¥2,500,000 | 30% kickoff / 30% alpha / 30% beta / 10% go-live |
+| **Starter Retainer** | ¥15,000/mo | Hosting, SSL, 1 content update/mo, priority email |
+| **Growth Retainer** | ¥35,000/mo | Everything in Starter + 3 updates/mo, 30-min strategy call, analytics report |
+| **MVP/SaaS Retainer** | ¥80,000–¥150,000/mo | All infra, bug SLA, 1 feature/mo, Slack access, roadmap reviews |
+| **Out-of-scope work** | ¥15,000/hr | Anything beyond retainer or locked scope. See `HQ/crm/change-catalogue.md` |
+
+**Revenue targets:**
+- ¥300,000+/mo net MRR by August 2026 (minimum to keep Malaysia move on track)
+- ¥150,000+/mo net MRR maintained for 2+ months → GO signal for Malaysia move
+- GO/NO-GO on Malaysia (Nov 2026) by Oct 15, 2026
+
+---
+
+## Ideal Customer Profile (ICP)
+
+Both dimensions must be true: **(a) budget to pay ¥380,000+ for a site or ¥1,500,000+ for an MVP** and **(b) online presence directly drives revenue.**
+
+**Five target segments, ranked by priority:**
+
+1. **Foreign founders in Tokyo who just raised seed/pre-seed** — English-first, bilingual need, urgent timelines, cash on hand. Primary.
+2. **Foreign companies entering the Japan market** — bilingual product/marketing sites, enterprise budget, often via Japan GM. Secondary but highest deal size.
+3. **Bilingual recruiting and staffing agencies in Tokyo** — candidate acquisition flows through web presence and outreach systems.
+4. **Foreign-owned SMBs in Tokyo** — Western revenue models (consulting, design, import, specialty retail with online sales).
+5. **Funded Japanese startups pre-IPO** — needing English-facing product for global fundraising.
+
+**Explicitly excluded:** flower shops, cafes, restaurants (unless foreign-owned chain), solo coaches, therapists, independent consultants, individual freelancers, Japanese SMBs where website doesn't drive sales.
+
+---
+
+## Pricing Structure
+
+See `HQ/docs/revenue-model.md` for the full three-tier breakdown.
+
+### Tier 1 — Starter Site
+**¥380,000 one-time + ¥15,000/month**
+5-page bilingual Next.js site. Timeline: 14 business days. Payment: 50/50.
+
+### Tier 2 — Growth Site ★ FLAGSHIP
+**¥880,000 one-time + ¥35,000/month**
+10-15 pages, CMS-ready, lead capture, analytics dashboard. Timeline: 21-28 business days. Payment: 40/30/30.
+
+### Tier 3 — MVP / SaaS Build
+**¥1,500,000–¥2,500,000 one-time + ¥80,000–¥150,000/month**
+Full production Next.js + Supabase + Stripe SaaS, bilingual, auth, subscription billing, admin panel, CI/CD. Timeline: 6-8 weeks. Payment: 30/30/30/10.
+
+---
+
+## Client Journey (5 Steps)
+
+```
+1. SCOPING CALL   → 30 min, free. Discuss product, timeline, goals.
+2. PROPOSAL       → Fixed-price proposal within 48 hours. Sign or walk.
+3. KICKOFF        → Deposit received. Repo created. First staging deploy within 48 hours.
+4. DELIVERY       → Weekly Loom demos. Staging always live. Direct Slack/email access.
+5. LAUNCH         → Production deploy, domain cutover, analytics verified, docs delivered.
+```
+
+Retainer begins month after launch if selected.
+
+---
+
+## Tech Stack
+
+- **Frontend:** Next.js 15+ (App Router), React, Tailwind, shadcn/ui
+- **Backend/DB:** Supabase (isolated project per client)
+- **Payments:** Stripe (subscriptions, invoices, webhooks)
+- **Hosting:** Vercel (operator's Pro account)
+- **Email:** Resend
+- **i18n:** next-intl with EN/JA routing
+- **Analytics:** Vercel Analytics + GA4
+- **CI/CD:** GitHub auto-deploy with Vercel preview environments
+
+Phase 2 details: `HQ/docs/phase-2-stack.md` (do not use until 15-client gate).
+
+---
+
+## Acquisition Strategy
+
+**Primary:** Cold email to named targets in five ICP segments. Templates in `HQ/marketing/campaigns/`. Do NOT write sequences until discovery calls validate the language.
+
+**Secondary:** Content — technical posts on Qiita/Zenn/note, X build-in-public threads, this platform (ZeroEn) and WebMori as first-party case studies.
+
+**Google Ads:** ¥5,000/mo R&D only. Not a reliable channel until ICP language is validated.
+
+**Channels abandoned:** Coconala (ToS takedown, structurally incompatible), MENTA, Lancers, CrowdWorks, Meta.
+
+---
+
+## Legal Structure
+
+- **Current:** Canadian sole proprietorship
+- **Contracts:** Fixed-price engagement agreement per client. No equity, no revenue share. Milestone-based payments. IP ownership: ZeroEn retains code; client licenses it via active retainer. On retainer cancel: site archived, code stays with ZeroEn.
+- **USD invoicing:** Available for international clients.
+- **Next step:** Wyoming LLC when revenue allows (~$225 setup cost).
+
+---
+
+## Contract Terms
+
+| Clause | Detail |
+|--------|--------|
+| **Pricing** | Fixed-price per tier. No hourly billing after kickoff. |
+| **IP ownership** | ZeroEn retains all code. Client licenses the live site via active retainer. |
+| **Scope freeze** | Deliverables locked at kickoff. Out-of-scope = ¥15,000/hr per `HQ/crm/change-catalogue.md` |
+| **Payment terms** | Per tier (see above). Retainer begins month after launch. |
+| **Cancellation** | Retainer cancel: 30-day notice. Site archived on lapse. |
+| **Refund policy** | 50% refundable before kickoff. 25% refundable within first week. No refunds after milestone 1 acceptance. |
+| **Portfolio rights** | ZeroEn always retains right to showcase work. |
+
+---
+
+## Project Structure
+
+```
+~/repos/ZeroEn/                  ← Private ZeroEn HQ repo
+├── CLAUDE.md                    ← Operator manual (read this first)
+├── PRD.md                       ← This file
+├── HQ/                          ← Tracked
+│   ├── agents/                  ← Claude Code agent prompts
+│   ├── brand/                   ← Tokens, brand kit
+│   ├── commands/                ← /new-client, /report, /deploy, etc.
+│   ├── crm/                     ← clients.json, change-catalogue.md
+│   ├── docs/                    ← On-demand reference docs
+│   ├── marketing/               ← Campaigns, research, assets
+│   ├── platform/                ← ZeroEnApp repo (nested git checkout)
+│   └── scripts/                 ← clone-all.sh
+└── Clients/                     ← NOT tracked (each = own public repo)
+```
+
+---
+
+## Quality Assurance
+
+See `HQ/docs/quality-gates.md` for the full pipeline. No production deploy without gates passing.
+
+---
+
+## Risk Mitigation
+
+| Risk | Safeguard |
+|------|-----------|
+| No paying clients | Cold email to named targets; clear pricing removes "is this real?" friction. |
+| Scope creep | Scope locked at kickoff. ¥15,000/hr for anything beyond it. |
+| Client stops paying | 30-day notice period. Site archived on retainer lapse. |
+| Revenue too slow | Target ¥300k MRR by Aug 2026; pivot cadence if not on track by Jun 2026. |
+| Supabase limits | Client pays for Pro upgrade if usage exceeds free tier. Stated in terms. |
+| Malaysia deadline | GO/NO-GO at Oct 15, 2026. Need ¥150k+ net MRR for 2+ months. |
+
+---
+
+---
+
+## Historical — Original PRD (April 2026)
+
+*The following is the original PRD from ZeroEn's founding. Preserved for reference. The business model, ICP, and pricing described below are no longer active.*
+
+---
+
+### The Business (Original)
 
 **ZeroEn** — "Zero" + Engineer/Entrepreneur/Yen
 *"From zero to launch."*
@@ -9,260 +187,59 @@ A solo technical co-founder service. Build MVPs with ¥0 upfront for founders in
 
 ---
 
-## Revenue Model (5 Streams)
+### Revenue Model (Original — 5 Streams)
 
 | Stream | Amount | When it pays |
 |--------|--------|-------------|
 | **No-Upfront MVP Build** | ¥0 upfront to client | You invest time, earn equity + rev share + monthly subscription |
-| **Monthly Subscription** | ¥10,000-20,000/mo | Hosting + changes + analytics. Two tiers: Basic and Growth. See `HQ/crm/change-catalogue.md` |
+| **Monthly Subscription** | ¥10,000-20,000/mo | Hosting + changes + analytics. Two tiers: Basic and Growth. |
 | **10% Equity** | SAFE + profit-sharing | Long-term: converts when client incorporates, or profit-sharing if they don't |
 | **~10% Revenue Share** | % of app revenue | Ongoing passive income, negotiated per deal |
 | **Per-Request Charges** | ¥4,000-25,000+ | Small, Medium, Large. See `HQ/crm/change-catalogue.md` |
-| **Code Buyout** | ¥300,000+ | Optional after 6-month commitment. Grants perpetual license. Terminates subscription. |
+| **Code Buyout** | ¥300,000+ | Optional after 6-month commitment. Grants perpetual license. |
 
 **Revenue target:** $3,000-5,000/mo (long-term)
-**Interim target:** $1,000-1,500/mo by November 2026 (Malaysia move)
-**At ¥10k floor, interim target reached with ~15 clients; long-term target with ~30 clients.**
-**Path to interim target:** 15 clients via zeroen.dev + cold email.
-**Path to long-term target:** 30 clients. zeroen.dev as primary; cold email as secondary acquisition channel.
+**Interim target:** $1,000-1,500/mo by November 2026
 
 ---
 
-## Target Market
+### Target Market (Original)
 
 - **Who:** Anyone with a business idea, globally
-- **Filter:** Detailed application form scored on: idea viability, founder commitment, technical feasibility, revenue potential, gut feeling
+- **Filter:** Application form scored on: idea viability, founder commitment, technical feasibility, revenue potential
 - **Scoring:** Viability (1-5), Commitment (1-5), Feasibility (1-5), Market (1-5). Accept 15+/20
 - **No specialization** — generalist, build whatever interesting ideas come
 
 ---
 
-## Tech Stack
-
-- **Frontend:** Next.js (React)
-- **Backend/DB:** Supabase (free tier per client, own project per client)
-- **Hosting:** Your Vercel account (Pro plan, $20/mo)
-- **Deployment:** Vercel + GitHub (auto-deploy)
-- **Design:** Component libraries (shadcn/Tailwind) + design skills/plugins. Client can provide designs; custom design tweaks cost extra.
-
----
-
-## Client Journey
+### Client Journey (Original — 9 Steps)
 
 ```
-1. DISCOVER     → Build-in-public content, social media, communities, cold outreach
-2. APPLY        → Detailed application form (idea, target users, competitors, monetization, founder background)
-3. SCORE        → Score: viability (1-5), commitment (1-5), feasibility (1-5), market (1-5). Accept 15+/20
-4. ONBOARD      → Structured questionnaire → focused kickoff call → scope locked
-5. BUILD        → ¥0 upfront MVP on Next.js + Supabase, deployed on your Vercel
-6. LAUNCH       → 30 days launch support (bugs, deployment issues, tweaks)
-7. OPERATE      → ¥10,000-20,000/mo subscription begins (Basic or Growth). Monthly analytics report. Included changes per plan.
-8. GROW         → Per-request charges for new features. Rev share kicks in as app earns.
-9. UPSELL       → Analytics reports surface issues → natural pipeline to WebMori audit service
+1. DISCOVER  → Build-in-public content, social media, communities, cold outreach
+2. APPLY     → Detailed application form
+3. SCORE     → Accept 15+/20
+4. ONBOARD   → Questionnaire → kickoff call → scope locked
+5. BUILD     → ¥0 upfront MVP on Next.js + Supabase
+6. LAUNCH    → 30 days launch support
+7. OPERATE   → ¥10,000-20,000/mo subscription begins
+8. GROW      → Per-request charges. Rev share kicks in.
+9. UPSELL    → Natural pipeline to WebMori audit service
 ```
 
 ---
 
-## Deliverables
-
-### What's ¥0 upfront (the MVP build):
-
-**Phase 1 — Landing pages only:**
-- Homepage or landing page (single-page or up to 3-5 pages)
-- Responsive, mobile-first design
-- Contact form (external service)
-- Basic SEO setup (meta tags, OG tags, sitemap)
-- Deployed on Vercel (no Supabase needed)
-
-**Phase 2 — Dynamic sites (after 15+ clients):**
-- Working app with core features
-- Deployed on your Vercel
-- Connected to client's Supabase (free tier)
-- Subscription-only — no upfront build fee; recurring revenue via monthly plan
-
-### What's included in the monthly subscription:
-- Hosting on your Vercel account
-- Included monthly changes per plan (see `HQ/docs/revenue-model.md`)
-- Monthly analytics report
-
-### What costs extra:
-- Additional features/changes (tiered per-request pricing)
-- Custom design work
-- Domain setup / custom configurations
-- Anything beyond locked MVP scope
-
----
-
-## Legal Structure
-
-### Phase 1 — Now (April 2026):
-- **Canadian sole proprietorship** ($0)
-- Written agreements (SAFE + profit-sharing hybrid) for each client
-- NDA template ready for founders
-
-### Phase 2 — When revenue allows (~$225):
-- **Wyoming LLC** ($100 state fee + $125/yr registered agent)
-- Mercury bank account (free)
-- Formalized contracts under LLC
-
-### Phase 3 — November 2026 (Malaysia):
-- DE Rantau nomad visa — work for foreign entities, no Malaysian entity needed
-- Continue operating Canadian sole prop or US LLC
-- File Canadian taxes on worldwide income
-
----
-
-## Contract Terms
+### Contract Terms (Original)
 
 | Clause | Detail |
 |--------|--------|
 | **Equity** | 10% via SAFE note (converts on incorporation) + profit-sharing fallback |
 | **Revenue share** | ~10%, flexible per deal |
-| **IP ownership** | ZeroEn retains code. Client licenses the live site via active subscription. Optional buyout (¥300,000+) available after 6-month commitment. |
-| **Scope freeze** | MVP scope locked at kickoff. Changes = paid per-request. |
-| **Kill switch** | 90 days unpaid → agreement terminates, you retain full code rights |
-| **Reversion clause** | Client doesn't launch in 6 months → full code rights revert to you |
-| **Portfolio rights** | Always retain right to showcase the work |
+| **Kill switch** | 90 days unpaid → agreement terminates |
+| **Reversion clause** | Client doesn't launch in 6 months → full code rights revert |
 | **Anti-dilution** | Minimum equity floor if client raises funding |
-| **Founder vesting** | Client's equity also vests — abandonment = they lose equity proportionally |
+| **6-month minimum** | Early cancel = pay remaining months |
+| **Code Buyout** | ¥300,000+ after 6-month commitment |
 
 ---
 
-## Project Structure
-
-```
-~/repos/ZeroEn/                  ← Private repo
-├── .gitignore                   ← contains "Clients/"
-├── CLAUDE.md                    ← Master operating manual
-├── PRD.md                       ← This file
-├── HQ/                          ← Tracked in private repo
-│   ├── agents/                  ← Carried from SiteAudit + new ZeroEn agents
-│   ├── commands/                ← /new-client, /report, /deploy, etc.
-│   ├── skills/                  ← Reusable build patterns
-│   ├── templates/               ← Next.js + Supabase starter
-│   ├── platform/                ← ZeroEn website + client dashboard
-│   ├── marketing/               ← Marketing ops (from SiteAudit)
-│   ├── crm/                     ← Client tracking, scoring, contracts
-│   │   └── clients.json         ← Registry of all clients
-│   └── scripts/
-│       └── clone-all.sh         ← Restore all client repos on new machine
-├── Clients/                     ← NOT tracked by ZeroEn repo
-│   ├── client-alpha/            ← Own public repo
-│   ├── client-beta/             ← Own public repo
-│   └── ...
-```
-
-### Git Strategy
-- **ZeroEn** = private repo (HQ, agents, commands, skills, templates, marketing, crm)
-- **Clients/** = gitignored. Each client folder is its own standalone public repo.
-- Client registry tracked in `HQ/crm/clients.json`
-- `HQ/scripts/clone-all.sh` restores all client repos on a new machine
-
-### Command Convention
-All commands require `clientId` parameter:
-- `/new-client <clientId>` — creates the project
-- `/report <clientId>` — generates analytics PDF
-- `/deploy <clientId>` — deploys client app
-- `/status <clientId>` — shows project status
-
----
-
-## Quality Assurance
-
-Adapted from SiteAudit's wave-based pipeline:
-1. **Automated testing** — CI/CD with linting, type checking, tests before every deploy
-2. **SiteAudit-style validation gates** — automated checks must pass before production deploy
-3. **Client UAT** — staging deploy → client tests and approves → production promote
-
----
-
-## Marketing Strategy
-
-### Build in Public (Primary Channel)
-| Format | Platform | Frequency |
-|--------|----------|-----------|
-| Build threads + screenshots | Twitter/X | 2-3/week |
-| Case studies / technical breakdowns | Blog / Dev.to / Hashnode | 1/week |
-| Ship announcements | Indie Hackers / Reddit | Per launch |
-| Client app launches | Product Hunt | Per client app |
-| Open source starter template | GitHub | Ongoing |
-
-**No video** — all content is text, screenshots, code snippets, architecture diagrams, and metrics.
-
-### Additional Channels
-- Multi-channel approach using SiteAudit's 7 marketing agents (adapted for ZeroEn)
-- Cold outreach to founders posting ideas on social media
-- Community participation in startup/founder forums
-- Referral program — existing clients get discount on next change request for referrals
-
-### Strategic Pipeline
-```
-ZeroEn (build ¥0 upfront apps)
-    → ¥10,000-20,000/mo subscription clients
-        → Monthly analytics reports surface issues
-            → Natural upsell to WebMori audit service (¥19,800-99,000/mo)
-```
-ZeroEn feeds WebMori. Two businesses, one pipeline. Kept as separate brands.
-
----
-
-## Brand
-
-- **Name:** ZeroEn
-- **Meaning:** Zero + Engineer / Entrepreneur / Yen
-- **Tagline:** "From zero to launch."
-- **Vibe:** Technical co-founder — professional, partnership-oriented
-- **Positioning:** "I'm your CTO, not a freelancer"
-
----
-
-## Claude Code Operating System
-
-### Carried from SiteAudit:
-- All 7 marketing agents (SEO, copy, CRO, growth, GTM, paid, strategy)
-- Business ops agents (client manager, ops scheduler, finance tracker, sales advisor/closer)
-- Dev workflow (hooks system, quality gates, session management, code review, skills)
-- 27 hooks adapted for client project workflows
-- PDF generation pipeline adapted for monthly analytics reports
-
-### New for ZeroEn:
-- `/new-client <clientId>` command — clones template, sets up CLAUDE.md, creates Supabase project
-- `/report <clientId>` command — Playwright scrapes Vercel analytics, Claude generates PDF
-- `/deploy <clientId>` command — push to production with quality gates
-- Client scoring agent — evaluates applications against criteria
-- Template repo — pre-built Next.js + Supabase starter
-
----
-
-## Risk Mitigation
-
-| Risk | Safeguard |
-|------|-----------|
-| Legal disputes | Sole prop → LLC. Written contracts for every deal. |
-| Equity = $0 | Platform fees + per-request = real income. Equity is bonus. |
-| Scope creep | Locked scope. Changes = paid. No exceptions. |
-| Client stops paying | 14-day grace → site paused → 44 days → archived. |
-| Burnout | Template everything. All builds are ¥0 upfront but scope is strictly locked. |
-| Client copies code | ZeroEn owns code by default. Paid buyout (¥300,000+) available post-6-month commitment as a structured exit, not a freebie. |
-| Revenue too slow | zeroen.dev (primary) + cold email + zeroen.dev organic. Marketplace channels abandoned post-Coconala takedown (2026-04). |
-| ¥0 upfront exploitation | 6-month minimum commitment. Early cancellation = pay remaining months on commitment. |
-| Supabase limits | Client pays for Supabase Pro upgrade if usage exceeds free tier. Stated in terms. |
-
----
-
-## Immediate Next Steps
-
-1. ~~Set up ZeroEn Claude Code project (CLAUDE.md, agents, commands, template)~~ ✅
-2. ~~NotebookLM research on Claude Code best practices~~ ✅
-3. Build application form + scoring system
-4. Create SAFE + profit-sharing contract template (include 6-month minimum; code buyout available post-commitment at ¥300,000+, documented as optional clause)
-5. Create Next.js + Supabase starter template
-6. **Launch zeroen.dev application form** — first 5 priority slots, ¥0 upfront build
-7. Land first 5 clients via zeroen.dev / cold email / X / note
-8. **Build zeroen.dev by Jul 31** — application form, Stripe billing, portfolio
-9. Start build-in-public content
-10. **Form Wyoming LLC by Sep 15**
-11. **Apply for DE Rantau visa by Oct 1**
-12. **GO/NO-GO on Malaysia move by Oct 15** — need ¥150,000+/mo net MRR for 2+ months
-
-See `HQ/crm/change-catalogue.md` for pricing details.
+*End of Historical section. For context on why the model changed, see the repositioning notes in `HQ/docs/zeroen-repositioning-spec.md`.*

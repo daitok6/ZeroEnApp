@@ -1,5 +1,7 @@
 # ICP Profile — Japanese Coach / Therapist Solopreneur
 
+> **⚠️ ARCHIVED 2026-04-22 — ICP pivot.** This was the v1 coach/therapist ICP. Market signal: 0 replies after ~7 days live outbound. Energy mismatch confirmed by operator (Q1-B). Active ICP is now **行政書士 建設業許可** — see [`icp-gyosei-kensetsu.md`](./icp-gyosei-kensetsu.md). Keep this file for historical reference and possible future reactivation.
+
 **Owner:** mktg-strategy · **Date:** 2026-04-14 · **Source segment:** [market-saturation.md](./market-saturation.md) — Segment B (score 22/25)
 
 ---

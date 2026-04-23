@@ -26,44 +26,46 @@ Before any strategy work, read `HQ/marketing/resources/product-marketing-context
 
 ## ZeroEn Context
 
-- **Brand:** ZeroEn — "From zero to launch"
-- **Market:** Global — founders with business ideas
-- **Model:** Free MVP → 10% equity + ~10% rev share + $50/mo platform fee
-- **Stage:** Launch (April 2026)
-- **Positioning:** Technical co-founder, not freelancer or agency
-- **Revenue target:** $3,000-5,000/mo
+- **Brand:** ZeroEn — "Bilingual SaaS, shipped."
+- **Market:** Funded founders and serious businesses in Tokyo (5 ICP segments — read PRD.md)
+- **Model:** Fixed-price builds (¥380k / ¥880k / ¥1.5-2.5M) + monthly retainers. No equity, no revenue share.
+- **Stage:** Post-pivot, building first paying clients (April 2026+)
+- **Positioning:** Bilingual product studio — one senior operator who delivers what a five-person team takes three months to produce
+- **Core differentiator:** EN/JA bilingual from day one — not translated after the fact
+- **Revenue target:** ¥300k+/mo net MRR by Aug 2026
 - **Content:** Text/screenshots only — no video
 
 ## Personas
 
-### Persona 1: Non-Technical Founder
-- Has a great idea but can't code
-- Worried about getting ripped off by dev agencies
-- Values: transparency, speed, aligned incentives
-- Pain: "I can't afford $50K for a dev agency but I know my idea works"
+### Persona 1: Foreign Founder in Tokyo (Just Raised)
+- Closed a seed or pre-seed round in the last 30-90 days
+- Needs a bilingual product online fast before runway narrows
+- Values: speed, production quality, someone who understands both English and Japanese markets
+- Pain: "I can't find a technical cofounder, Japanese agencies quote ¥8M and 4 months, offshore shops don't get bilingual UX"
 
-### Persona 2: Side-Hustle Entrepreneur
-- Has a day job, building on the side
-- Limited budget, limited time
-- Values: speed, low risk, someone who gets it
-- Pain: "I've been sitting on this idea for 2 years because I can't build it"
+### Persona 2: Japan-Market GM / Country Manager
+- Foreign company entering Japan — needs a bilingual marketing site or product for the Japan launch
+- Budget approved, wants a trusted partner, not a procurement process
+- Values: professional quality, bilingual fluency, reliability
+- Pain: "We need this live before the Japan launch date and our HQ dev team doesn't understand Japanese legal requirements"
 
-### Persona 3: Serial Founder
-- Has launched before, knows what they want
-- Looking for a fast technical partner
-- Values: speed, quality, track record
-- Pain: "I need this built yesterday, not in 3 months"
+### Persona 3: Funded Japanese Startup Founder (English-Facing)
+- Pre-IPO or post-seed, needs English-facing product for global fundraising or hiring
+- Technically literate but doesn't have bandwidth to manage a dev project
+- Values: technical credibility, production-grade output, clear timeline
+- Pain: "Our product is Japanese-only and investors keep asking us for an English version"
 
 ## Behavioral Psychology for ZeroEn
 
 | Principle | Application |
 |-----------|-------------|
-| **Loss aversion** | "Every day you wait, someone else is building your idea" |
-| **Social proof** | Portfolio of live apps, client testimonials, build-in-public following |
-| **Reciprocity** | Free build creates obligation — they're more likely to pay platform fee and per-request |
-| **Scarcity** | "I only take 3 new projects per month" (genuine capacity constraint) |
-| **Authority** | Show technical expertise through build-in-public content |
-| **Anchoring** | Compare $50/mo to agency retainers ($5K+/mo) — ZeroEn is 100x cheaper |
+| **Loss aversion** | "Every week you wait on a Japanese agency quote is a week your competitors are shipping" |
+| **Social proof** | ZeroEn platform + WebMori as first-party case studies. Real architecture decisions, real numbers. |
+| **Scarcity** | Genuine capacity constraint: solo operator, 2-3 active projects at once. "Currently have [X] slot open." |
+| **Authority** | Technical depth in content: bilingual SaaS architecture, tokushoho compliance, JP-style invoice generation. |
+| **Anchoring** | Compare ¥880k to a Japanese agency quote (¥5-10M typical for this scope) or hiring a bilingual engineer (¥8-12M/yr). |
+| **Specificity** | "Production Next.js + Supabase + Stripe" beats "modern tech stack." Specific = credible. |
+| **Transparency** | Fixed price, milestone payments, clear scope. No hidden costs, no scope creep surprises. |
 
 ## Idea Generation Principles
 

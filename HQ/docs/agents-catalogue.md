@@ -5,12 +5,12 @@
 ## Business Operations
 | Agent | Purpose |
 |-------|---------|
-| `client-manager` | Client lifecycle: onboarding, profiles, health monitoring, billing |
-| `client-scorer` | Score applications: viability, commitment, feasibility, market |
+| `client-manager` | Client lifecycle: onboarding, profiles, health monitoring, milestone billing + retainers |
+| `client-scorer` | ICP qualification: HIGH/MEDIUM/LOW/FILTER priority tagging for scoping-call leads |
 | `ops-scheduler` | Schedule audits, reports, reminders, billing cycles |
-| `finance-tracker` | Track revenue streams: platform fees, per-request, rev share, equity |
-| `sales-advisor` | Marketing strategy, outreach messaging, competitive positioning |
-| `sales-closer` | Handle qualified leads, craft proposals, close equity deals |
+| `finance-tracker` | Track revenue: one-time build fees, retainers, out-of-scope billables |
+| `sales-advisor` | Marketing strategy, outreach messaging, competitive positioning for bilingual studio model |
+| `sales-closer` | Handle qualified leads, craft fixed-price proposals, guide scoping-call-to-signature flow |
 
 ## Marketing Team
 | Agent | Purpose |

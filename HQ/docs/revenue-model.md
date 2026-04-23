@@ -1,39 +1,54 @@
 # Revenue Model
 
-**Read this when:** Pricing a change, setting up Stripe, discussing upgrades/downgrades, building pricing pages, or any client billing conversation.
+**Read this when:** Pricing a project, setting up Stripe invoices, discussing upgrades, or building pricing pages.
 
-## Subscription Tiers (All Clients — Stripe via zeroen.dev)
+---
 
-| | Basic | Growth |
-|---|---|---|
-| Monthly fee | ¥10,000 | ¥20,000 |
-| Hosting (Vercel) | Included | Included |
-| Monthly changes | 1 small | 2 small OR 1 medium |
-| Analytics | Full-year dashboard | Full-year dashboard + CRO insights |
-| Security audit (WebMori) | — | Quarterly |
-| SEO audit (WebMori) | — | Quarterly |
-| Copy refresh credit | 1 headline/CTA rewrite/quarter | 1 headline/CTA rewrite/month |
-| Google Business Profile optimization | — | Quarterly |
-| CRO variant | — | Quarterly |
-| Change request SLA | ≤7 business days | ≤3 business days (priority) |
-| Status | **Public** | **Public** |
+## One-Time Build Fees
 
-All recurring billing goes through Stripe via zeroen.dev.
+| Tier | Price | Payment Schedule |
+|------|-------|-----------------|
+| **Starter Site** | ¥380,000 | 50% on kickoff (¥190,000) · 50% on delivery (¥190,000) |
+| **Growth Site** ★ | ¥880,000 | 40% kickoff (¥352,000) · 30% staging (¥264,000) · 30% delivery (¥264,000) |
+| **MVP / SaaS Build** | ¥1,500,000–¥2,500,000 | 30% kickoff · 30% alpha · 30% beta · 10% go-live |
 
-## Additional Revenue Streams
+Growth Site is the flagship tier — default CTA on pricing page and all marketing surfaces.
 
-| Stream | Amount | Details |
-|--------|--------|---------|
-| No-Upfront Build | ¥0 to client | All builds are ¥0 upfront. ZeroEn retains code and monetizes via subscription. |
-| Per-Request | ¥4,000–25,000+ | Small (¥4,000), Medium (¥10,000 — Growth only), Large (¥25,000+). See `HQ/crm/change-catalogue.md` |
-| A-la-carte audits | ¥15,000 each | Security or SEO audit for Basic-tier clients |
-| Code Buyout | ¥300,000+ | Available after 6-month commitment. Grants perpetual license to the codebase. Terminates subscription. |
-| Equity | 10% | SAFE note (converts on incorporation) + profit-sharing fallback |
-| Revenue Share | ~10% | Percentage of app revenue, flexible per deal |
+USD invoicing is available for international clients. USD prices are stated parenthetically on the pricing page at current FX.
+
+---
+
+## Monthly Retainers (begin month after launch)
+
+| Tier | Monthly Fee | Includes |
+|------|-------------|---------|
+| **Starter Retainer** | ¥15,000/mo | Hosting & SSL · Monthly performance + security check · 1 content update/mo (≤1hr) · Priority email (24hr response) · Quarterly strategy email |
+| **Growth Retainer** | ¥35,000/mo | Everything in Starter · 3 content updates/mo (≤4hr combined) · Monthly 30-min strategy call · Priority Slack/Chat support · Monthly analytics report |
+| **MVP/SaaS Retainer** | ¥80,000–¥150,000/mo | All infrastructure · Bug fixes within SLA · 1 feature request/mo (≤8hr) · Direct Slack access · Monthly roadmap review · Proactive monitoring & incident response |
+
+Retainer fee scales to product complexity for the MVP/SaaS tier; scoped in the proposal.
+
+---
+
+## Out-of-Scope Work
+
+All work beyond the retainer's included hours is billed at **¥15,000/hr**, invoiced via Stripe. See `HQ/crm/change-catalogue.md` for size definitions and examples.
+
+---
 
 ## Upgrade / Downgrade
 
-- **Upgrade (Basic → Growth):** Allowed anytime. Triggers a fresh 6-month Growth commitment (replaces remaining Basic term).
-- **Downgrade (Growth → Basic):** Only after the 6-month Growth commitment completes. No exceptions mid-term.
+- **Starter → Growth:** Allowed anytime. New Growth retainer starts the month after upgrade. One-time fee delta is quoted if additional build work is required.
+- **Growth → MVP/SaaS:** Requires a new scoping call and proposal for the additional build scope.
+- No downgrades mid-term — retainer tier is set at launch.
 
-Full pricing details: `HQ/crm/change-catalogue.md`
+---
+
+## Revenue Targets
+
+| Milestone | Target | Date |
+|-----------|--------|------|
+| Minimum MRR for Malaysia GO | ¥150,000+/mo net (2+ months sustained) | Oct 15, 2026 |
+| Stretch MRR target | ¥300,000+/mo net | Aug 2026 |
+
+One Growth client on retainer = ¥35k/mo. Two = ¥70k/mo. Five = ¥175k/mo (GO threshold). Revenue is build fees + retainers; retainers compound, build fees do not.

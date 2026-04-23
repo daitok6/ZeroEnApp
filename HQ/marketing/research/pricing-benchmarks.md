@@ -1,5 +1,7 @@
 # Pricing Benchmarks — JP LP / Homepage Market
 
+> **⚠️ legacy_icp — 2026-04-23.** Research conducted under the old ¥5k/¥10k subscription + equity model targeting coaches/therapists. Retained for historical reference. Do not use as anchor for current pricing decisions — see `HQ/docs/revenue-model.md` for current fixed-price tiers.
+
 **Last updated:** 2026-04-14
 **Purpose:** Benchmark ZeroEn's ¥5k/¥10k recurring + ¥1,000 intake model against the JP LP/homepage market. Drive pricing, positioning, and ad-copy anchor decisions for the 90-day ¥300k MRR push.
 

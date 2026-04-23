@@ -1,102 +1,90 @@
-# ZeroEn Positioning — SaaS-Primary (2026-Q2)
+# ZeroEn Positioning — Bilingual Product Studio (2026-Q2)
 
-**Owner:** mktg-gtm · **Reviewed by:** mktg-strategy · **Approved:** operator (pending review) · **Date:** 2026-04-14 · **Reconciles:** zeroen.dev home ↔ Coconala/Lancers campaign · **Sunset date:** 2026-07-14 (re-evaluate post-push)
+**Owner:** mktg-gtm · **Reviewed by:** mktg-strategy · **Date:** 2026-04-23 · **Replaces:** SaaS-Primary Q2 positioning (old ICP — coaches/therapists/Peraichi)
 
 ---
 
-## The single offer (for 90-day push)
+## The single offer
 
-**Free landing page build. ¥5,000/月 or ¥10,000/月 for hosting + monthly updates. 6-month minimum. Cancel after.**
+**We build production-grade bilingual Next.js + Supabase + Stripe products for funded founders and serious businesses in Tokyo. Fixed price. No equity. Shipped in weeks.**
 
-This is the ONLY story told across zeroen.dev home, Coconala, Lancers, CrowdWorks, MENTA, TimeTicket, Note, X (JP + EN), and cold outbound from Apr 14 through Jul 14.
-
-The equity/MVP pitch is not killed — it moves to `/startups` (gated apply route) and is promoted only to English-speaking technical founders via X EN handle + direct founder outreach.
+This is the ONLY story across zeroen.dev, all marketing pages, X (EN), note (JP), cold email, and any channel active during the Phase 1 rebuild.
 
 ---
 
 ## Primary ICP
 
-**Japanese solo coach, therapist, or counselor. 32-52. ~70% women. ¥3-12M/yr revenue. Launched but pre-scale. Entire sales funnel depends on an LP.** (Source: `HQ/marketing/research/market-saturation.md` segment B, score 22/25.)
+**Foreign founder in Tokyo who just closed a seed or pre-seed round.** English-first, bilingual need, urgent timeline, cash on hand. Has already learned that Japanese agencies quote ¥8M and 4 months. Understands the value of a fast, bilingual, production-quality build.
 
-**Secondary (spillover):** solo consultants (経営 / IT / 法務 / 税務). Same offer, swap proof point.
+**Secondary ICPs (in priority order):**
+1. Foreign companies entering Japan market — bilingual site/product for Japan launch
+2. Bilingual recruiting and staffing agencies — candidate acquisition through web presence
+3. Foreign-owned SMBs in Tokyo — Western revenue model, online presence drives sales
+4. Funded Japanese startups — needing English-facing product for global fundraising
 
-**Explicit skips for Phase 1:** 副業 crowd (won't pay), local service (LP ≠ MEO), 士業 (too slow, queue for Phase 2 post-Aug).
+**Explicit skips:** Flower shops, cafes, restaurants (unless foreign-owned chain), solo coaches, therapists, independent consultants, idea-stage bootstrapped founders, any Japanese SMB where website doesn't drive sales.
 
-Full ICP detail: `HQ/marketing/research/icp-profile.md`.
+Full ICP details: `PRD.md` → Ideal Customer Profile section.
 
 ---
 
 ## Hero copy
 
-### JP (primary)
+### EN (primary — zeroen.dev default, /en route)
 
-> **前金0円。LPは無料で作ります。**
-> 月¥5,000で、制作・運用・毎月の改善まで。6ヶ月から。
-> 元日立・元楽天エンジニアが、あなた専用のブランドを3日で公開します。
+> **Bilingual SaaS, shipped.**
+> We build production-grade bilingual web products for funded founders and serious businesses in Tokyo. Fixed price. No equity. Shipped in weeks.
 
-CTA button 1: **無料相談（¥1,000）→ Coconala**
-CTA button 2: **zeroen.dev/apply で直接申し込む**
+CTA button 1: **Book a scoping call** → `/scoping-call`
+CTA button 2: **See the pricing** → `/pricing`
 
-### EN (secondary — /en route + @zeroen_dev handle)
+### JP (/ja route)
 
-> **Free landing page. ¥5,000/month hosting + updates.**
-> 6-month minimum, cancel after. Built by an ex-Hitachi, ex-Rakuten engineer in 3 days. Bilingual. No upfront cost.
+> 「バイリンガルSaaS、確実に出荷。」
+> 資金調達済みのスタートアップと東京で真剣にビジネスを営む企業向けに、プロダクショングレードのバイリンガルWebプロダクトを制作。固定価格、エクイティ不要、数週間で納品。
 
-CTA: **Apply at zeroen.dev**
+CTA: **スコーピングコール を予約** → `/ja/scoping-call`
 
 ---
 
 ## Nav structure (zeroen.dev)
 
-1. **Home** (`/`) — SaaS hero, WebMori case study (week 5+), pricing preview, apply CTA
-2. **How It Works** (`/how-it-works`) — 3-day build process, what's included, what's not, FAQ
-3. **Pricing** (`/pricing`) — Basic / Premium / change catalogue
-4. **Case Studies** (`/cases`) — WebMori first, subsequent clients as they ship
-5. **Apply** (`/apply`) — intake form → client-scorer
-6. **Startups** (`/startups`) — equity/MVP pitch, gated apply, not promoted on JP channels
+1. **Home** (`/`) — new hero, ICP pillars, deliverable pillars, "Built by ZeroEn" proof
+2. **How It Works** (`/how-it-works`) — 5-step process, plain text, no stock art
+3. **Pricing** (`/pricing`) — 3 tier cards, Growth emphasized, comparison table, FAQ
+4. **Case Studies** (`/cases`) — ZeroEn self + WebMori (technical write-ups), placeholder for first paying client
+5. **Startups** (`/startups`) — funded-founder-specific LP
+6. **Book a call** (`/book-a-call` or direct `/scoping-call`) — minimal intake + calendar
+
+No more `/apply` as the primary conversion path. `/scoping-call` is the CTA everywhere.
 
 ---
 
 ## Pricing page structure
 
-| | Basic | Premium |
+| | Starter | Growth ★ | MVP / SaaS Build |
+|---|---|---|---|
+| One-time | ¥380,000 | ¥880,000 | ¥1,500,000–¥2,500,000 |
+| Monthly retainer | ¥15,000/mo | ¥35,000/mo | ¥80,000–¥150,000/mo |
+| Timeline | 14 business days | 21-28 business days | 6-8 weeks |
+| Payment | 50/50 | 40/30/30 | 30/30/30/10 |
+
+**Growth tier is visually emphasized.** All prices in JPY with small USD parenthetical at current FX.
+
+**Anchor copy:** Compare ¥880k to a Japanese agency quote (typically ¥5-10M for equivalent scope) or hiring a bilingual full-stack engineer for 3 months (¥2-3M all-in).
+
+Full pricing details: `HQ/docs/revenue-model.md`.
+
+---
+
+## Competitive positioning
+
+| Competitor | Their weakness | ZeroEn angle |
 |---|---|---|
-| Setup | **Free** | **Free** |
-| Monthly | **¥5,000** | **¥10,000** |
-| Hosting (Vercel) | Included | Included |
-| Monthly changes | 1 small | 2 small OR 1 medium |
-| Monthly analytics | Prior-month PDF | Full-year dashboard |
-| SEO + security audits | — | Quarterly (WebMori) |
-| Minimum commitment | 6 months | 6 months |
-| After minimum | Cancel anytime | Cancel anytime |
-
-**Per-request change pricing:** ¥4k (S) / ¥10k (M) / ¥25k+ (L). Catalogue lives at `HQ/crm/change-catalogue.md` and is linked from pricing page.
-
-**Anchor copy above pricing:** 「ペライチは月¥1,465。ただし自分で作ります。Coconalaフリーランスは¥50-150kで納品のみ。ZeroEnは制作・運用・改善まで月¥5,000。」
-
----
-
-## FAQ (pre-answers top objections from ICP research)
-
-1. **なぜ無料なんですか？** — 制作費をZeroEnが負担し、月額で回収します。前金を払わせる業界構造を壊したいからです。
-2. **コードは誰のものですか？** — ZeroEnが保有します。あなたは公開中のサイトをサブスクで使います。Shopify・Squarespace・ペライチと同じ構造です。ドメインはあなたのものです。
-3. **途中でキャンセルできますか？** — 6ヶ月の最低契約期間があります。以降はいつでも解約可能。解約後はサイトをアーカイブし、コードはZeroEnが保管します。
-4. **本当に3日で公開できますか？** — LPなら可能。WebMori様も3日で公開しました。ただし、あなたが準備するコンテンツ（文章・画像）が揃っていることが条件です。
-5. **テンプレートの寄せ集めになりませんか？** — いいえ。Next.js・Tailwind・shadcn/uiで、あなたのブランドトークンに合わせて組みます。
-6. **Coconalaの¥1,000と、zeroen.devで申し込みの違いは？** — 同じサービスです。Coconalaは¥1,000で「話を聞く」入口、zeroen.devはStripeで直接お申し込みいただけます。
-
----
-
-## /startups route (equity pitch, secondary)
-
-**Not promoted on Coconala, Lancers, Note JP, X JP, or Japanese cold outbound.** Promoted only on:
-- zeroen.dev `/startups` (gated page)
-- X EN thread (build-in-public audience)
-- Direct founder referrals
-
-Hero: **Free MVP + 10% Equity. AI Technical Co-Founder.** Filter: ≥15/20 client-scorer rubric + pre-call screen. Reserve for 1-2 strategic bets during the 90-day push.
-
-Rationale: equity deals have 3-9 month sales cycles and don't feed the Jul 14 MRR gate. Keeping the option alive at a dedicated route means founders who find it via English channels aren't bounced.
+| Japanese web agency | ¥8M+ quotes, 4-6 month timelines, no bilingual UX expertise | Same output, 4-6x faster, 5-10x cheaper, EN/JA from day one |
+| Offshore dev shops | Don't understand bilingual UX or Japanese legal requirements (tokushoho, etc.) | Tokyo-based, bilingual native, Japan-specific compliance built in |
+| Freelancer + PM combo | Can't architect auth-and-billing SaaS, coordination overhead, no single owner | One senior operator, full-stack, bilingual, end-to-end accountability |
+| No-code builders | No real scalability, platform lock-in, can't handle JP-style billing/auth flows | Production-grade code, no lock-in, Supabase + Stripe native |
 
 ---
 
@@ -104,29 +92,49 @@ Rationale: equity deals have 3-9 month sales cycles and don't feed the Jul 14 MR
 
 | DO | DON'T |
 |---|---|
-| Lead with **前金0円** | Lead with "free MVP" on JP channels |
-| Name WebMori as proof | Claim "many clients" before ≥3 signed |
-| Quote **月¥5,000** in every headline | Hide the recurring fee or bury it |
-| Show the operator's face + ex-Hitachi/Rakuten credentials | Use stock photos or anonymous branding |
-| Cross-link Coconala ↔ Note ↔ zeroen.dev | Let each channel feel disconnected |
-| Use the brand green (#00E87A) accent sparingly | Rainbow / over-design |
-| Write in terse, confident voice | Corporate hedging ("お気軽にお問い合わせください" without a reason) |
+| Lead with "Bilingual SaaS, shipped." | Lead with "free", "¥0 upfront", or equity language |
+| Name specific stack (Next.js + Supabase + Stripe) | Say "modern tech stack" |
+| Quote specific timelines and prices | Hide pricing behind "contact us" |
+| Use ZeroEn + WebMori as first-party proof | Claim multiple clients before they exist |
+| Show bilingual capability in every headline | Treat bilingual as a feature, not the core differentiator |
+| Write in terse, confident voice | Hedge or use corporate softening language |
+| Link to `/scoping-call` for every CTA | Use "get in touch" or "apply" as the CTA |
 
 ---
 
-## Open questions (to close with operator before May 4)
+## Content themes (Phase 1 — what to publish)
 
-1. Final decision on `/startups` visibility: linked from main nav, or hidden and only reachable via direct link?
-2. Coconala intake fee: hold at ¥1,000, or raise to ¥3,000 after client #5 per pricing-benchmarks recommendation?
-3. Premium+ tier (¥15,000/mo)? Recommended by pricing research as bridge to agency-retainer buyers. Out of scope for Phase 0 but worth a call by W8.
+Priority posts for the next 3 weeks of content:
+1. "Why we stopped taking equity" — transparent pivot post, valuable for search and sales calls
+2. "The real cost of a bilingual SaaS MVP in 2026" — ZeroEn vs. agency vs. offshore vs. freelancer
+3. "The Next.js + Supabase + Stripe architecture we use for every build" — technical credibility
+4. "Tokushoho for bilingual e-commerce: what foreign founders get wrong" — niche, specific, ICP-targeted
+5. "Inside ZeroEn: how we built our own platform in 8 weeks solo" — case study + credibility
+
+Platform: note (JP), X threads (EN), Qiita/Zenn (technical JP). Stagger over 2-3 weeks.
+
+---
+
+## Booking funnel
+
+```
+All CTAs → /scoping-call (zeroen.dev/scoping-call)
+             ↓
+        cal.com/zeroen/scoping-call (EN)
+        cal.com/zeroen/scoping-call-ja (JP)
+             ↓
+        30-min scoping call
+             ↓
+        Fixed-price proposal within 48 hours
+```
+
+No form-submit-and-wait. Every flow ends at a calendar booking.
 
 ---
 
 ## Related
 
-- Market saturation: `HQ/marketing/research/market-saturation.md`
-- ICP profile: `HQ/marketing/research/icp-profile.md`
-- Competitor matrix: `HQ/marketing/research/competitor-matrix.md`
-- Pricing benchmarks: `HQ/marketing/research/pricing-benchmarks.md`
-- Analytics spec: `HQ/marketing/plan/analytics-spec.md`
-- Content calendar: `HQ/marketing/plan/content-calendar.md`
+- ICP detail: `PRD.md` → Ideal Customer Profile
+- Revenue model: `HQ/docs/revenue-model.md`
+- Client lifecycle: `HQ/docs/client-lifecycle.md`
+- Phase 1 review queue (borderline content decisions): `HQ/docs/phase1-review-queue.md`
