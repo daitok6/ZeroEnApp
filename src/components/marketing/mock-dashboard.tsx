@@ -13,6 +13,7 @@ import {
   CheckCircle2,
   Circle,
   ArrowRight,
+  type LucideIcon,
 } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -256,7 +257,7 @@ function RequestsTab() {
 
 // ─── Sidebar nav ──────────────────────────────────────────────────────────────
 
-type NavEntry = { id: Tab | null; label: string; Icon: React.ElementType; locked?: boolean };
+type NavEntry = { id: Tab | null; label: string; Icon: LucideIcon; locked?: boolean };
 
 const NAV: NavEntry[] = [
   { id: 'overview',  label: 'Overview',        Icon: LayoutDashboard },

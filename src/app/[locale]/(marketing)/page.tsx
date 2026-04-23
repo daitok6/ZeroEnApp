@@ -5,6 +5,7 @@ import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { Hero3DScene } from '@/components/marketing/hero-3d-scene';
 
 export const revalidate = 3600;
 
@@ -86,43 +87,55 @@ export default async function HomePage({ params }: Props) {
 
       {/* ── Hero ────────────────────────────────────────────── */}
       <section className="min-h-[90vh] flex flex-col justify-center px-4 py-32">
-        <div className="max-w-4xl mx-auto">
-          <ScrollReveal direction="up">
-            <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-6">
-              {t('hero.eyebrow')}
-            </p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-[#F4F4F2] mb-6 leading-tight max-w-3xl">
-              {t('hero.headline')}
-            </h1>
-            <p className="text-[#9CA3AF] font-mono text-base sm:text-lg mb-10 max-w-2xl">
-              {t('hero.subheadline')}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href={scopingCallHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-8 py-4 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)] hover:shadow-[0_0_48px_rgba(0,232,122,0.7)] text-center"
-              >
-                {t('hero.cta')}
-              </a>
-              <Link
-                href={`/${locale}/pricing`}
-                className="inline-block border border-[#374151] text-[#9CA3AF] font-heading font-bold uppercase tracking-widest text-sm px-8 py-4 rounded hover:border-[#6B7280] hover:text-[#F4F4F2] transition-all duration-200 text-center"
-              >
-                {t('hero.ctaSecondary')}
-              </Link>
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+
+            {/* Text content */}
+            <div className="flex-1 min-w-0">
+              <ScrollReveal direction="up">
+                <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-6">
+                  {t('hero.eyebrow')}
+                </p>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-[#F4F4F2] mb-6 leading-tight">
+                  {t('hero.headline')}
+                </h1>
+                <p className="text-[#9CA3AF] font-mono text-base sm:text-lg mb-10 max-w-xl">
+                  {t('hero.subheadline')}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a
+                    href={scopingCallHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-8 py-4 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)] hover:shadow-[0_0_48px_rgba(0,232,122,0.7)] text-center"
+                  >
+                    {t('hero.cta')}
+                  </a>
+                  <Link
+                    href={`/${locale}/pricing`}
+                    className="inline-block border border-[#374151] text-[#9CA3AF] font-heading font-bold uppercase tracking-widest text-sm px-8 py-4 rounded hover:border-[#6B7280] hover:text-[#F4F4F2] transition-all duration-200 text-center"
+                  >
+                    {t('hero.ctaSecondary')}
+                  </Link>
+                </div>
+                <p className="text-[#6B7280] font-mono text-xs mt-3">
+                  {t('hero.ctaNote')}
+                </p>
+                <p className="text-[#374151] font-mono text-xs mt-4">
+                  {t('hero.urgencyNote')}
+                </p>
+                <p className="text-[#6B7280] font-mono text-xs mt-2">
+                  {t('hero.credential')}
+                </p>
+              </ScrollReveal>
             </div>
-            <p className="text-[#6B7280] font-mono text-xs mt-3">
-              {t('hero.ctaNote')}
-            </p>
-            <p className="text-[#374151] font-mono text-xs mt-4">
-              {t('hero.urgencyNote')}
-            </p>
-            <p className="text-[#6B7280] font-mono text-xs mt-2">
-              {t('hero.credential')}
-            </p>
-          </ScrollReveal>
+
+            {/* 3D scene — desktop only */}
+            <div className="hidden lg:block flex-shrink-0 w-[400px] h-[400px]">
+              <Hero3DScene />
+            </div>
+
+          </div>
         </div>
       </section>
 
