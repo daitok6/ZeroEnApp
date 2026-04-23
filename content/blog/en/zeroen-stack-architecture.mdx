@@ -1,0 +1,62 @@
+---
+title: "The Next.js + Supabase + Stripe architecture we use for every ZeroEn build (and why we stopped using everything else)"
+description: "A technical deep-dive into the stack decisions behind every ZeroEn bilingual product. Why this combination, why not the alternatives, and one architectural decision we got wrong."
+date: "2026-04-23"
+category: "case-study"
+author: "Daito Kojima"
+readingTime: "12 min"
+draft: true
+---
+
+<!-- HUMAN-AUTHORED: operator writes body. Claude Code = editor pass only after first draft. -->
+
+## Section outline — write prose in your own voice
+
+### 1. The stack as a statement
+
+<!-- TODO: Lead with: "Next.js 16 App Router. TypeScript. Supabase with per-client project isolation.
+  Stripe for subscriptions and one-off invoices. Vercel. Resend for email. shadcn/ui. That's it."
+  Explain why stating the stack upfront is the honest way to start a credibility post. -->
+
+### 2. Why Next.js
+
+<!-- TODO: vs. Remix — explain the routing model tradeoff and why App Router won for bilingual
+  vs. SvelteKit — why the ecosystem gap matters for JP compliance pages and i18n
+  vs. separate Nest backend — why SSR-native beats a separate API for this use case
+  Include: one thing you wish Next.js did better (be specific — don't be a fanboy) -->
+
+### 3. Why Supabase
+
+<!-- TODO: vs. Firebase — the RLS + Postgres + auth bundle vs. NoSQL tradeoffs
+  vs. PlanetScale — why you don't want a separate auth layer
+  vs. rolled auth (Passport, NextAuth, etc.) — time cost is the honest argument
+  Include: the per-client project isolation decision — when you made it and why -->
+
+### 4. Why Stripe
+
+<!-- TODO: vs. Paddle — Merchant of Record vs. collecting consumption tax yourself
+  vs. GMO Payment Gateway — the JP-native option and why Stripe won anyway
+  vs. Pay.jp — similar analysis, different tradeoffs
+  Be honest about: what JP businesses sometimes push back on when they see Stripe -->
+
+### 5. Why Vercel
+
+<!-- TODO: vs. AWS — the ops burden tradeoff for a solo operator
+  vs. Cloudflare Pages — where the edge-compute model breaks for this use case
+  Include: what you actually use Vercel for beyond hosting (analytics, log drain, preview URLs) -->
+
+### 6. The architectural decision we got wrong
+
+<!-- TODO: Pick ONE real decision you revised. Candidates:
+  - The per-client Supabase project isolation decision (costs vs. benefits at scale)
+  - The next-intl vs. other i18n library choice (why you switched or why you stayed)
+  - Something in the Stripe webhook handling that caused an incident
+  Write it in the first person. "We built it this way. Here's what broke. Here's what we changed." -->
+
+### 7. One real code snippet
+
+<!-- TODO: Choose ONE that demonstrates a real pattern. Candidates:
+  - i18n routing in Next.js 16 App Router with next-intl (the actual middleware config)
+  - Stripe webhook signature verification in Next.js 16 route handlers (the exact pattern)
+  - Supabase RLS with auth cookies in SSR (the createServerClient pattern that actually works)
+  Make it the real code, not a simplified demo. -->

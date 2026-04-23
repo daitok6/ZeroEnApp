@@ -17,6 +17,7 @@ export interface PostMeta {
   category?: BlogCategory;
   tags?: string[];
   author?: string;
+  draft?: boolean;
 }
 
 export interface Post extends PostMeta {
@@ -50,6 +51,7 @@ export function getPostBySlug(slug: string, locale: string): Post | null {
     category: data.category,
     tags: data.tags || [],
     author: data.author,
+    draft: data.draft === true,
     content,
   };
 }
@@ -58,7 +60,7 @@ export function getAllPosts(locale: string): Post[] {
   const slugs = getPostSlugs(locale);
   return slugs
     .map((slug) => getPostBySlug(slug, locale))
-    .filter((post): post is Post => post !== null)
+    .filter((post): post is Post => post !== null && post.draft !== true)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 

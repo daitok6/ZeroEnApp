@@ -1,0 +1,86 @@
+---
+title: "The real cost of a bilingual SaaS MVP in Tokyo in 2026"
+description: "You just raised, you need to ship in Japan, and every quote you're getting is from a different universe. Here's why — and how to think about it."
+date: "2026-04-23"
+category: "operator-log"
+author: "Daito Kojima"
+readingTime: "8 min"
+draft: false
+---
+
+You just raised a pre-seed or seed round. Your product is US-first but the Japan opportunity is real, and your investors want to see traction before the next raise. You need a bilingual product live.
+
+So you start asking around. The quotes you get back are completely incompatible with each other:
+
+- A Tokyo web agency quotes you ¥8M and six months.
+- An Upwork team in Eastern Europe quotes you $5,000 and eight weeks.
+- A recruiter says a senior bilingual engineer would cost ¥15M loaded annually.
+- A bilingual freelance specialist quotes you ¥1.5M and six weeks.
+
+All four of these quotes are real. All four are for "roughly the same thing." And yet they're separated by a factor of more than 10x. Here's why — and how to decide which one is right for you.
+
+---
+
+## The four vendor archetypes
+
+### 1. Japanese traditional web agency
+
+**Typical range:** ¥6–15M, 4–6 months
+
+Japanese agencies are built for large, coordinated, multi-stakeholder projects. They have project managers, designers, a QA team, account managers, and a bilingual interface layer that lets your non-Japanese-speaking team communicate with Japanese engineers. That overhead is real and it costs money.
+
+What you get for the money: a structured process, formal deliverable checkpoints, a team that won't disappear on you, and usually excellent polish on the final product. The agency model works extremely well for enterprise clients who are running an RFP with five vendors, a procurement process, and a 12-month budget cycle.
+
+What you don't get: speed. Agencies have backlogs. The first two months of your engagement will involve requirements gathering, design reviews, and internal approval processes. If your runway is 18 months and you need a live product in six weeks, the agency model is structurally incompatible with your situation regardless of budget.
+
+**When this is the right choice:** You have a large budget, a complex product, multiple internal stakeholders who need to review and approve deliverables, and more than four months before you need to launch.
+
+### 2. Offshore dev shop / Upwork
+
+**Typical range:** $3–10k (¥450k–¥1.5M), 2–4 months
+
+The offshore market has improved significantly over the past five years. You can find genuinely good engineers on Upwork who will build a fast, functional product at a fraction of Tokyo agency rates.
+
+The specific failure mode is bilingual. Building a bilingual product isn't just translating UI strings — it's locale-aware routing, RTL/LTR awareness, font rendering across character sets, JP-specific UX patterns (like dense information hierarchy that Japanese users expect but Western designers don't build), compliance pages that are legally required in Japan but don't exist in the West (特定商取引法 — more on this below), and a local payment stack that Japanese B2B customers actually trust.
+
+Offshore teams can build fast. But the bilingual gap shows up in QA. Strings get hardcoded. The JA version has layout breaks on mobile. The tokushoho page is missing. These are fixable problems — but they add rework cycles, which collapse the original timeline estimate.
+
+**When this is the right choice:** Your "bilingual" requirement is actually just translation of a few pages, not an EN/JA-native product. Your Japan launch is a secondary market, not the primary focus.
+
+### 3. Full-time senior bilingual engineer
+
+**Typical range:** ¥12–18M annual loaded cost, 3–6 months to hire, 3-month ramp
+
+If you're building in Japan long-term, a full-time hire is eventually the right answer. A senior bilingual engineer who can own your Japan tech stack, communicate with local vendors and customers, and iterate continuously on a live product is a compounding investment.
+
+The timing problem: hiring a senior bilingual engineer in Tokyo takes 3–6 months. The ramp period is another 3 months. If you're trying to show Japan traction before your Series A, this timeline doesn't work. You're spending ¥4.5M+ before they've shipped anything.
+
+There's also a mismatch problem. A product that needs to be built once and maintained with occasional updates doesn't need a full-time engineer. That's the classic agency use case. What you actually want at the pre-Series A stage is a product that exists and works, with the option to hire a full-time person after you've validated the Japan market.
+
+**When this is the right choice:** You've already validated Japan demand, you're raising a Series A or later, and you need someone building on your Japan product full-time for the next two years.
+
+### 4. Solo bilingual specialist (the ZeroEn model)
+
+**Typical range:** ¥1.5–2.5M fixed, 6–8 weeks, bilingual-native, capped scope
+
+This is what I do. One engineer. Fixed scope. Fixed price. Both EN and JA treated as first-class locales from day one. Built on a stack (Next.js + Supabase + Stripe) that's specifically chosen for bilingual product delivery rather than for maximum architectural flexibility.
+
+The tradeoffs are real. A solo specialist can handle 2–3 concurrent projects at a time. I won't manage a 20-page requirements document or run a formal QA process with a dedicated tester. If you need something with a highly custom backend, a native mobile component, or complex integrations with JP-specific legacy enterprise systems, this model is wrong for you.
+
+What I'm optimized for: funded founders who have a clear product concept, are making product decisions in real time (not through a committee), need a production-grade bilingual product live within a defined window, and have a fixed budget that doesn't have room for a 12-month agency retainer.
+
+**When this is the right choice:** You just closed a round and need a production-grade bilingual product live within weeks. Your scope is clear. You're willing to make decisions quickly. You want fixed pricing with no surprises.
+
+---
+
+## The honest close
+
+None of these options is objectively better than the others. They're optimized for different situations.
+
+The agency model is right for large coordinated projects with multiple stakeholders and long timelines. The offshore model is right if your bilingual requirement is shallow. The full-time hire is right if you've already validated the market and you're building long-term. The solo specialist model is right for the window between funding and first production launch.
+
+If your MVP is well-scoped and your founder is willing to make product decisions in real time, option 4 is the efficient choice. If any of those aren't true — if scope is undefined, if approvals take weeks, if the product is genuinely complex — option 4 is wrong for you, and I'll tell you that on the first call.
+
+If you want to figure out which one applies to your situation, the scoping call is 30 minutes and it's free.
+
+[Book a scoping call →](/scoping-call)

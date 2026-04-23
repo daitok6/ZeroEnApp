@@ -1,0 +1,63 @@
+---
+title: "ZeroEnが全ての案件で使うNext.js + Supabase + Stripeの技術選定（と、その他の選択肢を辞めた理由）"
+description: "バイリンガル製品開発に特化したスタック選定の深掘り。なぜこの組み合わせなのか、代替案との比較、そして一度間違えた設計判断。"
+date: "2026-04-23"
+category: "case-study"
+author: "Daito Kojima"
+readingTime: "12分"
+draft: true
+---
+
+<!-- HUMAN-AUTHORED: 本文は運営者が執筆してください。Claude Codeは初稿後の編集サポートのみ。 -->
+<!-- Zenn掲載想定：「技術選定」タグ、「bilingual」「nextjs」「supabase」「stripe」タグ推奨 -->
+
+## セクションアウトライン — 自分の言葉で本文を書く
+
+### 1. スタックを宣言する
+
+<!-- TODO: 「Next.js 16 App Router。TypeScript。Supabase（クライアント毎プロジェクト分離）。
+  Stripe（サブスクリプションと単発請求）。Vercel。Resend。shadcn/ui。以上。」
+  なぜ最初にスタックを宣言するのが誠実なアプローチか説明する。 -->
+
+### 2. なぜNext.js
+
+<!-- TODO: Remixとの比較 — App Routerのルーティングモデルとバイリンガル対応の相性
+  SvelteKitとの比較 — 特定商取引法対応とi18nにおけるエコシステムの差
+  分離Nestバックエンドとの比較 — SSRネイティブがAPIサーバー分離より優れる理由
+  含めること：Next.jsに改善してほしい点（ファンボーイにならずに正直に） -->
+
+### 3. なぜSupabase
+
+<!-- TODO: Firebaseとの比較 — RLS + Postgres + 認証のバンドルとNoSQLのトレードオフ
+  PlanetScaleとの比較 — 別途認証レイヤーが不要な理由
+  自前認証（Passport、NextAuthなど）との比較 — 工数コストが正直な論拠
+  含めること：クライアント毎プロジェクト分離の意思決定 — いつ、なぜその判断をしたか -->
+
+### 4. なぜStripe
+
+<!-- TODO: Paddleとの比較 — Merchant of Recordと消費税自己申告のトレードオフ
+  GMOペイメントゲートウェイとの比較 — JP国内決済の選択肢とStripeを選んだ理由
+  Pay.jpとの比較 — 似た分析、異なるトレードオフ
+  正直に書くこと：日本の企業がStripeに対して懸念を示す場合がある点 -->
+
+### 5. なぜVercel
+
+<!-- TODO: AWSとの比較 — ソロオペレーターにとっての運用負荷のトレードオフ
+  Cloudflare Pagesとの比較 — エッジコンピュートモデルが機能しないユースケース
+  含めること：ホスティング以外でVercelを実際に使っている機能（アナリティクス、ログ、プレビューURL） -->
+
+### 6. 間違えた設計判断
+
+<!-- TODO: 実際に見直した判断を1つ選ぶ。候補：
+  - クライアント毎Supabaseプロジェクト分離の判断（スケール時のコストと恩恵）
+  - next-intlの選択（なぜ変えたか、またはなぜ変えなかったか）
+  - Stripeウェブフック処理で問題が起きたこと
+  一人称で書く。「こう作った。ここで壊れた。こう変えた。」 -->
+
+### 7. 実際のコードスニペット
+
+<!-- TODO: 実際のパターンを示す1つを選ぶ。候補：
+  - Next.js 16 App RouterでのI18nルーティング（next-intlの実際のミドルウェア設定）
+  - Next.js 16ルートハンドラーでのStripeウェブフック署名検証（実際のパターン）
+  - SSRでのSupabase RLSと認証クッキー（実際に動くcreateServerClientのパターン）
+  簡略化したデモではなく、本番で使っているコードを使う。 -->

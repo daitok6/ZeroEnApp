@@ -1,0 +1,157 @@
+---
+title: "Tokushoho for bilingual e-commerce and SaaS: what foreign founders get wrong"
+description: "Japan's consumer protection disclosure law (特定商取引法) catches most foreign founders off guard. Here's what it requires, what the edge cases are, and a minimal Next.js implementation."
+date: "2026-04-23"
+category: "tutorial"
+author: "Daito Kojima"
+readingTime: "10 min"
+draft: false
+---
+
+> **Japanese summary / 日本語要約:** 特定商取引法（Tokushoho）は、日本での電子商取引・SaaSサービスに適用される消費者保護開示法です。住所・価格・キャンセルポリシーなど6つの必須項目を掲載する専用ページが必要です。詳細は[消費者庁公式サイト](https://www.no-trouble.caa.go.jp/)または[JETRO](https://www.jetro.go.jp/)をご参照ください。
+
+---
+
+You launched your SaaS in Japan. You accepted your first Stripe payment. Two weeks later, a user filed a complaint with the 消費者庁 (Japan Consumer Affairs Agency) because your tokushoho disclosure was missing.
+
+This is a real scenario, and it happens to foreign founders more often than you'd think. Not because they're building bad products — but because 特定商取引法 (Act on Specified Commercial Transactions, commonly called "tokushoho") doesn't exist in most Western markets, so there's no cultural awareness of it.
+
+Here's what you need to know.
+
+---
+
+## What is tokushoho?
+
+特定商取引法 is Japan's consumer protection law governing commercial transactions. It was originally designed for door-to-door sales and mail-order in the 1970s, and it has been updated multiple times to cover internet commerce, subscription services, and digital downloads.
+
+The law requires that any business selling goods or services to consumers in Japan publicly disclose a specific set of information about the business and the transaction. This must appear on a dedicated page on your website — typically linked from the footer as 「特定商取引法に基づく表記」.
+
+**Who does it apply to?** Any business conducting "specified commercial transactions" with Japanese consumers. This includes:
+- E-commerce (physical goods or digital downloads)
+- Subscription SaaS products
+- Online services with recurring billing
+- Membership sites
+
+**What are the penalties?** The Minister of Economy, Trade and Industry can issue business improvement orders and, in serious cases, suspension orders. More practically: consumer complaints to the 消費者庁 can trigger audits. Chargebacks from Japanese credit card issuers often reference missing tokushoho disclosure as a reason.
+
+If you're a foreign company with no Japanese entity, you're still subject to this law for transactions with Japanese consumers.
+
+---
+
+## The six required fields (and the practical nuances)
+
+### 1. Seller name (販売業者)
+
+Your legal business name. If you're operating as a foreign company, you can use your legal entity name. If you're a sole proprietor, your legal name is required — but there is a provision that allows you to disclose an address-to-name lookup process instead of your name directly, if disclosing your name creates a safety concern (the 住所非公開 provision applies here too).
+
+### 2. Business address (住所)
+
+This is the one that surprises most foreign founders. You must disclose a physical business address. If you're operating as a foreign company, the address can be your company's registered address abroad — but it must be specific enough that a consumer could contact you by mail.
+
+**The 住所非公開 provision:** If disclosing your physical address creates a genuine security concern (common for sole proprietors operating from a home address), you can instead state: 「消費者から請求があった場合には遅滞なく開示します」 — "will be disclosed promptly upon request from a consumer." This is an official exception that has been in the law since 2022. Use it if you need it; it's legitimate.
+
+### 3. Contact method (連絡先)
+
+A phone number and/or email address. Phone is technically required by the letter of the law, but in practice, a clearly displayed email address with a stated response time is generally accepted for software/SaaS products. If you have a Japanese phone number, list it.
+
+### 4. Pricing (販売価格)
+
+You must display prices inclusive of consumption tax (消費税, currently 10%). If your pricing is in USD, you can display USD prices but should note the tax treatment. For B2B SaaS targeting Japanese corporations: if you are a qualified invoice issuer (インボイス制度に登録), you should display your registration number.
+
+The consumption tax presentation matters more than most foreign founders realize. Japanese consumers expect to see a price with the explicit notation that tax is included, e.g., ¥880,000（税込）. "¥800,000 + tax" is technically acceptable but is a worse experience.
+
+### 5. Payment method and timing (支払方法・支払時期)
+
+List all accepted payment methods (credit card / Stripe, bank transfer, etc.) and when payment is collected (at subscription start, at kickoff, at milestone delivery). This must match how your Stripe implementation actually works — don't say "billed monthly" if you have milestone-based payments.
+
+### 6. Cancellation and return policy (返品・キャンセルについて)
+
+For SaaS products, you typically cannot offer returns on digital services — this is fine and legally supported. You need to state your cancellation terms clearly: notice period required, what happens to pre-paid amounts, and when service ends. If you have a minimum term, it must be disclosed here.
+
+**The qualified invoice issuer requirement (インボイス制度):** If you're selling to Japanese businesses (B2B), your customers may need your qualified invoice issuer registration number to claim input tax credits. If you're not registered, B2B customers will be paying 10% consumption tax on your invoices without being able to recover it — which affects your competitiveness against registered domestic competitors. Whether to register is a business decision, but you need to know it exists.
+
+---
+
+## A minimal Next.js implementation
+
+Here's the structure for a bilingual tokushoho page in Next.js App Router with next-intl:
+
+```tsx
+// src/app/[locale]/tokushoho/page.tsx
+import { getTranslations } from 'next-intl/server';
+
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function TokushohoPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations('tokushoho');
+
+  const sections = t.raw('sections') as { title: string; body: string }[];
+
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-24">
+      <h1 className="text-2xl font-bold mb-2">{t('title')}</h1>
+      <p className="text-sm text-gray-500 mb-12">{t('subtitle')}</p>
+      <dl className="space-y-8">
+        {sections.map((section) => (
+          <div key={section.title} className="border-t pt-6">
+            <dt className="font-semibold text-sm mb-2">{section.title}</dt>
+            <dd className="text-sm text-gray-600 whitespace-pre-line">{section.body}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+```
+
+The key implementation notes:
+- `whitespace-pre-line` preserves the multi-line formatting of the body content without requiring HTML markup in your JSON files.
+- Both `/tokushoho` (EN) and `/ja/tokushoho` (JA) should be served — Japanese consumers landing on your JA site must see a Japanese disclosure page; English-speaking consumers appreciate an English version.
+- The page should be linked from the footer with the standard label: `特定商取引法に基づく表記` in the JA footer, and `Legal Disclosure` or `Tokushoho` in the EN footer.
+
+### The disclosure structure in JSON
+
+```json
+// messages/ja.json — tokushoho section
+{
+  "tokushoho": {
+    "title": "特定商取引法に基づく表記",
+    "subtitle": "...",
+    "sections": [
+      { "title": "販売業者", "body": "ZeroEn\n代表者：Daito Kojima" },
+      { "title": "住所", "body": "請求があった場合には遅滞なく開示します。" },
+      { "title": "電話番号", "body": "080-XXXX-XXXX" },
+      { "title": "販売価格", "body": "スターター：¥380,000（税込）\nグロース：¥880,000（税込）" },
+      { "title": "支払方法", "body": "クレジットカード決済（Stripe）" },
+      { "title": "支払時期", "body": "マイルストーンベース。" },
+      { "title": "返品・キャンセルについて", "body": "キックオフ前50%返金、着手後返金不可。" }
+    ]
+  }
+}
+```
+
+This pattern works for both static and dynamically-updated disclosure pages. If pricing changes, update the JSON — the page renders automatically.
+
+---
+
+## The practical checklist before going live
+
+Before your first Japanese payment, verify:
+
+- [ ] `/tokushoho` (EN) and `/ja/tokushoho` (JA) routes exist and are publicly accessible
+- [ ] Both pages are linked from the footer with the correct label
+- [ ] Business address is disclosed (or the 住所非公開 statement is in place)
+- [ ] Pricing includes 消費税 notation (税込)
+- [ ] Cancellation policy matches your actual Stripe configuration
+- [ ] If selling B2B: you've decided whether to register as a qualified invoice issuer
+
+---
+
+## One more thing
+
+This post covers the structure. It doesn't replace legal advice for your specific situation — particularly if you have a Japanese entity, if you're handling physical goods, or if you're in a regulated industry.
+
+If you're launching in Japan and you're not sure whether your site meets tokushoho requirements, I do a free 20-minute review call as part of the ZeroEn scoping process. I've built tokushoho compliance into every client project — I know the edge cases.
+
+[Book a scoping call →](/scoping-call)
