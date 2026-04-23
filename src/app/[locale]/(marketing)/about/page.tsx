@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
@@ -10,47 +9,48 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (locale === 'ja') {
     return buildMetadata({
-      title: 'ZeroEnについて — 元日立・元楽天エンジニアが月¥10,000でLP制作を始めた理由',
-      description: '元日立製作所・元楽天のWebエンジニア、大都がZeroEnを作った背景。「1ページのLPに数十万円」という相場への違和感から生まれたサービスです。',
+      title: 'ZeroEnについて — バイリンガルSaaSスタジオ',
+      description: '東京を拠点とするバイリンガルプロダクトスタジオ。資金調達済みのスタートアップと真剣なビジネス向けに、固定価格でプロダクショングレードのバイリンガルWebプロダクトを制作。',
       path: '/about',
       locale,
       ogTitle: 'ZeroEnについて',
-      ogSubtitle: '元日立・元楽天エンジニアが作ったサービス',
+      ogSubtitle: 'バイリンガルSaaSスタジオ、東京',
     });
   }
   return buildMetadata({
-    title: 'About ZeroEn — Why an Ex-Hitachi, Ex-Rakuten Engineer Charges ¥10,000/mo',
-    description: 'The story behind ZeroEn. Ex-Hitachi, ex-Rakuten web engineer Daito built this after seeing solo operators quoted ¥200,000+ for a single landing page.',
+    title: 'About ZeroEn — Bilingual SaaS Studio, Tokyo',
+    description: 'ZeroEn is a bilingual product studio building production-grade EN/JA web products for funded founders and serious businesses in Tokyo. Fixed price, no equity.',
     path: '/about',
     locale,
     ogTitle: 'About ZeroEn',
-    ogSubtitle: 'Built by an ex-Hitachi, ex-Rakuten engineer',
+    ogSubtitle: 'Bilingual SaaS studio, Tokyo',
   });
 }
 
 export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
   const ja = locale === 'ja';
+  const scopingCallHref = locale === 'ja' ? '/ja/scoping-call' : '/scoping-call';
 
   return (
     <div className="bg-[#0D0D0D] text-[#F4F4F2] min-h-screen pt-24">
 
-      {/* ── Header ─────────────────────────────────────────── */}
+      {/* Header */}
       <section className="py-20 px-4">
         <div className="max-w-2xl mx-auto">
           <ScrollReveal direction="up">
             <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-4">
               {ja ? 'ZeroEnについて' : 'About ZeroEn'}
             </p>
-            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-[#F4F4F2] mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-[#F4F4F2] mb-6 leading-tight whitespace-pre-line">
               {ja
-                ? '1ページのLPに\n数十万円、という感覚。'
-                : 'The ¥200,000\nquestion.'}
+                ? '日系エージェンシーは\n800万円と4ヶ月と言う。'
+                : 'Japanese agencies\nquote ¥8M and 4 months.'}
             </h1>
             <p className="text-[#9CA3AF] font-mono text-sm leading-relaxed">
               {ja
-                ? 'Web制作会社でLP1枚の見積もりを取ると、初期20〜50万円という金額が返ってきます。理由はあります。複数スタッフ、仕様書、プロジェクト管理——大きな案件ならその金額は妥当です。でも、個人でコーチング・セラピーをされている方が「まず1枚、ちゃんとしたLPを持ちたい」と思ったとき、それは現実的じゃないかもしれない。'
-                : 'Web agencies quote ¥200,000–¥500,000 for a single landing page. That makes sense at scale — multiple staff, spec documents, project management. But for a solo coach or therapist who just needs one good LP to exist, it often doesn\'t.'}
+                ? 'それには理由があります。複数のスタッフ、仕様書、プロジェクト管理——大きな案件なら妥当な金額です。でも、今週資金調達を完了したファウンダーがバイリンガルのプロダクトを数週間で必要としているとき、その答えは現実的ではありません。'
+                : "There's a reason. Multiple staff, spec documents, project management — for a large coordinated project the number makes sense. But for a founder who just closed a round and needs a bilingual product live in weeks, it's the wrong answer."}
             </p>
           </ScrollReveal>
         </div>
@@ -58,7 +58,7 @@ export default async function AboutPage({ params }: Props) {
 
       <GreenGlowLine />
 
-      {/* ── Founder story ──────────────────────────────────── */}
+      {/* Founder story */}
       <section className="py-20 px-4">
         <div className="max-w-2xl mx-auto">
           <ScrollReveal direction="up">
@@ -79,25 +79,25 @@ export default async function AboutPage({ params }: Props) {
             <div className="space-y-6 font-mono text-sm text-[#9CA3AF] leading-relaxed">
               <p>
                 {ja
-                  ? '日立製作所でWebシステムの開発をしていました。その後、楽天でフロントエンド・バックエンドの開発を経験しました。企業の中で大規模なWebを作ってきた時間が長かったので、「LP1枚に数十万円」という相場の話を聞くたびに、どこか腑に落ちないものがありました。'
-                  : 'I spent years building web systems at Hitachi, then large-scale services at Rakuten. Every time I heard someone quote ¥200,000+ for a single landing page, something didn\'t sit right.'}
+                  ? '日立製作所でWebシステムの開発をしていました。その後、楽天でフロントエンド・バックエンドの開発を経験しました。企業の中で大規模なWebを作ってきた時間が長かったので、バイリンガルのプロダクトを求める人が直面する壁は、技術的な問題ではなく、構造的な問題だとわかります。'
+                  : 'I spent years building web systems at Hitachi, then large-scale services at Rakuten. After that time inside large organizations, I know that the barrier people face when they need a bilingual product is not a technical problem — it\'s a structural one.'}
               </p>
               <p>
                 {ja
-                  ? '大きな開発会社が動く案件なら、その金額は理解できます。でも、「まず1枚、ちゃんとしたLPが欲しい」と思っているコーチやセラピストにとっては、スタートのハードルが高すぎる。'
-                  : 'For a large agency running a coordinated project, the number makes sense. But for a solo operator who just wants their first real landing page, it\'s too high a bar to clear.'}
+                  ? '大きな開発会社は大きな案件のために作られています。東京で資金調達を完了したばかりのファウンダーや、日本市場に参入しようとしている外資系企業には、別の解決策が必要です——技術的に本格的で、バイリンガルが最初から組み込まれていて、数週間で納品できるもの。'
+                  : "Large agencies are built for large projects. Funded founders in Tokyo and foreign companies entering the Japan market need something different — technically solid, bilingual from day one, shipped in weeks, not months."}
               </p>
               <p>
                 {ja
-                  ? 'そこで2026年4月、ZeroEnを始めました。初期費用ゼロ。月¥10,000のホスティング費用の中に、制作・運用・毎月の改善をすべて含めます。月額モデルにしたのは、納品して終わりではなく、一緒にサイトを育てていきたいからです。'
-                  : 'So in April 2026 I started ZeroEn. Zero upfront. ¥10,000/month covers building, hosting, and monthly improvements. The subscription model exists because I don\'t want to deliver and disappear — I want to grow the site alongside the business.'}
+                  ? '2026年4月、ZeroEnを始めました。プロダクショングレードのバイリンガルNext.js + Supabase + Stripeプロダクトを固定価格で。エクイティ不要、レベニューシェア不要。制作してすぐ終わりではなく、本番環境に対応したプロダクトを納品します。'
+                  : 'In April 2026 I started ZeroEn. Production-grade bilingual Next.js + Supabase + Stripe products at fixed price. No equity, no revenue share. Not a build-and-abandon — a production-ready product delivered and owned by you.'}
               </p>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── Credentials ────────────────────────────────────── */}
+      {/* Credentials */}
       <section className="py-16 px-4 bg-[#080808]">
         <div className="max-w-2xl mx-auto">
           <ScrollReveal direction="up">
@@ -116,7 +116,9 @@ export default async function AboutPage({ params }: Props) {
                 },
                 {
                   org: ja ? '独立後 / ZeroEn' : 'Independent / ZeroEn',
-                  role: ja ? 'Next.js・React・TypeScript中心のWeb開発。LP制作・運用サービスを提供。' : 'Next.js, React, TypeScript web development. LP build & run service.',
+                  role: ja
+                    ? 'Next.js・Supabase・Stripeによるバイリンガルプロダクション開発。東京の資金調達済みスタートアップと真剣なビジネス向け。'
+                    : 'Bilingual production builds — Next.js + Supabase + Stripe. For funded founders and serious businesses in Tokyo.',
                 },
               ].map((c) => (
                 <div key={c.org} className="flex gap-4">
@@ -132,51 +134,27 @@ export default async function AboutPage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Note article link ──────────────────────────────── */}
-      <section className="py-16 px-4">
-        <div className="max-w-2xl mx-auto">
-          <ScrollReveal direction="up">
-            <div className="border-l-2 border-[#00E87A] pl-6 py-2">
-              <p className="text-[#00E87A] font-mono text-xs uppercase tracking-widest mb-2">
-                {ja ? 'Noteで詳しく書きました' : 'Full story on Note'}
-              </p>
-              <p className="text-[#9CA3AF] font-mono text-sm leading-relaxed mb-3">
-                {ja
-                  ? 'なぜ月¥10,000という金額にしたのか、制作費をこちら側で負担する仕組みの理由、最初のクライアントをどうやって探したか——Noteにまとめて書きました。'
-                  : 'Why ¥10,000/month, how the upfront-free model works, how I found the first clients — written up in full on Note (Japanese).'}
-              </p>
-              <a
-                href="https://note.com/zeroen_dev/n/n2d8f1bb2247a"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#00E87A] font-mono text-xs hover:underline"
-              >
-                {ja ? '記事を読む — note.com →' : 'Read on note.com (JP) →'}
-              </a>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
       <GreenGlowLine />
 
-      {/* ── CTA ────────────────────────────────────────────── */}
+      {/* CTA */}
       <section className="py-24 px-4 text-center">
         <ScrollReveal direction="up">
           <h2 className="text-2xl sm:text-3xl font-heading font-bold text-[#F4F4F2] mb-4">
-            {ja ? '一緒に作りましょう。' : 'Let\'s build something.'}
+            {ja ? '一緒に作りましょう。' : "Let's build something."}
           </h2>
           <p className="text-[#6B7280] font-mono text-sm mb-8 max-w-md mx-auto">
             {ja
-              ? '初期費用ゼロ。月¥10,000から。あなたのビジネスに合ったLPを3日で届けます。'
-              : 'Zero upfront. From ¥10,000/month. Your LP delivered in 3 days.'}
+              ? '固定価格。エクイティ不要。数週間で納品。30分のスコーピングコールから始めます。'
+              : 'Fixed price. No equity. Shipped in weeks. Starts with a 30-minute scoping call.'}
           </p>
-          <Link
-            href={`/${locale}/login`}
+          <a
+            href={scopingCallHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-10 py-4 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)]"
           >
-            {ja ? '無料で申し込む' : 'Apply free'}
-          </Link>
+            {ja ? 'スコーピングコールを予約' : 'Book a scoping call'}
+          </a>
         </ScrollReveal>
       </section>
     </div>

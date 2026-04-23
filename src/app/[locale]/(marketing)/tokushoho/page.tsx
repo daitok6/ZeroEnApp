@@ -27,6 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
+// TODO-REVIEW: Pricing and cancellation terms were updated 2026-04-23 for the new fixed-price model.
+// Confirm all figures, tax treatment, and legal language with operator before publishing to production.
+// This page is staged on the preview branch only — do NOT merge to main without operator sign-off.
+
 export default async function TokushohoPage({ params }: Props) {
   await params;
   const t = await getTranslations('tokushoho');

@@ -1222,7 +1222,7 @@
       },
       {
         "title": "Pricing",
-        "body": "**Basic plan:** ¥10,000/month (tax included)\n**Growth plan:** ¥20,000/month (tax included)\n**Additional change requests:** ¥4,000 and up (varies by scope)\n\nSee the pricing page for full details."
+        "body": "**Starter:** ¥380,000 (tax included) — one-time build fee\n**Growth:** ¥880,000 (tax included) — one-time build fee\n**MVP / SaaS Build:** ¥1,500,000 and up (tax included) — one-time build fee\n\n**Optional monthly retainer:**\nStarter: ¥15,000/month · Growth: ¥35,000/month · MVP: ¥80,000–¥150,000/month\n\n**Out-of-scope work:** ¥15,000/hour (quoted before work begins)\n\n⚠️ TODO-REVIEW: Confirm pricing figures and tax treatment with operator before publishing."
       },
       {
         "title": "Additional Fees",
@@ -1234,15 +1234,15 @@
       },
       {
         "title": "Payment Timing",
-        "body": "First charge is made at the time of sign-up. Subsequent charges are made automatically on the same date each month."
+        "body": "Milestone-based. First charge is collected at kickoff per the milestone schedule in the signed proposal. Retainer charges (if applicable) are made monthly from the retainer start date."
       },
       {
         "title": "Service Delivery",
-        "body": "Service is provided following contract conclusion. Initial site launch is typically within 2 weeks."
+        "body": "Service is provided following contract conclusion and first milestone payment. Starter tier: approximately 14 business days. Growth tier: 21–28 business days. MVP / SaaS Build: 6–8 weeks. Exact timeline confirmed in the signed proposal."
       },
       {
         "title": "Cancellation Policy",
-        "body": "Due to the nature of the subscription service, refunds are not provided as a general rule.\n\n**Minimum term:** 6 months. Early cancellation will result in the remaining months being charged in full.\n\nUpon cancellation, the site is archived. Source code ownership remains with ZeroEn."
+        "body": "**Milestone refund policy:**\nKickoff milestone (first payment): 50% refund if cancelled before work begins, non-refundable after work begins.\nSubsequent milestones: non-refundable once the relevant milestone deliverable has been approved.\nFinal milestone: non-refundable.\n\n**Retainer cancellation:** 30 days written notice required. No minimum term.\n\n**Code ownership:** Transfers to client upon final milestone payment.\n\n⚠️ TODO-REVIEW: Confirm refund and cancellation terms with operator before publishing."
       },
       {
         "title": "System Requirements",
