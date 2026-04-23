@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { Zap, TrendingUp, Rocket, Check } from 'lucide-react';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
@@ -90,9 +91,12 @@ export default async function PricingPage({ params }: Props) {
             {/* Starter */}
             <StaggerItem>
               <div className="flex flex-col bg-[#111827] rounded-lg border border-[#374151] p-8 h-full hover:shadow-[0_0_24px_rgba(0,232,122,0.08)] transition-all duration-300">
-                <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest mb-3">
-                  {t('starter.name')}
-                </p>
+                <div className="flex items-center gap-2 mb-3">
+                  <Zap className="w-4 h-4 text-[#6B7280]" strokeWidth={1.5} />
+                  <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">
+                    {t('starter.name')}
+                  </p>
+                </div>
                 <div className="flex items-baseline gap-1 mb-1">
                   <span className="text-[#F4F4F2] font-heading font-bold text-4xl">{t('starter.price')}</span>
                 </div>
@@ -102,7 +106,7 @@ export default async function PricingPage({ params }: Props) {
                 <ul className="space-y-3 flex-1 mb-8">
                   {starterItems.map((item) => (
                     <li key={item} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
-                      <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>
+                      <Check className="w-3.5 h-3.5 text-[#00E87A] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
                       {item}
                     </li>
                   ))}
@@ -122,9 +126,12 @@ export default async function PricingPage({ params }: Props) {
             <StaggerItem>
               <div className="flex flex-col bg-[#111827] rounded-lg border-2 border-[#00E87A] p-8 h-full shadow-[0_0_32px_rgba(0,232,122,0.15)] hover:shadow-[0_0_48px_rgba(0,232,122,0.25)] transition-all duration-300">
                 <div className="flex items-center justify-between mb-3">
-                  <p className="text-[#00E87A] font-mono text-xs uppercase tracking-widest">
-                    {t('growth.name')}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4 text-[#00E87A]" strokeWidth={1.5} />
+                    <p className="text-[#00E87A] font-mono text-xs uppercase tracking-widest">
+                      {t('growth.name')}
+                    </p>
+                  </div>
                   <span className="text-[#0D0D0D] bg-[#00E87A] font-mono text-xs font-bold px-2 py-0.5 rounded">
                     {t('growth.badge')}
                   </span>
@@ -138,7 +145,7 @@ export default async function PricingPage({ params }: Props) {
                 <ul className="space-y-3 flex-1 mb-8">
                   {growthItems.map((item) => (
                     <li key={item} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
-                      <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>
+                      <Check className="w-3.5 h-3.5 text-[#00E87A] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
                       {item}
                     </li>
                   ))}
@@ -157,9 +164,12 @@ export default async function PricingPage({ params }: Props) {
             {/* MVP Build */}
             <StaggerItem>
               <div className="flex flex-col bg-[#111827] rounded-lg border border-[#374151] p-8 h-full hover:shadow-[0_0_24px_rgba(0,232,122,0.08)] transition-all duration-300">
-                <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest mb-3">
-                  {t('mvp.name')}
-                </p>
+                <div className="flex items-center gap-2 mb-3">
+                  <Rocket className="w-4 h-4 text-[#6B7280]" strokeWidth={1.5} />
+                  <p className="text-[#6B7280] font-mono text-xs uppercase tracking-widest">
+                    {t('mvp.name')}
+                  </p>
+                </div>
                 <div className="flex items-baseline gap-1 mb-1">
                   <span className="text-[#F4F4F2] font-heading font-bold text-4xl">{t('mvp.price')}</span>
                 </div>
@@ -169,7 +179,7 @@ export default async function PricingPage({ params }: Props) {
                 <ul className="space-y-3 flex-1 mb-8">
                   {mvpItems.map((item) => (
                     <li key={item} className="flex items-start gap-2 font-mono text-sm text-[#9CA3AF]">
-                      <span className="text-[#00E87A] flex-shrink-0 mt-0.5">✓</span>
+                      <Check className="w-3.5 h-3.5 text-[#00E87A] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
                       {item}
                     </li>
                   ))}

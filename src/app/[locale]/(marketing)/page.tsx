@@ -1,12 +1,15 @@
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Rocket, Building2, Globe2, Languages, Layers, ShieldCheck } from 'lucide-react';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
+import { CardIcon } from '@/components/marketing/card-icon';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { Hero3DScene } from '@/components/marketing/hero-3d-scene';
 import { CtaPulse } from '@/components/marketing/cta-pulse';
+import { ScreenshotImage } from '@/components/marketing/screenshot-image';
 
 export const revalidate = 3600;
 
@@ -72,6 +75,13 @@ export default async function HomePage({ params }: Props) {
   const caseItems = t.raw('caseStudies.items') as {
     name: string; desc: string; meta: string[]; url?: string; label: string;
   }[];
+
+  const icpIcons = [Rocket, Building2, Globe2];
+  const deliverableIcons = [Languages, Layers, ShieldCheck];
+  const caseThumb: Record<string, string> = {
+    ZeroEn: '/images/cases/zeroen-home.webp',
+    WebMori: '/images/cases/webmori-home.webp',
+  };
 
   const scopingCallHref = locale === 'ja' ? '/ja/scoping-call' : '/scoping-call';
 
@@ -158,9 +168,10 @@ export default async function HomePage({ params }: Props) {
             </div>
           </ScrollReveal>
           <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
-            {icpPillars.map((pillar) => (
+            {icpPillars.map((pillar, i) => (
               <StaggerItem key={pillar.title}>
                 <div className="bg-[#111827] rounded-lg border border-[#374151] p-7 hover:border-[#00E87A]/40 transition-all duration-300">
+                  <CardIcon Icon={icpIcons[i]} />
                   <h3 className="text-[#F4F4F2] font-heading font-bold text-base mb-3">
                     {pillar.title}
                   </h3>
@@ -188,10 +199,10 @@ export default async function HomePage({ params }: Props) {
             </div>
           </ScrollReveal>
           <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
-            {deliverablePillars.map((pillar) => (
+            {deliverablePillars.map((pillar, i) => (
               <StaggerItem key={pillar.title}>
                 <div className="p-7">
-                  <div className="w-2 h-2 rounded-full bg-[#00E87A] mb-4 shadow-[0_0_8px_rgba(0,232,122,0.6)]" />
+                  <CardIcon Icon={deliverableIcons[i]} />
                   <h3 className="text-[#F4F4F2] font-heading font-bold text-base mb-3">
                     {pillar.title}
                   </h3>
@@ -224,31 +235,38 @@ export default async function HomePage({ params }: Props) {
           <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.12}>
             {caseItems.map((item) => (
               <StaggerItem key={item.name}>
-                <div className="bg-[#111827] rounded-lg border border-[#374151] p-7 hover:border-[#00E87A]/40 transition-all duration-300 flex flex-col">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-[#F4F4F2] font-heading font-bold text-lg">{item.name}</span>
-                    <span className="text-[#0D0D0D] bg-[#00E87A] font-mono text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-widest">
-                      {t('caseStudies.live')}
-                    </span>
-                  </div>
-                  <p className="text-[#6B7280] font-mono text-sm leading-relaxed mb-4 flex-1">
-                    {item.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {item.meta.map((tag) => (
-                      <span key={tag} className="border border-[#374151] text-[#6B7280] font-mono text-[10px] px-2 py-0.5 rounded">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  {item.url && (
-                    <Link
-                      href={`/${locale}/cases`}
-                      className="text-[#00E87A] font-mono text-xs hover:underline"
-                    >
-                      {item.label}
-                    </Link>
+                <div className="bg-[#111827] rounded-lg border border-[#374151] hover:border-[#00E87A]/40 transition-all duration-300 flex flex-col overflow-hidden">
+                  {caseThumb[item.name] && (
+                    <div className="w-full aspect-video overflow-hidden">
+                      <ScreenshotImage src={caseThumb[item.name]} alt={`${item.name} homepage`} />
+                    </div>
                   )}
+                  <div className="p-7 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-[#F4F4F2] font-heading font-bold text-lg">{item.name}</span>
+                      <span className="text-[#0D0D0D] bg-[#00E87A] font-mono text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-widest">
+                        {t('caseStudies.live')}
+                      </span>
+                    </div>
+                    <p className="text-[#6B7280] font-mono text-sm leading-relaxed mb-4 flex-1">
+                      {item.desc}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-5">
+                      {item.meta.map((tag) => (
+                        <span key={tag} className="border border-[#374151] text-[#6B7280] font-mono text-[10px] px-2 py-0.5 rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    {item.url && (
+                      <Link
+                        href={`/${locale}/cases`}
+                        className="text-[#00E87A] font-mono text-xs hover:underline"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </StaggerItem>
             ))}

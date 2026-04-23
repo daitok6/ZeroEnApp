@@ -62,17 +62,28 @@ export default async function AboutPage({ params }: Props) {
       <section className="py-20 px-4">
         <div className="max-w-2xl mx-auto">
           <ScrollReveal direction="up">
-            <div className="flex items-start gap-6 mb-12">
-              <div className="flex-shrink-0 w-16 h-16 rounded-full bg-[#111827] border border-[#374151] flex items-center justify-center">
-                <span className="text-[#00E87A] font-mono text-xs font-bold">大都</span>
+            <div className="flex items-start gap-6 mb-10">
+              <div className="flex-shrink-0 w-16 h-16 rounded-full bg-[#111827] border border-[#00E87A]/30 flex items-center justify-center shadow-[0_0_16px_rgba(0,232,122,0.15)]">
+                <span className="text-[#00E87A] font-mono text-sm font-bold">大都</span>
               </div>
               <div>
                 <p className="text-[#F4F4F2] font-mono font-bold text-sm mb-0.5">
                   {ja ? '大都 (Daito)' : 'Daito'}
                 </p>
-                <p className="text-[#6B7280] font-mono text-xs">
+                <p className="text-[#6B7280] font-mono text-xs mb-3">
                   {ja ? 'ZeroEn 代表 / Webエンジニア' : 'Founder, ZeroEn / Web Engineer'}
                 </p>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[#374151] font-mono text-[10px] uppercase tracking-widest">
+                    {ja ? '過去の所属' : 'Previously'}
+                  </span>
+                  <span className="border border-[#374151] text-[#6B7280] font-mono text-[10px] px-2 py-0.5 rounded">
+                    {ja ? '日立製作所' : 'Hitachi'}
+                  </span>
+                  <span className="border border-[#374151] text-[#6B7280] font-mono text-[10px] px-2 py-0.5 rounded">
+                    {ja ? '楽天グループ' : 'Rakuten'}
+                  </span>
+                </div>
               </div>
             </div>
 

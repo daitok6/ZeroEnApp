@@ -1,7 +1,25 @@
+import Image from 'next/image';
 import type { MDXComponents } from 'mdx/types';
 
 export function getMDXComponents(): MDXComponents {
   return {
+    img: ({ src, alt }) => (
+      <span className="block my-8">
+        <Image
+          src={src as string}
+          alt={alt ?? ''}
+          width={1280}
+          height={720}
+          className="rounded-lg border border-[#1F2937] w-full h-auto"
+        />
+      </span>
+    ),
+    figure: ({ children }) => (
+      <figure className="my-10">{children}</figure>
+    ),
+    figcaption: ({ children }) => (
+      <figcaption className="text-xs font-mono text-[#6B7280] mt-3 text-center">{children}</figcaption>
+    ),
     h1: ({ children }) => (
       <h1 className="text-3xl md:text-4xl font-bold font-heading text-[#F4F4F2] mt-8 mb-4 leading-tight">
         {children}
@@ -50,7 +68,7 @@ export function getMDXComponents(): MDXComponents {
       <em className="text-[#9CA3AF] italic">{children}</em>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-2 border-[#00E87A] pl-4 my-4 text-[#6B7280] font-mono text-sm italic">
+      <blockquote className="border-l-2 border-[#00E87A] pl-4 my-6 text-[#9CA3AF] font-mono text-sm italic">
         {children}
       </blockquote>
     ),
@@ -71,6 +89,6 @@ export function getMDXComponents(): MDXComponents {
         </pre>
       </div>
     ),
-    hr: () => <hr className="border-[#374151] my-8" />,
+    hr: () => <hr className="border-[#1F2937] my-12" />,
   };
 }

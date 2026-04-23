@@ -1,8 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
+import { Phone, FileText, Zap, Code2, Rocket } from 'lucide-react';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
 import { buildMetadata } from '@/lib/seo/metadata';
+import type { LucideIcon } from 'lucide-react';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -36,6 +38,7 @@ export default async function HowItWorksPage({ params }: Props) {
 
   const steps = t.raw('steps') as { number: string; name: string; desc: string }[];
   const scopingCallHref = locale === 'ja' ? '/ja/scoping-call' : '/scoping-call';
+  const stepIcons: LucideIcon[] = [Phone, FileText, Zap, Code2, Rocket];
 
   return (
     <div className="bg-[#0D0D0D] text-[#F4F4F2] min-h-screen">
@@ -68,7 +71,9 @@ export default async function HowItWorksPage({ params }: Props) {
               }}
             />
             <div className="space-y-0">
-              {steps.map((step, index) => (
+              {steps.map((step, index) => {
+                const StepIcon = stepIcons[index];
+                return (
                 <ScrollReveal key={step.number} direction="up" delay={index * 0.07}>
                   <div className="relative flex gap-8 pb-14 last:pb-0">
                     <div className="relative z-10 flex-shrink-0 w-20 flex flex-col items-center">
@@ -87,10 +92,11 @@ export default async function HowItWorksPage({ params }: Props) {
                           step_{step.number}.sh
                         </span>
                       </div>
-                      <div className="flex items-baseline gap-3 mb-3">
+                      <div className="flex items-center gap-3 mb-3">
                         <span className="text-[#00E87A] font-mono text-xs font-bold tracking-widest">
                           ~/{step.number}
                         </span>
+                        <StepIcon className="w-4 h-4 text-[#00E87A]/60" strokeWidth={1.5} />
                         <h2 className="text-[#F4F4F2] font-heading font-bold text-lg tracking-wider">
                           {step.name}
                         </h2>
@@ -101,7 +107,8 @@ export default async function HowItWorksPage({ params }: Props) {
                     </div>
                   </div>
                 </ScrollReveal>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
