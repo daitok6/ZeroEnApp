@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { MessageSquare, PlusCircle, Receipt, Bell, X } from 'lucide-react';
+import { MessageSquare, PlusCircle, Receipt, Bell, X, type LucideIcon } from 'lucide-react';
 import { markNotificationRead, markAllNotificationsRead, dismissNotification } from '@/lib/notifications/actions';
 
 export interface NotificationRow {
@@ -23,7 +23,7 @@ interface NotificationsFeedProps {
   locale: string;
 }
 
-const TYPE_ICON: Record<NotificationRow['type'], React.ElementType> = {
+const TYPE_ICON: Record<NotificationRow['type'], LucideIcon> = {
   message: MessageSquare,
   request_comment: MessageSquare,
   invoice_update: Receipt,
