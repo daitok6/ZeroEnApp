@@ -1011,10 +1011,10 @@
       "title": "You're in!",
       "desc": "Your application has been approved. Welcome to ZeroEn — let's build something great together.",
       "highlights": [
-        "We build your MVP with ¥0 upfront",
+        "Fixed-price project. Milestone billing via Stripe.",
         "Deploy to production on Vercel",
-        "Monthly analytics reports delivered to you",
-        "We grow together when you succeed"
+        "Monthly retainer support included",
+        "No equity. No revenue share. You own the business."
       ],
       "setupButton": "Set up your project →",
       "timeEstimate": "Takes about 3 minutes"
