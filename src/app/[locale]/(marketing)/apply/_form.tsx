@@ -4,24 +4,16 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { trackEvent } from '@/components/analytics/google-analytics';
 
-type OccupationKey = 'coach' | 'therapist' | 'counselor' | 'other';
-
 type Messages = {
   form: {
     name: string;
     namePlaceholder: string;
     email: string;
     emailPlaceholder: string;
-    occupation: string;
-    occupationPlaceholder: string;
-    occupationCoach: string;
-    occupationTherapist: string;
-    occupationCounselor: string;
-    occupationOther: string;
-    currentSite: string;
-    currentSitePlaceholder: string;
-    challenge: string;
-    challengePlaceholder: string;
+    company: string;
+    companyPlaceholder: string;
+    blurb: string;
+    blurbPlaceholder: string;
     consent: string;
     submit: string;
     submitting: string;
@@ -41,16 +33,14 @@ export function ApplyForm({ locale, messages }: Props) {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [occupation, setOccupation] = useState<OccupationKey | ''>('');
-  const [currentSite, setCurrentSite] = useState('');
-  const [challenge, setChallenge] = useState('');
+  const [company, setCompany] = useState('');
+  const [blurb, setBlurb] = useState('');
   const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [attribution, setAttribution] = useState<string>('direct');
   const hasTrackedStart = useRef(false);
 
-  // Read first-touch attribution from localStorage on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem('attribution_source');
@@ -65,8 +55,7 @@ export function ApplyForm({ locale, messages }: Props) {
     if (!name.trim()) next.name = t.fieldRequired;
     if (!email.trim()) next.email = t.fieldRequired;
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = t.emailInvalid;
-    if (!occupation) next.occupation = t.fieldRequired;
-    if (!challenge.trim()) next.challenge = t.fieldRequired;
+    if (!blurb.trim()) next.blurb = t.fieldRequired;
     if (!consent) next.consent = t.fieldRequired;
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -84,7 +73,6 @@ export function ApplyForm({ locale, messages }: Props) {
 
     setSubmitting(true);
 
-    // Parse attribution into UTM meta
     const parts = attribution.split('/');
     const attributionMeta: Record<string, string> = {};
     if (parts.length >= 1 && parts[0] !== 'direct') {
@@ -93,7 +81,6 @@ export function ApplyForm({ locale, messages }: Props) {
       if (parts[2]) attributionMeta.utm_campaign = parts[2];
     }
 
-    // Merge URL search params for full UTM capture (if available)
     try {
       const url = new URL(window.location.href);
       ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach((k) => {
@@ -111,9 +98,8 @@ export function ApplyForm({ locale, messages }: Props) {
         body: JSON.stringify({
           name: name.trim(),
           email: email.trim(),
-          occupation,
-          current_site_url: currentSite.trim() || undefined,
-          challenge: challenge.trim(),
+          company: company.trim() || undefined,
+          blurb: blurb.trim(),
           first_touch: attribution,
           attribution_meta: Object.keys(attributionMeta).length > 0 ? attributionMeta : undefined,
           locale,
@@ -125,13 +111,9 @@ export function ApplyForm({ locale, messages }: Props) {
         throw new Error(data.error || 'Submission failed');
       }
 
-      // Track conversion in GA4 (Google Ads conversion fires on thank-you page mount)
       trackEvent({
         action: 'apply_submit',
-        params: {
-          icp_segment: occupation,
-          referral_source: attribution,
-        },
+        params: { referral_source: attribution },
       });
 
       router.push(`/${locale}/apply/thank-you`);
@@ -150,15 +132,7 @@ export function ApplyForm({ locale, messages }: Props) {
   `;
 
   const labelClass = 'block text-[#9CA3AF] font-mono text-xs uppercase tracking-widest mb-2';
-
   const errorClass = 'mt-1 text-red-400 font-mono text-xs';
-
-  const occupationOptions: { value: OccupationKey; label: string }[] = [
-    { value: 'coach', label: t.occupationCoach },
-    { value: 'therapist', label: t.occupationTherapist },
-    { value: 'counselor', label: t.occupationCounselor },
-    { value: 'other', label: t.occupationOther },
-  ];
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
@@ -199,65 +173,42 @@ export function ApplyForm({ locale, messages }: Props) {
         {errors.email && <p className={errorClass}>{errors.email}</p>}
       </div>
 
-      {/* Occupation */}
+      {/* Company (optional) */}
       <div>
-        <label htmlFor="apply-occupation" className={labelClass}>
-          {t.occupation} <span className="text-red-400">*</span>
-        </label>
-        <select
-          id="apply-occupation"
-          value={occupation}
-          onChange={(e) => setOccupation(e.target.value as OccupationKey | '')}
-          onFocus={handleFirstFocus}
-          className={`${inputClass} appearance-none`}
-        >
-          <option value="" disabled className="bg-[#111827]">
-            {t.occupationPlaceholder}
-          </option>
-          {occupationOptions.map((opt) => (
-            <option key={opt.value} value={opt.value} className="bg-[#111827]">
-              {opt.label}
-            </option>
-          ))}
-        </select>
-        {errors.occupation && <p className={errorClass}>{errors.occupation}</p>}
-      </div>
-
-      {/* Current site URL (optional) */}
-      <div>
-        <label htmlFor="apply-site" className={labelClass}>
-          {t.currentSite}
+        <label htmlFor="apply-company" className={labelClass}>
+          {t.company}
         </label>
         <input
-          id="apply-site"
-          type="url"
-          value={currentSite}
-          onChange={(e) => setCurrentSite(e.target.value)}
-          placeholder={t.currentSitePlaceholder}
+          id="apply-company"
+          type="text"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          placeholder={t.companyPlaceholder}
           className={inputClass}
-          autoComplete="url"
+          autoComplete="organization"
+          maxLength={200}
         />
       </div>
 
-      {/* Challenge */}
+      {/* Blurb */}
       <div>
-        <label htmlFor="apply-challenge" className={labelClass}>
-          {t.challenge} <span className="text-red-400">*</span>
+        <label htmlFor="apply-blurb" className={labelClass}>
+          {t.blurb} <span className="text-red-400">*</span>
         </label>
         <textarea
-          id="apply-challenge"
-          value={challenge}
-          onChange={(e) => setChallenge(e.target.value)}
+          id="apply-blurb"
+          value={blurb}
+          onChange={(e) => setBlurb(e.target.value)}
           onFocus={handleFirstFocus}
-          placeholder={t.challengePlaceholder}
+          placeholder={t.blurbPlaceholder}
           rows={4}
           maxLength={1000}
           className={`${inputClass} resize-none`}
         />
-        {errors.challenge && <p className={errorClass}>{errors.challenge}</p>}
+        {errors.blurb && <p className={errorClass}>{errors.blurb}</p>}
       </div>
 
-      {/* APPI Consent checkbox — required by JP privacy law */}
+      {/* APPI Consent — required by JP privacy law */}
       <div className="flex items-start gap-3">
         <input
           id="apply-consent"
@@ -275,14 +226,12 @@ export function ApplyForm({ locale, messages }: Props) {
       </div>
       {errors.consent && <p className={errorClass}>{errors.consent}</p>}
 
-      {/* Submit error */}
       {errors.submit && (
         <p className="text-red-400 font-mono text-xs border border-red-400/20 rounded px-3 py-2 bg-red-400/5">
           {errors.submit}
         </p>
       )}
 
-      {/* Submit button */}
       <button
         type="submit"
         disabled={submitting}

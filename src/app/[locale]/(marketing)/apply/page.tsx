@@ -34,16 +34,10 @@ export default async function ApplyPage({ params }: Props) {
       namePlaceholder: t('form.namePlaceholder'),
       email: t('form.email'),
       emailPlaceholder: t('form.emailPlaceholder'),
-      occupation: t('form.occupation'),
-      occupationPlaceholder: t('form.occupationPlaceholder'),
-      occupationCoach: t('form.occupationCoach'),
-      occupationTherapist: t('form.occupationTherapist'),
-      occupationCounselor: t('form.occupationCounselor'),
-      occupationOther: t('form.occupationOther'),
-      currentSite: t('form.currentSite'),
-      currentSitePlaceholder: t('form.currentSitePlaceholder'),
-      challenge: t('form.challenge'),
-      challengePlaceholder: t('form.challengePlaceholder'),
+      company: t('form.company'),
+      companyPlaceholder: t('form.companyPlaceholder'),
+      blurb: t('form.blurb'),
+      blurbPlaceholder: t('form.blurbPlaceholder'),
       consent: t('form.consent'),
       submit: t('form.submit'),
       submitting: t('form.submitting'),
@@ -89,8 +83,8 @@ export default async function ApplyPage({ params }: Props) {
           {/* Trust signal */}
           <p className="text-center text-[#4B5563] font-mono text-xs mt-6 leading-relaxed">
             {locale === 'ja'
-              ? '先着5名 · 24時間以内にご返信 · 無料相談から'
-              : 'First 5 clients · Reply within 24h · Free consultation'}
+              ? '48時間以内にご返信 · スコーピングコールから始めます'
+              : 'Reply within 48h · Starts with a scoping call'}
           </p>
         </div>
       </section>
