@@ -35,11 +35,11 @@ Score each dimension 1-5. Accept threshold: 15+/20.
 - **1:** Not feasible as an MVP, requires fundamental R&D, or needs tech outside our stack
 
 ### 4. Market Potential (1-5)
-- **5:** Large TAM, growing market, clear path to scale, strong revenue potential for equity upside
+- **5:** Large TAM, growing market, clear path to scale
 - **4:** Good market size, growth potential, realistic scaling path
 - **3:** Moderate market, could work but limited upside
-- **2:** Small niche, limited growth potential, equity likely low value
-- **1:** Tiny market or oversaturated, minimal equity upside
+- **2:** Small niche, limited growth potential
+- **1:** Tiny market or oversaturated
 
 ## Score Card Output
 

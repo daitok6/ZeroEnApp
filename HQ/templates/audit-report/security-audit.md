@@ -79,7 +79,7 @@ Items identified during the audit that are **outside the quarterly scope** or re
 
 | Priority | Recommendation | Suggested Action |
 |---|---|---|
-| {{High/Medium/Low}} | {{e.g. Implement a Content Security Policy}} | {{e.g. Include in next quarter's audit / a-la-carte Medium change (¥10,000)}} |
+| {{High/Medium/Low}} | {{e.g. Implement a Content Security Policy}} | {{e.g. Include in next quarter's audit / out-of-scope work at ¥15,000/hr}} |
 | {{priority}} | {{recommendation}} | {{action}} |
 
 _If no recommendations, write: "No additional recommendations at this time."_

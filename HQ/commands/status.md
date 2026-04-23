@@ -29,9 +29,9 @@ args: "<clientId>"
 - **Repo:** [GitHub URL]
 
 ## Deal
-- **Equity:** 10%
-- **Rev share:** X%
-- **Platform fee:** $50/mo — [active/pending]
+- **Tier:** [Starter ¥380k / Growth ¥880k / MVP Build ¥1.5-2.5M]
+- **Milestones paid:** X of Y
+- **Retainer:** [active ¥Xk/mo / none]
 
 ## Timeline
 - **Build started:** YYYY-MM-DD
@@ -41,10 +41,10 @@ args: "<clientId>"
 - **Next report due:** YYYY-MM-DD
 
 ## Revenue (Lifetime)
-- **Platform fees:** $X
-- **Per-request:** $X
-- **Rev share:** $X
-- **Total:** $X
+- **Project milestones:** ¥X
+- **Per-request (¥15k/hr):** ¥X
+- **Retainer:** ¥X
+- **Total:** ¥X
 
 ## Health
 - [Green/Yellow/Red] — [reason if yellow or red]

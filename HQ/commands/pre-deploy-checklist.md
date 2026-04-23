@@ -87,11 +87,10 @@ The template ships working defaults for all of these, but every one needs per-cl
 
 ## 8. Billing & Contract
 
-- [ ] 6-month commitment confirmed in writing
-- [ ] Stripe subscription created via zeroen.dev checkout (recurring ¥10,000 or ¥20,000/mo)
-- [ ] First invoice paid OR first billing cycle scheduled post-launch (per `admin-manual.md §2.5`)
-- [ ] Coconala intake fee received (¥500) if applicable
-- [ ] Partnership Agreement signed → row exists in `signed_documents` for client's `user_id` with `document_type = 'partnership_agreement'`
+- [ ] Fixed-price proposal signed by client
+- [ ] Kickoff milestone payment received via Stripe
+- [ ] SOW (Statement of Work) attached to client record
+- [ ] Signed agreement row exists in `signed_documents` for client's `user_id`
 
 ## 9. Quality Gates (run `/deploy <clientId>` — don't skip)
 

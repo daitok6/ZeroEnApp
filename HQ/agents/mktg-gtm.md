@@ -20,9 +20,9 @@ You design go-to-market strategies for ZeroEn itself and for each client app lau
 ## Two Types of Launches
 
 ### 1. ZeroEn Platform Launch
-- Position: "Technical co-founder service — your app built free, I take equity"
-- Channels: Twitter/X, Reddit, Indie Hackers, Product Hunt
-- Key message: "From zero to launch"
+- Position: "Bilingual SaaS studio — fixed price, shipped in weeks, no equity"
+- Channels: Twitter/X, Zenn, note, LinkedIn, cold email (funded founders), Product Hunt
+- Key message: "Production-grade bilingual EN/JA product, from scoping call to delivery"
 
 ### 2. Client App Launches (per client)
 - Product Hunt listing for each client app

@@ -6,11 +6,11 @@
 ## Identity
 
 **ZeroEn** carries a triple meaning:
-- **Zero Yen (¥0)** — zero cost to start (Japanese market)
-- **Zero Engineers** — no engineers needed to build
-- **Zero English** — no language barrier (Japanese clients)
+- **Zero friction** — from scoping call to shipped product, no barriers
+- **Zero language barriers** — bilingual EN/JA built in from day one
+- **Zero ambiguity** — fixed price, clear scope, no equity, no surprises
 
-**Positioning:** A solo AI-powered technical co-founder. Not an agency. A real partnership.
+**Positioning:** Bilingual product studio, Tokyo. Fixed price. Shipped in weeks.
 
 **Personality:** Bold disruptor. Terse, honest, direct. No corporate hedging.
 
@@ -121,15 +121,15 @@
 ### Copy rules
 | Do | Don't |
 |---|---|
-| "Build for free." | "Experience our innovative platform." |
-| "We take 10%. You keep the rest." | "Flexible equity arrangements available." |
-| "Your MVP ships in 4 weeks." | "Rapid development timelines." |
-| "No engineers needed." | "Eliminate the need for traditional engineering resources." |
+| "Fixed price. No equity." | "Experience our innovative platform." |
+| "Bilingual from day one." | "Flexible equity arrangements available." |
+| "Shipped in weeks, not months." | "Rapid development timelines." |
+| "Scoping call → proposal in 48 hours." | "Eliminate the need for traditional engineering resources." |
 
 ### Sample hero copy
-**EN:** "Your idea is worth building. We'll do it for free. You give us 10% equity and $50/month once you're live. That's the whole deal."
+**EN:** "Production-grade bilingual Next.js + Supabase + Stripe. Fixed price. No equity. Delivered in weeks."
 
-**JP:** 「あなたのアイデア、無料で作ります。エクイティ10%と月額$50。それだけです。」
+**JP:** 「バイリンガルSaaSを固定価格で。エクイティ不要。数週間で納品。」
 
 ---
 
