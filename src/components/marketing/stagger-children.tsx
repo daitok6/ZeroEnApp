@@ -39,7 +39,7 @@ export function StaggerChildren({
   once = true,
 }: StaggerChildrenProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once, margin: '-80px' });
+  const isInView = useInView(ref, { once, amount: 0.15 });
   const shouldReduceMotion = useReducedMotion();
 
   // Skip stagger animation for users who prefer reduced motion

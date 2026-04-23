@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { UtmCapture } from '@/components/analytics/utm-capture';
+import { PageTransition } from '@/components/marketing/page-transition';
 
 type Props = {
   children: React.ReactNode;
@@ -20,7 +21,9 @@ export default async function MarketingLayout({ children, params }: Props) {
         <UtmCapture />
       </Suspense>
       <Header />
-      <main>{children}</main>
+      <main>
+        <PageTransition>{children}</PageTransition>
+      </main>
       <Footer locale={locale} />
     </NextIntlClientProvider>
   );
