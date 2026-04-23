@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
       { source: '/en/dashboard-preview', destination: '/en/live-from-day-one', permanent: true },
       { source: '/ja/dashboard-preview', destination: '/ja/live-from-day-one', permanent: true },
       { source: '/dashboard-preview', destination: '/en/live-from-day-one', permanent: true },
+      { source: '/scoping-call', destination: 'https://cal.com/zeroen/scoping-call', permanent: false },
+      { source: '/ja/scoping-call', destination: 'https://cal.com/zeroen/scoping-call-ja', permanent: false },
+      { source: '/intro', destination: 'https://cal.com/zeroen/intro', permanent: false },
     ];
   },
 };
