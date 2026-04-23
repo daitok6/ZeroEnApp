@@ -2,6 +2,7 @@
   "clients": [
     {
       "clientId": "webmori",
+      "icp_segment": "legacy_icp",
       "status": "onboarding",
       "created": "2026-04-13",
       "repo": "",
@@ -10,6 +11,7 @@
     },
     {
       "clientId": "fujiseni-lancers",
+      "icp_segment": "legacy_icp",
       "status": "lancers-compe",
       "created": "2026-04-15",
       "lancers_listing": "5525919",
@@ -20,6 +22,7 @@
       "notes": "Lancers コンペ entry — TOP page design. Deliverable: .ai + .psd + Vercel preview. Not a paying client yet."
     }
   ],
-  "schema_version": "1.0",
-  "last_updated": "2026-04-14"
+  "schema_version": "1.1",
+  "schema_notes": "icp_segment added 2026-04-23. Valid values: funded_founders_tokyo | japan_market_entry | bilingual_recruiting | foreign_owned_smb | japanese_startups_global | legacy_icp",
+  "last_updated": "2026-04-23"
 }
