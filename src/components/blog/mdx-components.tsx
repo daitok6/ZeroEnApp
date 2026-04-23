@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import type { MDXComponents } from 'mdx/types';
+import { Callout } from './callout';
+import { Figure } from './figure';
 
 export function getMDXComponents(): MDXComponents {
   return {
@@ -90,5 +92,7 @@ export function getMDXComponents(): MDXComponents {
       </div>
     ),
     hr: () => <hr className="border-[#1F2937] my-12" />,
+    Callout,
+    Figure,
   };
 }

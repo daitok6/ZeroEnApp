@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400">
+  <!-- Background -->
+  <rect width="900" height="400" fill="#111827" rx="8"/>
+  <rect x="1" y="1" width="898" height="398" rx="7" fill="none" stroke="#1F2937" stroke-width="1"/>
+
+  <!-- Column widths: 4 cols × ~200px, starting at x=50 -->
+
+  <!-- Header row -->
+  <text x="50"  y="44" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" letter-spacing="1.5">TOKYO AGENCY</text>
+  <text x="250" y="44" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" letter-spacing="1.5">OFFSHORE</text>
+  <text x="450" y="44" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" letter-spacing="1.5">SR. HIRE</text>
+  <text x="650" y="44" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#00E87A" letter-spacing="1.5">ZEROEN ←</text>
+
+  <!-- Separator -->
+  <line x1="30" y1="56" x2="870" y2="56" stroke="#1F2937" stroke-width="1"/>
+
+  <!-- Row: Price -->
+  <text x="30" y="88" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#374151" letter-spacing="1">PRICE</text>
+  <text x="50"  y="108" font-family="'IBM Plex Mono', monospace" font-size="22" font-weight="700" fill="#4B5563">¥6–15M</text>
+  <text x="250" y="108" font-family="'IBM Plex Mono', monospace" font-size="22" font-weight="700" fill="#4B5563">¥450k–1.5M</text>
+  <text x="450" y="108" font-family="'IBM Plex Mono', monospace" font-size="22" font-weight="700" fill="#4B5563">¥15M/yr</text>
+  <text x="650" y="108" font-family="'IBM Plex Mono', monospace" font-size="22" font-weight="700" fill="#00E87A">¥380k–880k</text>
+
+  <!-- Row: Timeline -->
+  <text x="30" y="148" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#374151" letter-spacing="1">TIMELINE</text>
+  <text x="50"  y="168" font-family="'IBM Plex Mono', monospace" font-size="18" fill="#4B5563">4–6 months</text>
+  <text x="250" y="168" font-family="'IBM Plex Mono', monospace" font-size="18" fill="#4B5563">2–4 months</text>
+  <text x="450" y="168" font-family="'IBM Plex Mono', monospace" font-size="18" fill="#4B5563">ongoing</text>
+  <text x="650" y="168" font-family="'IBM Plex Mono', monospace" font-size="18" fill="#F4F4F2">3–4 weeks</text>
+
+  <!-- Row: Bilingual -->
+  <text x="30" y="208" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#374151" letter-spacing="1">BILINGUAL</text>
+  <text x="50"  y="228" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#4B5563">✓ (expensive)</text>
+  <text x="250" y="228" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#4B5563">✗ usually</text>
+  <text x="450" y="228" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#4B5563">depends</text>
+  <text x="650" y="228" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#00E87A">✓ day one</text>
+
+  <!-- Row: Fixed price -->
+  <text x="30" y="268" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#374151" letter-spacing="1">FIXED PRICE</text>
+  <text x="50"  y="288" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#4B5563">✗</text>
+  <text x="250" y="288" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#4B5563">sometimes</text>
+  <text x="450" y="288" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#4B5563">✗</text>
+  <text x="650" y="288" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#00E87A">✓ always</text>
+
+  <!-- Row: Prod-ready -->
+  <text x="30" y="328" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#374151" letter-spacing="1">PROD-READY</text>
+  <text x="50"  y="348" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#4B5563">✓</text>
+  <text x="250" y="348" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#4B5563">varies</text>
+  <text x="450" y="348" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#4B5563">✓</text>
+  <text x="650" y="348" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#00E87A">✓</text>
+
+  <!-- ZeroEn column highlight -->
+  <rect x="635" y="8" width="220" height="384" rx="4" fill="#00E87A" opacity="0.04"/>
+  <rect x="635" y="8" width="220" height="384" rx="4" fill="none" stroke="#00E87A" stroke-width="1" opacity="0.2"/>
+
+  <!-- Column dividers -->
+  <line x1="230" y1="56" x2="230" y2="370" stroke="#1F2937" stroke-width="1"/>
+  <line x1="430" y1="56" x2="430" y2="370" stroke="#1F2937" stroke-width="1"/>
+  <line x1="630" y1="56" x2="630" y2="370" stroke="#1F2937" stroke-width="1"/>
+
+  <!-- Row separators -->
+  <line x1="30" y1="130" x2="870" y2="130" stroke="#1F2937" stroke-width="1" opacity="0.5"/>
+  <line x1="30" y1="190" x2="870" y2="190" stroke="#1F2937" stroke-width="1" opacity="0.5"/>
+  <line x1="30" y1="250" x2="870" y2="250" stroke="#1F2937" stroke-width="1" opacity="0.5"/>
+  <line x1="30" y1="310" x2="870" y2="310" stroke="#1F2937" stroke-width="1" opacity="0.5"/>
+</svg>

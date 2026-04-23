@@ -110,10 +110,7 @@ export default async function HomePage({ params }: Props) {
                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-[#F4F4F2] mb-6 leading-tight whitespace-nowrap">
                   {t('hero.headline')}
                 </h1>
-                <p className="text-[#9CA3AF] font-mono text-base sm:text-lg mb-10 max-w-xl">
-                  {t('hero.subheadline')}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <CtaPulse>
                     <a
                       href={scopingCallHref}

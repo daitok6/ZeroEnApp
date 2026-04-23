@@ -1,6 +1,7 @@
 import { getPostBySlug, getAllPosts } from '@/lib/mdx/utils';
 import { getMDXComponents } from '@/components/blog/mdx-components';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import rehypePrettyCode from 'rehype-pretty-code';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -57,6 +58,13 @@ export default async function BlogPostPage({ params }: Props) {
           ← {locale === 'ja' ? '一覧に戻る' : 'Back to blog'}
         </Link>
 
+        {/* Hero image */}
+        {post.hero && (
+          <div className="w-full rounded-lg overflow-hidden border border-[#1F2937] mb-8">
+            <img src={post.hero} alt={post.title} className="w-full h-auto" />
+          </div>
+        )}
+
         {/* Header */}
         <header className="mb-8 md:mb-10">
           <div className="flex items-center gap-2 mb-4">
@@ -79,7 +87,15 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Content */}
         <div className="prose-zeroen">
-          <MDXRemote source={post.content} components={getMDXComponents()} />
+          <MDXRemote
+            source={post.content}
+            components={getMDXComponents()}
+            options={{
+              mdxOptions: {
+                rehypePlugins: [[rehypePrettyCode as never, { theme: 'github-dark-dimmed', keepBackground: false }]],
+              },
+            }}
+          />
         </div>
 
         {/* Footer */}

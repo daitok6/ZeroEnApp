@@ -18,6 +18,7 @@ export interface PostMeta {
   tags?: string[];
   author?: string;
   draft?: boolean;
+  hero?: string;
 }
 
 export interface Post extends PostMeta {
@@ -52,6 +53,7 @@ export function getPostBySlug(slug: string, locale: string): Post | null {
     tags: data.tags || [],
     author: data.author,
     draft: data.draft === true,
+    hero: data.hero,
     content,
   };
 }

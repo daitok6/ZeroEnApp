@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" width="900" height="420">
+  <!-- Background -->
+  <rect width="900" height="420" fill="#111827" rx="8"/>
+  <rect x="1" y="1" width="898" height="418" rx="7" fill="none" stroke="#1F2937" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="40" y="44" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#00E87A" letter-spacing="2">ZEROEN PRODUCTION STACK — REQUEST FLOW</text>
+  <line x1="40" y1="56" x2="860" y2="56" stroke="#1F2937" stroke-width="1"/>
+
+  <!-- User box -->
+  <rect x="40" y="80" width="120" height="52" rx="6" fill="#0D0D0D" stroke="#374151" stroke-width="1"/>
+  <text x="100" y="100" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" text-anchor="middle" letter-spacing="1">USER</text>
+  <text x="100" y="120" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#F4F4F2" text-anchor="middle">Browser</text>
+
+  <!-- Arrow: User → Vercel -->
+  <line x1="160" y1="106" x2="210" y2="106" stroke="#374151" stroke-width="1.5"/>
+  <polygon points="210,102 220,106 210,110" fill="#374151"/>
+
+  <!-- Vercel box -->
+  <rect x="220" y="80" width="140" height="52" rx="6" fill="#0D0D0D" stroke="#374151" stroke-width="1"/>
+  <text x="290" y="100" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" text-anchor="middle" letter-spacing="1">VERCEL</text>
+  <text x="290" y="120" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#F4F4F2" text-anchor="middle">Edge / CDN</text>
+
+  <!-- Arrow: Vercel → Next.js -->
+  <line x1="360" y1="106" x2="410" y2="106" stroke="#374151" stroke-width="1.5"/>
+  <polygon points="410,102 420,106 410,110" fill="#374151"/>
+
+  <!-- Next.js box (highlighted) -->
+  <rect x="420" y="72" width="160" height="68" rx="6" fill="#0D0D0D" stroke="#00E87A" stroke-width="1.5"/>
+  <rect x="420" y="72" width="160" height="68" rx="6" fill="#00E87A" opacity="0.04"/>
+  <text x="500" y="96" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#00E87A" text-anchor="middle" letter-spacing="1">APP LAYER</text>
+  <text x="500" y="116" font-family="'IBM Plex Mono', monospace" font-size="13" fill="#F4F4F2" text-anchor="middle" font-weight="700">Next.js 15</text>
+  <text x="500" y="132" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" text-anchor="middle">App Router · EN/JA</text>
+
+  <!-- Arrow: Next.js → Supabase (down-left) -->
+  <line x1="500" y1="140" x2="500" y2="180" stroke="#374151" stroke-width="1.5"/>
+  <line x1="500" y1="180" x2="250" y2="220" stroke="#374151" stroke-width="1.5"/>
+  <polygon points="247,215 242,225 252,222" fill="#374151"/>
+
+  <!-- Arrow: Next.js → Stripe (down-right) -->
+  <line x1="500" y1="140" x2="500" y2="180" stroke="#374151" stroke-width="1.5"/>
+  <line x1="500" y1="180" x2="680" y2="220" stroke="#374151" stroke-width="1.5"/>
+  <polygon points="677,215 682,225 687,218" fill="#374151"/>
+
+  <!-- Arrow: Next.js → Resend (down) -->
+  <line x1="500" y1="140" x2="500" y2="240" stroke="#374151" stroke-width="1" stroke-dasharray="4 3"/>
+  <polygon points="496,240 500,250 504,240" fill="#374151"/>
+
+  <!-- Supabase box -->
+  <rect x="100" y="250" width="200" height="80" rx="6" fill="#0D0D0D" stroke="#374151" stroke-width="1"/>
+  <text x="200" y="274" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" text-anchor="middle" letter-spacing="1">SUPABASE</text>
+  <text x="200" y="296" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#F4F4F2" text-anchor="middle">Auth · Postgres</text>
+  <text x="200" y="316" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" text-anchor="middle">Storage · RLS</text>
+
+  <!-- Stripe box -->
+  <rect x="580" y="250" width="200" height="80" rx="6" fill="#0D0D0D" stroke="#374151" stroke-width="1"/>
+  <text x="680" y="274" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" text-anchor="middle" letter-spacing="1">STRIPE</text>
+  <text x="680" y="296" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#F4F4F2" text-anchor="middle">Billing · Webhooks</text>
+  <text x="680" y="316" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#6B7280" text-anchor="middle">Customer Portal</text>
+
+  <!-- Resend box (dashed, smaller) -->
+  <rect x="415" y="260" width="170" height="60" rx="6" fill="#0D0D0D" stroke="#374151" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="500" y="283" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#374151" text-anchor="middle" letter-spacing="1">RESEND</text>
+  <text x="500" y="303" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#6B7280" text-anchor="middle">Transactional email</text>
+
+  <!-- Footer -->
+  <text x="40" y="400" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#374151">Deployed on Vercel Pro · GitHub auto-deploy · All services managed by ZeroEn</text>
+</svg>
