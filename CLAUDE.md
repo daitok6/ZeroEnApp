@@ -1,7 +1,7 @@
-# CLAUDE.md — ZeroEn
-**The ONE TRUTH for Claude Code in this repo.** Last updated: 2026-04-21
+# CLAUDE.md — ZeroEn Platform
+**The ONE TRUTH for Claude Code in this repo.** Last updated: 2026-04-23
 
-ZeroEn = solo technical co-founder service. Custom Next.js landing pages with ¥0 upfront, funded by recurring Stripe subscriptions (¥10,000/¥20,000/mo), equity, and rev share. HQ lives here; client projects live under `Clients/` (gitignored, each client = own public repo). Domain: `zeroen.dev`. Full plan: `PRD.md`.
+ZeroEn = bilingual product studio. Production-grade bilingual Next.js + Supabase + Stripe products for funded founders and serious businesses in Tokyo. Fixed price. No equity. Shipped in weeks. Domain: `zeroen.dev`. Full plan: `PRD.md`.
 
 ---
 
@@ -9,16 +9,16 @@ ZeroEn = solo technical co-founder service. Custom Next.js landing pages with ¥
 
 1. Every command requires a `clientId`. No exceptions.
 2. Client code lives in `Clients/<clientId>/`. HQ code lives in `HQ/`. Never mix.
-3. **Phase 1 only:** landing pages, no Supabase. Phase 2 opens at 15+ clients.
+3. **Three tiers:** Starter (¥380k) / Growth (¥880k) / MVP Build (¥1.5–2.5M). Fixed price, no equity, no rev share.
 4. All sites deploy on the operator's Vercel account.
-5. Scope locked at kickoff. Anything beyond = per-request charge (`HQ/crm/change-catalogue.md`).
+5. Scope locked at kickoff. Anything beyond = ¥15,000/hr per-request charge (`HQ/crm/change-catalogue.md`).
 6. Never expose secrets. Redact keys/tokens/credentials in all outputs.
 7. Operator reviews everything before client delivery. Never auto-send.
 8. All social posts: reviewed by `mktg-copy` + `mktg-strategy` before operator sees them.
 9. Quality gates must pass before production deploy (`HQ/docs/quality-gates.md`).
-10. ZeroEn retains code ownership. Client licenses the live site via active sub. On cancel: archive, keep code.
-11. All intake via zeroen.dev. Recurring billing via Stripe.
-12. 6-month minimum commitment. Early cancel = pay remaining months.
+10. Code ownership transfers to client on final payment. Retainer is optional (30-day notice to cancel).
+11. All intake via zeroen.dev/scoping-call. Milestone billing via Stripe.
+12. ICP gate: minimum ¥380k engagement. No free builds, no equity arrangements, no ¥0-upfront offers.
 
 ---
 
@@ -41,7 +41,7 @@ ZeroEn/
 ├── docs/                   ← Brand assets (logos)
 ├── HQ/                     ← Tracked
 │   ├── agents/ brand/ commands/ skills/ templates/ platform/ marketing/
-│   ├── crm/                ← clients.json, change-catalogue.md, coconala-playbook.md
+│   ├── crm/                ← clients.json, change-catalogue.md
 │   ├── docs/               ← On-demand reference docs (read when relevant)
 │   └── scripts/            ← clone-all.sh
 └── Clients/                ← Gitignored, each clientId = own public repo
@@ -49,11 +49,9 @@ ZeroEn/
 
 ---
 
-## Tech Stack (Phase 1 — Current)
+## Tech Stack
 
-Next.js (App Router) · React · Tailwind · shadcn/ui · Vercel hosting (operator's Pro) · GitHub auto-deploy · Lucide icons · external forms (Formspree/Google Forms). Pure static/SSG. No Supabase.
-
-Phase 2 details: `HQ/docs/phase-2-stack.md` (do not use until 15-client gate).
+Next.js (App Router) · React · Tailwind · shadcn/ui · Supabase (auth + DB + RLS) · Stripe (billing) · Resend (email) · next-intl (EN/JA routing) · Vercel hosting (operator's Pro) · GitHub auto-deploy · Lucide icons.
 
 ---
 
@@ -70,7 +68,7 @@ Phase 2 details: `HQ/docs/phase-2-stack.md` (do not use until 15-client gate).
 
 ## Anti-Patterns
 
-- No command without `clientId` · No client code in ZeroEn repo · No deploy without gates · No auto-send to clients · No scope change without pricing update · No secrets in client repos · No Phase 2 work in Phase 1 · No client onboarded without written 6-month commitment · No change quote without referencing `HQ/crm/change-catalogue.md`
+- No command without `clientId` · No client code in ZeroEn repo · No deploy without gates · No auto-send to clients · No scope change without pricing update · No secrets in client repos · No change quote without referencing `HQ/crm/change-catalogue.md` · No equity, rev share, or free builds · No ¥0-upfront language anywhere · ¥15k/hr only for out-of-scope work
 
 ---
 
@@ -80,14 +78,12 @@ Phase 2 details: `HQ/docs/phase-2-stack.md` (do not use until 15-client gate).
 |---|---|
 | Pricing, tiers, upgrades, revenue streams | `HQ/docs/revenue-model.md` |
 | Change pricing & sizing | `HQ/crm/change-catalogue.md` |
-| Client lifecycle (9-step flow) | `HQ/docs/client-lifecycle.md` |
+| Client lifecycle (5-step flow) | `HQ/docs/client-lifecycle.md` |
 | Agents catalogue (business, mktg, dev) | `HQ/docs/agents-catalogue.md` |
 | Quality gates pipeline | `HQ/docs/quality-gates.md` |
 | Monthly report pipeline | `HQ/docs/report-pipeline.md` |
 | Contract terms (standard clauses) | `HQ/docs/contract-terms.md` |
 | Git strategy (platform remote, clone-all) | `HQ/docs/git-strategy.md` |
-| Phase 2 tech stack | `HQ/docs/phase-2-stack.md` |
-| Coconala post-mortem (channel abandoned) | `HQ/crm/coconala-playbook.md` |
 | Client registry (infra) | `HQ/crm/clients.json` |
 | Client data (platform, paying) | Supabase via `HQ/platform/` |
 | Full business plan | `PRD.md` |

@@ -3,187 +3,95 @@
     "howItWorks": "How It Works",
     "pricing": "Pricing",
     "cases": "Cases",
+    "startups": "Startups",
     "about": "About",
-    "dashboard": "Day One",
+    "dashboard": "Dashboard",
     "blog": "Blog",
     "login": "Log In",
-    "apply": "Apply — ¥0 Upfront"
+    "bookCall": "Book a call"
   },
   "home": {
     "hero": {
-      "line1": "¥0 upfront. A landing page that gets you inquiries in 3 days.",
-      "line2": "¥10,000/month. Build, hosting, and monthly improvements.",
-      "line3": "Ex-Hitachi, ex-Rakuten engineer. Live in 3 days.",
-      "subtitle": "6-month minimum. Cancel after.",
-      "cta": "Apply — ¥0 Upfront",
-      "urgencyNote": "2 spots open per month",
-      "terminalCommand": "zeroen --build-lp --stack=next+tailwind --days=3"
+      "eyebrow": "Bilingual SaaS, shipped.",
+      "headline": "Production-grade bilingual web products for funded founders and serious businesses in Tokyo.",
+      "subheadline": "Fixed price. No equity. Shipped in weeks.",
+      "cta": "Book a scoping call",
+      "ctaSecondary": "See the pricing",
+      "urgencyNote": "2–3 active projects at once. Check availability."
     },
-    "howItWorks": {
-      "title": "How It Works",
-      "subtitle": "From idea to launch, we handle the tech."
-    },
-    "valueProp": {
-      "eyebrow": "Pricing",
-      "title": "¥0 upfront.\n¥10,000/month keeps it running.",
-      "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates from ¥10,000/mo.",
-      "basicTitle": "Basic",
-      "basicPrice": "¥10,000/mo",
-      "basicItems": [
-        "Landing page build (¥0 upfront)",
-        "Vercel hosting included",
-        "1 small change per month",
-        "Full-year dashboard + monthly PDF",
-        "1 copy refresh credit per quarter",
-        "6-month minimum"
-      ],
-      "premiumTitle": "Growth",
-      "premiumPrice": "¥20,000/mo",
-      "premiumItems": [
-        "Landing page build (¥0 upfront)",
-        "Vercel hosting included",
-        "2 small or 1 medium change per month",
-        "Full-year dashboard + CRO insights",
-        "Quarterly SEO & security audit",
-        "Google Business Profile optimisation (quarterly)",
-        "CRO improvement variant (quarterly)",
-        "Monthly copy refresh credit",
-        "Priority SLA: ≤3 business days",
-        "6-month minimum"
-      ],
-      "cta": "Apply — ¥0 Upfront",
-      "seePricingCta": "See plans →",
-      "minNote": "6-month minimum. Cancel anytime after."
-    },
-    "applySection": {
-      "title": "Ready to launch?",
-      "subtitle": "¥0 upfront. ¥10,000/month. Live in 3 days.",
-      "cta": "Apply — ¥0 Upfront →"
-    },
-    "whyZeroEn": {
-      "eyebrow": "Why ZeroEn",
-      "title": "Live in 3 days.\n¥10,000/month, ongoing.",
-      "subtitle": "Built by an ex-Hitachi, ex-Rakuten engineer using Next.js + Tailwind. Fitted to your brand — not a template.",
+    "icpPillars": {
+      "eyebrow": "Who we build for",
+      "title": "Three types of clients. One service.",
       "pillars": [
         {
-          "title": "No upfront cost",
-          "desc": "Landing page build is ¥0 upfront. We recover the build cost through your monthly subscription. No retainers, no hourly billing."
+          "title": "Funded founders in Tokyo",
+          "desc": "You just closed a pre-seed or seed round. You need a bilingual product online before your runway narrows. Japanese agencies quote ¥8M and 4 months."
         },
         {
-          "title": "Live in 3 days",
-          "desc": "If your content (copy + images) is ready, your LP ships in 3 days. WebMori launched in 3 days."
+          "title": "Companies entering Japan",
+          "desc": "Your HQ approved the Japan launch budget. You need a bilingual site and someone who understands JP legal requirements — before the launch date."
         },
         {
-          "title": "Build-and-run, not build-and-forget",
-          "desc": "Monthly analytics, SLA-backed support, and transparent change pricing. 6-month minimum, cancel anytime after."
-        }
-      ],
-      "urgency": "2 spots open per month. Check availability now."
-    },
-    "trustSection": {
-      "eyebrow": "How it works",
-      "title": "Ex-Hitachi, ex-Rakuten.\nBuilt for your brand.",
-      "points": [
-        {
-          "title": "ZeroEn owns the code",
-          "desc": "Same model as Shopify or Squarespace. Your site runs on your brand, your domain is yours. After 6 months, a paid code buyout option (¥300,000+) is also available."
-        },
-        {
-          "title": "No surprise invoices",
-          "desc": "Every change request shows the price before you approve. Nothing outside monthly fee without written agreement."
-        },
-        {
-          "title": "Cancel safely after 6 months",
-          "desc": "After your minimum term, cancel anytime. Site is archived; code stays with ZeroEn."
+          "title": "Japanese startups going global",
+          "desc": "Your product is JP-only. Investors keep asking for an English version. You need it before the next fundraising round."
         }
       ]
     },
-    "techStack": {
-      "eyebrow": "The Stack",
-      "title": "Not a template.\nBuilt to your brand.",
-      "subtitle": "Next.js + Tailwind CSS + shadcn/ui — assembled around your brand tokens. Not a ペライチ clone.",
-      "terminalTitle": "zeroen — build-lp",
-      "lines": [
-        "$ zeroen --build-lp --stack=next+tailwind --days=3",
-        "> installing next@15 (App Router)...",
-        "> configuring tailwindcss + shadcn/ui...",
-        "> applying brand tokens...",
-        "> deploying to vercel (global edge)...",
-        "✓ LP live. 3 days."
-      ],
-      "tools": [
+    "deliverablePillars": {
+      "eyebrow": "What we deliver",
+      "title": "Everything a bilingual product needs. Nothing you don't.",
+      "pillars": [
         {
-          "name": "Next.js 15",
-          "tag": "Frontend",
-          "desc": "App Router, Server Components — fast, SEO-ready out of the box."
+          "title": "EN/JA from day one",
+          "desc": "Not translated after the fact. Bilingual routing, locale-aware components, and JP-style UX built into the architecture from the start."
         },
         {
-          "name": "Tailwind CSS",
-          "tag": "Styling",
-          "desc": "Your brand colors, fonts, and spacing as design tokens. Consistent across every page."
+          "title": "Production-grade stack",
+          "desc": "Next.js App Router + Supabase + Stripe. The same stack that runs ZeroEn and WebMori — auth, billing, and i18n production-ready."
         },
         {
-          "name": "Vercel",
-          "tag": "Hosting",
-          "desc": "Global edge deployment, Core Web Vitals monitoring. Included in monthly fee."
-        },
-        {
-          "name": "Stripe",
-          "tag": "Billing",
-          "desc": "Monthly subscriptions, invoices, and change request payments — all in your dashboard."
+          "title": "Japan compliance built in",
+          "desc": "Tokushoho (特定商取引法), JP invoice format, JP-style billing flows. Required for any Japanese e-commerce or SaaS."
         }
       ]
     },
     "caseStudies": {
-      "eyebrow": "Case Studies",
-      "title": "Live sites we've built.",
-      "subtitle": "Real clients, real landing pages. More case studies coming soon.",
-      "comingSoon": "Coming soon",
+      "eyebrow": "Built by ZeroEn",
+      "title": "Live products. Real architecture decisions.",
+      "subtitle": "Not mockups. These are production deployments we own and operate.",
       "live": "Live",
-      "placeholders": [
+      "comingSoon": "First client",
+      "viewCaseStudy": "Read case study →",
+      "items": [
+        {
+          "name": "ZeroEn",
+          "desc": "The platform you're looking at — multi-tenant SaaS with 30+ API routes, Stripe billing, and full EN/JA routing.",
+          "meta": [
+            "Next.js + Supabase + Stripe",
+            "EN/JA routing",
+            "Multi-tenant"
+          ],
+          "url": "https://zeroen.dev",
+          "label": "Read case study →"
+        },
         {
           "name": "WebMori",
-          "desc": "Security & SEO audit service — problems found before they happen.",
+          "desc": "Security & SEO audit service. Launched in 3 days. Monthly automated audit reports delivered to client dashboard.",
           "meta": [
-            "Live in 3 days",
-            "Monthly audits · Tokyo",
-            "Basic plan"
+            "Launched in 3 days",
+            "Monthly audits",
+            "Tokyo"
           ],
           "url": "https://webmori.jp",
-          "screenshot": "/webmori-screenshot.png",
           "label": "Read case study →"
         }
       ]
     },
-    "newsletterSection": {
-      "eyebrow": "Newsletter",
-      "title": "Get weekly build updates.",
-      "subtitle": "Real numbers, real clients, no fluff. Every Monday.",
-      "placeholder": "your@email.com",
-      "cta": "Subscribe",
-      "note": "No spam. Unsubscribe anytime."
-    },
-    "processEyebrow": "Process",
-    "dashboardShowcase": {
-      "eyebrow": "Client Dashboard",
-      "heading": "You're never in the dark.",
-      "subheading": "Log in any time to see your traffic, approve changes, and check invoices. No emails, no guessing.",
-      "bullets": [
-        {
-          "title": "See your traffic, every month",
-          "body": "Visitor trends, top pages, and performance scores — live chart and PDF delivered on the 1st."
-        },
-        {
-          "title": "No surprise invoices",
-          "body": "Every change request shows the price before you approve. You stay in control."
-        },
-        {
-          "title": "Billing, self-serve",
-          "body": "Invoices, receipts, plan status — all here. Upgrade or download receipts any time."
-        }
-      ],
-      "ctaLabel": "Explore the dashboard",
-      "ctaHref": "/en/live-from-day-one"
+    "footerCta": {
+      "title": "Ready to build?",
+      "subtitle": "Fixed price. No equity. Shipped in weeks.",
+      "cta": "Book a scoping call",
+      "note": "30-minute call. Fixed-price proposal within 48 hours."
     }
   },
   "dashboardPreview": {
@@ -215,85 +123,125 @@
   "pricing": {
     "meta": {
       "title": "Pricing — ZeroEn",
-      "description": "¥0 upfront landing page build. From ¥10,000/month — hosting, updates, and monthly improvements. Basic and Growth plans."
+      "description": "Fixed-price bilingual web products for funded founders and serious businesses in Tokyo. Starter ¥380k, Growth ¥880k, MVP Build from ¥1.5M."
     },
     "eyebrow": "Pricing",
-    "title": "¥0 upfront.\n¥10,000/month to run.",
-    "subtitle": "Wix charges ¥1,465/mo — you build it yourself. Freelancers charge ¥50–150k one-off. ZeroEn: build + host + monthly updates from ¥10,000/mo.",
-    "basic": {
-      "name": "Basic",
-      "price": "¥10,000",
-      "period": "/mo",
-      "setup": "¥0 upfront",
+    "title": "Fixed price.\nNo equity. No surprises.",
+    "subtitle": "Compare ¥880k to a Japanese agency quote (typically ¥5–10M for equivalent scope), or hiring a bilingual full-stack engineer for 3 months (¥2–3M all-in).",
+    "starter": {
+      "name": "Starter",
+      "price": "¥380,000",
+      "period": "one-time",
+      "retainer": "¥15,000/mo",
+      "timeline": "14 business days",
+      "payment": "50% kickoff / 50% delivery",
+      "badge": "",
       "items": [
-        "Landing page build (¥0 upfront)",
-        "Vercel hosting included",
-        "1 small change per month",
-        "Full-year dashboard + monthly PDF",
-        "1 copy refresh credit per quarter",
-        "Change SLA: ≤7 business days",
-        "6-month minimum"
+        "Bilingual marketing site (EN + JA)",
+        "Up to 5 sections",
+        "next-intl routing (locale-aware)",
+        "Vercel deploy + custom domain",
+        "Tokushoho page included",
+        "14 business day delivery"
       ],
-      "cta": "Apply — Basic"
+      "cta": "Book a scoping call"
     },
-    "premium": {
+    "growth": {
       "name": "Growth",
-      "price": "¥20,000",
-      "period": "/mo",
-      "setup": "¥0 upfront",
-      "badge": "Recommended",
+      "price": "¥880,000",
+      "period": "one-time",
+      "retainer": "¥35,000/mo",
+      "timeline": "21–28 business days",
+      "payment": "40% / 30% / 30%",
+      "badge": "Most popular",
       "items": [
-        "Landing page build (¥0 upfront)",
-        "Vercel hosting included",
-        "2 small or 1 medium change per month",
-        "Full-year dashboard + CRO insights",
-        "Quarterly SEO & security audit",
-        "Google Business Profile optimisation (quarterly)",
-        "CRO improvement variant (quarterly)",
-        "Monthly copy refresh credit",
-        "Priority SLA: ≤3 business days",
-        "6-month minimum"
+        "Everything in Starter",
+        "Up to 10 sections + inner pages",
+        "Contact or inquiry form",
+        "Blog or news section (MDX)",
+        "Basic SEO setup",
+        "21–28 business day delivery"
       ],
-      "cta": "Apply — Growth"
+      "cta": "Book a scoping call"
     },
-    "minNote": "6-month minimum. Cancel anytime after.",
-    "changeTitle": "Per-request pricing",
-    "changeItems": [
-      { "size": "Small", "price": "¥4,000", "desc": "Text edits, image swaps, minor layout tweaks" },
-      { "size": "Medium", "price": "¥10,000", "desc": "New section, layout change, form update (Growth only)" },
-      { "size": "Large", "price": "¥25,000+", "desc": "New page, new feature, major redesign" }
-    ],
+    "mvp": {
+      "name": "MVP / SaaS Build",
+      "price": "¥1,500,000+",
+      "period": "one-time",
+      "retainer": "¥80,000–¥150,000/mo",
+      "timeline": "6–8 weeks",
+      "payment": "30% / 30% / 30% / 10%",
+      "badge": "",
+      "items": [
+        "Full-stack bilingual SaaS or app",
+        "Supabase auth + database + RLS",
+        "Stripe billing integration",
+        "Admin panel + client dashboard",
+        "Custom scope at kickoff",
+        "6–8 week delivery"
+      ],
+      "cta": "Book a scoping call"
+    },
+    "anchor": {
+      "heading": "How it compares",
+      "rows": [
+        {
+          "label": "Japanese web agency",
+          "value": "¥5–10M",
+          "timeline": "4–6 months"
+        },
+        {
+          "label": "Bilingual freelancer + PM",
+          "value": "¥2–3M",
+          "timeline": "3–4 months"
+        },
+        {
+          "label": "ZeroEn Growth",
+          "value": "¥880k",
+          "timeline": "3–4 weeks"
+        },
+        {
+          "label": "ZeroEn Starter",
+          "value": "¥380k",
+          "timeline": "2 weeks"
+        }
+      ]
+    },
+    "retainerTitle": "Monthly retainers (optional)",
+    "retainerNote": "Retainers cover hosting, monitoring, monthly updates, and priority support. Cancel with 30 days notice.",
+    "outOfScope": {
+      "title": "Out-of-scope work",
+      "rate": "¥15,000/hr",
+      "note": "All out-of-scope requests are quoted before work starts. You approve before we bill."
+    },
     "faqTitle": "FAQ",
     "faqs": [
       {
-        "q": "Why is there no upfront cost?",
-        "a": "ZeroEn covers the build cost and recovers it through monthly subscription fees. We're here to break the industry's upfront-payment model."
+        "q": "What's included in the fixed price?",
+        "a": "Everything in the tier's feature list. Scope is locked at kickoff. Any work beyond the locked scope is quoted at ¥15,000/hr before work starts — you approve before we bill."
+      },
+      {
+        "q": "Do you take equity or revenue share?",
+        "a": "No. Fixed price only. We don't take equity, SAFE notes, or revenue share. You own the business; we deliver the product."
       },
       {
         "q": "Who owns the code?",
-        "a": "ZeroEn retains code ownership — same model as Shopify or Squarespace. Your domain is yours. You license the live site via active subscription. After the 6-month minimum, a paid code buyout option (¥300,000+) is also available."
+        "a": "You do, after final payment. Code ownership transfers on delivery — no lock-in, no subscription required to keep your site running."
       },
       {
-        "q": "Can I cancel?",
-        "a": "After the 6-month minimum, cancel anytime. The site is archived and the code stays with ZeroEn."
+        "q": "What does 'bilingual from day one' mean?",
+        "a": "Every component is built locale-aware using next-intl. EN and JA routing, fonts (Murecho for JP), date/number formatting, and JP-specific UX patterns are architecture decisions — not afterthoughts."
       },
       {
-        "q": "Really live in 3 days?",
-        "a": "For landing pages, yes. WebMori launched in 3 days. Your content (copy + images) must be ready at kickoff."
-      },
-      {
-        "q": "Is it a template?",
-        "a": "No. Built with Next.js, Tailwind, and shadcn/ui — assembled around your brand tokens from scratch."
-      },
-      {
-        "q": "Can I upgrade from Basic to Growth later?",
-        "a": "Yes — anytime. Upgrading starts a fresh 6-month Growth commitment, and your remaining Basic term rolls into it. Downgrading back to Basic is available once that 6 months completes."
-      },
-      {
-        "q": "Can Basic clients purchase medium changes one-off?",
-        "a": "No — medium changes are Growth-only. Basic clients who need a medium change can upgrade to Growth (which starts a fresh 6-month Growth commitment), or split the work into multiple small changes if feasible."
+        "q": "How do I get started?",
+        "a": "Book a 30-minute scoping call. We discuss your project, confirm ICP fit, and send a fixed-price proposal within 48 hours."
       }
-    ]
+    ],
+    "cta": {
+      "title": "Ready to scope your project?",
+      "subtitle": "30-minute call. Fixed-price proposal within 48 hours.",
+      "button": "Book a scoping call"
+    }
   },
   "mockDashboard": {
     "clientName": "Tanaka Akiko",
@@ -328,165 +276,181 @@
     "messageTo": "Tanaka-san"
   },
   "apply": {
-    "title": "Apply to ZeroEn",
-    "subtitle": "Tell us about your idea. We'll build it with ¥0 upfront.",
-    "step0": {
-      "title": "Before you share your idea",
-      "subtitle": "We take your trust seriously. Here's our commitment:",
-      "points": [
-        "We will not share, copy, or use your idea without written agreement",
-        "This is mutual — we're bound by the same terms",
-        "You can request deletion of all your data at any time",
-        "Rejected applications are wiped within 30 days"
-      ],
-      "linkText": "Read full confidentiality terms",
-      "checkboxLabel": "I've read and agree to the mutual confidentiality agreement",
-      "continueButton": "Continue to application →",
-      "ndaError": "You must agree to the confidentiality agreement",
-      "signatureLabel": "Type your full name to sign",
-      "signaturePlaceholder": "Your full name",
-      "signatureHelper": "This constitutes your electronic signature on the confidentiality agreement.",
-      "scrollHint": "↓ Scroll to read the full agreement",
-      "ndaPoints": [
-        "Both parties agree to keep each other's confidential information private.",
-        "Confidential information includes: application data, business plans, technical specs, financial projections, user research.",
-        "Neither party will share or use the other's confidential information without written consent.",
-        "This obligation survives termination and lasts 3 years (or indefinitely for personal data).",
-        "You may request deletion of your data at any time."
+    "title": "Tell us about your project",
+    "subtitle": "Book a scoping call — 30 minutes. We send a fixed-price proposal within 48 hours.",
+    "step1": {
+      "title": "What are you building?",
+      "options": [
+        {
+          "value": "bilingual_site",
+          "label": "Bilingual marketing site"
+        },
+        {
+          "value": "saas_mvp",
+          "label": "SaaS / web app MVP"
+        },
+        {
+          "value": "japan_entry",
+          "label": "Japan market entry product"
+        },
+        {
+          "value": "english_facing",
+          "label": "English-facing product for fundraising"
+        },
+        {
+          "value": "other",
+          "label": "Something else"
+        }
       ]
     },
-    "step1": {
-      "title": "Your Idea",
-      "ideaName": "What are you building?",
-      "ideaNamePlaceholder": "App name or project name",
-      "ideaDescription": "Describe your idea in detail",
-      "ideaDescriptionPlaceholder": "Tell us what your product does...",
-      "problemSolved": "What problem does it solve?",
-      "problemSolvedPlaceholder": "Explain the specific problem you are solving..."
-    },
     "step2": {
-      "title": "Market",
-      "targetUsers": "Who are your target users?",
-      "targetUsersPlaceholder": "Who will use your product?",
-      "competitors": "Who are your competitors? (optional)",
-      "competitorsPlaceholder": "Existing solutions or competitors...",
-      "monetization": "How will you make money?",
-      "monetizationPlaceholder": "Subscription, transaction fees, advertising..."
+      "title": "Where are you in your business?",
+      "options": [
+        {
+          "value": "funded",
+          "label": "Funded (pre-seed, seed, or beyond)"
+        },
+        {
+          "value": "established",
+          "label": "Established business with revenue"
+        },
+        {
+          "value": "pre_revenue",
+          "label": "Pre-revenue, bootstrapping"
+        },
+        {
+          "value": "idea_stage",
+          "label": "Idea stage, not yet started"
+        }
+      ],
+      "filterMessage": "ZeroEn is built for funded or revenue-generating businesses. We're not the right fit for idea-stage or pre-revenue bootstrapped founders — but we'd be happy to connect you with resources.",
+      "filterCta": "Back to home"
     },
     "step3": {
-      "title": "About You",
-      "founderName": "Your name",
-      "founderNamePlaceholder": "John Smith",
-      "founderEmail": "Your email",
-      "founderBackground": "Your background",
-      "founderBackgroundPlaceholder": "Work history, skills, relevant experience...",
-      "commitment": "Time commitment",
-      "commitmentPlaceholder": "Select time commitment",
-      "commitmentFullTime": "Full-time",
-      "commitmentPartTime": "Part-time",
-      "commitmentSideProject": "Side project",
-      "linkedin": "LinkedIn URL (optional)"
+      "title": "Timeline and budget",
+      "timelineLabel": "When do you need this live?",
+      "timelineOptions": [
+        {
+          "value": "asap",
+          "label": "As soon as possible"
+        },
+        {
+          "value": "1month",
+          "label": "Within 1 month"
+        },
+        {
+          "value": "3months",
+          "label": "Within 3 months"
+        },
+        {
+          "value": "flexible",
+          "label": "Flexible"
+        }
+      ],
+      "budgetLabel": "Budget range",
+      "budgetOptions": [
+        {
+          "value": "starter",
+          "label": "¥380k (Starter)"
+        },
+        {
+          "value": "growth",
+          "label": "¥880k (Growth)"
+        },
+        {
+          "value": "mvp",
+          "label": "¥1.5M+ (MVP Build)"
+        },
+        {
+          "value": "unsure",
+          "label": "Not sure yet"
+        }
+      ]
     },
     "step4": {
-      "title": "Review & Submit",
-      "edit": "Edit",
-      "sectionIdea": "Idea",
-      "sectionMarket": "Market",
-      "sectionFounder": "Founder",
-      "fieldName": "Name",
-      "fieldDescription": "Description",
-      "fieldProblemSolved": "Problem solved",
-      "fieldTargetUsers": "Target users",
-      "fieldCompetitors": "Competitors",
-      "fieldMonetization": "Monetization plan",
-      "fieldBackground": "Background",
-      "fieldCommitment": "Commitment",
-      "fieldNoneSpecified": "None specified",
-      "fieldNotProvided": "Not provided",
-      "disclaimer": "By submitting, you agree to ZeroEn's terms and equity arrangement.",
-      "submitting": "Submitting...",
-      "submit": "Submit Application"
+      "title": "Contact",
+      "nameLabel": "Your name",
+      "namePlaceholder": "Alex Smith",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "you@company.com",
+      "companyLabel": "Company / project name",
+      "companyPlaceholder": "Acme Inc.",
+      "blurbLabel": "Tell us about your project (3 sentences)",
+      "blurbPlaceholder": "What you're building, who it's for, and why it needs to be bilingual..."
+    },
+    "step5": {
+      "title": "Book your scoping call",
+      "subtitle": "You're a good fit. Book a 30-minute call — we'll discuss your project and send a fixed-price proposal within 48 hours.",
+      "button": "Book a scoping call",
+      "note": "No commitment required."
     },
     "wizard": {
-      "received": "Application received.",
-      "inTouch": "We'll be in touch within 3-5 business days.",
+      "received": "Request received.",
+      "inTouch": "We'll be in touch within 24 hours.",
       "somethingWentWrong": "Something went wrong. Please try again.",
       "networkError": "Network error. Please try again."
     }
   },
   "howItWorks": {
     "eyebrow": "Process",
-    "title": "How It Works",
-    "subtitle": "From idea to launch — nine steps, zero upfront cost.",
-    "steps": {
-      "discover": {
-        "name": "DISCOVER",
-        "desc": "We find you through our build-in-public content, Twitter/X posts, Instagram, and developer communities. Or you find us directly at zeroen.dev."
+    "title": "How it works",
+    "subtitle": "Five steps from first call to live product.",
+    "steps": [
+      {
+        "number": "01",
+        "name": "Scoping call",
+        "desc": "30-minute call to discuss your project, confirm ICP fit, and understand the scope. No commitment required."
       },
-      "apply": {
-        "name": "APPLY",
-        "desc": "Submit a detailed application on zeroen.dev. Tell us about your idea, target market, and background. Takes about 10 minutes.",
-        "badge": "Protected by our mutual NDA — signed before you share anything"
+      {
+        "number": "02",
+        "name": "Fixed-price proposal",
+        "desc": "Within 48 hours of the call, you receive a fixed-price proposal with locked scope, timeline, and milestone payment schedule."
       },
-      "score": {
-        "name": "SCORE",
-        "desc": "We score every application on 4 dimensions: Viability (is this a real problem?), Commitment (are you serious?), Feasibility (can we build it in MVP scope?), Market (is there real demand?). 15+ out of 20 to accept."
+      {
+        "number": "03",
+        "name": "Kickoff",
+        "desc": "Sign the proposal, pay the first milestone. We confirm all assets, content, and requirements before the first line of code."
       },
-      "onboard": {
-        "name": "ONBOARD",
-        "desc": "If accepted, you fill a detailed questionnaire and join a kickoff call. We lock the scope together. Scope is frozen at this point — no feature creep."
+      {
+        "number": "04",
+        "name": "Build & delivery",
+        "desc": "Development proceeds against the locked scope. You review a staging deployment before final delivery. Anything beyond scope is quoted first."
       },
-      "build": {
-        "name": "BUILD",
-        "desc": "Development begins. We build your full-stack MVP using Next.js + Supabase. Regular updates in your founder dashboard."
-      },
-      "launch": {
-        "name": "LAUNCH",
-        "desc": "We deploy to Vercel. 30 days of post-launch support included. You run the staging review and give final sign-off."
-      },
-      "operate": {
-        "name": "OPERATE",
-        "desc": "After launch, ongoing hosting, monthly fixes, and analytics reporting keep your app running and growing."
-      },
-      "grow": {
-        "name": "GROW",
-        "desc": "New features beyond the original scope are available as add-ons, quoted upfront per request. Your revenue share kicks in."
-      },
-      "upsell": {
-        "name": "UPSELL",
-        "desc": "Monthly analytics surface opportunities. WebMori audit service available. We grow with you."
+      {
+        "number": "05",
+        "name": "Launch",
+        "desc": "Final payment on delivery. Code ownership transfers to you. Optional monthly retainer for hosting, updates, and support."
       }
-    },
+    ],
     "cta": {
       "title": "Ready to get started?",
-      "subtitle": "Apply in 10 minutes. We respond within 3 business days.",
-      "button": "Apply — ¥0 Upfront"
+      "subtitle": "Book a scoping call. Proposal within 48 hours.",
+      "button": "Book a scoping call"
     }
   },
   "footer": {
-    "tagline": "Bring your idea to life.",
+    "tagline": "Bilingual SaaS, shipped.",
     "product": {
       "heading": "Product",
       "howItWorks": "How It Works",
-      "applyFree": "Apply — ¥0 Upfront"
+      "pricing": "Pricing",
+      "cases": "Case Studies",
+      "startups": "For Startups",
+      "bookCall": "Book a call"
     },
     "company": {
       "heading": "Company",
       "blog": "Blog",
-      "about": "About ZeroEn",
-      "cases": "Case Studies",
-      "pricing": "Pricing"
+      "about": "About ZeroEn"
     },
     "resources": {
       "heading": "Resources",
       "blog": "Blog",
-      "faq": "FAQ",
-      "comparison": "Peraichi vs STUDIO vs ZeroEn",
-      "whatsIncluded": "What ¥10,000/mo includes"
+      "faq": "FAQ"
     },
     "newsletter": {
       "heading": "Newsletter",
-      "description": "Stay in the loop.",
+      "description": "Build-in-public updates from a solo bilingual SaaS studio.",
       "title": "Stay in the loop.",
       "placeholder": "your@email.com",
       "cta": "Subscribe",
@@ -497,7 +461,7 @@
       "terms": "Terms",
       "privacy": "Privacy",
       "tokushoho": "Tokushoho",
-      "tagline": "Tokyo · Ex-Hitachi/Rakuten Engineer"
+      "tagline": "Tokyo · Bilingual SaaS Studio"
     }
   },
   "terms": {
@@ -1287,70 +1251,105 @@
     ]
   },
   "startups": {
-    "eyebrow": "FOR STARTUPS",
-    "title": "¥0 Upfront MVP.\n10% Equity.",
-    "subtitle": "We build your product with ¥0 upfront. In exchange, we take 10% equity.",
-    "badge": "Invite Only",
-    "what": {
-      "heading": "What ZeroEn builds",
+    "meta": {
+      "title": "For Funded Founders — ZeroEn",
+      "description": "We build production-grade bilingual web products for funded founders in Tokyo. Fixed price, shipped in weeks."
+    },
+    "eyebrow": "For funded founders",
+    "title": "You raised. Now you need a bilingual product — fast.",
+    "subtitle": "Japanese agencies quote ¥8M and 4 months. ZeroEn delivers in weeks, for ¥880k. Fixed price. No equity.",
+    "painPoints": {
+      "heading": "The problem we solve",
       "items": [
-        "Full-stack MVP (Next.js + Supabase)",
-        "Streamlined build process",
-        "Vercel deployment",
-        "6-month operating support",
-        "Ex-Hitachi / ex-Rakuten engineering advisor"
+        "Japanese agencies quote ¥5–10M for a bilingual MVP and can't start for 2 months",
+        "Offshore dev shops don't understand bilingual UX or Japanese legal requirements",
+        "Technical cofounders are hard to find and expensive to hire",
+        "You need it live before your runway narrows — not in Q3"
       ]
     },
-    "ask": {
-      "heading": "What ZeroEn asks",
+    "why": {
+      "heading": "Why ZeroEn",
       "items": [
-        "10% equity via SAFE note at incorporation",
-        "Proven founding team",
-        "Strong commitment to the product"
+        "Fixed price — ¥380k Starter / ¥880k Growth / ¥1.5M+ MVP Build. No equity, no SAFE, no rev share.",
+        "Bilingual from day one — EN/JA routing, next-intl, Murecho font, JP date/number formatting built in",
+        "Tokyo-based — same timezone, understand Japanese legal requirements (tokushoho) and market expectations",
+        "Production stack — Next.js + Supabase + Stripe. The same stack that runs ZeroEn itself.",
+        "Fast — Starter in 2 weeks. Growth in 3–4 weeks. MVP in 6–8 weeks."
       ]
     },
-    "note": "This route is for startup founders. If you're a coach, consultant, or therapist, check out our LP plan instead.",
-    "lpCta": "See the LP plan →",
-    "applyHeading": "Apply"
+    "comparison": {
+      "heading": "How it compares",
+      "columns": [
+        "Option",
+        "Cost",
+        "Timeline",
+        "Bilingual"
+      ],
+      "rows": [
+        [
+          "Japanese agency",
+          "¥5–10M",
+          "4–6 months",
+          "Often not native"
+        ],
+        [
+          "Offshore dev shop",
+          "¥2–4M",
+          "2–4 months",
+          "No JP expertise"
+        ],
+        [
+          "Bilingual freelancer + PM",
+          "¥2–3M",
+          "3–4 months",
+          "Coordination risk"
+        ],
+        [
+          "ZeroEn Growth",
+          "¥880k",
+          "3–4 weeks",
+          "Native, day one"
+        ]
+      ]
+    },
+    "cta": {
+      "title": "Book a scoping call",
+      "subtitle": "30 minutes. Fixed-price proposal within 48 hours.",
+      "button": "Book a scoping call"
+    }
   },
   "lpApply": {
     "meta": {
-      "title": "Apply — ¥0 Upfront LP Build | ZeroEn",
-      "description": "Apply for your landing page. ZeroEn builds it in 3 days, then ¥10,000+/month for hosting, updates, and analytics."
+      "title": "Book a scoping call — ZeroEn",
+      "description": "Book a 30-minute scoping call. Fixed-price proposal within 48 hours. Bilingual Next.js + Supabase + Stripe products for funded founders in Tokyo."
     },
-    "eyebrow": "LP APPLICATION",
-    "title": "Let's build your LP.",
-    "subtitle": "¥0 upfront. Built in 3 days. ¥10,000+/month for hosting, updates, and monthly improvements. 6-month commitment.",
+    "eyebrow": "SCOPING CALL",
+    "title": "Let's scope your project.",
+    "subtitle": "30-minute call. Fixed-price proposal within 48 hours. No commitment required.",
     "form": {
       "name": "Your name",
-      "namePlaceholder": "Yamada Taro",
+      "namePlaceholder": "Alex Smith",
       "email": "Email address",
-      "emailPlaceholder": "you@example.com",
-      "occupation": "Occupation",
-      "occupationPlaceholder": "Select your occupation",
-      "occupationCoach": "Coach",
-      "occupationTherapist": "Therapist",
-      "occupationCounselor": "Counselor",
-      "occupationOther": "Other",
-      "currentSite": "Current site URL (optional)",
-      "currentSitePlaceholder": "https://yoursite.com",
-      "challenge": "What's your biggest LP challenge?",
-      "challengePlaceholder": "e.g. Tried Peraichi but couldn't get inquiries. Want a real brand but don't know where to start...",
-      "consent": "I agree to ZeroEn's privacy policy and consent to being contacted about this application.",
-      "submit": "Apply now →",
+      "emailPlaceholder": "you@company.com",
+      "company": "Company / project name",
+      "companyPlaceholder": "Acme Inc.",
+      "blurb": "Tell us about your project",
+      "blurbPlaceholder": "What you're building, who it's for, and why you need it bilingual...",
+      "consent": "I agree to ZeroEn's privacy policy and consent to being contacted about this inquiry.",
+      "submit": "Request a call →",
       "submitting": "Sending...",
       "fieldRequired": "This field is required",
       "emailInvalid": "Enter a valid email address"
     },
     "thankYou": {
-      "eyebrow": "APPLICATION RECEIVED",
+      "eyebrow": "REQUEST RECEIVED",
       "title": "We'll be in touch.",
-      "message": "Your application has been received. We review every application personally and will reply within 24 hours.",
-      "nextSteps": "Next steps",
-      "step1": "We review your application",
+      "message": "Your request has been received. We review every inquiry personally and will reply within 24 hours.",
+      "nextSteps": "What happens next",
+      "step1": "We review your project details",
       "step2": "You receive a reply within 24 hours",
-      "step3": "We confirm scope and kick off the build",
-      "step4": "Your LP is live within 3 days",
+      "step3": "We schedule a 30-minute scoping call",
+      "step4": "Fixed-price proposal within 48 hours of the call",
       "cta": "Back to home"
     }
   }
