@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { GreenGlowLine } from '@/components/marketing/green-glow-line';
 import { ScrollReveal } from '@/components/marketing/scroll-reveal';
+import { ScreenshotImage } from '@/components/marketing/screenshot-image';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -47,8 +48,8 @@ export default async function CasesPage({ params }: Props) {
           </h1>
           <p className="text-[#6B7280] font-mono text-sm max-w-xl mx-auto">
             {ja
-              ? 'モックアップではなく、実際に所有・運用しているプロダクションデプロイです。'
-              : "Not mockups. These are production deployments we own and operate."}
+              ? 'クライアントと同じ基準で、自分たちのために作っています。どちらも本番稼働中。'
+              : 'We build for ourselves at the same standard we build for clients. Both run in production.'}
           </p>
         </ScrollReveal>
         <GreenGlowLine className="mt-16" />
@@ -73,11 +74,8 @@ export default async function CasesPage({ params }: Props) {
               ))}
             </div>
 
-            {/* TODO-SCREENSHOT: zeroen.dev homepage screenshot (1200×800, dark) */}
-            <div className="w-full aspect-video bg-[#111827] border border-dashed border-[#374151] rounded-lg flex items-center justify-center mb-8">
-              <p className="text-[#374151] font-mono text-xs">
-                TODO-SCREENSHOT: zeroen.dev homepage
-              </p>
+            <div className="w-full aspect-video bg-[#111827] border border-[#374151] rounded-lg overflow-hidden mb-8">
+              <ScreenshotImage src="/images/cases/zeroen-home.webp" alt="zeroen.dev homepage" />
             </div>
 
             {/* TODO-CASE-STUDY-BODY: ZeroEn — write full prose in a separate session */}
@@ -117,11 +115,8 @@ export default async function CasesPage({ params }: Props) {
               ))}
             </div>
 
-            {/* TODO-SCREENSHOT: webmori.jp homepage screenshot (1200×800) */}
-            <div className="w-full aspect-video bg-[#111827] border border-dashed border-[#374151] rounded-lg flex items-center justify-center mb-8">
-              <p className="text-[#374151] font-mono text-xs">
-                TODO-SCREENSHOT: webmori.jp homepage
-              </p>
+            <div className="w-full aspect-video bg-[#111827] border border-[#374151] rounded-lg overflow-hidden mb-8">
+              <ScreenshotImage src="/images/cases/webmori-home.webp" alt="webmori.jp homepage" />
             </div>
 
             {/* TODO-CASE-STUDY-BODY: WebMori — write full prose in a separate session */}
@@ -157,7 +152,7 @@ export default async function CasesPage({ params }: Props) {
                 href={scopingCallHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block border border-[#374151] text-[#6B7280] font-mono text-xs px-6 py-3 rounded hover:border-[#00E87A] hover:text-[#00E87A] transition-all duration-200"
+                className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-8 py-3 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_24px_rgba(0,232,122,0.4)]"
               >
                 {ja ? 'あなたのプロジェクトをここに' : 'Your project here →'}
               </a>
