@@ -86,6 +86,54 @@
       "tagline": "From idea to paying users.",
       "footerLeft": "// 2026 ZEROEN",
       "footerRight": "TYO_JP"
+    },
+    "how": {
+      "h1": "HOW IT WORKS",
+      "sub": "5 STEPS // SCOPING_CALL → LAUNCH",
+      "steps": [
+        { "n": "01", "name": "Scoping call",         "eta": "30 MIN",  "desc": "30-minute call to discuss your project, confirm ICP fit, and understand the scope. No commitment required." },
+        { "n": "02", "name": "Fixed-price proposal",  "eta": "< 48 H", "desc": "Within 48 hours, you receive a fixed-price proposal with locked scope, timeline, and milestone payment schedule." },
+        { "n": "03", "name": "Kickoff",               "eta": "DAY 1",  "desc": "Sign the proposal, pay the first milestone. We confirm all assets, content, and requirements before the first line of code." },
+        { "n": "04", "name": "Build & delivery",      "eta": "WK 1-3", "desc": "Development against locked scope. You review a staging deployment before final delivery." },
+        { "n": "05", "name": "Launch",                "eta": "LAUNCH", "desc": "Final payment on delivery. Code ownership transfers to you. Optional monthly retainer." }
+      ]
+    },
+    "startups": {
+      "h1": ["YOU RAISED.", "NOW SHIP."],
+      "sub": "Pre-seed / seed founders in Tokyo. Production bilingual product live before runway narrows.",
+      "deliverablesLabel": "DELIVERABLES // 03",
+      "deliverables": [
+        { "title": "EN/JA FROM DAY ONE",        "desc": "Bilingual routing, locale-aware components, JP-style UX in the architecture from day one." },
+        { "title": "PRODUCTION-GRADE STACK",     "desc": "Next.js App Router + Supabase + Stripe. Auth, billing, and i18n production-ready." },
+        { "title": "JAPAN COMPLIANCE BUILT IN",  "desc": "Tokushoho (特定商取引法), JP invoice format, JP-style billing flows." }
+      ]
+    },
+    "cases": {
+      "h1": "BUILT BY ZEROEN.",
+      "slotOpenLabel": "SLOT // OPEN",
+      "slotOpen": "[ AVAILABLE · MAY 2026 ]"
+    },
+    "about": {
+      "eyebrow": "// MANIFESTO",
+      "h1": ["JP AGENCIES QUOTE ¥8M / 4MO.", "I SHIP IN 3WK / ¥880K."],
+      "body": [
+        "I'm Daito. Solo bilingual full-stack engineer in Tokyo. Trained at Hitachi (enterprise systems) and Rakuten (consumer SaaS). Now I build the kind of product I always wanted to ship at those companies — but in weeks, not quarters.",
+        "ZeroEn exists because the gap between \"founder with funding\" and \"production bilingual product\" is the exact place where most Tokyo-based startups lose 4 months and ¥8M.",
+        "Fixed price. No equity. No SAFE notes. No revenue share. You own the code on day one of go-live. I keep portfolio rights and I'm proud to."
+      ],
+      "cvLabel": "CV // TRAINED_AT",
+      "credentials": [
+        { "org": "Hitachi", "role": "Enterprise systems engineer",  "span": "2018–2021" },
+        { "org": "Rakuten", "role": "Consumer SaaS, full-stack",    "span": "2021–2024" },
+        { "org": "ZeroEn",  "role": "Founder · Solo operator",      "span": "2026–" }
+      ]
+    },
+    "book": {
+      "h1": ["30 MIN.", "PROPOSAL < 48 H."],
+      "sub": "NO COMMITMENT. CONFIRM FIT, SCOPE, PRICING.",
+      "dayLabel": "SELECT // DAY",
+      "timeLabel": "SELECT // TIME (JST)",
+      "confirmCta": "CONFIRM BOOKING"
     }
   },
   "home": {

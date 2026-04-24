@@ -10,6 +10,7 @@ const MARKETING_PAGES = [
   '/startups',
   '/cases',
   '/about',
+  '/book',
   '/terms',
   '/privacy',
   '/tokushoho',
