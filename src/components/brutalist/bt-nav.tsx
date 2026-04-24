@@ -4,6 +4,11 @@ import { useState } from 'react';
 import { useLocale } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 
+const CAL_URL: Record<string, string> = {
+  ja: 'https://cal.com/zeroen/scoping-call-ja',
+  en: 'https://cal.com/zeroen/scoping-call',
+};
+
 const NAV_LINKS = {
   en: [
     { href: '/',            label: 'Home' },
@@ -129,7 +134,9 @@ export function BTNav() {
 
           {/* Desktop CTA */}
           <a
-            href="mailto:daito@zeroen.dev?subject=Scoping%20call"
+            href={CAL_URL[locale] ?? CAL_URL.en}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               backgroundColor: 'var(--color-accent, #00E87A)',
               color: 'var(--color-ink, #0A0A0A)',
@@ -221,7 +228,9 @@ export function BTNav() {
               );
             })}
             <a
-              href="mailto:daito@zeroen.dev?subject=Scoping%20call"
+              href={CAL_URL[locale] ?? CAL_URL.en}
+            target="_blank"
+            rel="noopener noreferrer"
               style={{
                 display: 'block',
                 padding: '12px 16px',

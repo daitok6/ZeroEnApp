@@ -7,22 +7,30 @@ interface Props {
   href?: string;
 }
 
+const CAL_URL: Record<string, string> = {
+  ja: 'https://cal.com/zeroen/scoping-call-ja',
+  en: 'https://cal.com/zeroen/scoping-call',
+};
+
 export function BTCta({
   locale,
   label,
   note,
-  href = 'mailto:daito@zeroen.dev?subject=Scoping%20call',
+  href,
 }: Props) {
+  const resolvedHref = href ?? CAL_URL[locale] ?? CAL_URL.en;
   const ctaLabel = label ?? (locale === 'ja' ? 'スコープ通話を予約' : 'BOOK SCOPING CALL');
   const ctaNote  = note  ?? (locale === 'ja' ? '30分 · 48時間以内に提案' : '30 MIN · PROPOSAL IN 48 H');
 
-  const isExternal = href.startsWith('mailto:') || href.startsWith('http');
+  const isExternal = resolvedHref.startsWith('mailto:') || resolvedHref.startsWith('http');
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-start' }}>
       {isExternal ? (
         <a
-          href={href}
+          href={resolvedHref}
+          target="_blank"
+          rel="noopener noreferrer"
           className="bt-hover-shadow"
           style={{
             display: 'inline-flex',
