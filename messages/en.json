@@ -12,21 +12,21 @@
   },
   "mkt": {
     "tagline": "From idea to paying users.",
-    "cta": "BOOK FREE 30-MIN CALL",
+    "cta": "BOOK SCOPING CALL",
     "ctaNote": "30 MIN · PROPOSAL IN 48 H",
     "slotsBadge": "▲ 2 SLOTS OPEN · MAY '26",
-    "credential": "● EX-HITACHI · EX-RAKUTEN ENGINEER",
+    "credential": "● HITACHI + RAKUTEN-TRAINED ENGINEER",
     "home": {
       "heroEyebrow": "// BILINGUAL.SAAS.SHIP",
-      "heroH1": ["SHIPPED IN", "14 DAYS.", "NOT 4 MONTHS."],
-      "heroH1Highlight": "14 DAYS.",
-      "heroSub": "JP agencies quote ¥5–10M and 4 months. ZeroEn ships a production bilingual SaaS in 14–28 business days. Fixed price. No equity.",
-      "anchorLabel": "MARKET RATE // HOW WE COMPARE",
+      "heroH1": ["FROM IDEA", "TO PAYING", "USERS."],
+      "heroH1Highlight": "PAYING",
+      "heroSub": "Production-grade Next.js + Supabase + Stripe for funded founders in Tokyo — shipped in weeks, not months.",
+      "anchorLabel": "ANCHOR // VS_AGENCY",
       "anchorRows": [
-        { "label": "Tokyo web agency (mid-size)", "cost": "¥8–12M",  "timeline": "4–6 months",     "muted": true },
-        { "label": "Bilingual freelancer + PM",   "cost": "¥2–4M",   "timeline": "2–4 months",     "muted": true },
-        { "label": "ZeroEn Growth",              "cost": "¥880K",    "timeline": "21–28 biz days", "muted": false },
-        { "label": "ZeroEn Starter",             "cost": "¥380K",    "timeline": "14 biz days",    "muted": false }
+        { "label": "Japanese web agency",       "cost": "¥5–10M", "timeline": "4–6 months",  "muted": true },
+        { "label": "Bilingual freelancer + PM", "cost": "¥2–3M",  "timeline": "3–4 months",  "muted": true },
+        { "label": "ZeroEn Growth",             "cost": "¥880k",  "timeline": "3–4 weeks",   "muted": false },
+        { "label": "ZeroEn Starter",            "cost": "¥380k",  "timeline": "2 weeks",     "muted": false }
       ],
       "icpLabel": "ICP // 03_TYPES",
       "icpPillars": [

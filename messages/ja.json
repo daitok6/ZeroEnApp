@@ -12,21 +12,21 @@
   },
   "mkt": {
     "tagline": "アイデアを、プロダクトに。",
-    "cta": "無料30分通話を予約",
+    "cta": "スコープ通話を予約",
     "ctaNote": "30分 · 48時間以内に提案",
     "slotsBadge": "▲ 残り2枠 · 2026年5月",
-    "credential": "● 元日立・元楽天エンジニア",
+    "credential": "● 日立・楽天で育ったエンジニア",
     "home": {
       "heroEyebrow": "// バイリンガル.SAAS.納品",
-      "heroH1": ["代理店4ヶ月。", "ZeroEnは", "3週間。"],
-      "heroH1Highlight": "3週間。",
-      "heroSub": "JP代理店の見積は¥800万・4ヶ月。ZeroEnは14〜28営業日・固定価格・エクイティなしで、本番バイリンガルSaaSを納品します。",
-      "anchorLabel": "市場相場 // 比較",
+      "heroH1": ["アイデアを、", "プロダクトに。"],
+      "heroH1Highlight": "プロダクト",
+      "heroSub": "資金調達済みの東京のスタートアップ向け。Next.js + Supabase + Stripe で、数ヶ月ではなく数週間で納品。",
+      "anchorLabel": "比較 // 対_代理店",
       "anchorRows": [
-        { "label": "東京のWeb代理店（中規模）", "cost": "¥800万〜1,200万", "timeline": "4〜6ヶ月",  "muted": true },
-        { "label": "バイリンガルFL＋PM",        "cost": "¥200万〜400万",  "timeline": "2〜4ヶ月",  "muted": true },
-        { "label": "ZeroEn Growth",             "cost": "¥88万",          "timeline": "21〜28営業日", "muted": false },
-        { "label": "ZeroEn Starter",            "cost": "¥38万",          "timeline": "14営業日",     "muted": false }
+        { "label": "日本の制作会社",     "cost": "¥500-1,000万", "timeline": "4〜6ヶ月",  "muted": true },
+        { "label": "バイリンガルFL+PM", "cost": "¥200-300万",   "timeline": "3〜4ヶ月",  "muted": true },
+        { "label": "ZeroEn Growth",    "cost": "¥88万",        "timeline": "3〜4週間",  "muted": false },
+        { "label": "ZeroEn Starter",   "cost": "¥38万",        "timeline": "2週間",     "muted": false }
       ],
       "icpLabel": "顧客 // 3_タイプ",
       "icpPillars": [
