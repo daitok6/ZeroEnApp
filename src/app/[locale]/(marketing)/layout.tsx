@@ -21,19 +21,7 @@ export default async function MarketingLayout({ children, params }: Props) {
         <UtmCapture />
       </Suspense>
       <div data-theme="brutalist">
-        <a
-          href="#main-content"
-          style={{
-            position: 'absolute',
-            left: '-9999px',
-            top: 'auto',
-            width: '1px',
-            height: '1px',
-            overflow: 'hidden',
-          }}
-          onFocus={(e) => { (e.target as HTMLElement).style.cssText = 'position:static;width:auto;height:auto;overflow:visible;'; }}
-          onBlur={(e) => { (e.target as HTMLElement).style.cssText = 'position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;'; }}
-        >
+        <a href="#main-content" className="skip-to-content">
           Skip to content
         </a>
         <BTStatusBar />
