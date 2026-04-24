@@ -1,18 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Hero } from '@/components/marketing/hero';
-import { WhyZeroEn } from '@/components/marketing/why-zeroen';
-import { TrustSection } from '@/components/marketing/trust-section';
-import { DashboardShowcase } from '@/components/marketing/dashboard-showcase';
-import { TechStackTerminal } from '@/components/marketing/tech-stack-terminal';
-import { CaseStudiesPreview } from '@/components/marketing/case-studies-preview';
-import { NewsletterSection } from '@/components/marketing/newsletter-section';
-import { ScrollReveal } from '@/components/marketing/scroll-reveal';
-import { StaggerChildren, StaggerItem } from '@/components/marketing/stagger-children';
-import { GreenGlowLine } from '@/components/marketing/green-glow-line';
-import { InlineCallout } from '@/components/marketing/inline-callout';
-import { buildMetadata } from '@/lib/seo/metadata';
+import { BTMarquee } from '@/components/brutalist/bt-marquee';
+import { BTAsciiStamp } from '@/components/brutalist/bt-ascii-stamp';
+import { BTSectionHead } from '@/components/brutalist/bt-section-head';
+import { BTCta } from '@/components/brutalist/bt-cta';
+import { BTContainer } from '@/components/brutalist/bt-container';
 
 export const revalidate = 3600;
 
@@ -22,32 +14,12 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  if (locale === 'ja') {
-    return buildMetadata({
-      title: 'ZeroEn — 前金0円。LP制作・運用・毎月の改善まで月¥10,000。',
-      description:
-        '元日立・元楽天エンジニアが、コーチ・コンサルタント・セラピストのLP（ランディングページ）を無料で制作。月¥10,000のサブスクリプションでホスティング・運用・毎月の改善まで提供します。',
-      path: '',
-      locale,
-      ogTitle: 'ZeroEn',
-      ogSubtitle: '前金0円。月¥10,000で、制作・運用・毎月の改善まで。',
-    });
-  }
-  return buildMetadata({
-    title: 'ZeroEn — Free Landing Page. ¥10,000/month Hosting + Updates.',
-    description:
-      'Ex-Hitachi, ex-Rakuten engineer builds your landing page for free. ¥10,000/month covers hosting, monthly updates, and improvements. Live in 3 days.',
-    path: '',
-    locale,
-    ogTitle: 'ZeroEn',
-    ogSubtitle: 'Free LP. ¥10,000/month. Live in 3 days.',
-  });
+  const tMkt = await getTranslations('mkt');
+  return {
+    title: tMkt('home.meta.title'),
+    description: tMkt('home.meta.description'),
+  };
 }
-
-const STEP_KEYS = [
-  'discover', 'apply', 'score', 'onboard',
-  'build', 'launch', 'operate', 'grow', 'upsell',
-] as const;
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -55,261 +27,189 @@ const organizationJsonLd = {
   name: 'ZeroEn',
   url: 'https://zeroen.dev',
   logo: 'https://zeroen.dev/logo-dark.svg',
-  sameAs: ['https://x.com/ZeroEnBuilds', 'https://www.instagram.com/zeroenbuilds/'],
+  sameAs: ['https://x.com/ZeroEnBuilds'],
 };
 
 const serviceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'ZeroEn LP制作・運用サービス',
+  name: 'ZeroEn Bilingual SaaS Studio',
   provider: { '@type': 'Organization', name: 'ZeroEn', url: 'https://zeroen.dev' },
-  description:
-    '元日立・元楽天エンジニアによるLP（ランディングページ）制作・運用サービス。初期費用¥0、月¥10,000から。Next.js・Tailwind CSS・Vercelで3日公開。コーチ・コンサルタント・セラピスト向け。',
+  description: 'Fixed-price bilingual Next.js + Supabase + Stripe for funded founders in Tokyo. Ships in weeks.',
   areaServed: 'JP',
-  serviceType: 'Web Design',
-  offers: {
-    '@type': 'Offer',
-    price: '10000',
-    priceCurrency: 'JPY',
-    priceSpecification: {
-      '@type': 'UnitPriceSpecification',
-      price: '10000',
-      priceCurrency: 'JPY',
-      unitCode: 'MON',
-    },
-  },
+  serviceType: 'Software Development',
+  offers: [
+    { '@type': 'Offer', name: 'Starter', price: '380000', priceCurrency: 'JPY' },
+    { '@type': 'Offer', name: 'Growth',  price: '880000', priceCurrency: 'JPY' },
+    { '@type': 'Offer', name: 'MVP / SaaS Build', price: '1500000', priceCurrency: 'JPY' },
+  ],
 };
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
-  const t = await getTranslations('home');
-  const tHiw = await getTranslations('howItWorks');
+  const tMkt = await getTranslations('mkt');
 
-  const heroTexts = [t('hero.line1'), t('hero.line2'), t('hero.line3')];
-
-  const steps = STEP_KEYS.map((key, index) => ({
-    id: String(index + 1).padStart(2, '0'),
-    name: tHiw(`steps.${key}.name`),
-    desc: tHiw(`steps.${key}.desc`),
-  }));
-
-  const pillars = [0, 1, 2].map((i) => ({
-    title: t(`whyZeroEn.pillars.${i}.title`),
-    desc: t(`whyZeroEn.pillars.${i}.desc`),
-  }));
-
-  const techLines = [0, 1, 2, 3, 4, 5].map((i) => t(`techStack.lines.${i}`));
-  const techTools = [0, 1, 2, 3].map((i) => ({
-    name: t(`techStack.tools.${i}.name`),
-    tag: t(`techStack.tools.${i}.tag`),
-    desc: t(`techStack.tools.${i}.desc`),
-  }));
-
-  const trustPoints = [0, 1, 2].map((i) => ({
-    title: t(`trustSection.points.${i}.title`),
-    desc: t(`trustSection.points.${i}.desc`),
-  }));
-
-  const dashboardBullets = [0, 1, 2].map((i) => ({
-    title: t(`dashboardShowcase.bullets.${i}.title`),
-    body: t(`dashboardShowcase.bullets.${i}.body`),
-  }));
-
-  const caseStudyPlaceholders = [0, 1, 2].map((i) => {
-    const url = t(`caseStudies.placeholders.${i}.url`);
-    const screenshot = t(`caseStudies.placeholders.${i}.screenshot`);
-    const label = t(`caseStudies.placeholders.${i}.label`);
-    return {
-      name: t(`caseStudies.placeholders.${i}.name`),
-      desc: t(`caseStudies.placeholders.${i}.desc`),
-      meta: [0, 1, 2].map((j) => t(`caseStudies.placeholders.${i}.meta.${j}`)),
-      url: url || undefined,
-      screenshot: screenshot || undefined,
-      label: label || undefined,
-    };
-  });
+  const heroH1Lines  = tMkt.raw('home.heroH1') as string[];
+  const h1Highlight  = tMkt('home.heroH1Highlight');
+  const anchorRows   = tMkt.raw('home.anchorRows') as Array<{ label: string; cost: string; timeline: string; muted: boolean }>;
+  const icpPillars   = tMkt.raw('home.icpPillars') as Array<{ tag: string; title: string; desc: string }>;
+  const cases        = tMkt.raw('home.cases') as Array<{ name: string; url: string; desc: string; meta: string[] }>;
 
   return (
-    <div className="bg-[#0D0D0D] text-[#F4F4F2]">
-      {/* JSON-LD structured data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
-      />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
 
-      {/* ── Section 1: Hero ─────────────────────────────────── */}
-      <Hero
-        texts={heroTexts}
-        subtitle={t('hero.subtitle')}
-        ctaText={t('hero.cta')}
-        terminalCommand={t('hero.terminalCommand')}
-        locale={locale}
-      />
+      <BTMarquee locale={locale} />
 
-      {/* ── Section 2: Why ZeroEn ────────────────────────────── */}
-      <WhyZeroEn
-        eyebrow={t('whyZeroEn.eyebrow')}
-        title={t('whyZeroEn.title')}
-        subtitle={t('whyZeroEn.subtitle')}
-        pillars={pillars}
-        urgency={t('whyZeroEn.urgency')}
-        locale={locale}
-        ctaText={t('hero.cta')}
-      />
-
-      {/* ── WhyZeroEn blog link ─────────────────────────────── */}
-      <div className="px-4 pb-10 bg-[#080808]">
-        <div className="max-w-5xl mx-auto">
-          <InlineCallout
-            eyebrow={locale === 'ja' ? 'よく聞かれること' : 'Common concerns'}
-            title={locale === 'ja' ? 'コーチ・セラピストのLP5つのお悩みとZeroEnの向き合い方を読む' : 'Read: 5 LP struggles coaches and therapists commonly face'}
-            href={locale === 'ja' ? '/blog/lp-pain-points-coaches-therapists' : '/en/blog/lp-pain-points-coaches-therapists'}
-          />
-        </div>
-      </div>
-
-      {/* ── Section 3: Trust ─────────────────────────────────── */}
-      <TrustSection
-        eyebrow={t('trustSection.eyebrow')}
-        title={t('trustSection.title')}
-        points={trustPoints}
-      />
-
-      {/* ── Section 4: Dashboard Showcase ───────────────────── */}
-      <DashboardShowcase
-        eyebrow={t('dashboardShowcase.eyebrow')}
-        heading={t('dashboardShowcase.heading')}
-        subheading={t('dashboardShowcase.subheading')}
-        bullets={dashboardBullets}
-        ctaLabel={t('dashboardShowcase.ctaLabel')}
-        ctaHref={t('dashboardShowcase.ctaHref')}
-      />
-
-      {/* ── Section 5: Tech Stack Terminal ───────────────────── */}
-      <TechStackTerminal
-        eyebrow={t('techStack.eyebrow')}
-        title={t('techStack.title')}
-        subtitle={t('techStack.subtitle')}
-        terminalTitle={t('techStack.terminalTitle')}
-        lines={techLines}
-        tools={techTools}
-      />
-
-      {/* ── Section 6: How It Works ──────────────────────────── */}
-      <section className="py-24 px-4 bg-[#080808]">
-        <div className="max-w-3xl mx-auto">
-          <ScrollReveal direction="up">
-            <div className="mb-16 text-center">
-              <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
-                {t('processEyebrow')}
+      {/* ── Hero ──────────────────────────────────────────────── */}
+      <section style={{ borderBottom: '2px solid var(--color-ink, #0A0A0A)', padding: '48px 16px 40px', backgroundColor: 'var(--color-bg, #E8E6DD)' }}>
+        <BTContainer>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '32px' }} className="md:grid-cols-[1.3fr_1fr]">
+            <div>
+              <BTAsciiStamp locale={locale} />
+              <h1 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(40px, 9vw, 104px)',
+                fontWeight: 800,
+                lineHeight: 1.0,
+                letterSpacing: '-0.03em',
+                margin: '20px 0 18px',
+                color: 'var(--color-ink, #0A0A0A)',
+                textTransform: 'uppercase',
+              }}>
+                {heroH1Lines.map((line, i) => {
+                  const idx = line.indexOf(h1Highlight);
+                  if (idx === -1) return <div key={i}>{line}</div>;
+                  return (
+                    <div key={i}>
+                      {idx > 0 && line.slice(0, idx)}
+                      <span style={{ backgroundColor: 'var(--color-accent, #00E87A)', color: 'var(--color-ink, #0A0A0A)', display: 'inline', padding: '0 6px' }}>
+                        {h1Highlight}
+                      </span>
+                      {line.slice(idx + h1Highlight.length)}
+                    </div>
+                  );
+                })}
+              </h1>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--color-ink-dim, #5A584F)', lineHeight: 1.6, maxWidth: '520px', marginBottom: '24px' }}>
+                {'> '}{tMkt('home.heroSub')}
               </p>
-              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4">
-                {t('howItWorks.title')}
-              </h2>
-              <p className="text-[#6B7280] font-mono text-sm">
-                {t('howItWorks.subtitle')}
-              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '28px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', backgroundColor: 'var(--color-ink, #0A0A0A)', color: 'var(--color-accent, #00E87A)', padding: '3px 8px' }}>
+                  {tMkt('slotsBadge')}
+                </span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', border: '1px solid var(--color-ink, #0A0A0A)', color: 'var(--color-ink, #0A0A0A)', padding: '3px 8px' }}>
+                  {tMkt('credential')}
+                </span>
+              </div>
+              <BTCta locale={locale} />
             </div>
-          </ScrollReveal>
-          <div className="relative">
-            <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-[#00E87A]/80 via-[#00E87A]/30 to-transparent" />
-            <StaggerChildren className="space-y-0" staggerDelay={0.08}>
-              {steps.map((step) => (
-                <StaggerItem key={step.id}>
-                  <div className="relative flex gap-6 pb-10 last:pb-0">
-                    <div className="relative z-10 flex-shrink-0 w-12 flex items-start justify-center pt-1">
-                      <div className="w-3 h-3 rounded-full bg-[#00E87A] shadow-[0_0_8px_rgba(0,232,122,0.6)] mt-1" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-baseline gap-3 mb-1">
-                        <span className="text-[#00E87A] font-mono text-xs font-bold tracking-widest">
-                          {step.id}
-                        </span>
-                        <span className="text-[#F4F4F2] font-mono font-bold text-base">
-                          {step.name}
-                        </span>
-                      </div>
-                      <p className="text-[#6B7280] font-mono text-sm leading-relaxed">
-                        {step.desc}
-                      </p>
-                    </div>
-                  </div>
-                </StaggerItem>
-              ))}
-            </StaggerChildren>
+            <div /> {/* reserved for future hero visual */}
           </div>
-        </div>
+        </BTContainer>
       </section>
 
-      {/* ── Section 7: Case Studies Preview ──────────────────── */}
-      <CaseStudiesPreview
-        eyebrow={t('caseStudies.eyebrow')}
-        title={t('caseStudies.title')}
-        subtitle={t('caseStudies.subtitle')}
-        comingSoon={t('caseStudies.comingSoon')}
-        live={t('caseStudies.live')}
-        placeholders={caseStudyPlaceholders}
-      />
+      {/* ── Anchor cost table ─────────────────────────────────── */}
+      <section style={{ borderBottom: '2px solid var(--color-ink, #0A0A0A)', padding: '40px 16px', backgroundColor: 'var(--color-paper, #F2F0E8)' }}>
+        <BTContainer>
+          <BTSectionHead label={tMkt('home.anchorLabel')} heading="" />
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
+              <thead>
+                <tr style={{ borderBottom: '2px solid var(--color-ink, #0A0A0A)' }}>
+                  {['', 'COST', 'TIMELINE'].map((h) => (
+                    <th key={h} style={{ padding: '6px 12px', textAlign: 'left', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '10px', color: 'var(--color-ink-dim, #5A584F)' }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {anchorRows.map((row, i) => (
+                  <tr key={i} style={{ borderBottom: '1px dashed var(--color-ink, #0A0A0A)' }}>
+                    <td style={{ padding: '10px 12px', fontWeight: 700, color: row.muted ? 'var(--color-ink-dim, #5A584F)' : 'var(--color-ink, #0A0A0A)', textDecoration: row.muted ? 'line-through' : 'none' }}>
+                      {!row.muted && <span style={{ color: 'var(--color-accent, #00E87A)', marginRight: '6px' }}>→</span>}
+                      {row.label}
+                    </td>
+                    <td style={{ padding: '10px 12px', fontWeight: 700 }}>
+                      {!row.muted ? (
+                        <span style={{ backgroundColor: 'var(--color-accent, #00E87A)', color: 'var(--color-ink, #0A0A0A)', padding: '2px 6px' }}>{row.cost}</span>
+                      ) : (
+                        <span style={{ color: 'var(--color-ink-dim, #5A584F)', textDecoration: 'line-through' }}>{row.cost}</span>
+                      )}
+                    </td>
+                    <td style={{ padding: '10px 12px', color: row.muted ? 'var(--color-ink-dim, #5A584F)' : 'var(--color-ink, #0A0A0A)', textDecoration: row.muted ? 'line-through' : 'none' }}>{row.timeline}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </BTContainer>
+      </section>
 
-      {/* ── Section 8: Pricing Teaser ────────────────────────── */}
-      <section className="py-24 px-4 bg-[#080808]">
-        <div className="max-w-2xl mx-auto text-center">
-          <ScrollReveal direction="up">
-            <p className="text-[#00E87A] font-mono text-xs uppercase tracking-[0.2em] mb-3">
-              {t('valueProp.eyebrow')}
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F4F4F2] mb-4 whitespace-pre-line">
-              {t('valueProp.title')}
+      {/* ── ICP pillars ───────────────────────────────────────── */}
+      <section style={{ borderBottom: '2px solid var(--color-ink, #0A0A0A)', padding: '40px 16px', backgroundColor: 'var(--color-bg, #E8E6DD)' }}>
+        <BTContainer>
+          <BTSectionHead label={tMkt('home.icpLabel')} heading="" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', marginTop: '16px' }}>
+            {icpPillars.map((pillar) => (
+              <div key={pillar.tag} className="bt-hover-shadow" style={{ border: '2px solid var(--color-ink, #0A0A0A)', padding: '20px', backgroundColor: 'var(--color-paper, #F2F0E8)' }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 800, color: 'var(--color-accent, #00E87A)', letterSpacing: '-0.02em', marginBottom: '8px' }}>
+                  [{pillar.tag}]
+                </div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--color-ink, #0A0A0A)', marginBottom: '8px' }}>
+                  {pillar.title}
+                </div>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--color-ink-dim, #5A584F)', lineHeight: 1.6, margin: 0 }}>
+                  {pillar.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </BTContainer>
+      </section>
+
+      {/* ── Live cases ────────────────────────────────────────── */}
+      <section style={{ borderBottom: '2px solid var(--color-ink, #0A0A0A)', padding: '40px 16px', backgroundColor: 'var(--color-paper, #F2F0E8)' }}>
+        <BTContainer>
+          <BTSectionHead label={tMkt('home.caseLabel')} heading="" />
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--color-ink-dim, #5A584F)', marginBottom: '16px' }}>
+            {tMkt('home.caseSubtitle')}
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+            {cases.map((c) => (
+              <div key={c.name} style={{ backgroundColor: 'var(--color-ink, #0A0A0A)', border: '2px solid var(--color-ink, #0A0A0A)', padding: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700, color: 'var(--color-accent, #00E87A)', letterSpacing: '0.1em' }}>● LIVE</span>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--color-bg, #E8E6DD)', opacity: 0.6 }}>{c.url}</span>
+                </div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 800, color: 'var(--color-accent, #00E87A)', letterSpacing: '-0.02em', lineHeight: 0.9, marginBottom: '12px', textTransform: 'uppercase' }}>
+                  {c.name}
+                </div>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--color-bg, #E8E6DD)', lineHeight: 1.5, marginBottom: '12px', opacity: 0.8 }}>
+                  {c.desc}
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {c.meta.map((m) => (
+                    <span key={m} style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', border: '1px solid rgba(242,240,232,0.3)', color: 'var(--color-bg, #E8E6DD)', padding: '2px 6px' }}>{m}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </BTContainer>
+      </section>
+
+      {/* ── Final CTA strip ───────────────────────────────────── */}
+      <section style={{ backgroundColor: 'var(--color-accent, #00E87A)', border: '2px solid var(--color-ink, #0A0A0A)', padding: '48px 16px' }}>
+        <BTContainer>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px', textAlign: 'center' }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 6vw, 64px)', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--color-ink, #0A0A0A)', textTransform: 'uppercase', lineHeight: 1.0, margin: 0 }}>
+              {tMkt('home.ctaStripHeadline')}
             </h2>
-            <p className="text-[#6B7280] font-mono text-sm max-w-xl mx-auto mb-10">
-              {t('valueProp.subtitle')}
-            </p>
-            <Link
-              href={`/${locale}/pricing`}
-              className="inline-block border border-[#00E87A] text-[#00E87A] font-heading font-bold text-sm uppercase tracking-widest py-3 px-8 rounded hover:bg-[#00E87A]/10 transition-all duration-200"
-            >
-              {t('valueProp.seePricingCta')}
-            </Link>
-          </ScrollReveal>
-        </div>
+            <BTCta locale={locale} />
+          </div>
+        </BTContainer>
       </section>
-
-      {/* ── Section 9: Apply CTA ─────────────────────────────── */}
-      <section className="py-24 px-4">
-        <GreenGlowLine className="mb-24" />
-        <div className="max-w-2xl mx-auto text-center">
-          <ScrollReveal direction="up">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-[#F4F4F2] mb-6">
-              {t('applySection.title')}
-            </h2>
-            <p className="text-[#6B7280] font-mono text-sm mb-10">
-              {t('applySection.subtitle')}
-            </p>
-            <Link
-              href={`/${locale}/login`}
-              className="inline-block bg-[#00E87A] text-[#0D0D0D] font-heading font-bold uppercase tracking-widest text-sm px-8 py-4 md:px-12 md:py-5 rounded hover:bg-[#00ff88] active:scale-95 transition-all duration-150 shadow-[0_0_32px_rgba(0,232,122,0.5)] hover:shadow-[0_0_48px_rgba(0,232,122,0.7)] mb-6"
-            >
-              {t('applySection.cta')}
-            </Link>
-            <p className="text-[#374151] font-mono text-xs">
-              {t('valueProp.minNote')}
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── Section 10: Newsletter ─────────────────────────────── */}
-      <NewsletterSection
-        eyebrow={t('newsletterSection.eyebrow')}
-        title={t('newsletterSection.title')}
-        subtitle={t('newsletterSection.subtitle')}
-        note={t('newsletterSection.note')}
-        locale={locale}
-      />
-    </div>
+    </>
   );
 }
