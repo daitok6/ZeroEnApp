@@ -4,24 +4,95 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ZeroEn Brand Tokens */
+/* ── ZeroEn Brand Tokens ────────────────────────────────── */
 @theme {
-  /* Brand Colors */
-  --color-zen-green: #00E87A;
-  --color-zen-dark: #0D0D0D;
+  /* Legacy dark tokens — kept for dashboard/admin compatibility */
+  --color-zen-green:     #00E87A;
+  --color-zen-dark:      #0D0D0D;
   --color-zen-off-white: #F4F4F2;
-  --color-zen-surface: #111827;
-  --color-zen-elevated: #1F2937;
-  --color-zen-border: #374151;
-  --color-zen-muted: #9CA3AF;
-  --color-zen-subtle: #6B7280;
-  --color-zen-glow: rgba(0, 232, 122, 0.1);
+  --color-zen-surface:   #111827;
+  --color-zen-elevated:  #1F2937;
+  --color-zen-border:    #374151;
+  --color-zen-muted:     #9CA3AF;
+  --color-zen-subtle:    #6B7280;
+  --color-zen-glow:      rgba(0, 232, 122, 0.1);
 
-  /* Brand Fonts */
-  --font-heading: 'Syne', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
-  --font-jp: 'Murecho', sans-serif;
-  --font-logo: 'DM Sans', sans-serif;
+  /* Brutalist Terminal fonts (active brand) */
+  --font-display: var(--font-display);
+  --font-mono:    var(--font-mono);
+  --font-jp:      var(--font-jp);
+}
+
+/* ── Brutalist Terminal tokens (marketing site only) ─────── */
+/* Applied via data-theme="brutalist" on <html> in (marketing) layout */
+[data-theme="brutalist"] {
+  --color-bg:       #E8E6DD;
+  --color-bg-alt:   #DEDCD3;
+  --color-paper:    #F2F0E8;
+  --color-ink:      #0A0A0A;
+  --color-ink-dim:  #5A584F;
+  --color-accent:   #00E87A;
+  --color-danger:   #C8351E;
+
+  /* Override Tailwind base for marketing surfaces */
+  --background:     #E8E6DD;
+  --foreground:     #0A0A0A;
+  --border:         rgba(10, 10, 10, 0.2);
+  --radius:         0px;
+
+  background-color: #E8E6DD;
+  color: #0A0A0A;
+}
+
+/* ── Brutalist utility classes ───────────────────────────── */
+.bt-hover-shadow {
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.bt-hover-shadow:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #0A0A0A;
+}
+.bt-hover-shadow:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 #0A0A0A;
+}
+
+.bt-link {
+  transition: background-color 0.08s, color 0.08s;
+}
+.bt-link:hover {
+  background-color: #0A0A0A;
+  color: #E8E6DD;
+}
+
+.bt-caret::after {
+  content: '_';
+  animation: btblink 1.1s step-end infinite;
+}
+
+/* ── Brutalist keyframes ─────────────────────────────────── */
+@keyframes btpulse {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes btblink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes btmarquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes btfadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.bt-fadein {
+  animation: btfadein 0.35s ease-out;
 }
 
 @theme inline {

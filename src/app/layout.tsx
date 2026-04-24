@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = {
-  title: 'ZeroEn — 前金0円。月¥10,000で、LP制作・運用・毎月の改善まで。',
+  title: 'ZeroEn — Bilingual SaaS. Fixed price. Shipped in weeks.',
   description:
-    '元日立・元楽天エンジニアが、コーチ・コンサルタント・セラピストのランディングページを無料で制作。月¥10,000のサブスクリプションでホスティング・運用・毎月の改善まで。3日で公開。',
+    'Production-grade bilingual Next.js + Supabase + Stripe for funded founders in Tokyo. ¥380k Starter · ¥880k Growth · ¥1.5M+ MVP Build. No equity.',
 };
 
 export const viewport: Viewport = {
