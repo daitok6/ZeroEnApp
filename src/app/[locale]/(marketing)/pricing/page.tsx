@@ -118,7 +118,9 @@ export default async function PricingPage({ params }: Props) {
                   ))}
                 </ul>
                 <a
-                  href="mailto:daito@zeroen.dev?subject=Scoping%20call"
+                  href={locale === 'ja' ? 'https://cal.com/zeroen/scoping-call-ja' : 'https://cal.com/zeroen/scoping-call'}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{ display: 'block', textAlign: 'center', backgroundColor: 'var(--color-accent, #00E87A)', color: 'var(--color-ink, #0A0A0A)', fontFamily: 'var(--font-mono)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none', padding: '10px', border: '2px solid var(--color-ink, #0A0A0A)' }}
                 >
                   ► {tMkt('cta')}
