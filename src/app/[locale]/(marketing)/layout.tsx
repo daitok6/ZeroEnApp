@@ -1,8 +1,9 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { Suspense } from 'react';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
+import { BTStatusBar } from '@/components/brutalist/bt-status-bar';
+import { BTNav } from '@/components/brutalist/bt-nav';
+import { BTFooter } from '@/components/brutalist/bt-footer';
 import { UtmCapture } from '@/components/analytics/utm-capture';
 
 type Props = {
@@ -19,9 +20,12 @@ export default async function MarketingLayout({ children, params }: Props) {
       <Suspense>
         <UtmCapture />
       </Suspense>
-      <Header />
-      <main>{children}</main>
-      <Footer locale={locale} />
+      <div data-theme="brutalist">
+        <BTStatusBar />
+        <BTNav />
+        <main className="bt-fadein">{children}</main>
+        <BTFooter locale={locale} />
+      </div>
     </NextIntlClientProvider>
   );
 }
