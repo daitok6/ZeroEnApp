@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from '@/i18n/navigation';
+import { Link, useRouter, usePathname } from '@/i18n/navigation';
 import { BTPulse } from './bt-pulse';
 
 export function BTStatusBar() {
@@ -57,6 +57,22 @@ export function BTStatusBar() {
       {/* Right: version + locale toggle */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <span style={{ color: 'var(--color-ink-dim, #5A584F)' }}>/v4.2.0</span>
+        <Link
+          href="/login"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '10px',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: 'var(--color-bg, #E8E6DD)',
+            textDecoration: 'none',
+            padding: '1px 5px',
+          }}
+          className="bt-link"
+        >
+          {locale === 'ja' ? 'ログイン' : 'LOG IN'} ▶
+        </Link>
         {(['en', 'ja'] as const).map((lng) => (
           <button
             key={lng}

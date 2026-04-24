@@ -13,6 +13,7 @@ const LINKS = {
     { href: '/startups',     label: 'Startups' },
     { href: '/cases',        label: 'Cases' },
     { href: '/about',        label: 'About' },
+    { href: '/login',        label: 'Log in' },
   ],
   ja: [
     { href: '/',             label: 'ホーム' },
@@ -21,6 +22,7 @@ const LINKS = {
     { href: '/startups',     label: 'スタートアップ' },
     { href: '/cases',        label: '実績' },
     { href: '/about',        label: '私について' },
+    { href: '/login',        label: 'ログイン' },
   ],
 };
 
