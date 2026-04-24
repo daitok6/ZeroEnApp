@@ -50,11 +50,11 @@
 }
 .bt-hover-shadow:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 #0A0A0A;
+  box-shadow: 6px 6px 0 var(--color-ink, #0A0A0A);
 }
 .bt-hover-shadow:active {
   transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0 #0A0A0A;
+  box-shadow: 2px 2px 0 var(--color-ink, #0A0A0A);
 }
 
 .bt-link {
@@ -84,6 +84,12 @@
 @keyframes btmarquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bt-marquee-inner {
+    animation: none;
+  }
 }
 
 @keyframes btfadein {

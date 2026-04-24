@@ -12,35 +12,35 @@
   },
   "mkt": {
     "tagline": "アイデアを、プロダクトに。",
-    "cta": "スコープ通話を予約",
+    "cta": "無料30分通話を予約",
     "ctaNote": "30分 · 48時間以内に提案",
     "slotsBadge": "▲ 残り2枠 · 2026年5月",
-    "credential": "● 日立・楽天で育ったエンジニア",
+    "credential": "● 元日立・元楽天エンジニア",
     "home": {
       "heroEyebrow": "// バイリンガル.SAAS.納品",
-      "heroH1": ["アイデアを、", "プロダクトに。"],
-      "heroH1Highlight": "プロダクト",
-      "heroSub": "資金調達済みの東京のスタートアップ向け。Next.js + Supabase + Stripe で、数ヶ月ではなく数週間で納品。",
-      "anchorLabel": "比較 // 対_代理店",
+      "heroH1": ["代理店4ヶ月。", "ZeroEnは", "3週間。"],
+      "heroH1Highlight": "3週間。",
+      "heroSub": "JP代理店の見積は¥800万・4ヶ月。ZeroEnは14〜28営業日・固定価格・エクイティなしで、本番バイリンガルSaaSを納品します。",
+      "anchorLabel": "市場相場 // 比較",
       "anchorRows": [
-        { "label": "日本の制作会社",    "cost": "¥500-1,000万", "timeline": "4〜6ヶ月",  "muted": true  },
-        { "label": "バイリンガルFL+PM", "cost": "¥200-300万",   "timeline": "3〜4ヶ月",  "muted": true  },
-        { "label": "ZeroEn Growth",    "cost": "¥88万",        "timeline": "3〜4週間",  "muted": false },
-        { "label": "ZeroEn Starter",   "cost": "¥38万",        "timeline": "2週間",     "muted": false }
+        { "label": "東京のWeb代理店（中規模）", "cost": "¥800万〜1,200万", "timeline": "4〜6ヶ月",  "muted": true },
+        { "label": "バイリンガルFL＋PM",        "cost": "¥200万〜400万",  "timeline": "2〜4ヶ月",  "muted": true },
+        { "label": "ZeroEn Growth",             "cost": "¥88万",          "timeline": "21〜28営業日", "muted": false },
+        { "label": "ZeroEn Starter",            "cost": "¥38万",          "timeline": "14営業日",     "muted": false }
       ],
       "icpLabel": "顧客 // 3_タイプ",
       "icpPillars": [
-        { "tag": "01", "title": "東京の資金調達済み創業者",        "desc": "プレシード / シード調達直後。滑走路が短くなる前に、バイリンガル製品を公開する必要があります。JP代理店の見積は¥800万・4ヶ月。" },
-        { "tag": "02", "title": "日本進出中の海外企業",          "desc": "本社が日本予算を承認済み。立ち上げまでに、バイリンガルサイト・JP請求書・特商法遵守が必要。6ヶ月の代理店契約ではなく。" },
-        { "tag": "03", "title": "グローバル展開するJPスタートアップ", "desc": "プロダクトは日本語のみ。投資家から英語版を求められている。次回ラウンドまでに必要。" }
+        { "tag": "01", "title": "東京の資金調達済み創業者", "desc": "調達済み。投資家はバイリンガル製品を求めています。JP代理店は¥800万・4ヶ月。ZeroEnは3週間・固定価格で納品します。" },
+        { "tag": "02", "title": "日本市場に参入する企業", "desc": "本社が日本予算を承認しました。ローンチ前にバイリンガルサイト・JP請求書・特商法遵守が必要。ZeroEnは21日で納品。特商法対応込み。" },
+        { "tag": "03", "title": "グローバル展開するJPスタートアップ", "desc": "プロダクトは日本語のみ。投資家から英語版を求められている。ZeroEnは2週間でENルーティングを追加。フルリビルド不要。" }
       ],
       "caseLabel": "稼働中 // 本番",
-      "caseSubtitle": "クライアント向けと同じ基準で自分のプロダクトも構築。どちらも本番稼働中。",
+      "caseSubtitle": "クライアントと同じスタック・インフラ・プロセスで構築・運用中のプロダクトです。",
       "cases": [
         { "name": "ZeroEn",  "url": "zeroen.dev", "desc": "今ご覧のプラットフォーム — マルチテナントSaaS、30+ API、Stripe課金、EN/JAルーティング対応。", "meta": ["Next.js + Supabase + Stripe", "EN/JAルーティング", "マルチテナント"] },
         { "name": "WebMori", "url": "webmori.jp", "desc": "セキュリティ & SEO 監査サービス。3日で公開。月次の自動監査レポート。",                        "meta": ["3日で公開", "月次監査", "東京"] }
       ],
-      "ctaStripHeadline": "調達済み。バイリンガル。納品済み。",
+      "ctaStripHeadline": "14日で納品できます。",
       "meta": {
         "title": "ZeroEn — バイリンガルSaaS。固定価格。数週間で納品。",
         "description": "東京の資金調達済み創業者向け、本番品質のバイリンガルNext.js + Supabase + Stripe。¥38万 Starter · ¥88万 Growth · ¥150万+ MVP Build。エクイティなし。"

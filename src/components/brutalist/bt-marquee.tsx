@@ -31,6 +31,7 @@ export function BTMarquee({ locale }: Props) {
 
   return (
     <div
+      aria-hidden="true"
       style={{
         backgroundColor: 'var(--color-accent, #00E87A)',
         color: 'var(--color-ink, #0A0A0A)',
@@ -40,6 +41,7 @@ export function BTMarquee({ locale }: Props) {
       }}
     >
       <div
+        className="bt-marquee-inner"
         style={{
           display: 'flex',
           width: 'max-content',

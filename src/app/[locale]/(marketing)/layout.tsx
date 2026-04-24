@@ -21,9 +21,24 @@ export default async function MarketingLayout({ children, params }: Props) {
         <UtmCapture />
       </Suspense>
       <div data-theme="brutalist">
+        <a
+          href="#main-content"
+          style={{
+            position: 'absolute',
+            left: '-9999px',
+            top: 'auto',
+            width: '1px',
+            height: '1px',
+            overflow: 'hidden',
+          }}
+          onFocus={(e) => { (e.target as HTMLElement).style.cssText = 'position:static;width:auto;height:auto;overflow:visible;'; }}
+          onBlur={(e) => { (e.target as HTMLElement).style.cssText = 'position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;'; }}
+        >
+          Skip to content
+        </a>
         <BTStatusBar />
         <BTNav />
-        <main className="bt-fadein">{children}</main>
+        <main id="main-content" className="bt-fadein">{children}</main>
         <BTFooter locale={locale} />
       </div>
     </NextIntlClientProvider>

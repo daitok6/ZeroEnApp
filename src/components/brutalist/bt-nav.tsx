@@ -35,6 +35,7 @@ export function BTNav() {
   return (
     <>
       <nav
+        aria-label="Main navigation"
         style={{
           position: 'sticky',
           top: 0,
@@ -58,6 +59,7 @@ export function BTNav() {
           {/* Logo chip */}
           <Link
             href="/"
+            aria-label="ZeroEn — go to homepage"
             style={{
               display: 'inline-block',
               backgroundColor: 'var(--color-accent, #00E87A)',
@@ -138,7 +140,8 @@ export function BTNav() {
               textTransform: 'uppercase',
               padding: '5px 10px',
               textDecoration: 'none',
-              border: '1px solid var(--color-accent, #00E87A)',
+              border: '2px solid var(--color-ink, #0A0A0A)',
+              boxShadow: '4px 4px 0 var(--color-ink, #0A0A0A)',
               flexShrink: 0,
               whiteSpace: 'nowrap',
             }}
@@ -164,7 +167,7 @@ export function BTNav() {
               padding: '4px 0',
             }}
             className="md:hidden"
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           >
             {menuOpen ? '✕ CLOSE' : '≡ MENU'}
           </button>

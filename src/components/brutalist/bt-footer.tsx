@@ -29,9 +29,13 @@ export function BTFooter({ locale }: Props) {
   const tagline = locale === 'ja' ? 'アイデアを、プロダクトに。' : 'From idea to paying users.';
   const footerLeft = '// 2026 ZEROEN';
   const footerRight = locale === 'ja' ? '東京_JP' : 'TYO_JP';
+  const labels = locale === 'ja'
+    ? { sitemap: 'サイトマップ', contact: 'お問い合わせ', status: 'ステータス', operational: '稼働中' }
+    : { sitemap: 'SITEMAP', contact: 'CONTACT', status: 'STATUS', operational: 'OPERATIONAL' };
 
   return (
     <footer
+      aria-label="Site footer"
       style={{
         borderTop: '2px solid var(--color-ink, #0A0A0A)',
         backgroundColor: 'var(--color-paper, #F2F0E8)',
@@ -89,7 +93,7 @@ export function BTFooter({ locale }: Props) {
                 marginBottom: '10px',
               }}
             >
-              SITEMAP
+              {labels.sitemap}
             </div>
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {links.map(({ href, label }) => (
@@ -124,7 +128,7 @@ export function BTFooter({ locale }: Props) {
                 marginBottom: '10px',
               }}
             >
-              CONTACT
+              {labels.contact}
             </div>
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {[
@@ -163,7 +167,7 @@ export function BTFooter({ locale }: Props) {
                 marginBottom: '10px',
               }}
             >
-              STATUS
+              {labels.status}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
               <BTPulse />
@@ -177,7 +181,7 @@ export function BTFooter({ locale }: Props) {
                   color: 'var(--color-ink, #0A0A0A)',
                 }}
               >
-                OPERATIONAL
+                {labels.operational}
               </span>
             </div>
             <span

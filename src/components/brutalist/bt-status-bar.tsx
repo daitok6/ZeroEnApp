@@ -61,6 +61,7 @@ export function BTStatusBar() {
           <button
             key={lng}
             onClick={() => switchLocale(lng)}
+            aria-pressed={locale === lng}
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '10px',

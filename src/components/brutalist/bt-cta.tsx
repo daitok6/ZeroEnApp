@@ -42,7 +42,7 @@ export function BTCta({
             whiteSpace: 'nowrap',
           }}
         >
-          ► {ctaLabel}
+          <span aria-hidden="true">►</span> {ctaLabel}
         </a>
       ) : (
         <Link
@@ -66,7 +66,7 @@ export function BTCta({
             whiteSpace: 'nowrap',
           }}
         >
-          ► {ctaLabel}
+          <span aria-hidden="true">►</span> {ctaLabel}
         </Link>
       )}
       <span
