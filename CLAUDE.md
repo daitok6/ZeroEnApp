@@ -24,8 +24,9 @@ ZeroEn = bilingual product studio. Fixed-price Next.js + Supabase + Stripe SaaS 
 
 ## Brand Kit (always apply)
 
-- Primary accent: `#00E87A` (Electric Green) · Background: `#0D0D0D` · Text: `#F4F4F2`
-- Fonts: Syne (headings) · IBM Plex Mono (body/UI) · Murecho (JP) · DM Sans (logo wordmark only)
+- Background: `#E8E6DD` (warm cream) · Ink: `#0A0A0A` · Accent: `#00E87A` (Electric Green)
+- Fonts: Space Grotesk (display/headings) · JetBrains Mono (body/UI) · Noto Sans JP (JP locale)
+- Direction: Brutalist Terminal — cream paper, ink type, 2px square borders, `4px 4px 0 ink` hard shadows, no border-radius, uppercase display.
 - Tokens: `HQ/brand/tokens.css` · `HQ/brand/tokens.json` · Full spec: `HQ/brand/brand-kit.md`
 - Logos: `docs/logo-dark.svg`, `docs/logo-full.svg`, `docs/logo-icon.svg`
 

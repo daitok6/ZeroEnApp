@@ -1,54 +1,57 @@
-/* ZeroEn Design Tokens
+/* ZeroEn Design Tokens — Brutalist Terminal direction
    Source of truth for all color and typography values.
    Import this in any ZeroEn web project. */
 
 :root {
-  /* ── Color: Primary ─────────────────────────────────── */
-  --color-green:       #00E87A;
-  --color-dark:        #0D0D0D;
-  --color-off-white:   #F4F4F2;
+  /* ── Color: Page ────────────────────────────────────────── */
+  --color-bg:          #E8E6DD;   /* warm cream / off-white paper — page bg */
+  --color-bg-alt:      #DEDCD3;   /* subtle alt stripe */
+  --color-paper:       #F2F0E8;   /* card / box fill (lighter than bg) */
 
-  /* ── Color: Supporting ──────────────────────────────── */
-  --color-surface:     #111827;
-  --color-elevated:    #1F2937;
-  --color-border:      #374151;
-  --color-muted:       #9CA3AF;
-  --color-subtle:      #6B7280;
-  --color-green-glow:  rgba(0, 232, 122, 0.1);
+  /* ── Color: Ink ─────────────────────────────────────────── */
+  --color-ink:         #0A0A0A;   /* primary text, borders, heavy CTAs */
+  --color-ink-dim:     #5A584F;   /* secondary text, muted rows, timestamps */
 
-  /* ── Color: Light-mode variant ──────────────────────── */
-  --color-light-bg:    #FFFFFF;
-  --color-light-text:  #111111;
-  --color-light-green: #00AA55;
+  /* ── Color: Accent ──────────────────────────────────────── */
+  --color-accent:      #00E87A;   /* DEFAULT green — highlights, CTA fill, pulse dot */
+  /* Alt accents (swap via data-accent or CSS override; green ships as default): */
+  /* --color-accent:   #FF6A1A;   orange */
+  /* --color-accent:   #E53935;   red    */
+  /* --color-accent:   #0A0A0A;   black (monochrome variant) */
 
-  /* ── Typography: Fonts ──────────────────────────────── */
-  --font-heading: 'Syne', sans-serif;
-  --font-mono:    'IBM Plex Mono', monospace;
-  --font-jp:      'Murecho', sans-serif;
-  --font-logo:    'DM Sans', sans-serif;
+  /* ── Color: Danger ──────────────────────────────────────── */
+  --color-danger:      #C8351E;   /* error / destructive */
 
-  /* ── Typography: Scale ──────────────────────────────── */
-  --text-hero:        clamp(42px, 5vw, 48px);
-  --text-section:     clamp(28px, 3.5vw, 32px);
-  --text-subheading:  20px;
-  --text-body:        16px;
-  --text-body-sm:     15px;
-  --text-label:       12px;
-  --text-cta:         12px;
+  /* ── Typography: Fonts ──────────────────────────────────── */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;    /* H1–H3, large numerics, prices */
+  --font-mono:    'JetBrains Mono', 'IBM Plex Mono', ui-monospace;  /* body, labels, nav, tables */
+  --font-jp:      'Noto Sans JP', sans-serif;                /* appended to mono stack when locale=ja */
 
-  /* ── Typography: Weights ────────────────────────────── */
+  /* ── Typography: Scale (fluid) ──────────────────────────── */
+  --text-hero:        clamp(40px, 9vw, 104px);   /* H1 hero */
+  --text-h1-page:     clamp(38px, 7vw, 84px);    /* H1 page */
+  --text-h2:          clamp(28px, 5vw, 48px);    /* H2 section */
+  --text-h3:          20px;                       /* H3 card */
+  --text-body:        13px;                       /* default body */
+  --text-body-lg:     14px;                       /* wider body */
+  --text-label:       10px;                       /* eyebrow / label */
+  --text-price:       clamp(28px, 4vw, 44px);    /* large numerics */
+
+  /* ── Typography: Weights ────────────────────────────────── */
   --weight-regular:   400;
   --weight-medium:    500;
   --weight-semibold:  600;
   --weight-bold:      700;
-  --weight-black:     900;
+  --weight-black:     800;
 
-  /* ── Typography: Letter spacing ─────────────────────── */
-  --tracking-label:   0.125rem;  /* 2px — labels, captions */
-  --tracking-cta:     0.09375rem; /* 1.5px — CTA buttons */
-  --tracking-wide:    0.04em;    /* logo wordmark */
+  /* ── Typography: Letter spacing ─────────────────────────── */
+  --tracking-hero:    -0.04em;   /* H1 hero */
+  --tracking-h2:      -0.025em;  /* H2 section */
+  --tracking-h3:      -0.015em;  /* H3 card */
+  --tracking-label:    0.1em;    /* eyebrow labels */
+  --tracking-label-lg: 0.2em;    /* wide labels */
 
-  /* ── Spacing (8pt grid) ─────────────────────────────── */
+  /* ── Spacing ────────────────────────────────────────────── */
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
@@ -61,13 +64,36 @@
   --space-16: 64px;
   --space-20: 80px;
 
-  /* ── Border radius ──────────────────────────────────── */
-  --radius-sm:  4px;
-  --radius-md:  8px;
-  --radius-lg:  12px;
-  --radius-xl:  16px;
+  /* Container */
+  --container-max: 1200px;
+  --gutter:        16px;
 
-  /* ── Shadows / Glow ─────────────────────────────────── */
-  --glow-green: 0 0 20px rgba(0, 232, 122, 0.2);
-  --glow-green-strong: 0 0 40px rgba(0, 232, 122, 0.35);
+  /* Section vertical rhythm */
+  --section-pt: 28px;
+  --section-pb: 10px;
+
+  /* Grid gap */
+  --gap-cards:  14px;
+  --gap-tight:  10px;
+
+  /* Density defaults (regular): pad / row-pad / line-height */
+  --density-pad:     14px;
+  --density-row-pad: 8px;
+  --density-lh:      1.5;
+
+  /* ── Borders ────────────────────────────────────────────── */
+  --border-thick: 2px solid var(--color-ink);    /* cards, CTAs, tier boxes */
+  --border-hair:  1px dashed var(--color-ink);   /* internal dividers, list separators */
+
+  /* ── Shadows (never blurred — hard offset only) ─────────── */
+  --shadow-hard:        4px 4px 0 var(--color-ink);
+  --shadow-hard-hover:  6px 6px 0 var(--color-ink);
+  --shadow-hard-active: 2px 2px 0 var(--color-ink);
+
+  /* ── Border radius ──────────────────────────────────────── */
+  /* Brutalist = square — no radius anywhere */
+  --radius-sm:  0px;
+  --radius-md:  0px;
+  --radius-lg:  0px;
+  --radius-xl:  0px;
 }
