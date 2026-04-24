@@ -96,7 +96,7 @@ export function BTNav() {
 
           {/* Desktop nav links */}
           <div
-            style={{ display: 'flex', alignItems: 'center', gap: '20px', flexShrink: 0 }}
+            style={{ alignItems: 'center', gap: '20px', flexShrink: 0 }}
             className="hidden md:flex"
           >
             {links.map(({ href, label }) => {
@@ -129,7 +129,6 @@ export function BTNav() {
           <a
             href="mailto:daito@zeroen.dev?subject=Scoping%20call"
             style={{
-              display: 'inline-block',
               backgroundColor: 'var(--color-accent, #00E87A)',
               color: 'var(--color-ink, #0A0A0A)',
               fontFamily: 'var(--font-mono)',
