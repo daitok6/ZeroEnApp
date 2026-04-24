@@ -1,13 +1,92 @@
 {
   "nav": {
-    "howItWorks": "How It Works",
+    "home": "Home",
     "pricing": "Pricing",
+    "howItWorks": "How it works",
+    "startups": "Startups",
     "cases": "Cases",
     "about": "About",
-    "dashboard": "Day One",
-    "blog": "Blog",
-    "login": "Log In",
-    "apply": "Apply — ¥0 Upfront"
+    "bookCall": "Book Scoping Call",
+    "dashboard": "Dashboard",
+    "login": "Log In"
+  },
+  "mkt": {
+    "tagline": "From idea to paying users.",
+    "cta": "BOOK SCOPING CALL",
+    "ctaNote": "30 MIN · PROPOSAL IN 48 H",
+    "slotsBadge": "▲ 2 SLOTS OPEN · MAY '26",
+    "credential": "● HITACHI + RAKUTEN-TRAINED ENGINEER",
+    "home": {
+      "heroEyebrow": "// BILINGUAL.SAAS.SHIP",
+      "heroH1": ["FROM IDEA", "TO PAYING", "USERS."],
+      "heroH1Highlight": "PAYING",
+      "heroSub": "Production-grade Next.js + Supabase + Stripe for funded founders in Tokyo — shipped in weeks, not months.",
+      "anchorLabel": "ANCHOR // VS_AGENCY",
+      "anchorRows": [
+        { "label": "Japanese web agency",       "cost": "¥5–10M", "timeline": "4–6 months", "muted": true },
+        { "label": "Bilingual freelancer + PM", "cost": "¥2–3M",  "timeline": "3–4 months", "muted": true },
+        { "label": "ZeroEn Growth",             "cost": "¥880k",  "timeline": "3–4 weeks",  "muted": false },
+        { "label": "ZeroEn Starter",            "cost": "¥380k",  "timeline": "2 weeks",    "muted": false }
+      ],
+      "icpLabel": "ICP // 03_TYPES",
+      "icpPillars": [
+        { "tag": "01", "title": "Funded founders in Tokyo",    "desc": "You just closed a pre-seed or seed round. You need a bilingual product online before your runway narrows. Japanese agencies quote ¥8M and 4 months." },
+        { "tag": "02", "title": "Companies entering Japan",    "desc": "Your HQ approved the Japan budget. You need a bilingual site, JP invoice format, and tokushoho compliance before the launch date — not a six-month agency engagement." },
+        { "tag": "03", "title": "JP startups going global",   "desc": "Your product is JP-only. Investors keep asking for an English version. You need it before the next fundraising round." }
+      ],
+      "caseLabel": "LIVE // PRODUCTION",
+      "caseSubtitle": "We build for ourselves at the same standard we build for clients. Both run in production.",
+      "cases": [
+        { "name": "ZeroEn",  "url": "zeroen.dev",  "desc": "The platform you're looking at — multi-tenant SaaS with 30+ API routes, Stripe billing, full EN/JA routing.", "meta": ["Next.js + Supabase + Stripe", "EN/JA routing", "Multi-tenant"] },
+        { "name": "WebMori", "url": "webmori.jp",  "desc": "Security & SEO audit service. Launched in 3 days. Monthly automated audit reports.", "meta": ["Launched in 3 days", "Monthly audits", "Tokyo"] }
+      ],
+      "ctaStripHeadline": "FUNDED. BILINGUAL. SHIPPED.",
+      "meta": {
+        "title": "ZeroEn — Bilingual SaaS. Fixed price. Shipped in weeks.",
+        "description": "Production-grade bilingual Next.js + Supabase + Stripe for funded founders in Tokyo. ¥380k Starter · ¥880k Growth · ¥1.5M+ MVP Build. No equity."
+      }
+    },
+    "pricing": {
+      "h1": ["FIXED.", "PRICED.", "SHIPPED."],
+      "h1Highlight": "SHIPPED.",
+      "anchor": "JP AGENCY ¥5–10M ▶ ZEROEN GROWTH ¥880K",
+      "tiers": [
+        {
+          "name": "Starter", "price": "¥380,000", "timeline": "14 business days", "retainer": "¥15,000/mo",
+          "items": ["Bilingual marketing site (EN + JA)", "Up to 5 sections", "next-intl routing", "Vercel deploy + custom domain", "Tokushoho page included"]
+        },
+        {
+          "name": "Growth", "price": "¥880,000", "timeline": "21–28 business days", "retainer": "¥35,000/mo",
+          "featured": true, "badge": "MOST POPULAR",
+          "items": ["Full bilingual site — EN/JA, locale-aware, JP UX", "Up to 10 sections + inner pages", "Inquiry form with JP compliance", "Blog / news for investor updates (MDX)", "Basic SEO + tokushoho ready"]
+        },
+        {
+          "name": "MVP / SaaS Build", "price": "¥1,500,000+", "timeline": "6–8 weeks", "retainer": "¥80–150k/mo",
+          "items": ["Full-stack bilingual SaaS", "Supabase auth + database + RLS", "Stripe billing integration", "Admin panel + client dashboard", "Custom scope at kickoff"]
+        }
+      ],
+      "oosLabel": "OUT_OF_SCOPE",
+      "oosRate": "¥15,000/hr",
+      "oosNote": "Out-of-scope work quoted before billing.",
+      "faqLabel": "FAQ // OBJECTIONS",
+      "faqs": [
+        { "q": "Why not just use a Japanese agency?", "a": "Japanese agencies are built for large coordinated projects with multiple stakeholders — ¥5–10M budgets and 4–6 month timelines reflect that overhead. ZeroEn is one engineer, fixed scope, fixed price — optimized for the exact window between funding and launch." },
+        { "q": "What happens if we want changes after delivery?", "a": "Out-of-scope changes are billed at ¥15,000/hr. Every request gets an upfront time estimate before any work begins." },
+        { "q": "Do you take equity or revenue share?", "a": "No. Fixed price only. We don't take equity, SAFE notes, or revenue share." },
+        { "q": "Who owns the code?", "a": "You do, after final payment. Code ownership transfers on delivery — no lock-in." },
+        { "q": "What does 'bilingual from day one' mean?", "a": "Every component is built locale-aware with next-intl. EN and JA routing, fonts, formatting, and JP UX patterns are architecture decisions — not afterthoughts." },
+        { "q": "How do I get started?", "a": "Book a 30-minute scoping call. Fixed-price proposal within 48 hours." }
+      ],
+      "meta": {
+        "title": "Pricing — ZeroEn",
+        "description": "Fixed-price bilingual SaaS. ¥380k Starter / ¥880k Growth / ¥1.5M+ MVP Build. No equity. Shipped in weeks."
+      }
+    },
+    "footer": {
+      "tagline": "From idea to paying users.",
+      "footerLeft": "// 2026 ZEROEN",
+      "footerRight": "TYO_JP"
+    }
   },
   "home": {
     "hero": {

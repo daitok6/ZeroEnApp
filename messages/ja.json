@@ -1,13 +1,92 @@
 {
   "nav": {
-    "howItWorks": "仕組み",
+    "home": "ホーム",
     "pricing": "料金",
+    "howItWorks": "進め方",
+    "startups": "スタートアップ",
     "cases": "実績",
-    "about": "ZeroEnとは",
-    "dashboard": "Day One",
-    "blog": "ブログ",
-    "login": "ログイン",
-    "apply": "前金0円で申し込む"
+    "about": "私について",
+    "bookCall": "スコープ通話を予約",
+    "dashboard": "ダッシュボード",
+    "login": "ログイン"
+  },
+  "mkt": {
+    "tagline": "アイデアを、プロダクトに。",
+    "cta": "スコープ通話を予約",
+    "ctaNote": "30分 · 48時間以内に提案",
+    "slotsBadge": "▲ 残り2枠 · 2026年5月",
+    "credential": "● 日立・楽天で育ったエンジニア",
+    "home": {
+      "heroEyebrow": "// バイリンガル.SAAS.納品",
+      "heroH1": ["アイデアを、", "プロダクトに。"],
+      "heroH1Highlight": "プロダクト",
+      "heroSub": "資金調達済みの東京のスタートアップ向け。Next.js + Supabase + Stripe で、数ヶ月ではなく数週間で納品。",
+      "anchorLabel": "比較 // 対_代理店",
+      "anchorRows": [
+        { "label": "日本の制作会社",    "cost": "¥500-1,000万", "timeline": "4〜6ヶ月",  "muted": true  },
+        { "label": "バイリンガルFL+PM", "cost": "¥200-300万",   "timeline": "3〜4ヶ月",  "muted": true  },
+        { "label": "ZeroEn Growth",    "cost": "¥88万",        "timeline": "3〜4週間",  "muted": false },
+        { "label": "ZeroEn Starter",   "cost": "¥38万",        "timeline": "2週間",     "muted": false }
+      ],
+      "icpLabel": "顧客 // 3_タイプ",
+      "icpPillars": [
+        { "tag": "01", "title": "東京の資金調達済み創業者",        "desc": "プレシード / シード調達直後。滑走路が短くなる前に、バイリンガル製品を公開する必要があります。JP代理店の見積は¥800万・4ヶ月。" },
+        { "tag": "02", "title": "日本進出中の海外企業",          "desc": "本社が日本予算を承認済み。立ち上げまでに、バイリンガルサイト・JP請求書・特商法遵守が必要。6ヶ月の代理店契約ではなく。" },
+        { "tag": "03", "title": "グローバル展開するJPスタートアップ", "desc": "プロダクトは日本語のみ。投資家から英語版を求められている。次回ラウンドまでに必要。" }
+      ],
+      "caseLabel": "稼働中 // 本番",
+      "caseSubtitle": "クライアント向けと同じ基準で自分のプロダクトも構築。どちらも本番稼働中。",
+      "cases": [
+        { "name": "ZeroEn",  "url": "zeroen.dev", "desc": "今ご覧のプラットフォーム — マルチテナントSaaS、30+ API、Stripe課金、EN/JAルーティング対応。", "meta": ["Next.js + Supabase + Stripe", "EN/JAルーティング", "マルチテナント"] },
+        { "name": "WebMori", "url": "webmori.jp", "desc": "セキュリティ & SEO 監査サービス。3日で公開。月次の自動監査レポート。",                        "meta": ["3日で公開", "月次監査", "東京"] }
+      ],
+      "ctaStripHeadline": "調達済み。バイリンガル。納品済み。",
+      "meta": {
+        "title": "ZeroEn — バイリンガルSaaS。固定価格。数週間で納品。",
+        "description": "東京の資金調達済み創業者向け、本番品質のバイリンガルNext.js + Supabase + Stripe。¥38万 Starter · ¥88万 Growth · ¥150万+ MVP Build。エクイティなし。"
+      }
+    },
+    "pricing": {
+      "h1": ["固定。", "明朗。", "納品。"],
+      "h1Highlight": "納品。",
+      "anchor": "JP代理店 ¥500-1,000万 ▶ ZEROEN GROWTH ¥88万",
+      "tiers": [
+        {
+          "name": "Starter", "price": "¥38万", "timeline": "14営業日", "retainer": "¥1.5万/月",
+          "items": ["バイリンガルマーケティングサイト (EN + JA)", "最大5セクション", "next-intlルーティング", "Vercelデプロイ + 独自ドメイン", "特商法ページ含む"]
+        },
+        {
+          "name": "Growth", "price": "¥88万", "timeline": "21〜28営業日", "retainer": "¥3.5万/月",
+          "featured": true, "badge": "人気No.1",
+          "items": ["完全バイリンガルサイト — EN/JA、ロケール対応、JP UX", "最大10セクション + 下層ページ", "JP準拠の問い合わせフォーム", "ブログ/ニュース (MDX)", "基本SEO + 特商法対応"]
+        },
+        {
+          "name": "MVP / SaaS Build", "price": "¥150万〜", "timeline": "6〜8週間", "retainer": "¥8〜15万/月",
+          "items": ["フルスタックバイリンガルSaaS", "Supabase 認証 + DB + RLS", "Stripe 課金連携", "管理画面 + クライアントダッシュボード", "キックオフ時にスコープ確定"]
+        }
+      ],
+      "oosLabel": "範囲外",
+      "oosRate": "¥1.5万/時",
+      "oosNote": "範囲外の作業は、請求前に見積もりを提示します。",
+      "faqLabel": "FAQ // よくある反論",
+      "faqs": [
+        { "q": "なぜ日本の代理店ではダメなのか?",  "a": "日本の代理店は複数の関係者を調整する大規模プロジェクト向け。¥500-1,000万 / 4〜6ヶ月の見積はその諸経費の反映です。ZeroEn はエンジニア一人、スコープ固定、価格固定 — 資金調達から立ち上げまでの期間に最適化されています。" },
+        { "q": "納品後の変更はどうなる?",         "a": "範囲外の変更は¥1.5万/時で請求。着手前に必ず時間見積を提示します。" },
+        { "q": "エクイティやレベニューシェアは?",   "a": "受けません。固定価格のみ。エクイティ・SAFE・レベニューシェア は一切ありません。" },
+        { "q": "コードの所有権は?",               "a": "最終支払い後、お客様に帰属します。納品時に所有権が移転 — ロックインなし。" },
+        { "q": "「初日からバイリンガル」とは?",     "a": "全コンポーネントを next-intl でロケール対応。EN/JAルーティング・フォント・書式・JP UX は最初からの設計判断で、後付けではありません。" },
+        { "q": "どう始めたら?",                   "a": "30分のスコープ通話を予約。48時間以内に固定価格の提案を送ります。" }
+      ],
+      "meta": {
+        "title": "料金 — ZeroEn",
+        "description": "固定価格バイリンガルSaaS。¥38万 Starter / ¥88万 Growth / ¥150万+ MVP Build。エクイティなし。数週間で納品。"
+      }
+    },
+    "footer": {
+      "tagline": "アイデアを、プロダクトに。",
+      "footerLeft": "// 2026 ZEROEN",
+      "footerRight": "東京_JP"
+    }
   },
   "home": {
     "hero": {
