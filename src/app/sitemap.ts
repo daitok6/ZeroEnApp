@@ -36,5 +36,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
+  // English-only pilot landing page — no ja equivalent, so it's added
+  // separately instead of through the locale loop above.
+  entries.push({
+    url: `${BASE_URL}/en/meta-ads-audit`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  });
+
   return entries;
 }
